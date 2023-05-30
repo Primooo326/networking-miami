@@ -30,9 +30,25 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/sass/app.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/dependencies/jquery/js/jquery.min.js",
+              "src/dependencies/jquery.countdown/js/jquery.countdown.min.js",
+              "src/dependencies/elevate-zoom/jquery.elevatezoom.js",
+              "src/dependencies/imagesloaded/js/imagesloaded.pkgd.min.js",
+              "src/dependencies/isotope-layout/js/isotope.pkgd.min.js",
+              "src/dependencies/magnific-popup/js/jquery.magnific-popup.min.js",
+              "src/dependencies/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js",
+              "src/dependencies/popper.js/js/popper.min.js",
+              "src/dependencies/sal.js/sal.js",
+              "src/dependencies/select2/js/select2.min.js",
+              "src/dependencies/slick-carousel/js/slick.min.js",
+              "src/dependencies/waypoints/js/jquery.waypoints.min.js",
+              "src/dependencies/bootstrap/js/bootstrap.min.js",
+              "src/dependencies/bootstrap-validator/js/validator.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -100,5 +116,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d044c0ee-2241-4519-a8cb-f7a2d3634d8a"
   }
 }
