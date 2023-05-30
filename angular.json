@@ -27,11 +27,23 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/media"
             ],
             "styles": [
               "src/styles.scss",
-              "src/sass/app.scss"
+              "src/dependencies/bootstrap/css/bootstrap.min.css",
+              "src/dependencies/icofont/icofont.min.css",
+              "src/dependencies/slick-carousel/css/slick.css",
+              "src/dependencies/slick-carousel/css/slick-theme.css",
+              "src/dependencies/magnific-popup/css/magnific-popup.css",
+              "src/dependencies/sal.js/sal.css",
+              "src/dependencies/mcustomscrollbar/jquery.mCustomScrollbar.min.css",
+              "src/dependencies/select2/css/select2.min.css",
+              "src/sass/app.scss",
+              "src/assets/css/app.css"
+
+
             ],
             "scripts": [
               "src/dependencies/jquery/js/jquery.min.js",
@@ -47,7 +59,9 @@
               "src/dependencies/slick-carousel/js/slick.min.js",
               "src/dependencies/waypoints/js/jquery.waypoints.min.js",
               "src/dependencies/bootstrap/js/bootstrap.min.js",
-              "src/dependencies/bootstrap-validator/js/validator.min.js"
+              "src/dependencies/bootstrap-validator/js/validator.min.js",
+              "src/assets/js/app.js"
+
             ]
           },
           "configurations": {
