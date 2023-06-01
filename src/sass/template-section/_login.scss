@@ -11,7 +11,7 @@
     overflow: hidden;
     @media only screen and (max-width: 575px) {
      	height: 100%;
-     	position: inherit;                     
+     	position: inherit;
     }
     .content-wrap {
         height: 100%;
@@ -25,7 +25,7 @@
         position: relative;
         z-index: 1;
         @media only screen and (max-width: 575px) {
-         	overflow: hidden;                     
+         	overflow: hidden;
         }
         .map-line {
             position: absolute;
@@ -74,8 +74,8 @@
     .login-content {
         padding-top: 80px;
         @media only screen and (max-width: 575px) {
-         	padding: 50px 15px 0;   
-         	width: 100%;                  
+         	padding: 50px 15px 0;
+         	width: 100%;
         }
     }
 
@@ -109,7 +109,7 @@
         position: relative;
         z-index: 1;
         @media only screen and (max-width: 575px) {
-         	padding-left: 0;                     
+         	padding-left: 0;
         }
 
     }
@@ -122,8 +122,8 @@
         display: block;
         border-bottom: none;
         @media only screen and (max-width: 575px) {
-         	position: inherit;   
-         	display: flex;                  
+         	position: inherit;
+         	display: flex;
         }
         li {
             margin-bottom: 10px;
@@ -134,10 +134,10 @@
             }
             @media only screen and (max-width: 575px) {
         		writing-mode: inherit;
-            	transform: rotate(0deg);  
-            	margin-bottom: 0;  
-            	flex: 1;     
-            	margin-right: 10px;        
+            	transform: rotate(0deg);
+            	margin-bottom: 0;
+            	flex: 1;
+            	margin-right: 10px;
             }
             .nav-link {
             	text-align: center;
@@ -150,8 +150,8 @@
                 padding: 35px 12px;
                 @media only screen and (max-width: 575px) {
                 	padding: 12px 10px;
-                 	border-radius: 6px 6px 0 0;   
-                 	font-size: 14px;                  
+                 	border-radius: 6px 6px 0 0;
+                 	font-size: 14px;
                 }
                 i {
                     margin-bottom: 6px;
@@ -161,10 +161,10 @@
                     color: $color_secondary;
                     transition: all 0.3s ease-in-out;
                     @media only screen and (max-width: 575px) {
-                    	transform: rotate(0deg);  
+                    	transform: rotate(0deg);
                     	margin-bottom: 0;
                     	margin-right: 6px;
-                    	font-size: 18px;                
+                    	font-size: 18px;
                     }
                 }
 
@@ -196,8 +196,8 @@
         padding: 50px 60px;
         box-shadow: 0 19px 73px 0 rgba(0, 0, 0, 0.17);
         @media only screen and (max-width: 575px) {
-        	border-radius: 0 0 15px 15px;   
-        	min-width: 100%;          
+        	border-radius: 0 0 15px 15px;
+        	min-width: 100%;
         	padding: 30px 20px;
         }
         .item-title {
@@ -206,7 +206,7 @@
             position: relative;
             padding-bottom: 20px;
             @media only screen and (max-width: 575px) {
-             	font-size: 22px;                     
+             	font-size: 22px;
             }
             span {
                 display: block;
@@ -272,7 +272,7 @@
             }
 
             /* input::-webkit-calendar-picker-indicator {
-			 	
+
 			 	&:before {
 			 		color: red;
 			 	}
@@ -340,7 +340,7 @@
 
             .form-group {
                 .submit-btn {
-                    width: auto;
+                    width: 100%;
                     padding: 12px 50px;
                 }
             }

@@ -3,11 +3,11 @@ import { Location } from "@angular/common";
 import { EPages } from "src/app/tools/models";
 
 @Component({
-	selector: "app-header",
-	templateUrl: "./header.component.html",
-	styleUrls: ["./header.component.scss"],
+	selector: "app-footer",
+	templateUrl: "./footer.component.html",
+	styleUrls: ["./footer.component.scss"],
 })
-export class HeaderComponent {
+export class FooterComponent {
 	page: EPages = EPages.landing;
 
 	constructor(private locate: Location) {

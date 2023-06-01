@@ -1,0 +1,11 @@
+{
+	"organizeImports": {
+		"enabled": false
+	},
+	"linter": {
+		"enabled": false,
+		"rules": {
+			"recommended": true
+		}
+	}
+}

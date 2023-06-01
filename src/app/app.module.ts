@@ -1,20 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ComponentsModule } from './components/components.module';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { ComponentsModule } from "./components/components.module";
 
+import { AuthModule } from "@auth0/auth0-angular";
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ComponentsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+
+		//components module
+		ComponentsModule,
+
+		// Import the module into the application, with configuration
+		AuthModule.forRoot({
+			domain: "dev-ncmvuisfj75zltuq.us.auth0.com",
+			clientId: "KrUCwrUEEvRv8qkdQD2JkH3dtfxCa48M",
+			authorizationParams: {
+				redirect_uri: window.location.origin,
+			},
+		}),
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
