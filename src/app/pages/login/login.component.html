@@ -64,10 +64,7 @@
             <!--=====================================-->
             <div class="tab-pane registration-tab fade" id="registration-tab" role="tabpanel">
               <h3 class="item-title">Sign Up Your Account</h3>
-              <form>
-                <div class="form-group">
-                  <input type="email" name="email" class="form-control" placeholder="E-mail">
-                </div>
+              <form [formGroup]="registroForm">
                 <!-- <div class="form-group">
                   <input type="text" name="fname" class="form-control" placeholder="Full Name">
                 </div>
@@ -86,10 +83,48 @@
                   </select>
                 </div> -->
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control" placeholder="Type Password">
+                  <input type="email" formControlName="email" class="form-control"
+                    [ngClass]="{'is-invalid': emailRegistroValidator() }" placeholder="E-mail">
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('minlength')">
+                    {{hintErrorLength}}
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control" placeholder="Repeat password">
+                  <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Type Password">
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('minlength')">
+                    {{hintErrorLength}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
+                    {{hintErrorPassword}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" formControlName="repeatPassword" class="form-control"
+                    [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Repeat password">
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('minlength')">
+                    {{hintErrorLength}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
+                    {{hintErrorPassword}}
+                  </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check mb-3">
@@ -99,7 +134,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="submit" name="registration" class="submit-btn" value="Complete Registration">
+                  <button class="submit-btn">Complete Registration</button>
                   <button class="btn btn-warning btn-block btn-volver mt-3">Volver</button>
                 </div>
               </form>

@@ -4,16 +4,22 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ComponentsModule } from "./components/components.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AuthModule } from "@auth0/auth0-angular";
+import { PagesModule } from "./pages/pages.module";
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-
+		FormsModule,
+		ReactiveFormsModule,
 		//components module
 		ComponentsModule,
+
+		// pages module
+		PagesModule,
 
 		// Import the module into the application, with configuration
 		AuthModule.forRoot({
