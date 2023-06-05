@@ -38,8 +38,8 @@
               "src/dependencies/slick-carousel/css/slick-theme.css",
               "src/dependencies/magnific-popup/css/magnific-popup.css",
               "src/dependencies/mcustomscrollbar/jquery.mCustomScrollbar.min.css",
-              "src/dependencies/select2/css/select2.css",
               "src/dependencies/saljs/sal.css",
+              "src/dependencies/select2/css/select2.min.css",
               "src/sass/app.scss",
               "src/assets/css/app.css"
             ],
@@ -56,8 +56,8 @@
               "src/dependencies/waypoints/js/jquery.waypoints.min.js",
               "src/dependencies/bootstrap/js/bootstrap.min.js",
               "src/dependencies/bootstrap-validator/js/validator.min.js",
-              "src/dependencies/select2/js/select2.js",
               "src/dependencies/saljs/sal.js",
+              "src/dependencies/select2/js/select2.min.js",
               "src/assets/js/app.js"
             ]
           },
@@ -75,7 +75,10 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {"replace": "src/environments/environment.ts", "with": "src/environments/environment.prod.ts"}
+              ]
             },
             "development": {
               "buildOptimizer": false,

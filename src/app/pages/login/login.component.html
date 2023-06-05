@@ -25,46 +25,71 @@
             </li>
           </ul>
           <div class="tab-content">
+
             <!--=====================================-->
             <!--=          Tab login       	=-->
             <!--=====================================-->
+
+
             <div class="tab-pane login-tab fade show active" id="login-tab" role="tabpanel">
               <h3 class="item-title">Sign Into <span>Your Account</span></h3>
               <div class="google-signin">
                 <a href="#"><img src="media/figure/google-icon.png" alt="Google">Google Sign in</a>
               </div>
-              <form>
+              <form [formGroup]="loginForm">
                 <div class="form-group">
-                  <input type="text" class="form-control" name="login-email" placeholder="Your E-mail">
+                  <input type="text" class="form-control" formControlName="email" placeholder="Your E-mail"
+                    [ngClass]="{'is-invalid': emailLoginValidator() }">
+                  <div class="invalid-feedback"
+                    *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('email')">
+                    {{hintErrorEmail}}
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" name="login-password" placeholder="Password">
+                  <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                    [ngClass]="{'is-invalid': passwordLoginValidator() }">
+                  <div class="invalid-feedback"
+                    *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('minlength')">
+                    {{hintErrorLength}}
+                  </div>
                 </div>
                 <div class="form-group reset-password">
-                  <a href="#">* Reset Password</a>
                 </div>
                 <div class="form-group mb-4">
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="validationFormCheck2">
                     <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label>
+                    <a href="#" class="text-danger">* Reset Password</a>
+
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="submit" name="login" class="submit-btn" value="Login">
-                  <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3">Volver</button>
-
+                  <button (click)="login()" [disabled]="loginForm.invalid" class="submit-btn">Login</button>
+                  <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3"
+                    [routerLink]="['/home']">Volver</button>
                 </div>
               </form>
               <!-- <div class="account-create">
                     		Don't have an account yet? <a href="#registration-tab">Sign Up Now</a>
                     	</div> -->
             </div>
+
             <!--=====================================-->
             <!--=          Tab registration       	=-->
             <!--=====================================-->
+
+
             <div class="tab-pane registration-tab fade" id="registration-tab" role="tabpanel">
               <h3 class="item-title">Sign Up Your Account</h3>
-              <form [formGroup]="registroForm">
+              <form *ngIf="!secondTabRegistro" [formGroup]="registroForm">
                 <!-- <div class="form-group">
                   <input type="text" name="fname" class="form-control" placeholder="Full Name">
                 </div>
@@ -88,6 +113,10 @@
                   <div class="invalid-feedback"
                     *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('required')">
                     {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('email')">
+                    {{hintErrorEmail}}
                   </div>
                   <div class="invalid-feedback"
                     *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('minlength')">
@@ -134,11 +163,43 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="submit-btn">Complete Registration</button>
+                  <button class="submit-btn" (click)="onChangeTabRegister()" [disabled]="registroForm.invalid">Complete
+                    Registration</button>
+                  <button class="btn btn-warning btn-block btn-volver mt-3" [routerLink]="['/home']">Volver</button>
+                </div>
+              </form>
+              <form *ngIf="secondTabRegistro">
+                <div class="form-group">
+                  <input type="text" name="fname" class="form-control" placeholder="Nombre y apellidos">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="fname" class="form-control" placeholder="Área de experticia">
+                </div>
+                <div class="form-group">
+                  <input type="tel" name="lname" class="form-control" placeholder="Numero telefonico">
+                </div>
+                <div class="form-group">
+                  <input type="date" name="date" class="form-control" placeholder="Año de nacimiento">
+                </div>
+                <div class="form-group">
+                  <select class="select2" name="gender" data-placeholder="Genero">
+                    <option value=""></option>
+                    <option value="male">Masculino</option>
+                    <option value="male">Femenino</option>
+                    <option value="transgender">Otro</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control textarea" placeholder="Nota biografica" name="message" id="message"
+                    cols="30" rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                  <button class="submit-btn" [disabled]="registroForm.invalid">Finalizar</button>
                   <button class="btn btn-warning btn-block btn-volver mt-3">Volver</button>
                 </div>
               </form>
             </div>
+
           </div>
         </div>
 

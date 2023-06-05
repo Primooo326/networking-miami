@@ -227,6 +227,9 @@ h6 {
 .form-group .submit-btn:hover {
     background-color: #5edfff;
 }
+.submit-btn:disabled {
+    background-color: #7eaebb !important;
+}
 
 .form-group .submit-btn:focus {
     outline: none;

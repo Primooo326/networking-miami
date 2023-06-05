@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "src/app/services/auth.service";
+import Swal from "sweetalert2";
 
 @Component({
 	selector: "app-login",
@@ -10,8 +12,9 @@ export class LoginComponent {
 	hintErrorLength = "Min 8 characters required";
 	hintErrorRequired = "Field required";
 	hintErrorPassword = "Passwords must match";
-
+	hintErrorEmail = "type an vaild email";
 	isOnLogin = false;
+	secondTabRegistro = true;
 
 	registroForm = new FormGroup({
 		email: new FormControl("", [Validators.required, Validators.email]),
@@ -33,10 +36,42 @@ export class LoginComponent {
 		]),
 	});
 
-	constructor() {
+	constructor(private authSrvc: AuthService) {
 		this.registroForm.valueChanges.subscribe(() => {
 			console.log(this.emailRegistroValidator());
 		});
+	}
+
+	async register() {
+		if (this.registroForm) {
+		}
+	}
+
+	async login() {
+		if (this.loginForm.valid) {
+			await this.authSrvc
+				.login({
+					email: this.loginForm.value.email,
+					password: this.loginForm.value.password,
+				})
+				.then(
+					(obs) => {
+						obs.subscribe((data) => {
+							console.log(data);
+						});
+					},
+					(err) => {
+						console.log(err);
+						console.log(err.error);
+						if (err.error == "Invalid password")
+							Swal.fire(
+								"Error: Invalid password",
+								"Make sure your password is correct",
+								"error",
+							);
+					},
+				);
+		}
 	}
 
 	emailLoginValidator(): boolean {
@@ -45,6 +80,7 @@ export class LoginComponent {
 			this.registroForm.controls.email.hasError("email")
 		);
 	}
+
 	passwordLoginValidator(): boolean {
 		return (
 			this.registroForm.controls.password.hasError("required") ||
@@ -53,12 +89,14 @@ export class LoginComponent {
 				this.registroForm.controls.repeatPassword.value
 		);
 	}
+
 	emailRegistroValidator(): boolean {
 		return (
 			this.registroForm.controls.email.hasError("required") ||
 			this.registroForm.controls.email.hasError("email")
 		);
 	}
+
 	passwordRegistroValidator(): boolean {
 		return (
 			this.registroForm.controls.password.hasError("required") ||
@@ -66,5 +104,8 @@ export class LoginComponent {
 			this.registroForm.controls.password.value !==
 				this.registroForm.controls.repeatPassword.value
 		);
+	}
+	onChangeTabRegister() {
+		this.secondTabRegistro = !this.secondTabRegistro;
 	}
 }
