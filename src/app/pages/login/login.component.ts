@@ -1,14 +1,15 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
 import Swal from "sweetalert2";
-
+import { idiomas } from "src/assets/datasets/lenguajes";
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  idiomas = idiomas;
 	hintErrorLength = "Min 8 characters required";
 	hintErrorRequired = "Field required";
 	hintErrorPassword = "Passwords must match";
@@ -41,6 +42,22 @@ export class LoginComponent {
 			console.log(this.emailRegistroValidator());
 		});
 	}
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    // $(document).ready(() => {
+    //   if ($("select.select2").length) {
+    //     $("select.select2").select2({
+    //       theme: "classic",
+    //       dropdownAutoWidth: true,
+    //       width: "100%",
+    //       minimumResultsForSearch: Infinity,
+    //     });
+    //   }
+
+    // });
+  }
 
 	async register() {
 		if (this.registroForm) {

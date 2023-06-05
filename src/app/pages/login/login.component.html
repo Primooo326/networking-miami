@@ -1,96 +1,89 @@
 <div id="wrapper" class="wrapper overflow-hidden">
 
-  <!--=====================================-->
-  <!--=          Header Menu Start       	=-->
-  <!--=====================================-->
-  <div class="login-page-wrap">
+    <!--=====================================-->
+    <!--=          Header Menu Start       	=-->
+    <!--=====================================-->
+    <div class="login-page-wrap">
 
-    <div class="content-wrap">
+        <div class="content-wrap">
 
-      <div class="login-content">
+            <div class="login-content">
 
-        <div class="item-logo">
-          <a href="#"><img src="media/logo_large.png" alt="logo"></a>
-        </div>
+                <div class="item-logo">
+                    <a href="#"><img src="media/logo_large.png" alt="logo"></a>
+                </div>
 
-        <div class="login-form-wrap">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#login-tab" role="tab" aria-selected="true"><i
+                <div class="login-form-wrap">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#login-tab" role="tab" aria-selected="true"><i
                   class="icofont-users-alt-4"></i> Sign In </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#registration-tab" role="tab" aria-selected="false"><i
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#registration-tab" role="tab" aria-selected="false"><i
                   class="icofont-download"></i> Registration</a>
-            </li>
-          </ul>
-          <div class="tab-content">
+                        </li>
+                    </ul>
+                    <div class="tab-content">
 
-            <!--=====================================-->
-            <!--=          Tab login       	=-->
-            <!--=====================================-->
+                        <!--=====================================-->
+                        <!--=          Tab login       	=-->
+                        <!--=====================================-->
 
 
-            <div class="tab-pane login-tab fade show active" id="login-tab" role="tabpanel">
-              <h3 class="item-title">Sign Into <span>Your Account</span></h3>
-              <div class="google-signin">
-                <a href="#"><img src="media/figure/google-icon.png" alt="Google">Google Sign in</a>
-              </div>
-              <form [formGroup]="loginForm">
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="email" placeholder="Your E-mail"
-                    [ngClass]="{'is-invalid': emailLoginValidator() }">
-                  <div class="invalid-feedback"
-                    *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('required')">
-                    {{hintErrorRequired}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('email')">
-                    {{hintErrorEmail}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" formControlName="password" placeholder="Password"
-                    [ngClass]="{'is-invalid': passwordLoginValidator() }">
-                  <div class="invalid-feedback"
-                    *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('required')">
-                    {{hintErrorRequired}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('minlength')">
-                    {{hintErrorLength}}
-                  </div>
-                </div>
-                <div class="form-group reset-password">
-                </div>
-                <div class="form-group mb-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="validationFormCheck2">
-                    <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label>
-                    <a href="#" class="text-danger">* Reset Password</a>
+                        <div class="tab-pane login-tab fade show active" id="login-tab" role="tabpanel">
+                            <h3 class="item-title">Sign Into <span>Your Account</span></h3>
+                            <div class="google-signin">
+                                <a href="#"><img src="media/figure/google-icon.png" alt="Google">Google Sign in</a>
+                            </div>
+                            <form [formGroup]="loginForm">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" formControlName="email" placeholder="Your E-mail" [ngClass]="{'is-invalid': emailLoginValidator() }">
+                                    <div class="invalid-feedback" *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('required')">
+                                        {{hintErrorRequired}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.hasError('email')">
+                                        {{hintErrorEmail}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{'is-invalid': passwordLoginValidator() }">
+                                    <div class="invalid-feedback" *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('required')">
+                                        {{hintErrorRequired}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.hasError('minlength')">
+                                        {{hintErrorLength}}
+                                    </div>
+                                </div>
+                                <div class="form-group reset-password">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="validationFormCheck2">
+                                        <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label>
+                                        <a href="#" class="text-danger">* Reset Password</a>
 
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button (click)="login()" [disabled]="loginForm.invalid" class="submit-btn">Login</button>
-                  <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3"
-                    [routerLink]="['/home']">Volver</button>
-                </div>
-              </form>
-              <!-- <div class="account-create">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button (click)="login()" [disabled]="loginForm.invalid" class="submit-btn">Login</button>
+                                    <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3" [routerLink]="['/home']">Volver</button>
+                                </div>
+                            </form>
+                            <!-- <div class="account-create">
                     		Don't have an account yet? <a href="#registration-tab">Sign Up Now</a>
                     	</div> -->
-            </div>
+                        </div>
 
-            <!--=====================================-->
-            <!--=          Tab registration       	=-->
-            <!--=====================================-->
+                        <!--=====================================-->
+                        <!--=          Tab registration       	=-->
+                        <!--=====================================-->
 
 
-            <div class="tab-pane registration-tab fade" id="registration-tab" role="tabpanel">
-              <h3 class="item-title">Sign Up Your Account</h3>
-              <form *ngIf="!secondTabRegistro" [formGroup]="registroForm">
-                <!-- <div class="form-group">
+                        <div class="tab-pane registration-tab fade" id="registration-tab" role="tabpanel">
+                            <h3 class="item-title">Sign Up Your Account</h3>
+                            <form *ngIf="!secondTabRegistro" [formGroup]="registroForm">
+                                <!-- <div class="form-group">
                   <input type="text" name="fname" class="form-control" placeholder="Full Name">
                 </div>
                 <div class="form-group">
@@ -107,128 +100,123 @@
                     <option value="transgender">Transgender</option>
                   </select>
                 </div> -->
-                <div class="form-group">
-                  <input type="email" formControlName="email" class="form-control"
-                    [ngClass]="{'is-invalid': emailRegistroValidator() }" placeholder="E-mail">
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('required')">
-                    {{hintErrorRequired}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('email')">
-                    {{hintErrorEmail}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('minlength')">
-                    {{hintErrorLength}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="password" formControlName="password" class="form-control"
-                    [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Type Password">
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('required')">
-                    {{hintErrorRequired}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('minlength')">
-                    {{hintErrorLength}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
-                    {{hintErrorPassword}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="password" formControlName="repeatPassword" class="form-control"
-                    [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Repeat password">
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('required')">
-                    {{hintErrorRequired}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('minlength')">
-                    {{hintErrorLength}}
-                  </div>
-                  <div class="invalid-feedback"
-                    *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
-                    {{hintErrorPassword}}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="validationFormCheck1">
-                    <label class="form-check-label" for="validationFormCheck1">I accept the <a href="#">Terms and
+                                <div class="form-group">
+                                    <input type="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid': emailRegistroValidator() }" placeholder="E-mail">
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('required')">
+                                        {{hintErrorRequired}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('email')">
+                                        {{hintErrorEmail}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.email.dirty && registroForm.controls.email.hasError('minlength')">
+                                        {{hintErrorLength}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" formControlName="password" class="form-control" [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Type Password">
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('required')">
+                                        {{hintErrorRequired}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.password.dirty && registroForm.controls.password.hasError('minlength')">
+                                        {{hintErrorLength}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
+                                        {{hintErrorPassword}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" formControlName="repeatPassword" class="form-control" [ngClass]="{'is-invalid': passwordRegistroValidator() }" placeholder="Repeat password">
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('required')">
+                                        {{hintErrorRequired}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.hasError('minlength')">
+                                        {{hintErrorLength}}
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="registroForm.controls.repeatPassword.dirty && registroForm.controls.password.value !== registroForm.controls.repeatPassword.value ">
+                                        {{hintErrorPassword}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check mb-3">
+                                        <input type="checkbox" class="form-check-input" id="validationFormCheck1">
+                                        <label class="form-check-label" for="validationFormCheck1">I accept the <a href="#">Terms and
                         Conditions</a></label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="submit-btn" (click)="onChangeTabRegister()" [disabled]="registroForm.invalid">Complete
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="submit-btn" (click)="onChangeTabRegister()" [disabled]="registroForm.invalid">Complete
                     Registration</button>
-                  <button class="btn btn-warning btn-block btn-volver mt-3" [routerLink]="['/home']">Volver</button>
-                </div>
-              </form>
-              <form *ngIf="secondTabRegistro">
-                <div class="form-group">
-                  <input type="text" name="fname" class="form-control" placeholder="Nombre y apellidos">
-                </div>
-                <div class="form-group">
-                  <input type="text" name="fname" class="form-control" placeholder="Área de experticia">
-                </div>
-                <div class="form-group">
-                  <input type="tel" name="lname" class="form-control" placeholder="Numero telefonico">
-                </div>
-                <div class="form-group">
-                  <input type="date" name="date" class="form-control" placeholder="Año de nacimiento">
-                </div>
-                <div class="form-group">
-                  <select class="select2" name="gender" data-placeholder="Genero">
+                                    <button class="btn btn-warning btn-block btn-volver mt-3" [routerLink]="['/home']">Volver</button>
+                                </div>
+                            </form>
+                            <form *ngIf="secondTabRegistro">
+                                <div class="form-group">
+                                    <input type="text" name="fname" class="form-control" placeholder="Nombre y apellidos">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="fname" class="form-control" placeholder="Área de experticia">
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" name="lname" class="form-control" placeholder="Numero telefonico">
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" name="date" class="form-control" placeholder="Año de nacimiento">
+                                </div>
+                                <div class="form-group">
+                                    <select class="select2" name="Genero" data-placeholder="Genero">
                     <option value=""></option>
                     <option value="male">Masculino</option>
                     <option value="male">Femenino</option>
                     <option value="transgender">Otro</option>
                   </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="idioma">Idioma</label>
+                                    <select class="select2" multiple="multiple" id="idioma" name="Idioma" data-placeholder="Idioma">
+                    <option value=""></option>
+                    <option *ngFor="let item of idiomas" value="item">{{item}}</option>
+
+                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control textarea" placeholder="Nota biografica" name="message" id="message" cols="30" rows="6"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="submit-btn" [disabled]="registroForm.invalid">Finalizar</button>
+                                    <button class="btn btn-warning btn-block btn-volver mt-3">Volver</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="form-group">
-                  <textarea class="form-control textarea" placeholder="Nota biografica" name="message" id="message"
-                    cols="30" rows="6"></textarea>
-                </div>
-                <div class="form-group">
-                  <button class="submit-btn" [disabled]="registroForm.invalid">Finalizar</button>
-                  <button class="btn btn-warning btn-block btn-volver mt-3">Volver</button>
-                </div>
-              </form>
+
             </div>
+            <div class="map-line">
 
-          </div>
+                <img src="media/banner/map_line.png" alt="map">
+
+                <ul class="map-marker">
+                    <li><img src="media/banner/marker_1.png" alt="marker"></li>
+                    <li><img src="media/banner/marker_2.png" alt="marker"></li>
+                    <li><img src="media/banner/marker_3.png" alt="marker"></li>
+                    <li><img src="media/banner/marker_4.png" alt="marker"></li>
+                </ul>
+
+            </div>
         </div>
-
-      </div>
-      <div class="map-line">
-
-        <img src="media/banner/map_line.png" alt="map">
-
-        <ul class="map-marker">
-          <li><img src="media/banner/marker_1.png" alt="marker"></li>
-          <li><img src="media/banner/marker_2.png" alt="marker"></li>
-          <li><img src="media/banner/marker_3.png" alt="marker"></li>
-          <li><img src="media/banner/marker_4.png" alt="marker"></li>
-        </ul>
-
-      </div>
     </div>
-  </div>
 
-  <!--=====================================-->
-  <!--=      Header Search Start          =-->
-  <!--=====================================-->
-  <div id="header-search" class="header-search">
-    <button type="button" class="close">×</button>
-    <form class="header-search-form">
-      <input type="search" value="" placeholder="Search here..." />
-      <button type="submit" class="search-btn">
+    <!--=====================================-->
+    <!--=      Header Search Start          =-->
+    <!--=====================================-->
+    <div id="header-search" class="header-search">
+        <button type="button" class="close">×</button>
+        <form class="header-search-form">
+            <input type="search" value="" placeholder="Search here..." />
+            <button type="submit" class="search-btn">
         <i class="flaticon-search"></i>
       </button>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
