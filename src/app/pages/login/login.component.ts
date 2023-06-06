@@ -1,13 +1,13 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core"
+import { AfterViewInit, Component } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
 import { AuthService } from "src/app/services/auth.service"
-import Swal from "sweetalert2"
 import {
-	idiomas,
-	experiencia,
-	intereses,
 	ciudades,
+	experiencia,
+	idiomas,
+	intereses,
 } from "src/assets/datasets/datasets"
+import Swal from "sweetalert2"
 
 @Component({
 	selector: "app-login",
