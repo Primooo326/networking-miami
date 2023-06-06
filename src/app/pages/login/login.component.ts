@@ -1,25 +1,40 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "src/app/services/auth.service";
-import Swal from "sweetalert2";
-import { idiomas, experiencia } from "src/assets/datasets/lenguajes";
+import { Component, OnInit, AfterViewInit } from "@angular/core"
+import { FormControl, FormGroup, Validators } from "@angular/forms"
+import { AuthService } from "src/app/services/auth.service"
+import Swal from "sweetalert2"
+import {
+	idiomas,
+	experiencia,
+	intereses,
+	ciudades,
+} from "src/assets/datasets/datasets"
 
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
-	idiomas = idiomas;
-	experiencia = experiencia;
-	hintErrorLength = "Min 8 characters required";
-	hintErrorRequired = "Field required";
-	hintErrorPassword = "Passwords must match";
-	hintErrorEmail = "type an vaild email";
-	isOnLogin = false;
-	tabRegistro = "primero";
+export class LoginComponent implements AfterViewInit {
+	idiomas = idiomas
+	experiencia = experiencia
+	intereses = intereses
+	ciudades = ciudades
 
-	registroForm = new FormGroup({
+	TipoConexion: string[] = []
+
+	hintErrorLength = "Min 8 characters required"
+	hintErrorRequired = "Field required"
+	hintErrorPassword = "Passwords must match"
+	hintErrorEmail = "type an valid email"
+
+	isOnLogin = true
+	tabRegistro = "primero"
+
+	lenguajesV = true
+	experienciaV = true
+	interesesV = true
+
+	registroForm1Tab = new FormGroup({
 		email: new FormControl("juan@mail.com", [
 			Validators.required,
 			Validators.email,
@@ -32,7 +47,26 @@ export class LoginComponent implements OnInit {
 			Validators.required,
 			Validators.minLength(8),
 		]),
-	});
+	})
+
+	registroForm2Tab = new FormGroup({
+		name: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		birthdate: new FormControl("", [Validators.required]),
+		phone: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		gender: new FormControl("", [Validators.required]),
+		city: new FormControl("", [Validators.required]),
+		languages: new FormControl(""),
+		biography: new FormControl("", [
+			Validators.required,
+			Validators.minLength(8),
+		]),
+	})
+
+	registroForm3Tab = new FormGroup({
+		areaExperiencia: new FormControl(""),
+		temasInteres: new FormControl(""),
+		objetivo: new FormControl(""),
+	})
 
 	loginForm = new FormGroup({
 		email: new FormControl("", [Validators.required, Validators.email]),
@@ -40,19 +74,43 @@ export class LoginComponent implements OnInit {
 			Validators.required,
 			Validators.minLength(8),
 		]),
-	});
+	})
 
 	constructor(private authSrvc: AuthService) {
-		this.registroForm.valueChanges.subscribe(() => {
-			console.log(this.emailRegistroValidator());
-		});
+		setInterval(() => {
+			this.lenguajesV =
+				this.registroForm2Tab.controls.languages.value?.length == 0
+			console.log(this.lenguajesV)
+		}, 100)
 	}
 
-	ngOnInit(): void {}
-
-	async register() {
-		if (this.registroForm) {
-		}
+	ngAfterViewInit(): void {
+		$("select.select2").select2({
+			theme: "classic",
+			dropdownAutoWidth: true,
+			width: "100%",
+			minimumResultsForSearch: Infinity,
+		})
+		$("select#ciudad").on("change", (e) => {
+			const ciudad: any = $(e.target).val()
+			this.registroForm2Tab.get("city")?.setValue(ciudad)
+		})
+		$("select#idioma").on("change", (e) => {
+			const languages: any = $(e.target).val()
+			this.registroForm2Tab.get("languages")?.setValue(languages)
+		})
+		$("select#gender").on("change", (e) => {
+			const gender: any = $(e.target).val()
+			this.registroForm2Tab.get("gender")?.setValue(gender)
+		})
+		$("select#experiencia").on("change", (e) => {
+			const experiencia: any = $(e.target).val()
+			this.registroForm3Tab.get("areaExperiencia")?.setValue(experiencia)
+		})
+		$("select#interes").on("change", (e) => {
+			const temasInteres: any = $(e.target).val()
+			this.registroForm3Tab.get("temasInteres")?.setValue(temasInteres)
+		})
 	}
 
 	async login() {
@@ -65,64 +123,114 @@ export class LoginComponent implements OnInit {
 				.then(
 					(obs) => {
 						obs.subscribe((data) => {
-							console.log(data);
-						});
+							console.log(data)
+						})
 					},
 					(err) => {
-						console.log(err);
-						console.log(err.error);
+						console.log(err)
+						console.log(err.error)
 						if (err.error == "Invalid password")
 							Swal.fire(
 								"Error: Invalid password",
 								"Make sure your password is correct",
 								"error",
-							);
+							)
 					},
-				);
+				)
+		}
+	}
+	async register() {
+		if (this.registroForm1Tab) {
 		}
 	}
 
-	emailLoginValidator(): boolean {
-		return (
-			this.registroForm.controls.email.hasError("required") ||
-			this.registroForm.controls.email.hasError("email")
-		);
+	register1Tab() {
+		console.log(this.registroForm1Tab.value)
+		this.onChangeTabRegister("segundo")
+	}
+	register2Tab() {
+		console.log(this.registroForm2Tab.value)
+		this.onChangeTabRegister("tercero")
+	}
+	register3Tab() {
+		const registro3Value: any = this.registroForm3Tab.value
+		registro3Value.tipoConexion = this.TipoConexion
+		console.log(registro3Value)
 	}
 
+	onChangeTabRegister(tab: string) {
+		this.tabRegistro = tab
+	}
+	onChangeConexiones(data: any) {
+		const value = data.target.value
+		console.log(value)
+		if (this.TipoConexion.includes(value)) {
+			const idx = this.TipoConexion.findIndex((d) => d == value)
+			this.TipoConexion.splice(idx, 1)
+		} else {
+			this.TipoConexion.push(value)
+		}
+		console.log(this.TipoConexion)
+	}
+
+	//!Validadores
+
+	emailLoginValidator(): boolean {
+		return (
+			this.registroForm1Tab.controls.email.hasError("required") ||
+			this.registroForm1Tab.controls.email.hasError("email")
+		)
+	}
 	passwordLoginValidator(): boolean {
 		return (
-			this.registroForm.controls.password.hasError("required") ||
-			this.registroForm.controls.password.hasError("minlength") ||
-			this.registroForm.controls.password.value !==
-				this.registroForm.controls.repeatPassword.value
-		);
+			this.registroForm1Tab.controls.password.hasError("required") ||
+			this.registroForm1Tab.controls.password.hasError("minlength") ||
+			this.registroForm1Tab.controls.password.value !==
+				this.registroForm1Tab.controls.repeatPassword.value
+		)
 	}
 
 	emailRegistroValidator(): boolean {
 		return (
-			this.registroForm.controls.email.hasError("required") ||
-			this.registroForm.controls.email.hasError("email")
-		);
+			this.registroForm1Tab.controls.email.hasError("required") ||
+			this.registroForm1Tab.controls.email.hasError("email")
+		)
 	}
-
 	passwordRegistroValidator(): boolean {
 		return (
-			this.registroForm.controls.password.hasError("required") ||
-			this.registroForm.controls.password.hasError("minlength") ||
-			this.registroForm.controls.password.value !==
-				this.registroForm.controls.repeatPassword.value
-		);
+			this.registroForm1Tab.controls.password.hasError("required") ||
+			this.registroForm1Tab.controls.password.hasError("minlength") ||
+			this.registroForm1Tab.controls.password.value !==
+				this.registroForm1Tab.controls.repeatPassword.value
+		)
 	}
-
-	onChangeTabRegister(tab: string) {
-		this.tabRegistro = tab;
-		setTimeout(() => {
-			$("select.select2").select2({
-				theme: "classic",
-				dropdownAutoWidth: true,
-				width: "100%",
-				minimumResultsForSearch: Infinity,
-			});
-		}, 1);
+	nameRegistroValidator(): boolean {
+		return (
+			this.registroForm2Tab.controls.name.hasError("required") ||
+			this.registroForm2Tab.controls.name.hasError("minlength")
+		)
+	}
+	phoneRegistroValidator(): boolean {
+		return (
+			this.registroForm2Tab.controls.phone.hasError("required") ||
+			this.registroForm2Tab.controls.phone.hasError("minlength")
+		)
+	}
+	birthdateRegistroValidator(): boolean {
+		return this.registroForm2Tab.controls.birthdate.hasError("required")
+	}
+	genderRegistroValidator(): boolean {
+		return this.registroForm2Tab.controls.gender.hasError("required")
+	}
+	cityRegistroValidator(): boolean {
+		return this.registroForm2Tab.controls.city.hasError("required")
+	}
+	languagesRegistroValidator() {
+		this.lenguajesV =
+			this.registroForm2Tab.controls.languages.value?.length == 0
+		console.log(this.lenguajesV)
+	}
+	biographyRegistroValidator(): boolean {
+		return this.registroForm2Tab.controls.biography.hasError("required")
 	}
 }

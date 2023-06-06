@@ -6155,7 +6155,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 }
 
 .login-page-wrap .tab-content {
-    min-width: 470px;
+    width: 670px;
     background-color: #ffffff;
     border-radius: 0 15px 15px 15px;
     padding: 50px 60px;
@@ -6165,7 +6165,7 @@ nav.template-main-menu > ul > li:hover ul.mega-menu {
 @media only screen and (max-width: 575px) {
     .login-page-wrap .tab-content {
         border-radius: 0 0 15px 15px;
-        min-width: 100%;
+        width: 100%;
         padding: 30px 20px;
     }
 }
