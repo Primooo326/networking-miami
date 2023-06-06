@@ -65,7 +65,7 @@ export class LoginComponent implements AfterViewInit {
 	registroForm3Tab = new FormGroup({
 		areaExperiencia: new FormControl(""),
 		temasInteres: new FormControl(""),
-		objetivo: new FormControl(""),
+		objetivo: new FormControl("", [Validators.required]),
 	})
 
 	loginForm = new FormGroup({
@@ -78,9 +78,14 @@ export class LoginComponent implements AfterViewInit {
 
 	constructor(private authSrvc: AuthService) {
 		setInterval(() => {
+			this.experienciaV =
+				this.registroForm3Tab.controls.areaExperiencia.value?.length == 0
+
+			this.interesesV =
+				this.registroForm3Tab.controls.temasInteres.value?.length == 0
+
 			this.lenguajesV =
 				this.registroForm2Tab.controls.languages.value?.length == 0
-			console.log(this.lenguajesV)
 		}, 100)
 	}
 
@@ -120,28 +125,66 @@ export class LoginComponent implements AfterViewInit {
 					email: this.loginForm.value.email,
 					password: this.loginForm.value.password,
 				})
-				.then(
-					(obs) => {
-						obs.subscribe((data) => {
+				.then((obs) => {
+					obs.subscribe(
+						(data) => {
 							console.log(data)
-						})
-					},
-					(err) => {
-						console.log(err)
-						console.log(err.error)
-						if (err.error == "Invalid password")
-							Swal.fire(
-								"Error: Invalid password",
-								"Make sure your password is correct",
-								"error",
-							)
-					},
-				)
+							localStorage.setItem("session", JSON.stringify(data))
+						},
+						(err) => {
+							console.log(err)
+							if (err.error == "Invalid password") {
+								Swal.fire(
+									"Error: Invalid password",
+									"Make sure your password is correct",
+									"error",
+								)
+							} else if (err.error == "User does not exist") {
+								Swal.fire(
+									"Error: User does not exist",
+									"Make sure your email is correct",
+									"error",
+								)
+							} else {
+								Swal.fire("Error", err.message, "error")
+							}
+						},
+					)
+				})
 		}
 	}
-	async register() {
-		if (this.registroForm1Tab) {
+	async register(registro3Value: any) {
+		const newUser: any = {
+			...this.registroForm1Tab.value,
+			...this.registroForm2Tab.value,
+			...registro3Value,
 		}
+		await this.authSrvc.register(newUser).then(
+			(obs) => {
+				obs.subscribe(
+					(data: any) => {
+						console.log(data)
+						localStorage.setItem("session", JSON.stringify(data))
+					},
+					(err: any) => {
+						if (err.error == "User already registered") {
+							Swal.fire(
+								"Error: User already registered",
+								"Make sure your email is correct",
+								"error",
+							)
+						} else {
+							Swal.fire("Error", err.message, "error")
+						}
+					},
+				)
+			},
+			(err) => {
+				console.log(err)
+			},
+		)
+
+		console.log(newUser)
 	}
 
 	register1Tab() {
@@ -156,6 +199,7 @@ export class LoginComponent implements AfterViewInit {
 		const registro3Value: any = this.registroForm3Tab.value
 		registro3Value.tipoConexion = this.TipoConexion
 		console.log(registro3Value)
+		this.register(registro3Value)
 	}
 
 	onChangeTabRegister(tab: string) {

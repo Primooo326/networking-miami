@@ -66,7 +66,7 @@
                 <div class="form-group mb-4">
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="validationFormCheck2">
-                    <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label>
+                    <!-- <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label> -->
                     <a href="#" class="text-danger">* Reset Password</a>
 
                   </div>
@@ -312,7 +312,7 @@
 
                 <div class="form-group">
                   <button class="submit-btn" (click)="register3Tab()"
-                    [disabled]="registroForm1Tab.invalid">Finalizar</button>
+                    [disabled]="registroForm3Tab.invalid || experienciaV || interesesV || TipoConexion.length == 0">Finalizar</button>
                   <button (click)="onChangeTabRegister('segundo')"
                     class="btn btn-warning btn-block btn-volver mt-3">Volver</button>
                 </div>
