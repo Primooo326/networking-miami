@@ -29,4 +29,26 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 para la funcionalidad de select2
 install npm i --save-dev @types/jquery
-Remplazar el archivo node_modules/@types/jquery/JQuery.d.ts  por  dependencies/jquery/ts/JQuery.d.ts 
+Remplazar el archivo node_modules/@types/jquery/JQuery.d.ts  por  dependencies/jquery/ts/JQuery.d.txt
+en el tsconfig.app.json:   
+"compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["jquery"]
+  },
+y en el index.html 
+  <script>
+
+
+    $(document).ready(() => {
+      if ($("select.select2").length) {
+        $("select.select2").select2({
+          theme: "classic",
+          dropdownAutoWidth: true,
+          width: "100%",
+          minimumResultsForSearch: Infinity,
+        });
+      }
+
+    });
+
+  </script>

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
-import { AuthService } from "src/app/services/auth.service"
+import { AuthService } from "src/app/services/auth/auth.service"
 import {
 	ciudades,
 	experiencia,
@@ -35,15 +35,12 @@ export class LoginComponent implements AfterViewInit {
 	interesesV = true
 
 	registroForm1Tab = new FormGroup({
-		email: new FormControl("juan@mail.com", [
-			Validators.required,
-			Validators.email,
-		]),
-		password: new FormControl("12345678", [
+		email: new FormControl("", [Validators.required, Validators.email]),
+		password: new FormControl("", [
 			Validators.required,
 			Validators.minLength(8),
 		]),
-		repeatPassword: new FormControl("12345678", [
+		repeatPassword: new FormControl("", [
 			Validators.required,
 			Validators.minLength(8),
 		]),
@@ -96,6 +93,7 @@ export class LoginComponent implements AfterViewInit {
 			width: "100%",
 			minimumResultsForSearch: Infinity,
 		})
+
 		$("select#ciudad").on("change", (e) => {
 			const ciudad: any = $(e.target).val()
 			this.registroForm2Tab.get("city")?.setValue(ciudad)

@@ -73,8 +73,7 @@
                 </div>
                 <div class="form-group">
                   <button (click)="login()" [disabled]="loginForm.invalid" class="submit-btn">Login</button>
-                  <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3"
-                    [routerLink]="['/home']">Volver</button>
+                  <button class="btn btn-warning btn-lg btn-volver  btn-block mt-3" [routerLink]="['/']">Volver</button>
                 </div>
               </form>
             </div>
@@ -148,7 +147,8 @@
                 <div class="form-group">
                   <button class="submit-btn" (click)="register1Tab()"
                     [disabled]="registroForm1Tab.invalid">Continuar</button>
-                  <button class="btn btn-warning btn-block btn-volver mt-3" [routerLink]="['/home']">Volver</button>
+                  <button class="btn btn-warning btn-block btn-volver mt-3" routerLink="/"
+                    routerLinkActive="active">Volver</button>
                 </div>
               </form>
 
