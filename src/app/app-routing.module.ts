@@ -8,7 +8,7 @@ import { auth } from "./services/guard.guard"
 const routes: Routes = [
 	{ path: "", component: LandingpageComponent },
 	{ path: "login", component: LoginComponent },
-	{ path: "home", component: HomeComponent, canActivate: [auth] },
+	{ path: "home", component: HomeComponent },
 ]
 
 @NgModule({

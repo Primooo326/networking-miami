@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
+import { Router, RouterLink } from "@angular/router"
 import { AuthService } from "src/app/services/auth/auth.service"
 import {
 	ciudades,
@@ -73,7 +74,7 @@ export class LoginComponent implements AfterViewInit {
 		]),
 	})
 
-	constructor(private authSrvc: AuthService) {
+	constructor(private authSrvc: AuthService, private router: Router) {
 		setInterval(() => {
 			this.experienciaV =
 				this.registroForm3Tab.controls.areaExperiencia.value?.length == 0
@@ -94,23 +95,23 @@ export class LoginComponent implements AfterViewInit {
 			minimumResultsForSearch: Infinity,
 		})
 
-		$("select#ciudad").on("change", (e) => {
+		$("select#ciudad").on("change", (e:any) => {
 			const ciudad: any = $(e.target).val()
 			this.registroForm2Tab.get("city")?.setValue(ciudad)
 		})
-		$("select#idioma").on("change", (e) => {
+		$("select#idioma").on("change", (e:any) => {
 			const languages: any = $(e.target).val()
 			this.registroForm2Tab.get("languages")?.setValue(languages)
 		})
-		$("select#gender").on("change", (e) => {
+		$("select#gender").on("change", (e:any) => {
 			const gender: any = $(e.target).val()
 			this.registroForm2Tab.get("gender")?.setValue(gender)
 		})
-		$("select#experiencia").on("change", (e) => {
+		$("select#experiencia").on("change", (e:any) => {
 			const experiencia: any = $(e.target).val()
 			this.registroForm3Tab.get("areaExperiencia")?.setValue(experiencia)
 		})
-		$("select#interes").on("change", (e) => {
+		$("select#interes").on("change", (e:any) => {
 			const temasInteres: any = $(e.target).val()
 			this.registroForm3Tab.get("temasInteres")?.setValue(temasInteres)
 		})
@@ -128,6 +129,7 @@ export class LoginComponent implements AfterViewInit {
 						(data) => {
 							console.log(data)
 							localStorage.setItem("session", JSON.stringify(data))
+              this.router.navigate(["/home"])
 						},
 						(err) => {
 							console.log(err)
@@ -163,6 +165,8 @@ export class LoginComponent implements AfterViewInit {
 					(data: any) => {
 						console.log(data)
 						localStorage.setItem("session", JSON.stringify(data))
+            this.router.navigate(["/home"])
+
 					},
 					(err: any) => {
 						if (err.error == "User already registered") {

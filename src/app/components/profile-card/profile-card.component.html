@@ -1,0 +1,34 @@
+<div class="widget-author">
+    <div class="author-heading">
+        <div class="cover-img">
+            <img src="media/figure/cover_1.jpg" alt="cover">
+        </div>
+        <div class="profile-img">
+            <a href="#">
+                <img [src]="user.avatar" width="100" alt="author">
+            </a>
+        </div>
+        <div class="profile-name">
+            {{user.id}}
+            <h4 class="author-name"><a href="user-timeline.html">{{user.name}}</a></h4>
+            <div class="author-location">{{user.email}}</div>
+        </div>
+    </div>
+    <ul class="author-badge">
+        <li><a href="#" class="bg-salmon-gradient"><i class="icofont-star"></i></a></li>
+        <li><a href="#" class="bg-amethyst-gradient"><i class="icofont-ui-play"></i></a></li>
+        <li><a href="#" class="bg-sun-gradient"><i class="icofont-squirrel"></i></a></li>
+        <li><a href="#" class="bg-jungle-gradient"><i class="icofont-rocket-alt-1"></i></a></li>
+    </ul>
+    <ul class="author-statistics">
+        <li>
+            <a href="#"><span class="item-number">30</span> <span class="item-text">POSTS</span></a>
+        </li>
+        <li>
+            <a href="#"><span class="item-number">12</span> <span class="item-text">COMMENTS</span></a>
+        </li>
+        <li>
+            <a href="#"><span class="item-number">1,125</span> <span class="item-text">VIEWS</span></a>
+        </li>
+    </ul>
+</div>

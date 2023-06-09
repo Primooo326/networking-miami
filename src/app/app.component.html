@@ -1,5 +1,5 @@
 <a href="#wrapper" data-type="section-switch" class="scrollup">
-  <i class="icofont-bubble-up"></i>
+    <i class="icofont-bubble-up"></i>
 </a>
 
 <!-- Preloader Start Here -->
@@ -8,23 +8,23 @@
 
 <app-header></app-header>
 
-<div *ngIf="!isNavHome()">
+<div *ngIf="!isNavHome()" style="background-color: #f5f5f5;">
 
-  <div class="page-content">
+    <div class="page-content">
 
-    <div class="container">
+        <div class="container">
 
-      <router-outlet>
-      </router-outlet>
+            <router-outlet>
+            </router-outlet>
+
+        </div>
 
     </div>
-
-  </div>
 </div>
 
 <div *ngIf="isNavHome()">
-  <router-outlet>
-  </router-outlet>
+    <router-outlet>
+    </router-outlet>
 </div>
 
 

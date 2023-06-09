@@ -5,9 +5,10 @@ import { LandingpageComponent } from "./landingpage/landingpage.component";
 import { HomeComponent } from "./home/home.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
 	declarations: [LoginComponent, LandingpageComponent, HomeComponent],
-	imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
+	imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule, ComponentsModule],
 })
 export class PagesModule {}

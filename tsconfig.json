@@ -23,8 +23,14 @@
       "ES2022",
       "dom"
     ],
+    "typeRoots": [
+      "node_modules/@types/jquery/jQuery.d.ts",
+    ],
   },
   "angularCompilerOptions": {
+    "types": [
+      "jquery"
+    ],
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

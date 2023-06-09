@@ -2,53 +2,47 @@
 <html class="no-js" lang="en">
 
 <head>
-  <!-- Meta Data -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Cirkle | Social Community HTML Template</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cirkle | Social Community HTML Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Site Stylesheet -->
-  <link rel="stylesheet" href="assets/css/app.css">
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="assets/css/app.css">
 
-  <!-- Google Web Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap"
-    rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
 <body class="sticky-header">
 
-  <div id="wrapper" class="wrapper overflow-hidden">
+    <div id="wrapper" class="wrapper overflow-hidden">
 
-    <app-root></app-root>
+        <app-root></app-root>
 
-  </div>
-
-
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-  <script>
+    </div>
 
 
-    $(document).ready(() => {
-      if ($("select.select2").length) {
-        $("select.select2").select2({
-          theme: "classic",
-          dropdownAutoWidth: true,
-          width: "100%",
-          minimumResultsForSearch: Infinity,
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            if ($("select.select2").length) {
+                $("select.select2").select2({
+                    theme: "classic",
+                    dropdownAutoWidth: true,
+                    width: "100%",
+                    minimumResultsForSearch: Infinity,
+                });
+            }
+
         });
-      }
-
-    });
-
-  </script>
+    </script>
 </body>
 
 </html>
