@@ -6,9 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 
 @NgModule({
-  declarations: [LoginComponent, LandingpageComponent, HomeComponent],
+  declarations: [LoginComponent, LandingpageComponent, HomeComponent, ProfileSettingsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -51,13 +51,16 @@ export class LoginComponent implements AfterViewInit {
   });
 
   registroForm2Tab = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    birthdate: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    gender: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    languages: new FormControl(''),
-    biography: new FormControl('', [
+    nombre: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    fechaNacimiento: new FormControl('', [Validators.required]),
+    telefono: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    genero: new FormControl('', [Validators.required]),
+    ciudad: new FormControl('', [Validators.required]),
+    lenguajes: new FormControl(''),
+    biografia: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
@@ -95,7 +98,7 @@ export class LoginComponent implements AfterViewInit {
         this.registroForm3Tab.controls.temasInteres.value?.length == 0;
 
       this.lenguajesV =
-        this.registroForm2Tab.controls.languages.value?.length == 0;
+        this.registroForm2Tab.controls.lenguajes.value?.length == 0;
     }, 100);
   }
 
@@ -109,15 +112,15 @@ export class LoginComponent implements AfterViewInit {
 
     $('select#ciudad').on('change', (e: any) => {
       const ciudad: any = $(e.target).val();
-      this.registroForm2Tab.get('city')?.setValue(ciudad);
+      this.registroForm2Tab.get('ciudad')?.setValue(ciudad);
     });
     $('select#idioma').on('change', (e: any) => {
-      const languages: any = $(e.target).val();
-      this.registroForm2Tab.get('languages')?.setValue(languages);
+      const lenguajes: any = $(e.target).val();
+      this.registroForm2Tab.get('lenguajes')?.setValue(lenguajes);
     });
     $('select#gender').on('change', (e: any) => {
-      const gender: any = $(e.target).val();
-      this.registroForm2Tab.get('gender')?.setValue(gender);
+      const genero: any = $(e.target).val();
+      this.registroForm2Tab.get('genero')?.setValue(genero);
     });
     $('select#experiencia').on('change', (e: any) => {
       const experiencia: any = $(e.target).val();
@@ -170,6 +173,7 @@ export class LoginComponent implements AfterViewInit {
       ...this.registroForm1Tab.value,
       ...this.registroForm2Tab.value,
       ...registro3Value,
+      fechaIngreso: new Date().toLocaleDateString(),
     };
     await this.authSrvc.register(newUser).then(
       (obs) => {
@@ -281,31 +285,31 @@ export class LoginComponent implements AfterViewInit {
   }
   nameRegistroValidator(): boolean {
     return (
-      this.registroForm2Tab.controls.name.hasError('required') ||
-      this.registroForm2Tab.controls.name.hasError('minlength')
+      this.registroForm2Tab.controls.nombre.hasError('required') ||
+      this.registroForm2Tab.controls.nombre.hasError('minlength')
     );
   }
   phoneRegistroValidator(): boolean {
     return (
-      this.registroForm2Tab.controls.phone.hasError('required') ||
-      this.registroForm2Tab.controls.phone.hasError('minlength')
+      this.registroForm2Tab.controls.telefono.hasError('required') ||
+      this.registroForm2Tab.controls.telefono.hasError('minlength')
     );
   }
   birthdateRegistroValidator(): boolean {
-    return this.registroForm2Tab.controls.birthdate.hasError('required');
+    return this.registroForm2Tab.controls.fechaNacimiento.hasError('required');
   }
   genderRegistroValidator(): boolean {
-    return this.registroForm2Tab.controls.gender.hasError('required');
+    return this.registroForm2Tab.controls.genero.hasError('required');
   }
   cityRegistroValidator(): boolean {
-    return this.registroForm2Tab.controls.city.hasError('required');
+    return this.registroForm2Tab.controls.ciudad.hasError('required');
   }
-  languagesRegistroValidator() {
+  lenguajesRegistroValidator() {
     this.lenguajesV =
-      this.registroForm2Tab.controls.languages.value?.length == 0;
+      this.registroForm2Tab.controls.lenguajes.value?.length == 0;
     console.log(this.lenguajesV);
   }
   biographyRegistroValidator(): boolean {
-    return this.registroForm2Tab.controls.biography.hasError('required');
+    return this.registroForm2Tab.controls.biografia.hasError('required');
   }
 }

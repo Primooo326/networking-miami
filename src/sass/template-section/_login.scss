@@ -83,21 +83,21 @@
         margin-bottom: 50px;
         text-align: center;
 
-        a {
-            position: relative;
+        // a {
+        //     position: relative;
 
-            &:before {
-                content: "";
-                height: 10px;
-                width: 10px;
-                background-color: $color_secondary;
-                position: absolute;
-                top: 7px;
-                left: 68px;
-                border-radius: 50%;
-                animation: pulse2 linear 1000ms infinite;
-            }
-        }
+        //     &:before {
+        //         content: "";
+        //         height: 10px;
+        //         width: 10px;
+        //         background-color: $color_secondary;
+        //         position: absolute;
+        //         top: 7px;
+        //         left: 68px;
+        //         border-radius: 50%;
+        //         animation: pulse2 linear 1000ms infinite;
+        //     }
+        // }
     }
 
     .login-form-wrap {

@@ -7,7 +7,7 @@ header.header {
 .temp-logo {
     position: relative;
     @media only screen and (max-width: 991px) {
-        display: none;     
+        display: none;
     }
     &:before {
         content: "";
@@ -52,7 +52,7 @@ nav.template-main-menu {
                 color: $color_light;
                 padding: 40px 15px;
                 @media only screen and (max-width: 1199px) {
-                    padding: 40px 10px;  
+                    padding: 40px 10px;
                 }
                 &:hover {
                     color: $color_secondary;
@@ -206,7 +206,7 @@ nav.template-main-menu {
     padding: 0 35px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     @media only screen and (max-width: 1440px) {
-        padding: 0;  
+        padding: 0;
     }
 }
 
@@ -226,7 +226,7 @@ nav.template-main-menu {
                 >a {
                     padding: 30px 15px;
                     @media only screen and (max-width: 1199px) {
-                        padding: 30px 10px;  
+                        padding: 30px 10px;
                     }
                 }
             }
@@ -247,7 +247,7 @@ nav.template-main-menu {
     }
 }
 
-// Header Action 
+// Header Action
 .header-action {
     ul {
         display: flex;
@@ -262,7 +262,7 @@ nav.template-main-menu {
             position: relative;
             margin-right: 45px;
             @media only screen and (max-width: 1199px) {
-                display: none;     
+                display: none;
             }
             &:after {
                 content: "";
@@ -288,7 +288,7 @@ nav.template-main-menu {
         }
         .header-search-icon {
             @media only screen and (max-width: 479px) {
-                display: none;                     
+                display: none;
             }
             a {
                 color: $color_light;
@@ -306,7 +306,7 @@ nav.template-main-menu {
                 font-weight: 700;
                 border-radius: 4px;
                 @media only screen and (max-width: 575px) {
-                    padding: 6px 25px;                     
+                    padding: 6px 25px;
                 }
                 &:hover {
                     background-color: $color_secondary;
@@ -422,71 +422,55 @@ nav.template-main-menu {
         padding: 0 90px !important;
         background-color: $color_primary;
         @media only screen and (max-width: 991px) {
-            padding: 0 60px !important;  
+            padding: 0 60px !important;
         }
         @media only screen and (max-width: 767px) {
-            padding: 0 50px !important;  
+            padding: 0 50px !important;
         }
         .header-logo {
             position: relative;
             margin-bottom: 8px;
             @media only screen and (max-width: 991px) {
-                margin-bottom: 0;    
+                margin-bottom: 0;
             }
             img {
                 @media only screen and (max-width: 991px) {
-                    height: 30px;     
+                    height: 30px;
                 }
             }
-             &:before {
-                content: "";
-                height: 9px;
-                width: 9px;
-                background-color: $color_secondary;
-                position: absolute;
-                top: 1px;
-                left: 44px;
-                border-radius: 50%;
-                animation: pulse2 linear 1000ms infinite;
-                @media only screen and (max-width: 991px) {
-                    height: 6px;
-                    width: 6px; 
-                    top: 1px;
-                    left: 31px;   
-                }
-            }
+
         }
     }
     .navbar {
         padding: 0 40px;
         @media only screen and (max-width: 1439px) {
-            padding: 0 25px;  
+            padding: 0 25px;
         }
         @media only screen and (max-width: 1360px) {
-            padding: 0 15px;  
+            padding: 0 15px;
         }
         @media only screen and (max-width: 1199px) {
-            padding: 19px 15px;  
-               
+            padding: 19px 15px;
+
         }
         @media only screen and (max-width: 991px) {
-            padding: 7px 10px;     
+            padding: 7px 10px;
         }
         @media only screen and (max-width: 767px) {
-            padding: 2px 10px;     
+            padding: 2px 10px;
         }
         @media only screen and (max-width: 575px) {
-            justify-content: center;                     
+            justify-content: center;
         }
         @media only screen and (max-width: 479px) {
-            padding: 2px 5px;                          
+            padding: 2px 5px;
         }
 
         .nav-top-menu {
             flex: 1;
             margin-left: 30px;
             @media only screen and (max-width: 1199px) {
-                display: none;   
+                display: none;
             }
         }
     }
@@ -506,10 +490,10 @@ nav.template-main-menu {
             margin-right: 40px;
             position: relative;
             @media only screen and (max-width: 767px) {
-                margin-right: 25px;                          
+                margin-right: 25px;
             }
             @media only screen and (max-width: 374px) {
-                margin-right: 10px;                  
+                margin-right: 10px;
             }
             &:after {
                 content: "";
@@ -521,7 +505,7 @@ nav.template-main-menu {
                 right: -20px;
                 transform: translateY(-50%);
                 @media only screen and (max-width: 374px) {
-                    display: none;                  
+                    display: none;
                 }
             }
             &:last-child {
@@ -537,13 +521,13 @@ nav.template-main-menu {
             align-items: center;
             width: 250px;
             @media only screen and (max-width: 1360px) {
-                width: 200px;   
+                width: 200px;
             }
             @media only screen and (max-width: 1199px) {
-                width: 250px;   
+                width: 250px;
             }
             @media only screen and (max-width: 991px) {
-                width: 170px;     
+                width: 170px;
             }
             .form-control {
                 padding: 5px 20px;
@@ -586,7 +570,7 @@ nav.template-main-menu {
         .dropdown {
             margin-right: 10px;
             @media only screen and (max-width: 374px) {
-                margin-right: 0;                     
+                margin-right: 0;
             }
             &:last-child {
                 margin-right: 0;
@@ -599,7 +583,7 @@ nav.template-main-menu {
                 position: relative;
                 transition: all 0.3s ease-in-out;
                 @media only screen and (max-width: 479px) {
-                    font-size: 20px;                     
+                    font-size: 20px;
                 }
                 .notify-count {
                     display: block;
@@ -617,8 +601,8 @@ nav.template-main-menu {
                     @media only screen and (max-width: 479px) {
                         height: 16px;
                         width: 16px;
-                        line-height: 16px;   
-                        font-size: 10px;           
+                        line-height: 16px;
+                        font-size: 10px;
                     }
                 }
                 &:after {
@@ -642,29 +626,29 @@ nav.template-main-menu {
                 transition: all 0.3s ease-in-out;
                 box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
                 @media only screen and (max-width: 991px) {
-                   top: 43px;      
+                   top: 43px;
                 }
                 @media only screen and (max-width: 767px) {
-                    top: 38px;  
-                    min-width: 280px; 
+                    top: 38px;
+                    min-width: 280px;
                 }
                 &:before {
                     content: "";
-                    width: 0; 
-                    height: 0; 
-                    border-bottom: 10px solid $color_light; 
-                    border-left: 7px solid transparent; 
+                    width: 0;
+                    height: 0;
+                    border-bottom: 10px solid $color_light;
+                    border-left: 7px solid transparent;
                     border-right: 7px solid transparent;
                     position: absolute;
                     top: -10px;
                     right: 40px;
                     @media only screen and (max-width: 575px) {
                         right: auto;
-                        left: 50px;                     
+                        left: 50px;
                     }
                 }
                 .item-heading {
-                    padding: 15px 22px; 
+                    padding: 15px 22px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -757,11 +741,11 @@ nav.template-main-menu {
         .dropdown-friend {
             .dropdown-menu {
                  @media only screen and (max-width: 575px) {
-                    left: -75px;                     
+                    left: -75px;
                 }
                 &:before {
                     @media only screen and (max-width: 575px) {
-                        left: 82px;                     
+                        left: 82px;
                     }
                 }
                 .item-heading {
@@ -845,7 +829,7 @@ nav.template-main-menu {
         .dropdown-cart {
             .dropdown-menu {
                 @media only screen and (max-width: 575px) {
-                    left: -40px;                     
+                    left: -40px;
                 }
                 .item-heading {
                     padding-bottom: 4px;
@@ -916,13 +900,13 @@ nav.template-main-menu {
             .dropdown-toggle {
                 padding-right: 28px;
                 @media only screen and (max-width: 1360px) {
-                    padding-right: 0;   
+                    padding-right: 0;
                 }
                 @media only screen and (max-width: 991px) {
-                    transform: scale(0.8);     
+                    transform: scale(0.8);
                 }
                 @media only screen and (max-width: 767px) {
-                    transform: scale(0.7);     
+                    transform: scale(0.7);
                 }
                 &:before {
                     content: "...";
@@ -933,14 +917,14 @@ nav.template-main-menu {
                     top: 4px;
                     right: 0;
                     @media only screen and (max-width: 1360px) {
-                        display: none;   
+                        display: none;
                     }
                 }
                 .media {
                     align-items: center;
                     .media-body {
                         @media only screen and (max-width: 1360px) {
-                            display: none;   
+                            display: none;
                         }
                     }
                 }
@@ -948,7 +932,7 @@ nav.template-main-menu {
                     margin-right: 18px;
                     position: relative;
                     @media only screen and (max-width: 479px) {
-                        margin-right: 5px;                     
+                        margin-right: 5px;
                     }
                     &:after {
                         content: url('../../media/figure/chat_round_shape4.png');
@@ -986,16 +970,16 @@ nav.template-main-menu {
                 min-width: 230px;
                 border: 1px solid #dee5ef;
                 @media only screen and (max-width: 991px) {
-                    top: 51px;     
+                    top: 51px;
                 }
                 @media only screen and (max-width: 767px) {
-                    top: 45px;     
+                    top: 45px;
                 }
                 &:before {
                     left: 70px;
                     @media only screen and (max-width: 1199px) {
                         left: auto;
-                        right: 65px;     
+                        right: 65px;
                     }
                 }
                 .admin-options {
@@ -1034,20 +1018,20 @@ nav.template-main-menu {
         .dropdown-message {
             .dropdown-menu {
                 @media only screen and (max-width: 575px) {
-                    left: -105px;    
+                    left: -105px;
                     &:before {
                         left: 112px;
-                    }                 
+                    }
                 }
             }
         }
         .dropdown-notification {
             .dropdown-menu {
                 @media only screen and (max-width: 575px) {
-                    left: -135px;    
+                    left: -135px;
                     &:before {
                         left: 145px;
-                    }                 
+                    }
                 }
             }
         }
@@ -1055,7 +1039,7 @@ nav.template-main-menu {
 }
 
 
-// Fixed Sidebar 
+// Fixed Sidebar
 .fixed-sidebar {
     position: fixed;
     top: 0;
@@ -1071,17 +1055,17 @@ nav.template-main-menu {
         width: 90px;
         transition-delay: 0.3s;
         @media only screen and (max-width: 1360px) {
-            height: 0;     
+            height: 0;
         }
         @media only screen and (max-width: 991px) {
-            width: 60px;   
+            width: 60px;
         }
         @media only screen and (max-width: 767px) {
-            width: 50px;   
+            width: 50px;
         }
         .sidebar-menu-wrap {
             @media only screen and (max-width: 1360px) {
-                display: none;     
+                display: none;
             }
         }
     }
@@ -1089,7 +1073,7 @@ nav.template-main-menu {
         width: 270px;
         transform: translateX(-100%);
         @media only screen and (max-width: 991px) {
-            width: 230px;     
+            width: 230px;
         }
         .sidebar-toggle {
             justify-content: space-between;
@@ -1105,10 +1089,10 @@ nav.template-main-menu {
         justify-content: center;
         transition: all 0.3s ease-in-out;
         @media only screen and (max-width: 991px) {
-            height: 60px;     
+            height: 60px;
         }
         @media only screen and (max-width: 767px) {
-            height: 50px;     
+            height: 50px;
         }
         .toggle-btn {
             width: 33px;
@@ -1116,7 +1100,7 @@ nav.template-main-menu {
             background-color: transparent;
             padding: 0;
             @media only screen and (max-width: 991px) {
-                width: 25px;     
+                width: 25px;
             }
             span {
                 position: relative;
@@ -1130,8 +1114,8 @@ nav.template-main-menu {
                 transition: all 0.3s ease-in-out;
                 @media only screen and (max-width: 991px) {
                     height: 3px;
-                    width: 15px;   
-                    margin-bottom: 6px; 
+                    width: 15px;
+                    margin-bottom: 6px;
                 }
                 &:last-child {
                     margin-bottom: 0;
@@ -1147,8 +1131,8 @@ nav.template-main-menu {
                     left: -11px;
                     @media only screen and (max-width: 991px) {
                         height: 3px;
-                        width: 6px; 
-                        left: -10px;   
+                        width: 6px;
+                        left: -10px;
                     }
                 }
                 &:nth-child(even) {
@@ -1157,7 +1141,7 @@ nav.template-main-menu {
                         left: auto;
                         right: -11px;
                         @media only screen and (max-width: 991px) {
-                            right: -10px;   
+                            right: -10px;
                         }
                     }
                 }
@@ -1178,7 +1162,7 @@ nav.template-main-menu {
             li {
                 margin-bottom: 18px;
                 @media only screen and (max-width: 767px) {
-                    margin-bottom: 5px;                     
+                    margin-bottom: 5px;
                 }
                 &:last-child {
                     margin-bottom: 0;
@@ -1212,10 +1196,10 @@ nav.template-main-menu {
                 color: #a8b1bc;
                 margin: 20px 0 10px;
                 font-weight: 700;
-                
+
             }
             .menu-link {
-                padding: 2px 0 2px 32px; 
+                padding: 2px 0 2px 32px;
                 color: #444444;
                 font-size: 14px;
                 font-weight: 600;
@@ -1253,16 +1237,16 @@ nav.template-main-menu {
         height: 100%;
         right: 0;
         @media only screen and (max-width: 1360px) {
-            height: 0; 
+            height: 0;
         }
     }
     .fixed-sidebar-right.small-sidebar {
         width: 90px;
         @media only screen and (max-width: 991px) {
-            width: 60px;     
+            width: 60px;
         }
         @media only screen and (max-width: 767px) {
-            width: 50px;     
+            width: 50px;
         }
     }
     .sidebar-toggle {
@@ -1278,18 +1262,18 @@ nav.template-main-menu {
             color: $color_light;
             padding: 10px;
             @media only screen and (max-width: 991px) {
-                font-size: 25px;                     
+                font-size: 25px;
             }
         }
     }
     .user-chat-list {
-        padding: 25px 0; 
+        padding: 25px 0;
         .chat-item {
             text-align: center;
             cursor: pointer;
             margin-bottom: 30px;
             @media only screen and (max-width: 991px) {
-                margin-bottom: 15px;     
+                margin-bottom: 15px;
             }
             &:last-child {
                 margin-bottom: 0;
@@ -1298,10 +1282,10 @@ nav.template-main-menu {
                 position: relative;
                 display: inline-block;
                 @media only screen and (max-width: 991px) {
-                    transform: scale(0.8);     
+                    transform: scale(0.8);
                 }
                 @media only screen and (max-width: 767px) {
-                    transform: scale(0.7);     
+                    transform: scale(0.7);
                 }
                 &:before {
                     content: url('../../media/figure/chat_round_shape2.png');
@@ -1362,7 +1346,7 @@ nav.template-main-menu {
     .sidebar-menu-wrap {
         transition: all 0.3s ease-in-out;
         @media only screen and (max-width: 1360px) {
-           transform: translateX(120px);      
+           transform: translateX(120px);
         }
     }
 }
@@ -1370,13 +1354,13 @@ nav.template-main-menu {
 .fixed-sidebar.chat-head-hide {
     .fixed-sidebar-right {
         @media only screen and (max-width: 1360px) {
-            height: 100%;     
-        } 
+            height: 100%;
+        }
     }
     .sidebar-menu-wrap {
         transform: translateX(120px);
         @media only screen and (max-width: 1360px) {
-           transform: translateX(0);      
+           transform: translateX(0);
         }
     }
 }
@@ -1405,7 +1389,7 @@ nav.template-main-menu {
     }
 }
 
-// Chat Coversation Box 
+// Chat Coversation Box
 .chat-conversion-box {
     visibility: hidden;
     opacity: 0;
@@ -1422,13 +1406,13 @@ nav.template-main-menu {
         z-index: 10;
         transition: all 0.3s ease-in-out;
         @media only screen and (max-width: 991px) {
-            margin: 10px 60px 0 0;     
+            margin: 10px 60px 0 0;
         }
         @media only screen and (max-width: 767px) {
-            margin: 10px 50px 0 0;     
+            margin: 10px 50px 0 0;
         }
         @media only screen and (max-width: 479px) {
-            max-width: 250px;    
+            max-width: 250px;
         }
     }
     .modal-content {
@@ -1612,7 +1596,7 @@ nav.template-main-menu {
 }
 
 
-// Mobile Nav Menu 
+// Mobile Nav Menu
 .mobile-nav-item {
     display: flex;
     align-items: center;
@@ -1623,16 +1607,16 @@ nav.template-main-menu {
         margin-right: 10px;
     }
     @media only screen and (max-width: 575px) {
-        margin-right: 40px;                     
+        margin-right: 40px;
     }
     @media only screen and (max-width: 479px) {
-        margin-right: 20px;                     
-    } 
-    
+        margin-right: 20px;
+    }
+
     .mobile-logo {
         a {
             @media only screen and (max-width: 575px) {
-                padding: 0 0 0 35px;                  
+                padding: 0 0 0 35px;
             }
         }
     }
@@ -1677,7 +1661,7 @@ nav.template-main-menu {
 }
 .mobile-menu-wrapper {
     .header-menu {
-        padding: 10px 0;   
+        padding: 10px 0;
     }
     .mobile-toggler {
         display: block;

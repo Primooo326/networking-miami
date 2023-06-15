@@ -27,7 +27,8 @@ export class HeaderComponent {
           this.page = EPages.landing;
           break;
         default:
-          this.page = EPages.landing;
+          this.currentUser = JSON.parse(localStorage.getItem('session')!);
+          this.page = EPages.home;
           break;
       }
     });

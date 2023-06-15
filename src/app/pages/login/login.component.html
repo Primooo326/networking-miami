@@ -10,7 +10,7 @@
       <div class="login-content">
 
         <div class="item-logo">
-          <a href="#"><img src="media/logo_large.png" alt="logo"></a>
+          <a href="#"><img src="media/logotipo.png" width="300" alt="logo"></a>
         </div>
 
         <div class="login-form-wrap">
@@ -156,40 +156,40 @@
               <!-- !segundo tab registro -->
               <form [hidden]="tabRegistro != 'segundo'" [formGroup]="registroForm2Tab">
                 <div class="form-group">
-                  <input type="text" formControlName="name" class="form-control"
+                  <input type="text" formControlName="nombre" class="form-control"
                     [ngClass]="{'is-invalid': nameRegistroValidator() }" placeholder="Nombre y apellidos">
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.name.dirty && registroForm2Tab.controls.name.hasError('required')">
+                    *ngIf="registroForm2Tab.controls.nombre.dirty && registroForm2Tab.controls.nombre.hasError('required')">
                     {{hintErrorRequired}}
                   </div>
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.name.dirty && registroForm2Tab.controls.name.hasError('minlength')">
+                    *ngIf="registroForm2Tab.controls.nombre.dirty && registroForm2Tab.controls.nombre.hasError('minlength')">
                     {{hintErrorLength}}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="tel" formControlName="phone" class="form-control" placeholder="Numero telefónico"
+                  <input type="tel" formControlName="telefono" class="form-control" placeholder="Numero telefónico"
                     [ngClass]="{'is-invalid': phoneRegistroValidator() }">
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.phone.dirty && registroForm2Tab.controls.phone.hasError('required')">
+                    *ngIf="registroForm2Tab.controls.telefono.dirty && registroForm2Tab.controls.telefono.hasError('required')">
                     {{hintErrorRequired}}
                   </div>
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.phone.dirty && registroForm2Tab.controls.phone.hasError('minlength')">
+                    *ngIf="registroForm2Tab.controls.telefono.dirty && registroForm2Tab.controls.telefono.hasError('minlength')">
                     {{hintErrorLength}}
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="date">Fecha de nacimiento</label>
-                  <input type="date" formControlName="birthdate" class="form-control" placeholder="Año de nacimiento"
-                    [ngClass]="{'is-invalid': birthdateRegistroValidator() }">
+                  <input type="date" formControlName="fechaNacimiento" class="form-control"
+                    placeholder="Año de nacimiento" [ngClass]="{'is-invalid': birthdateRegistroValidator() }">
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.birthdate.dirty && registroForm2Tab.controls.birthdate.hasError('required')">
+                    *ngIf="registroForm2Tab.controls.fechaNacimiento.dirty && registroForm2Tab.controls.fechaNacimiento.hasError('required')">
                     {{hintErrorRequired}}
                   </div>
                 </div>
                 <div class="form-group">
-                  <select class="select2" formControlName="gender" id="gender" name="Genero" data-placeholder="Genero">
+                  <select class="select2" formControlName="genero" id="gender" name="Genero" data-placeholder="Genero">
                     <option value="" selected></option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
@@ -198,28 +198,28 @@
                 </div>
 
                 <div class="form-group">
-                  <select formControlName="city" class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad">
+                  <select formControlName="ciudad" class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad">
                     <option *ngFor="let item of ciudades" [value]="item">{{item}}</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="idioma">Idioma</label>
-                  <select formArrayName="languages" class="select2" multiple="multiple" id="idioma" name="Idioma"
+                  <select formArrayName="lenguajes" class="select2" multiple="multiple" id="idioma" name="Idioma"
                     data-placeholder="Idioma">
                     <option *ngFor="let item of idiomas" [value]="item">{{item}}</option>
 
                   </select>
                 </div>
                 <div class="form-group">
-                  <textarea formControlName="biography" class="form-control textarea is-invalid"
+                  <textarea formControlName="biografia" class="form-control textarea is-invalid"
                     placeholder="Nota biográfica" cols="10" rows="3"
                     [ngClass]="{'is-invalid': biographyRegistroValidator() }"></textarea>
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.biography.dirty && registroForm2Tab.controls.biography.hasError('required')">
+                    *ngIf="registroForm2Tab.controls.biografia.dirty && registroForm2Tab.controls.biografia.hasError('required')">
                     {{hintErrorRequired}}
                   </div>
                   <div class="invalid-feedback"
-                    *ngIf="registroForm2Tab.controls.biography.dirty && registroForm2Tab.controls.biography.hasError('minlength')">
+                    *ngIf="registroForm2Tab.controls.biografia.dirty && registroForm2Tab.controls.biografia.hasError('minlength')">
                     {{hintErrorLength}}
                   </div>
                 </div>
