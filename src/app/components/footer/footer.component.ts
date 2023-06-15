@@ -19,9 +19,6 @@ export class FooterComponent {
         case '/login':
           this.page = EPages.login;
           break;
-        case '/verify':
-          this.page = EPages.login;
-          break;
         case '':
           this.page = EPages.landing;
           break;

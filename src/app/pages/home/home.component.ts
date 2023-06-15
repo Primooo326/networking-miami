@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MailService } from 'src/app/services/mail/mail.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/tools/models';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -45,9 +46,15 @@ export class HomeComponent implements OnInit {
     const res = await this.mailSrvc.verifyEmail({
       email: this.currentUser.user.email,
     });
-    res.subscribe((data) => {
-      console.log(data);
-      this.onVerifyEmail = false;
-    });
+    res.subscribe(
+      (data) => {
+        console.log(data);
+        this.onVerifyEmail = false;
+      },
+      (err) => {
+        Swal.fire('error', err.error, 'error');
+        this.onVerifyEmail = false;
+      }
+    );
   }
 }

@@ -24,7 +24,7 @@
                 aria-selected="false"><i class="icofont-download"></i> Registro </a>
             </li>
           </ul>
-          <div class="tab-content">
+          <div class="tab-content" [hidden]="onReset">
 
             <!--=====================================-->
             <!--=          Tab login       	=-->
@@ -67,7 +67,8 @@
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="validationFormCheck2">
                     <!-- <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label> -->
-                    <a href="#" class="text-danger">* Reset Password</a>
+                    <a (click)="onReset = true" class="text-danger">*Reset
+                      Password</a>
 
                   </div>
                 </div>
@@ -318,6 +319,41 @@
                 </div>
               </form>
 
+            </div>
+
+          </div>
+          <div class="tab-content" [hidden]="!onReset">
+
+            <!--=====================================-->
+            <!--=          Tab reset       	=-->
+            <!--=====================================-->
+
+            <div class="tab-pane login-tab fade show active" id="reset-tab" role="tabpanel">
+              <h3 class="item-title">Resetea tu contraseña</h3>
+
+              <form>
+                <div class="form-group">
+                  <input type="email" class="form-control" [formControl]="emailResetInput" placeholder="Your E-mail"
+                    [ngClass]="{'is-invalid': emailResetInput.hasError('required')|| emailResetInput.hasError('email')}">
+                  <div class="invalid-feedback" *ngIf="emailResetInput.dirty && emailResetInput.hasError('required')">
+                    {{hintErrorRequired}}
+                  </div>
+                  <div class="invalid-feedback" *ngIf="emailResetInput.dirty && emailResetInput.hasError('email')">
+                    {{hintErrorEmail}}
+                  </div>
+                </div>
+                <div class="form-group">
+
+                  <button (click)="reset()" [disabled]="emailResetInput.invalid" class="submit-btn">
+                    <span *ngIf="isOnResetEmail" class="spinner-border spinner-border-sm me-3" role="status"
+                      aria-hidden="true"></span>
+                    <span *ngIf="isOnResetEmail" class="visually-hidden">Enviando correo de Recuperacion...</span>
+                    <span *ngIf="!isOnResetEmail" class="visually-hidden">Enviar correo</span>
+                  </button>
+                  <button class="btn btn-warning btn-lg btn-volver btn-block mt-3"
+                    (click)="onReset = false">Volver</button>
+                </div>
+              </form>
             </div>
 
           </div>

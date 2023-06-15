@@ -324,8 +324,8 @@
               <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <span class="media">
                   <span class="item-img">
-                    <img src="media/figure/chat_5.jpg" alt="Chat">
-                    <span class="acc-verified"><i class="icofont-check"></i></span>
+                    <img [src]="currentUser.user.avatar" alt="img-profile">
+                    <!-- <span class="acc-verified"><i class="icofont-check"></i></span> -->
                   </span>
                   <span class="media-body">
                     <span class="item-title">Rebeca</span>
@@ -335,12 +335,12 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <ul class="admin-options">
                   <li><a href="#">Profile Settings</a></li>
-                  <li><a href="user-groups.html">Groups</a></li>
+                  <!-- <li><a href="user-groups.html">Groups</a></li>
                   <li><a href="forums.html">Forums</a></li>
                   <li><a href="#">Settings</a></li>
                   <li><a href="#">Terms and Conditions</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-                  <li><a href="login.html">Log Out</a></li>
+                  <li><a href="contact.html">Contact</a></li> -->
+                  <li><a class="text-danger" href="login.html">Log Out</a></li>
                 </ul>
               </div>
             </div>

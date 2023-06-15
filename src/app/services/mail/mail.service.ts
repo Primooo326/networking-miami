@@ -13,4 +13,8 @@ export class MailService {
     const url = this.backend + 'mail/verificationmail';
     return this.http.post(url, body);
   }
+  async resetPasswordEmail(body: any) {
+    const url = this.backend + 'mail/resetpassword';
+    return this.http.post(url, body);
+  }
 }

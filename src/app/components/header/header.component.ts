@@ -10,16 +10,17 @@ import { EPages } from 'src/app/tools/models';
 export class HeaderComponent {
   page: EPages = EPages.landing;
 
+  currentUser: any;
+
   constructor(private locate: Location) {
     this.locate.onUrlChange(() => {
       switch (this.locate.path()) {
         case '/home':
+          this.currentUser = JSON.parse(localStorage.getItem('session')!);
+          console.log(this.currentUser);
           this.page = EPages.home;
           break;
         case '/login':
-          this.page = EPages.login;
-          break;
-        case '/verify':
           this.page = EPages.login;
           break;
         case '':
