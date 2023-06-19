@@ -14,7 +14,7 @@ export interface UserData {
   biography: string;
   objetivo: string;
   avatar: string;
-  isMailVerified: number;
+  verificado: number;
 }
 
 export interface Usuario {

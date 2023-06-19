@@ -7,8 +7,8 @@
           <img [src]="currentUser.user.avatar" width="120" alt="User">
         </div>
         <div class="media-body">
-          <h3 class="item-title">{{currentUser.user.name}}</h3>
-          <div class="item-subtitle">United State of America</div>
+          <h3 class="item-title">{{currentUser.user.nombre}}</h3>
+          <div class="item-subtitle">{{currentUser.user.areaExperiencia}}</div>
           <ul class="item-social">
             <li><a href="#" class="bg-fb"><i class="icofont-facebook"></i></a></li>
             <li><a href="#" class="bg-twitter"><i class="icofont-twitter"></i></a></li>
@@ -29,7 +29,68 @@
     <div class="col-lg-8">
       <div class="block-box user-about">
         <div class="widget-heading">
-          <h3 class="widget-title">Hobbies E Intereses</h3>
+          <h3 class="widget-title">Información básica</h3>
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+            <div class="dropdown-menu dropdown-menu-right">
+
+              <a class="dropdown-item" href="#">Editar</a>
+              <a class="dropdown-item" href="#">Eliminar</a>
+            </div>
+          </div>
+        </div>
+        <ul class="user-info">
+          <!-- <li>
+            <label>E-mail:</label>
+            <p>{{currentUser.user.email}}</p>
+          </li> -->
+          <li>
+            <label>Nombre:</label>
+            <p>{{currentUser.user.nombre}}</p>
+          </li>
+          <li>
+            <label>Phone:</label>
+            <p>{{currentUser.user.telefono}}</p>
+          </li>
+          <li>
+            <label>Ubicación:</label>
+            <p>{{currentUser.user.ciudad}}, {{currentUser.user.condado}}</p>
+          </li>
+          <li>
+            <label>Lenguajes:</label>
+            <p>{{currentUser.user.lenguajes}}</p>
+          </li>
+          <li>
+            <label>Fecha de nacimiento:</label>
+            <p>{{currentUser.user.fechaNacimiento | date}}</p>
+          </li>
+          <li>
+            <label>Genero:</label>
+            <p>{{currentUser.user.genero}}</p>
+          </li>
+          <li>
+            <label>Biografía:</label>
+            <p>{{currentUser.user.biografia}}</p>
+          </li>
+          <!-- <li>
+            <label>Website:</label>
+            <p><a href="#">www.rebeca.com</a></p>
+          </li>
+          <li class="social-share"><label>Social:</label>
+
+            <p class="social-icon">
+              <a href="#"><i class="icofont-facebook ms-3"></i></a>
+              <a href="#"><i class="icofont-twitter ms-3"></i></a>
+              <a href="#"><i class="icofont-dribbble ms-3"></i></a>
+              <a href="#"><i class="icofont-whatsapp ms-3"></i></a>
+              <a href="#"><i class="icofont-instagram ms-3"></i></a>
+            </p>
+          </li> -->
+        </ul>
+      </div>
+      <div class="block-box user-about">
+        <div class="widget-heading">
+          <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -40,36 +101,18 @@
         </div>
         <ul class="user-info">
           <li>
-            <label>My Hobbies:</label>
-            <p>when an unknown printer took a galley of type and scrambledmake a type specimen It has survived not only
-              five centuries</p>
+            <label>Intereses:</label>
+            <p>{{currentUser.user.temasInteres}}</p>
           </li>
           <li>
-            <label>Favourite Music Bands/Artists:</label>
-            <p>Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters, System of a Revenge.</p>
-          </li>
-          <li>
-            <label>Favourite TV Shows:</label>
-            <p>Breaking Good, RedDevil, People of Interest, The Running Dead, Found,</p>
-          </li>
-          <li>
-            <label>Favourite Books:</label>
-            <p>The Crime of the Century, Egiptian Mythology 101, The Scarred Wizard, Lord of the Wings, Amongst Gods,
-              The Oracle, A Tale of Air and Water.</p>
-          </li>
-          <li>
-            <label>Favourite Movies:</label>
-            <p>Idiocratic, The Scarred Wizard and the Fire Crown, Crime Squad, Ferrum Man.</p>
-          </li>
-          <li>
-            <label>Other Activities:</label>
-            <p>Swimming, Surfing, Scuba Diving, Anime, Photography, Tattoos, Street Art.</p>
+            <label>Tipo de conexion:</label>
+            <p>{{currentUser.user.tipoConexion}}</p>
           </li>
         </ul>
       </div>
       <div class="block-box user-about">
         <div class="widget-heading">
-          <h3 class="widget-title">Education and Employment</h3>
+          <h3 class="widget-title">Educación y empleo</h3>
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -100,7 +143,7 @@
       </div>
       <div class="block-box user-about">
         <div class="widget-heading">
-          <h3 class="widget-title">Contact Info</h3>
+          <h3 class="widget-title text-danger">Zona roja</h3>
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -112,32 +155,26 @@
         </div>
         <ul class="user-info">
           <li>
-            <label>E-mail:</label>
-            <p>info@crumina.net</p>
+            <label class="text-danger">E-mail</label>
+            <p>{{currentUser.user.email}}</p>
           </li>
           <li>
-            <label>Phone:</label>
-            <p>+123 98566836</p>
+            <label class="text-danger">Password:</label>
+            <p>Cambiar contraseña</p>
           </li>
-          <li>
-            <label>Address:</label>
-            <p>59 Street, Newyorkc City</p>
-          </li>
-          <li>
-            <label>Website:</label>
-            <p><a href="#">www.rebeca.com</a></p>
-          </li>
+
         </ul>
       </div>
+
     </div>
-    <div class="col-lg-4 widget-block widget-break-lg">
+    <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
       <div class="widget widget-user-about">
         <div class="widget-heading">
           <h3 class="widget-title">About Me</h3>
           <div class="dropdown">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
               ...
-            </button>
+            </button> -->
             <div class="dropdown-menu dropdown-menu-right">
 
               <a class="dropdown-item" href="#">Editar</a>
@@ -146,15 +183,14 @@
           </div>
         </div>
         <div class="user-info">
-          <p>Hi! My name is Rebeca Powel but some people may know me asserty GamePagla! I have a Newbike channel where I
-            stream.</p>
+          <p>{{currentUser.user.biografia}}</p>
           <ul class="info-list">
-            <li><span>Se unio:</span>24/12/2020</li>
-            <li><span>E-mail:</span>info@gmail.com</li>
-            <li><span>Ubicacion:</span>59 Street Neworkcity</li>
-            <li><span>Telefono:</span>+123 9856836</li>
-            <li><span>Country:</span>USA</li>
-            <li><span>Web:</span><a href="#">www.rebeca.com</a></li>
+            <li><span>Se unió:</span>{{currentUser.user.fechaIngreso | date}}</li>
+            <li><span>E-mail:</span>{{currentUser.user.email}}</li>
+            <li><span>Ubicación:</span>{{currentUser.user.ciudad}}, {{currentUser.user.condado}}</li>
+            <li><span>Teléfono:</span>{{currentUser.user.telefono}}</li>
+            <!-- <li><span>Country:</span>USA</li>
+            <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
             <li class="social-share"><span>Social:</span>
               <div class="social-icon">
                 <a href="#"><i class="icofont-facebook"></i></a>

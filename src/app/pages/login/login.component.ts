@@ -173,8 +173,12 @@ export class LoginComponent implements AfterViewInit {
       ...this.registroForm1Tab.value,
       ...this.registroForm2Tab.value,
       ...registro3Value,
-      fechaIngreso: new Date().toLocaleDateString(),
+      fechaNacimiento: new Date(
+        this.registroForm2Tab.controls.fechaNacimiento.value!
+      ).toISOString(),
+      fechaIngreso: new Date().toISOString(),
     };
+    newUser.fecha;
     await this.authSrvc.register(newUser).then(
       (obs) => {
         obs.subscribe(

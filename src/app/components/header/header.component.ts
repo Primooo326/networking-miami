@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { EPages } from 'src/app/tools/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent {
 
   currentUser: any;
 
-  constructor(private locate: Location) {
+  constructor(private locate: Location, private route: Router) {
     this.locate.onUrlChange(() => {
       switch (this.locate.path()) {
         case '/home':
@@ -32,5 +33,9 @@ export class HeaderComponent {
           break;
       }
     });
+  }
+  logOut() {
+    localStorage.clear();
+    this.route.navigate(['/']);
   }
 }

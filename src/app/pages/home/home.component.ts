@@ -13,16 +13,14 @@ export class HomeComponent implements OnInit {
   users: UserData[] = [];
   pages: number[] = [];
   showUsers: UserData[] = [];
-  isMailVerified = false;
+  verificado = false;
   onVerifyEmail = false;
   currentPage = 1;
   currentUser = JSON.parse(localStorage.getItem('session')!);
   constructor(private userSrvc: UserService, private mailSrvc: MailService) {}
   async ngOnInit() {
     const { user } = this.currentUser;
-    user.isMailVerified == 0
-      ? (this.isMailVerified = false)
-      : (this.isMailVerified = true);
+    user.verificado == 0 ? (this.verificado = false) : (this.verificado = true);
 
     await this.userSrvc.readUsers().then((obs) =>
       obs.subscribe((data) => {
