@@ -1,20 +1,39 @@
 <div class="container">
   <!-- Banner Area Start -->
-  <div class="banner-user" style="background-image: '../../media/figure/shape_12.jpg'">
+  <div
+    class="banner-user"
+    style="background-image: '../../media/figure/shape_12.jpg'"
+  >
     <div class="banner-content">
       <div class="media">
         <div class="item-img">
-          <img [src]="currentUser.user.avatar" width="120" alt="User">
+          <img [src]="currentUser.user.avatar" width="120" alt="User" />
         </div>
         <div class="media-body">
-          <h3 class="item-title">{{currentUser.user.nombre}}</h3>
-          <div class="item-subtitle">{{currentUser.user.areaExperiencia}}</div>
+          <h3 class="item-title">{{ currentUser.user.nombre }}</h3>
+          <div class="item-subtitle">
+            {{ currentUser.user.areaExperiencia }}
+          </div>
           <ul class="item-social">
-            <li><a href="#" class="bg-fb"><i class="icofont-facebook"></i></a></li>
-            <li><a href="#" class="bg-twitter"><i class="icofont-twitter"></i></a></li>
-            <li><a href="#" class="bg-dribble"><i class="icofont-dribbble"></i></a></li>
-            <li><a href="#" class="bg-youtube"><i class="icofont-brand-youtube"></i></a></li>
-            <li><a href="#" class="bg-behance"><i class="icofont-behance"></i></a></li>
+            <li>
+              <a href="#" class="bg-fb"><i class="icofont-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#" class="bg-twitter"><i class="icofont-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#" class="bg-dribble"
+                ><i class="icofont-dribbble"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="bg-youtube"
+                ><i class="icofont-brand-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="bg-behance"><i class="icofont-behance"></i></a>
+            </li>
           </ul>
           <ul class="user-meta">
             <li>Posts: <span>30</span></li>
@@ -31,92 +50,297 @@
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
           <div class="dropdown">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+            <button
+              class="dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ...
+            </button>
             <div class="dropdown-menu dropdown-menu-right">
-
-              <a class="dropdown-item" href="#">Editar</a>
-              <a class="dropdown-item" href="#">Eliminar</a>
+              <button
+                class="dropdown-item"
+                (click)="onEditSection('informacionBasica')"
+              >
+                Editar
+              </button>
+              <button class="dropdown-item">Eliminar</button>
             </div>
           </div>
         </div>
-        <ul class="user-info">
-          <!-- <li>
-            <label>E-mail:</label>
-            <p>{{currentUser.user.email}}</p>
-          </li> -->
-          <li>
-            <label>Nombre:</label>
-            <p>{{currentUser.user.nombre}}</p>
-          </li>
-          <li>
-            <label>Phone:</label>
-            <p>{{currentUser.user.telefono}}</p>
-          </li>
-          <li>
-            <label>Ubicación:</label>
-            <p>{{currentUser.user.ciudad}}, {{currentUser.user.condado}}</p>
-          </li>
-          <li>
-            <label>Lenguajes:</label>
-            <p>{{currentUser.user.lenguajes}}</p>
-          </li>
-          <li>
-            <label>Fecha de nacimiento:</label>
-            <p>{{currentUser.user.fechaNacimiento | date}}</p>
-          </li>
-          <li>
-            <label>Genero:</label>
-            <p>{{currentUser.user.genero}}</p>
-          </li>
-          <li>
-            <label>Biografía:</label>
-            <p>{{currentUser.user.biografia}}</p>
-          </li>
-          <!-- <li>
-            <label>Website:</label>
-            <p><a href="#">www.rebeca.com</a></p>
-          </li>
-          <li class="social-share"><label>Social:</label>
+        <form [formGroup]="infoBasicaForm">
+          <ul class="user-info">
+            <li>
+              <label>Nombre:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.nombre }}
+              </p>
+              <input
+                *ngIf="!onInformacionBasicaEdit"
+                type="text"
+                [value]="currentUser.user.nombre"
+                class="form-control"
+                placeholder="Nombre y apellidos"
+                formControlName="nombre"
+              />
+            </li>
+            <li>
+              <label>Telefono:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.telefono }}
+              </p>
+              <input
+                *ngIf="!onInformacionBasicaEdit"
+                type="tel"
+                [value]="currentUser.user.telefono"
+                class="form-control"
+                placeholder="Numero telefónico"
+                formControlName="telefono"
+              />
+            </li>
+            <li>
+              <label>Ubicación:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.ciudad }}, {{ currentUser.user.condado }}
+              </p>
+              <div class="form-group" *ngIf="!onInformacionBasicaEdit">
+                <select
+                  class="select2 mb-3"
+                  id="condado"
+                  name="Condado"
+                  data-placeholder="Condado"
+                  formControlName="condado"
+                >
+                  <option *ngFor="let item of condados" [value]="item.nombre">
+                    {{ item.nombre }}
+                  </option>
+                </select>
+                <select
+                  class="select2"
+                  id="ciudad"
+                  name="Ciudad"
+                  data-placeholder="Ciudad"
+                  formControlName="ciudad"
+                >
+                  <option *ngFor="let item of ciudades" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <button id="boton" hidden (click)="onCondadoChange()"></button>
+              </div>
+            </li>
+            <li>
+              <label>Lenguajes:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.lenguajes }}
+              </p>
+              <div class="form-group" *ngIf="!onInformacionBasicaEdit">
+                <select
+                  class="select2"
+                  multiple="multiple"
+                  id="idioma"
+                  name="Idioma"
+                  data-placeholder="Idioma"
+                  formControlName="lenguajes"
+                >
+                  <option *ngFor="let idioma of idiomas" [value]="idioma">
+                    {{ idioma }}
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <label>Fecha de nacimiento:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.fechaNacimiento | date }}
+              </p>
+              <input
+                *ngIf="!onInformacionBasicaEdit"
+                type="date"
+                [value]="currentUser.user.fechaNacimiento"
+                class="form-control"
+                placeholder="Año de nacimiento"
+                formControlName="fechaNacimiento"
+              />
+            </li>
+            <li>
+              <label>Genero:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.genero }}
+              </p>
+              <div class="form-group" *ngIf="!onInformacionBasicaEdit">
+                <select
+                  class="select2"
+                  id="gender"
+                  name="Genero"
+                  data-placeholder="Genero"
+                  formControlName="genero"
+                >
+                  <option value="" selected></option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <label>Biografía:</label>
+              <p *ngIf="onInformacionBasicaEdit">
+                {{ currentUser.user.biografia }}
+              </p>
+              <textarea
+                *ngIf="!onInformacionBasicaEdit"
+                [value]="currentUser.user.biografia"
+                class="form-control textarea"
+                placeholder="Nota biográfica"
+                formControlName="biografia"
+                cols="10"
+                rows="3"
+              ></textarea>
+            </li>
+          </ul>
+        </form>
+        <div
+          *ngIf="!onInformacionBasicaEdit"
+          class="d-flex justify-content-between mt-2"
+        >
+          <button
+            class="btn btn-danger w-25"
+            (click)="onInformacionBasicaEdit = true"
+          >
+            Cancelar
+          </button>
 
-            <p class="social-icon">
-              <a href="#"><i class="icofont-facebook ms-3"></i></a>
-              <a href="#"><i class="icofont-twitter ms-3"></i></a>
-              <a href="#"><i class="icofont-dribbble ms-3"></i></a>
-              <a href="#"><i class="icofont-whatsapp ms-3"></i></a>
-              <a href="#"><i class="icofont-instagram ms-3"></i></a>
-            </p>
-          </li> -->
-        </ul>
+          <button
+            (click)="cambioInformacionBasica()"
+            class="btn btn-success w-25"
+          >
+            <span
+              *ngIf="isOnInformacionBasicaLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardar</span
+            >
+          </button>
+        </div>
       </div>
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+            <button
+              class="dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ...
+            </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Editar</a>
-              <a class="dropdown-item" href="#">Eliminar</a>
+              <button
+                class="dropdown-item"
+                (click)="onEditSection('intereses')"
+              >
+                Editar
+              </button>
+              <button class="dropdown-item">Eliminar</button>
             </div>
           </div>
         </div>
         <ul class="user-info">
           <li>
             <label>Intereses:</label>
-            <p>{{currentUser.user.temasInteres}}</p>
+            <p *ngIf="onInteresesEdit">
+              <span
+                *ngFor="let item of currentUser.user.temasInteres"
+                class="badge ms-3"
+                >{{ item }}</span
+              >
+            </p>
+            <div class="form-group" *ngIf="!onInteresesEdit">
+              <select
+                class="select2"
+                multiple="multiple"
+                id="interes"
+                data-placeholder="Interés"
+                [formControl]="interesesForm"
+              >
+                <option *ngFor="let item of intereses" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
           </li>
           <li>
             <label>Tipo de conexion:</label>
-            <p>{{currentUser.user.tipoConexion}}</p>
+            <p *ngIf="onInteresesEdit">
+              <span
+                *ngFor="let item of currentUser.user.tipoConexion"
+                class="badge ms-3"
+                >{{ item }}</span
+              >
+            </p>
+            <div class="form-group" *ngIf="!onInteresesEdit">
+              <div
+                class="form-check"
+                *ngFor="let item of conexiones; let i = index"
+              >
+                <input
+                  type="checkbox"
+                  (change)="onChangeConexiones($event)"
+                  class="form-check-input"
+                  [id]="i"
+                  [value]="item"
+                  [checked]="currentUser.user.tipoConexion.includes(item)"
+                />
+                <label class="form-check-label" [for]="i">{{ item }}</label>
+              </div>
+            </div>
           </li>
         </ul>
+        <div
+          *ngIf="!onInteresesEdit"
+          class="d-flex justify-content-between mt-2"
+        >
+          <button class="btn btn-danger w-25" (click)="onInteresesEdit = true">
+            Cancelar
+          </button>
+          <button (click)="cambioIntereses()" class="btn btn-success w-25">
+            <span
+              *ngIf="isOnInteresesLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInteresesLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInteresesLoading" class="visually-hidden"
+              >Guardar</span
+            >
+          </button>
+        </div>
       </div>
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Educación y empleo</h3>
           <div class="dropdown">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+            <button
+              class="dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ...
+            </button>
             <div class="dropdown-menu dropdown-menu-right">
-
               <a class="dropdown-item" href="#">Editar</a>
               <a class="dropdown-item" href="#">Eliminar</a>
             </div>
@@ -144,28 +368,96 @@
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title text-danger">Zona roja</h3>
+          }
           <div class="dropdown">
-            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+            <button
+              class="dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ...
+            </button>
             <div class="dropdown-menu dropdown-menu-right">
-
-              <a class="dropdown-item" href="#">Editar</a>
-              <a class="dropdown-item" href="#">Eliminar</a>
+              <button class="dropdown-item" (click)="onEditSection('zonaroja')">
+                Editar
+              </button>
+              <button class="dropdown-item">Eliminar</button>
             </div>
           </div>
         </div>
         <ul class="user-info">
           <li>
             <label class="text-danger">E-mail</label>
-            <p>{{currentUser.user.email}}</p>
+            <p *ngIf="onzonarojaEdit">{{ currentUser.user.email }}</p>
+            <div *ngIf="!onzonarojaEdit" class="form-group">
+              <input
+                type="email"
+                [formControl]="newEmail"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': newEmail.invalid }"
+                placeholder="E-mail"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="newEmail.dirty && newEmail.hasError('required')"
+              >
+                campo requerido
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="newEmail.dirty && newEmail.hasError('email')"
+              >
+                correo invalido
+              </div>
+            </div>
           </li>
           <li>
             <label class="text-danger">Password:</label>
-            <p>Cambiar contraseña</p>
+            <p *ngIf="onzonarojaEdit">Cambiar contraseña</p>
+            <button
+              *ngIf="!onzonarojaEdit"
+              (click)="CambioPassword()"
+              class="btn btn-warning"
+            >
+              <span
+                *ngIf="isOnResetPassword"
+                class="spinner-border spinner-border-sm me-3"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span *ngIf="isOnResetPassword" class="visually-hidden"
+                >Enviando correo de cambio de contraseña...</span
+              >
+              <span *ngIf="!isOnResetPassword" class="visually-hidden"
+                >Cambiar contraseña</span
+              >
+            </button>
           </li>
-
         </ul>
+        <div
+          *ngIf="!onzonarojaEdit"
+          class="d-flex justify-content-between mt-2"
+        >
+          <button class="btn btn-danger w-25" (click)="onzonarojaEdit = true">
+            Cancelar
+          </button>
+          <button (click)="cambioEmail()" class="btn btn-success w-25">
+            <span
+              *ngIf="isOnLoadingEmail"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnLoadingEmail" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnLoadingEmail" class="visually-hidden"
+              >Guardar</span
+            >
+          </button>
+        </div>
       </div>
-
     </div>
     <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
       <div class="widget widget-user-about">
@@ -176,22 +468,27 @@
               ...
             </button> -->
             <div class="dropdown-menu dropdown-menu-right">
-
               <a class="dropdown-item" href="#">Editar</a>
               <a class="dropdown-item" href="#">Eliminar</a>
             </div>
           </div>
         </div>
         <div class="user-info">
-          <p>{{currentUser.user.biografia}}</p>
+          <p>{{ currentUser.user.biografia }}</p>
           <ul class="info-list">
-            <li><span>Se unió:</span>{{currentUser.user.fechaIngreso | date}}</li>
-            <li><span>E-mail:</span>{{currentUser.user.email}}</li>
-            <li><span>Ubicación:</span>{{currentUser.user.ciudad}}, {{currentUser.user.condado}}</li>
-            <li><span>Teléfono:</span>{{currentUser.user.telefono}}</li>
+            <li>
+              <span>Se unió:</span>{{ currentUser.user.fechaIngreso | date }}
+            </li>
+            <li><span>E-mail:</span>{{ currentUser.user.email }}</li>
+            <li>
+              <span>Ubicación:</span>{{ currentUser.user.ciudad }},
+              {{ currentUser.user.condado }}
+            </li>
+            <li><span>Teléfono:</span>{{ currentUser.user.telefono }}</li>
             <!-- <li><span>Country:</span>USA</li>
             <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
-            <li class="social-share"><span>Social:</span>
+            <li class="social-share">
+              <span>Social:</span>
               <div class="social-icon">
                 <a href="#"><i class="icofont-facebook"></i></a>
                 <a href="#"><i class="icofont-twitter"></i></a>
