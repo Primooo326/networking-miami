@@ -1975,6 +1975,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     }
 }
 
+
 /* .fixed-header .header-menu .header-logo:before {
     content: "";
     height: 9px;
@@ -1987,6 +1988,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     -webkit-animation: pulse2 linear 1000ms infinite;
     animation: pulse2 linear 1000ms infinite;
 } */
+
 
 /* @media only screen and (max-width: 991px) {
     .fixed-header .header-menu .header-logo:before {
@@ -6039,6 +6041,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     position: relative;
 }
 
+
 /* .login-page-wrap .item-logo a:before {
     content: "";
     height: 10px;
@@ -7501,7 +7504,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     }
 }
 
-.post-view .post-header .media .user-title .badge {
+.badge {
     font-size: 12px;
     color: #ffffff;
     font-weight: 400;

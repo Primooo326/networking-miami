@@ -58,6 +58,7 @@ export class LoginComponent implements AfterViewInit {
       Validators.minLength(8),
     ]),
     genero: new FormControl('', [Validators.required]),
+    // condado: new FormControl('', [Validators.required]),
     ciudad: new FormControl('', [Validators.required]),
     lenguajes: new FormControl(''),
     biografia: new FormControl('', [
@@ -114,6 +115,10 @@ export class LoginComponent implements AfterViewInit {
       const ciudad: any = $(e.target).val();
       this.registroForm2Tab.get('ciudad')?.setValue(ciudad);
     });
+    // $('select#condado').on('change', (e: any) => {
+    //   const condado: any = $(e.target).val();
+    //   this.registroForm2Tab.get('condado')?.setValue(condado);
+    // });
     $('select#idioma').on('change', (e: any) => {
       const lenguajes: any = $(e.target).val();
       this.registroForm2Tab.get('lenguajes')?.setValue(lenguajes);

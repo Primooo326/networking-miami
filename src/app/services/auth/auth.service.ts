@@ -19,4 +19,5 @@ export class AuthService {
 		const url = this.backend +"auth/register";
 		return this.http.post(url, body);
 	}
+
 }

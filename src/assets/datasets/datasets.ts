@@ -30,7 +30,7 @@ export const idiomas = [
 	"Swahili",
 	"Ucraniano",
 	"Xiang (hunanés)",
-];
+]
 
 export const experiencia = [
 	"Administración de proyectos de construcción",
@@ -182,7 +182,7 @@ export const experiencia = [
 	"Traducción e interpretación",
 	"Turismo sostenible",
 	"Zoología aplicada",
-];
+]
 
 export const intereses = [
 	"Tecnología",
@@ -227,8 +227,16 @@ export const intereses = [
 	"Diseño gráfico",
 	"Desarrollo web",
 	"Otros",
-];
-
+]
+export const conexiones = [
+	"Quiero compartir mi conocimiento.",
+	"Quiero conectar con personas con intereses similares.",
+	"Estoy buscando nuevas conexiones.",
+	"Estoy buscando trabajo.",
+	"Estoy buscando nuevas oportunidades de negocio.",
+	"Estoy buscando productos nuevos y únicos.",
+	"Estoy buscando una comunidad de la que formar parte.",
+]
 export const ciudades = [
 	"Aventura",
 	"Bal Harbour",
@@ -264,4 +272,417 @@ export const ciudades = [
 	"Sweetwater",
 	"Virginia Gardens",
 	"West Miami",
-];
+]
+export const condados = [
+	{
+		nombre: "Alachua",
+		ciudades: [
+			"Gainesville",
+			"Alachua",
+			"Archer",
+			"Hawthorne",
+			"Newberry",
+			"High Springs",
+			"Micanopy",
+			"Waldo",
+			"LaCrosse",
+			"Santa Fe",
+		],
+	},
+	{
+		nombre: "Baker",
+		ciudades: [
+			"Baker City",
+			"Greenhorn (considerada un pueblo fantasma)",
+			"Haines",
+			"Halfway",
+			"Huntington",
+			"Richland",
+			"Sumpter",
+			"Unity",
+		],
+	},
+	{
+		nombre: "Bay",
+		ciudades: [
+			"Panama City",
+			"Lynn Haven",
+			"Callaway",
+			"Springfield",
+			"Parker",
+			"Mexico Beach",
+			"Panama City Beach",
+			"Cedar Grove",
+			"Bayou George",
+			"Youngstown",
+			"Southport",
+			"Upper Grand Lagoon",
+		],
+	},
+	{
+		nombre: "Bradford",
+		ciudades: ["Starke", "Lawtey", "Hampton", "Brooker"],
+	},
+	{
+		nombre: "Brevard",
+		ciudades: [
+			"Titusville",
+			"Cocoa",
+			"Melbourne",
+			"Palm Bay",
+			"Rockledge",
+			"Cocoa Beach",
+			"Merritt Island",
+			"Satellite Beach",
+			"Indian Harbour Beach",
+			"Indialantic",
+			"West Melbourne",
+			"Cape Canaveral",
+			"Grant-Valkaria",
+			"Micco",
+			"Malabar",
+			"Palm Shores",
+		],
+	},
+	{
+		nombre: "Broward",
+		ciudades: [
+			"Fort Lauderdale",
+			"Hollywood",
+			"Pembroke Pines",
+			"Miramar",
+			"Coral Springs",
+			"Davie",
+			"Sunrise",
+			"Plantation",
+			"Deerfield Beach",
+			"Pompano Beach",
+			"Weston",
+			"Cooper City",
+			"Hallandale Beach",
+			"Tamarac",
+			"Margate",
+			"Oakland Park",
+			"Lauderhill",
+			"Dania Beach",
+			"Coconut Creek",
+			"North Lauderdale",
+			"Lighthouse Point",
+			"Parkland",
+			"Lauderdale Lakes",
+			"Wilton Manors",
+			"Lauderdale-by-the-Sea",
+			"Hillsboro Beach",
+		],
+	},
+	{
+		nombre: "Calhoun",
+		ciudades: [
+			"Blountstown",
+			"Altha",
+			"Scotts Ferry",
+			"Clarksville",
+			"Fountain",
+			"Mossy Pond",
+		],
+	},
+	{
+		nombre: "Charlotte",
+		ciudades: [
+			"Charlotte",
+			"Matthews",
+			"Mint Hill",
+			"Huntersville",
+			"Cornelius",
+			"Davidson",
+			"Pineville",
+			"Stallings",
+			"Indian Trail",
+			"Weddington",
+			"Waxhaw",
+			"Marvin",
+			"Lake Wylie",
+		],
+	},
+	{
+		nombre: "Citrus",
+		ciudades: [
+			"Crystal River",
+			"Inverness",
+			"Homosassa Springs",
+			"Lecanto",
+			"Beverly Hills",
+			"Citrus Springs",
+			"Hernando",
+			"Floral City",
+			"Sugarmill Woods",
+		],
+	},
+	{
+		nombre: "Clay",
+		ciudades: [
+			"Green Cove Springs",
+			"Orange Park",
+			"Fleming Island",
+			"Middleburg",
+			"Keystone Heights",
+			"Penney Farms",
+			"Asbury Lake",
+			"Lake Geneva",
+			"Bellair-Meadowbrook Terrace",
+			"Oakleaf Plantation",
+			"Lakeside",
+		],
+	},
+	{
+		nombre: "Collier",
+		ciudades: [
+			"Naples",
+			"Marco Island",
+			"Golden Gate",
+			"Immokalee",
+			"North Naples",
+			"Estero",
+			"East Naples",
+			"Pelican Bay",
+			"Vanderbilt Beach",
+			"Golden Gate Estates",
+			"Orangetree",
+			"Lely Resort",
+			"Chokoloskee",
+			"Everglades City",
+			"Goodland",
+		],
+	},
+	{
+		nombre: "Columbia",
+		ciudades: [
+			"Lake City",
+			"Fort White",
+			"Five Points",
+			"Watertown",
+			"Lulu",
+			"Winfield",
+		],
+	},
+	{
+		nombre: "DeSoto",
+		ciudades: ["Arcadia", "Brownville", "Fort Ogden", "Nocatee", "Lake Suzy"],
+	},
+	{
+		nombre: "Dixie",
+		ciudades: ["Cross City", "Old Town", "Horseshoe Beach"],
+	},
+	{
+		nombre: "Duval",
+		ciudades: ["Jacksonville", "Atlantic Beach", "Neptune Beach"],
+	},
+	{
+		nombre: "Escambia",
+		ciudades: ["Pensacola", "Cantonment", "Bellview"],
+	},
+	{
+		nombre: "Flagler",
+		ciudades: ["Palm Coast", "Bunnell", "Flagler Beach"],
+	},
+	{
+		nombre: "Franklin",
+		ciudades: ["Apalachicola", "Carrabelle", "Eastpoint"],
+	},
+	{
+		nombre: "Gadsden",
+		ciudades: ["Quincy", "Havana", "Chattahoochee"],
+	},
+	{
+		nombre: "Gilchrist",
+		ciudades: ["Trenton", "Bell", "Fanning Springs"],
+	},
+	{
+		nombre: "Glades",
+		ciudades: ["Moore Haven", "Buckhead Ridge", "Palmdale"],
+	},
+	{
+		nombre: "Gulf",
+		ciudades: ["Port St. Joe", "Wewahitchka", "Mexico Beach"],
+	},
+	{
+		nombre: "Hamilton",
+		ciudades: ["Jasper", "Jennings", "White Springs"],
+	},
+	{
+		nombre: "Hardee",
+		ciudades: ["Wauchula", "Bowling Green", "Zolfo Springs"],
+	},
+	{
+		nombre: "Hendry",
+		ciudades: ["LaBelle", "Clewiston", "Harlem"],
+	},
+	{
+		nombre: "Hernando",
+		ciudades: ["Brooksville", "Spring Hill", "Weeki Wachee"],
+	},
+	{
+		nombre: "Highlands",
+		ciudades: ["Sebring", "Avon Park", "Lake Placid"],
+	},
+	{
+		nombre: "Hillsborough",
+		ciudades: ["Tampa", "Brandon", "Riverview"],
+	},
+	{
+		nombre: "Holmes",
+		ciudades: ["Bonifay", "Ponce de Leon", "Westville"],
+	},
+	{
+		nombre: "Indian River",
+		ciudades: ["Vero Beach", "Sebastian", "Fellsmere"],
+	},
+	{
+		nombre: "Jackson",
+		ciudades: ["Marianna", "Graceville", "Cottondale"],
+	},
+	{
+		nombre: "Jefferson",
+		ciudades: ["Monticello", "Lamont", "Wacissa"],
+	},
+	{
+		nombre: "Lafayette",
+		ciudades: ["Mayo", "Day", "Alton"],
+	},
+	{
+		nombre: "Lake",
+		ciudades: ["Tavares", "Clermont", "Leesburg"],
+	},
+	{
+		nombre: "Lee",
+		ciudades: ["Fort Myers", "Cape Coral", "Bonita Springs"],
+	},
+	{
+		nombre: "Leon",
+		ciudades: ["Tallahassee", "Woodville", "Bradfordville"],
+	},
+	{
+		nombre: "Levy",
+		ciudades: ["Bronson", "Williston", "Cedar Key"],
+	},
+	{
+		nombre: "Liberty",
+		ciudades: ["Bristol", "Sumatra", "Hosford"],
+	},
+	{
+		nombre: "Madison",
+		ciudades: ["Madison", "Greenville", "Lee"],
+	},
+	{
+		nombre: "Manatee",
+		ciudades: ["Bradenton", "Palmetto", "Anna Maria"],
+	},
+	{
+		nombre: "Marion",
+		ciudades: ["Ocala", "Belleview", "Dunnellon"],
+	},
+	{
+		nombre: "Martin",
+		ciudades: ["Stuart", "Jensen Beach", "Palm City"],
+	},
+	{
+		nombre: "Miami-Dade",
+		ciudades: ["Miami", "Hialeah", "Miami Beach"],
+	},
+	{
+		nombre: "Monroe",
+		ciudades: ["Key West", "Marathon", "Key Largo"],
+	},
+	{
+		nombre: "Nassau",
+		ciudades: ["Fernandina Beach", "Yulee", "Callahan"],
+	},
+	{
+		nombre: "Okaloosa",
+		ciudades: ["Crestview", "Fort Walton Beach", "Destin"],
+	},
+	{
+		nombre: "Okeechobee",
+		ciudades: ["Okeechobee", "Cypress Quarters", "Taylor Creek"],
+	},
+	{
+		nombre: "Orange",
+		ciudades: ["Orlando", "Winter Park", "Apopka"],
+	},
+	{
+		nombre: "Osceola",
+		ciudades: ["Kissimmee", "St. Cloud", "Celebration"],
+	},
+	{
+		nombre: "Palm Beach",
+		ciudades: ["West Palm Beach", "Boca Raton", "Boynton Beach"],
+	},
+	{
+		nombre: "Pasco",
+		ciudades: ["Dade City", "New Port Richey", "Zephyrhills"],
+	},
+	{
+		nombre: "Pinellas",
+		ciudades: ["Clearwater", "St. Petersburg", "Largo"],
+	},
+	{
+		nombre: "Polk",
+		ciudades: ["Lakeland", "Winter Haven", "Bartow"],
+	},
+	{
+		nombre: "Putnam",
+		ciudades: ["Palatka", "Crescent City", "Interlachen"],
+	},
+	{
+		nombre: "St. Johns",
+		ciudades: ["St. Augustine", "Ponte Vedra Beach", "St. Augustine Beach"],
+	},
+	{
+		nombre: "St. Lucie",
+		ciudades: ["Port St. Lucie", "Fort Pierce", "St. Lucie Village"],
+	},
+	{
+		nombre: "Santa Rosa",
+		ciudades: ["Milton", "Gulf Breeze", "Pace"],
+	},
+	{
+		nombre: "Sarasota",
+		ciudades: ["Sarasota", "Venice", "North Port"],
+	},
+	{
+		nombre: "Seminole",
+		ciudades: ["Sanford", "Altamonte Springs", "Oviedo"],
+	},
+	{
+		nombre: "Sumter",
+		ciudades: ["Bushnell", "Wildwood", "The Villages"],
+	},
+	{
+		nombre: "Suwannee",
+		ciudades: ["Live Oak", "Branford", "Wellborn"],
+	},
+	{
+		nombre: "Taylor",
+		ciudades: ["Perry", "Steinhatchee", "Keaton Beach"],
+	},
+	{
+		nombre: "Union",
+		ciudades: ["Lake Butler", "Raiford", "Worthington Springs"],
+	},
+	{
+		nombre: "Volusia",
+		ciudades: ["Daytona Beach", "Deltona", "Port Orange"],
+	},
+	{
+		nombre: "Wakulla",
+		ciudades: ["Crawfordville", "Sopchoppy", "Panacea"],
+	},
+	{
+		nombre: "Walton",
+		ciudades: ["DeFuniak Springs", "Freeport", "Miramar Beach"],
+	},
+	{
+		nombre: "Washington",
+		ciudades: ["Chipley", "Vernon", "Ebro"],
+	},
+]

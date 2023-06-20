@@ -17,4 +17,8 @@ export class MailService {
     const url = this.backend + 'mail/resetpassword';
     return this.http.post(url, body);
   }
+  async changeEmail(body: any) {
+    const url = this.backend + 'mail/changemail';
+    return this.http.post(url, body);
+  }
 }
