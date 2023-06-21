@@ -391,11 +391,19 @@
                   </select>
                 </div>
 
-                <!-- <div class="form-group">
-                  <select formControlName="condado" class="select2" id="condado" name="Condado" data-placeholder="Condados">
-                    <option *ngFor="let item of condados" [value]="item">{{item}}</option>
+                <div class="form-group">
+                  <select
+                    formControlName="condado"
+                    class="select2"
+                    id="condado"
+                    name="Condado"
+                    data-placeholder="Condado"
+                  >
+                    <option *ngFor="let item of condados" [value]="item.nombre">
+                      {{ item.nombre }}
+                    </option>
                   </select>
-                </div> -->
+                </div>
                 <div class="form-group">
                   <select
                     formControlName="ciudad"

@@ -148,6 +148,7 @@ export class ProfileSettingsComponent {
 		console.log(this.TipoConexion)
 	}
 	async cambioInformacionBasica() {
+		this.isOnInformacionBasicaLoading = true
 		const regex = /'(.*?)'/
 		const user = { ...this.currentUser.user }
 		let idiomaValue: any = $("select#idioma").val()
@@ -170,20 +171,23 @@ export class ProfileSettingsComponent {
 
 		console.log(user)
 
-		this.onInteresesEdit = true
 		const res = await this.userSrvc.updateUser(user)
 		res.subscribe(
 			(data) => {
 				console.log(data)
-				this.onInteresesEdit = false
+				this.isOnInformacionBasicaLoading = false
+				this.currentUser.user = user
+				localStorage.setItem("session", JSON.stringify(this.currentUser))
+				this.onInformacionBasicaEdit = true
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")
-				this.onInteresesEdit = false
+				this.isOnInformacionBasicaLoading = false
 			},
 		)
 	}
 	async cambioIntereses() {
+		this.isOnInteresesLoading = true
 		const regex = /'(.*?)'/
 		const user = { ...this.currentUser.user }
 		console.log(user)
@@ -194,16 +198,18 @@ export class ProfileSettingsComponent {
 			return match ? match[1] : i
 		})
 		console.log(user)
-		this.isOnInformacionBasicaLoading = true
 		const res = await this.userSrvc.updateUser(user)
 		res.subscribe(
 			(data) => {
 				console.log(data)
-				this.isOnInformacionBasicaLoading = false
+				this.isOnInteresesLoading = false
+				this.currentUser.user = user
+				localStorage.setItem("session", JSON.stringify(this.currentUser))
+				this.onInteresesEdit = true
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")
-				this.isOnInformacionBasicaLoading = false
+				this.isOnInteresesLoading = false
 			},
 		)
 	}
