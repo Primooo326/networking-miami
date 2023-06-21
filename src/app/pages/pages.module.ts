@@ -7,9 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { MatchesComponent } from './matches/matches.component';
 
 @NgModule({
-  declarations: [LoginComponent, LandingpageComponent, HomeComponent, ProfileSettingsComponent],
+  declarations: [LoginComponent, LandingpageComponent, HomeComponent, ProfileSettingsComponent, MatchesComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

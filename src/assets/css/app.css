@@ -11014,6 +11014,14 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .widget-author .profile-img a:after {
+    position: absolute;
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.check a:after {
     content: "\eed8";
     font-family: IcoFont;
     font-size: 20px;
