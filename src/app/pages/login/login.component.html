@@ -59,7 +59,7 @@
                     type="text"
                     class="form-control"
                     formControlName="email"
-                    placeholder="Your E-mail"
+                    placeholder="Tu E-mail"
                     [ngClass]="{ 'is-invalid': emailLoginValidator() }"
                   />
                   <div
@@ -86,7 +86,7 @@
                     type="password"
                     class="form-control"
                     formControlName="password"
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     [ngClass]="{ 'is-invalid': passwordLoginValidator() }"
                   />
                   <div
@@ -118,7 +118,7 @@
                     />
                     <!-- <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label> -->
                     <a (click)="onReset = true" class="text-danger"
-                      >*Reset Password</a
+                      >¿olvidaste tu contraseña?</a
                     >
                   </div>
                 </div>
@@ -128,7 +128,7 @@
                     [disabled]="loginForm.invalid"
                     class="submit-btn"
                   >
-                    Login
+                    Ingresa
                   </button>
                   <button
                     class="btn btn-warning btn-lg btn-volver btn-block mt-3"
@@ -162,7 +162,7 @@
                     formControlName="email"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': emailRegistroValidator() }"
-                    placeholder="E-mail"
+                    placeholder="Tu E-mail"
                   />
                   <div
                     class="invalid-feedback"
@@ -198,7 +198,7 @@
                     formControlName="password"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': passwordRegistroValidator() }"
-                    placeholder="Type Password"
+                    placeholder="Contraseña"
                   />
                   <div
                     class="invalid-feedback"
@@ -235,7 +235,7 @@
                     formControlName="repeatPassword"
                     class="form-control"
                     [ngClass]="{ 'is-invalid': passwordRegistroValidator() }"
-                    placeholder="Repeat password"
+                    placeholder="Repite tu contraseña"
                   />
                   <div
                     class="invalid-feedback"
@@ -274,7 +274,7 @@
                       id="validationFormCheck1"
                     />
                     <label class="form-check-label" for="validationFormCheck1"
-                      >I accept the <a href="#">Terms and Conditions</a></label
+                      >Acepto los <a href="#">Términos y Condiciones</a></label
                     >
                   </div>
                 </div>
@@ -669,7 +669,7 @@
                     type="email"
                     class="form-control"
                     [formControl]="emailResetInput"
-                    placeholder="Your E-mail"
+                    placeholder="Tu E-mail"
                     [ngClass]="{
                       'is-invalid':
                         emailResetInput.hasError('required') ||

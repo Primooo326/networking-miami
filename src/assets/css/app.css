@@ -1465,7 +1465,7 @@ header.header {
     }
 }
 
-.temp-logo:before {
+/* .temp-logo:before {
     content: "";
     height: 9px;
     width: 9px;
@@ -1476,7 +1476,7 @@ header.header {
     border-radius: 50%;
     -webkit-animation: pulse2 linear 1000ms infinite;
     animation: pulse2 linear 1000ms infinite;
-}
+} */
 
 .header-menu {
     position: relative;
@@ -4346,8 +4346,8 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 @media only screen and (max-width: 1366px) {
     .hero-banner .leftside-image .shape-image {
-        right: -14%;
-        top: 80px;
+        right: -10%;
+        top: 20px;
     }
     .hero-banner .leftside-image .shape-image img {
         -webkit-transform: scale(0.5);

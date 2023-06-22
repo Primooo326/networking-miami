@@ -166,14 +166,14 @@ export class LoginComponent implements AfterViewInit {
 							console.log(err)
 							if (err.error == "Invalid password") {
 								Swal.fire(
-									"Error: Invalid password",
-									"Make sure your password is correct",
+									"Error: Contraseña incorrecta",
+									"Asegúrate de que tu contraseña sea correcta",
 									"error",
 								)
 							} else if (err.error == "User does not exist") {
 								Swal.fire(
-									"Error: User does not exist",
-									"Make sure your email is correct",
+									"Error: Usuario no existe",
+									"Asegúrate de que tu correo sea correcto",
 									"error",
 								)
 							} else {

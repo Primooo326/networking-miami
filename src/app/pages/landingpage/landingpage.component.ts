@@ -1,12 +1,12 @@
-import { Component } from "@angular/core"
-
+import { Component, OnInit } from '@angular/core';
+import sal from 'sal.js';
 @Component({
-	selector: "app-landingpage",
-	templateUrl: "./landingpage.component.html",
-	styleUrls: ["./landingpage.component.scss"],
+  selector: 'app-landingpage',
+  templateUrl: './landingpage.component.html',
+  styleUrls: ['./landingpage.component.scss'],
 })
-export class LandingpageComponent {
-	constructor() {
-		console.log("landing")
-	}
+export class LandingpageComponent implements OnInit {
+  ngOnInit() {
+    sal();
+  }
 }

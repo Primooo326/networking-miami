@@ -9,17 +9,17 @@ header.header {
     @media only screen and (max-width: 991px) {
         display: none;
     }
-    &:before {
-        content: "";
-        height: 9px;
-        width: 9px;
-        background-color: $color_secondary;
-        position: absolute;
-        top: 1px;
-        left: 44px;
-        border-radius: 50%;
-        animation: pulse2 linear 1000ms infinite;
-    }
+    // &:before {
+    //     content: "";
+    //     height: 9px;
+    //     width: 9px;
+    //     background-color: $color_secondary;
+    //     position: absolute;
+    //     top: 1px;
+    //     left: 44px;
+    //     border-radius: 50%;
+    //     animation: pulse2 linear 1000ms infinite;
+    // }
 }
 
 .header-menu {

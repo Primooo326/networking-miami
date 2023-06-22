@@ -4,12 +4,13 @@
 <section class="hero-banner">
   <div class="container">
     <div class="hero-content" data-sal="zoom-out" data-sal-duration="1000">
-      <h1 class="item-title">Cirkle Community</h1>
-      <p>Having real social contacts can sometimes be difficult FUN, everything becomes much simpler!</p>
+      <h1 class="item-title">Networking Miami</h1>
+      <p>¡Conecta hoy mismo con personas increíbles</p>
       <div class="item-number">10,95,219</div>
-      <div class="conn-people">Connected People</div>
-      <a href="newsfeed.html" class="button-slide">
-        <span class="btn-text">Discover Now</span>
+      <div class="conn-people">Personas conectadas</div>
+      <a [routerLink]="['/login']"
+      routerLinkActive="router-link-active" class="button-slide">
+        <span class="btn-text">Comienza ahora</span>
         <span class="btn-icon">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
             <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
@@ -20,12 +21,11 @@
     </div>
   </div>
   <div class="leftside-image">
-    <div class="cartoon-image" data-sal="slide-down" data-sal-duration="1000" data-sal-delay="100">
-      <img src="media/banner/people_1.png" alt="People">
+    <div class="shape-image">
+      <img src="media/network.png" data-sal="slide-down" data-sal-duration="500" data-sal-delay="700" width="689"
+        alt="People">
     </div>
-    <div class="shape-image" data-sal="slide-down" data-sal-duration="500" data-sal-delay="700">
-      <img src="media/banner/shape_1.png" alt="shape">
-    </div>
+
   </div>
   <div class="map-line">
     <img src="media/banner/map_line.png" alt="map" data-sal="slide-up" data-sal-duration="500" data-sal-delay="800">
@@ -49,13 +49,12 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="why-choose-box">
-          <div class="item-subtitle">What We Do</div>
-          <h2 class="item-title"><span>Why Join Our</span> Cirkle from Social Network ?</h2>
-          <p>Social hen an unknown printer took a galley of type and scrambled make type specimen book. It has survived
-            not only five centuries but also the leap into electronic typesetting, remaining essentialunchanged they
-            popularised with release.</p>
-          <a href="login.html" class="button-slide">
-            <span class="btn-text">Join Our Community</span>
+          <div class="item-subtitle">Networking Miami</div>
+          <h2 class="item-title"><span>¿Como funciona</span> Networking Miami?</h2>
+          <p>Regístrate para expandir tu red de contactos y aprovecha al máximo las oportunidades de networking.</p>
+          <a [routerLink]="['/login']"
+          routerLinkActive="router-link-active" class="button-slide">
+            <span class="btn-text">Comienza ahora</span>
             <span class="btn-icon">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px"
                 height="10px">
@@ -75,9 +74,8 @@
                   <i class="icofont-wechat"></i>
                 </div>
                 <div class="media-body">
-                  <h3 class="item-title">Meet Great People</h3>
-                  <p>when an unknown printer took a galley of scrambled it to make a type specimen It has survived not
-                    only.</p>
+                  <h3 class="item-title">Conoce gente</h3>
+                  <p>Te conectamos con contactos relevantes y valiosos.</p>
                 </div>
               </div>
             </li>
@@ -87,9 +85,8 @@
                   <i class="icofont-users"></i>
                 </div>
                 <div class="media-body">
-                  <h3 class="item-title">Forum Discussion</h3>
-                  <p>when an unknown printer took a galley of scrambled it to make a type specimen It has survived not
-                    only.</p>
+                  <h3 class="item-title">Integrate</h3>
+                  <p>Con el tiempo, esos contactos se convierten en amigos y colaboradores, e incluso en oportunidades de negocio.</p>
                 </div>
               </div>
             </li>
@@ -99,9 +96,8 @@
                   <i class="icofont-paper"></i>
                 </div>
                 <div class="media-body">
-                  <h3 class="item-title">Active Groups</h3>
-                  <p>when an unknown printer took a galley of scrambled it to make a type specimen It has survived not
-                    only.</p>
+                  <h3 class="item-title">Grupos activos</h3>
+                  <p>¡Únete a grupos emocionantes y participa en eventos emocionantes!</p>
                 </div>
               </div>
             </li>

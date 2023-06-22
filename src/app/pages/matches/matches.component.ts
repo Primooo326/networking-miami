@@ -86,14 +86,29 @@ export class MatchesComponent implements OnInit {
 		const page = this.currentPageNewMatches + 1
 		return items.splice(page * 4, 4).length == 0
 	}
-	applyFilter() {
+	async applyFilter() {
 		const filter = this.filterInput.value
 
-		this.showUsersNewMatches = this.users.filter(
-			(user) =>
-				user.nombre.toLowerCase().includes(filter!.toLowerCase()) ||
-				user.email.toLowerCase().includes(filter!.toLowerCase()),
-		)
+    const res = await this.userSrvc.searchUsers(50,0,filter!)
+
+    res.subscribe((data:any)=>{
+      this.users = data
+      // this.users.length / 4
+
+      // while (this.pages.length < this.users.length / 4) {
+      //   this.pages.push(this.pages.length)
+      // }
+      console.log(data);
+      this.changePageNewMatches(0)
+    },(err)=>{
+      console.log(err);
+    })
+
+		// this.showUsersNewMatches = this.users.filter(
+		// 	(user) =>
+		// 		user.nombre.toLowerCase().includes(filter!.toLowerCase()) ||
+		// 		user.email.toLowerCase().includes(filter!.toLowerCase()),
+		// )
 	}
 	onChangeEvent(e: any) {
 		console.log(e)

@@ -18,5 +18,9 @@
         "titleBar.inactiveBackground": "#46178899",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#461788"
+    "peacock.color": "#461788",
+    "cSpell.words": [
+        "batchsize",
+        "currentbatch"
+    ]
 }

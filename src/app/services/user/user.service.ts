@@ -23,4 +23,12 @@ export class UserService {
 			headers: { "x-access-token": this.user.token },
 		})
 	}
+  async searchUsers(batchsize:number,currentbatch:number,query:string){
+
+    const url = this.backend + `users/search?query=${query}&batchsize=${batchsize}&currentbatch=${currentbatch}`
+    return this.http.get(url, {
+      headers: { "x-access-token": this.user.token },
+    })
+
+  }
 }

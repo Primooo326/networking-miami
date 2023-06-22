@@ -401,7 +401,7 @@
                 <ul class="admin-options">
                   <li>
                     <a routerLink="/profile-settings" routerLinkActive="active"
-                      >Profile Settings</a
+                      >Ajustes</a
                     >
                   </li>
                   <!-- <li><a href="user-groups.html">Groups</a></li>
@@ -409,7 +409,7 @@
                   <li><a href="#">Settings</a></li>
                   <li><a href="#">Terms and Conditions</a></li>
                   <li><a href="contact.html">Contact</a></li> -->
-                  <li><a class="text-danger" (click)="logOut()">Log Out</a></li>
+                  <li><a class="text-danger" (click)="logOut()">Cerrar sesión</a></li>
                 </ul>
               </div>
             </div>
@@ -799,8 +799,8 @@
         <div class="row align-items-center">
           <div class="col-lg-2">
             <div class="temp-logo">
-              <a href="index.html"
-                ><img src="media/logotipo.png" alt="Logo"
+              <a
+                ><img src="media/logotipo.png" style="width: 30vw !important;"  alt="Logo"
               /></a>
             </div>
           </div>
@@ -814,8 +814,8 @@
                 </button>
               </div>
               <div class="mobile-logo">
-                <a href="index.html">
-                  <img src="media/logotipo.png" alt="Logo" />
+                <a >
+                  <img src="media/logotipo.png" style="width: 30vw !important;" alt="Logo" />
                 </a>
               </div>
             </div>
@@ -995,6 +995,7 @@
                     [routerLink]="['/login']"
                     routerLinkActive="router-link-active"
                     class="item-btn"
+                    style="margin: 0;"
                     ><i class="fas fa-user"></i>Login</a
                   >
                 </li>
