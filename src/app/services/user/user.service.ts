@@ -11,20 +11,27 @@ export class UserService {
 
 	constructor(private http: HttpClient) {}
 
+  getUser(){
+    this.user = JSON.parse(localStorage.getItem("session")!)
+  }
+
 	async readUsers() {
-		const url = this.backend + "users"
+		this.getUser()
+    const url = this.backend + "users"
 		return this.http.get(url, {
 			headers: { "x-access-token": this.user.token },
 		})
 	}
 	async updateUser(body: any) {
-		const url = this.backend + "users"
+		this.getUser()
+    const url = this.backend + "users"
 		return this.http.put(url, body, {
 			headers: { "x-access-token": this.user.token },
 		})
 	}
   async searchUsers(batchsize:number,currentbatch:number,query:string){
 
+    this.getUser()
     const url = this.backend + `users/search?query=${query}&batchsize=${batchsize}&currentbatch=${currentbatch}`
     return this.http.get(url, {
       headers: { "x-access-token": this.user.token },

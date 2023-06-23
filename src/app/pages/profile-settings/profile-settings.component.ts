@@ -1,6 +1,7 @@
-import { Component } from "@angular/core"
+import { Component, ElementRef, ViewChild } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
 import { AuthService } from "src/app/services/auth/auth.service"
+import { FilesService } from "src/app/services/files/files.service"
 import { MailService } from "src/app/services/mail/mail.service"
 import { UserService } from "src/app/services/user/user.service"
 import {
@@ -24,7 +25,7 @@ export class ProfileSettingsComponent {
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
 	TipoConexion: string[] = []
-
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 	currentUser = JSON.parse(localStorage.getItem("session")!)
 	onInformacionBasicaEdit = true
 	onInteresesEdit = true
@@ -71,7 +72,7 @@ export class ProfileSettingsComponent {
 		Validators.required,
 		Validators.email,
 	])
-	constructor(private mailSrvc: MailService, private userSrvc: UserService) {
+	constructor(private mailSrvc: MailService, private userSrvc: UserService, private fileSrvc:FilesService) {
 		console.log(this.currentUser.user)
 
 		const idx = this.condados.findIndex(
@@ -247,4 +248,23 @@ export class ProfileSettingsComponent {
 			},
 		)
 	}
+  openFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  async handleFileInput(event: any) {
+    const file = event.target.files[0];
+    const res = await this.fileSrvc.updateUser(file)
+		res.subscribe(
+			(data:any) => {
+				console.log(data)
+        this.currentUser.user.avatar = data.path
+        localStorage.setItem("session", JSON.stringify(this.currentUser))
+			},
+			(err) => {
+        console.log(err);
+				Swal.fire("error", err.error, "error")
+			},
+		)
+  }
 }

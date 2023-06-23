@@ -9,8 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { PagesModule } from './pages/pages.module';
+import { PipearrayPipe } from './tools/pipearray.pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ],
   imports: [
     BrowserModule,
     FormsModule,

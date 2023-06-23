@@ -8,9 +8,10 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { MatchesComponent } from './matches/matches.component';
+import { PipearrayPipe } from '../tools/pipearray.pipe';
 
 @NgModule({
-  declarations: [LoginComponent, LandingpageComponent, HomeComponent, ProfileSettingsComponent, MatchesComponent],
+  declarations: [LoginComponent, LandingpageComponent, HomeComponent, ProfileSettingsComponent, MatchesComponent,PipearrayPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,

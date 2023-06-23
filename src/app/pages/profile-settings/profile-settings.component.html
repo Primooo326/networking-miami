@@ -6,13 +6,16 @@
   >
     <div class="banner-content">
       <div class="media">
-        <div class="item-img">
-          <img [src]="currentUser.user.avatar" width="120" alt="User" />
+        <div role="button" (click)="openFileInput()" class="item-img">
+          <img  class="profileimage" [src]="currentUser.user.avatar" style="width: 115px; height: 115px;" alt="User" />
+          <img src="media/photo_upload.png" class="uploadimage" alt="img" />
+          <input type="file" accept="image/*" #fileInput style="display: none" (change)="handleFileInput($event)">
         </div>
         <div class="media-body">
           <h3 class="item-title">{{ currentUser.user.nombre }}</h3>
           <div class="item-subtitle">
-            {{ currentUser.user.areaExperiencia }}
+            {{ currentUser.user.areaExperiencia | pipearray }}
+            <!-- {{ currentUser.user.areaExperiencia.toString().replaceAll(",",", ") }} -->
           </div>
           <ul class="item-social">
             <li>
@@ -35,11 +38,7 @@
               <a href="#" class="bg-behance"><i class="icofont-behance"></i></a>
             </li>
           </ul>
-          <ul class="user-meta">
-            <li>Posts: <span>30</span></li>
-            <li>Comments: <span>12</span></li>
-            <li>Views: <span>1.2k</span></li>
-          </ul>
+
         </div>
       </div>
     </div>
@@ -133,7 +132,7 @@
             <li>
               <label>Lenguajes:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.lenguajes }}
+                {{ currentUser.user.lenguajes | pipearray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -258,11 +257,8 @@
           <li>
             <label>Intereses:</label>
             <p *ngIf="onInteresesEdit">
-              <span
-                *ngFor="let item of currentUser.user.temasInteres"
-                class="badge ms-3"
-                >{{ item }}</span
-              >
+
+              {{currentUser.user.temasInteres | pipearray}}
             </p>
             <div class="form-group" *ngIf="!onInteresesEdit">
               <select
@@ -283,7 +279,7 @@
             <p *ngIf="onInteresesEdit">
               <span
                 *ngFor="let item of currentUser.user.tipoConexion"
-                class="badge ms-3"
+                class="badge mr-2"
                 >{{ item }}</span
               >
             </p>
@@ -462,7 +458,7 @@
     <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
       <div class="widget widget-user-about">
         <div class="widget-heading">
-          <h3 class="widget-title">About Me</h3>
+          <h3 class="widget-title">Sobre Mi</h3>
           <div class="dropdown">
             <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
               ...
