@@ -18,11 +18,11 @@ export interface UserData {
 }
 
 export interface Usuario {
-  id: string;
+  id: number | string;
   nombre: string;
   email: string;
   fechaNacimiento: string;
-  verificado: boolean;
+  verificado: number;
   condado: string;
   ciudad: string;
   genero: string;
@@ -32,15 +32,10 @@ export interface Usuario {
   fotoPortada: string;
   objetivo: string;
   fechaIngreso: string;
-  temasInteres: { id: string; interes: string }[];
-  areaExperiencia: { id: string; experiencia: string }[];
-  tipoConeccion: { id: string; coneccion: string }[];
-  lenguajes: { id: string; lenguaje: string }[];
-  ocupaciones: { id: string; ocupacion: string }[];
-  redesSociales: UsuarioRedesSociales[];
-  publicaciones: UsuarioPublicaciones[];
-  contactos: Contacto[];
-  chats: Chat[];
+  temasInteres: string[];
+  areaExperiencia: string[];
+  tipoConexion: string[];
+  lenguajes: string[];
 }
 
 export interface Chat {

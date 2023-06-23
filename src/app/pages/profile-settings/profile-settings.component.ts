@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
+import { Store } from "@ngrx/store"
 import { AuthService } from "src/app/services/auth/auth.service"
 import { FilesService } from "src/app/services/files/files.service"
 import { MailService } from "src/app/services/mail/mail.service"
@@ -10,6 +11,8 @@ import {
 	intereses,
 	conexiones,
 } from "src/assets/datasets/datasets"
+import { setUser } from "src/redux/actions"
+import { userSelect } from "src/redux/selectors"
 import Swal from "sweetalert2"
 @Component({
 	selector: "app-profile-settings",
@@ -26,7 +29,10 @@ export class ProfileSettingsComponent {
 	ciudades: string[] = []
 	TipoConexion: string[] = []
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-	currentUser = JSON.parse(localStorage.getItem("session")!)
+
+  user$ = this.store.select(userSelect)
+	currentUser = JSON.parse(localStorage.getItem("user")!)
+
 	onInformacionBasicaEdit = true
 	onInteresesEdit = true
 	onzonarojaEdit = true
@@ -35,52 +41,52 @@ export class ProfileSettingsComponent {
 	isOnInformacionBasicaLoading = false
 	isOnInteresesLoading = false
 	infoBasicaForm = new FormGroup({
-		nombre: new FormControl(this.currentUser.user.nombre, [
+		nombre: new FormControl(this.currentUser.nombre, [
 			Validators.required,
 			Validators.minLength(3),
 		]),
-		telefono: new FormControl(this.currentUser.user.telefono, [
+		telefono: new FormControl(this.currentUser.telefono, [
 			Validators.required,
 			Validators.minLength(8),
 		]),
-		condado: new FormControl(this.currentUser.user.condado, [
+		condado: new FormControl(this.currentUser.condado, [
 			Validators.required,
 		]),
-		ciudad: new FormControl(this.currentUser.user.ciudad, [
+		ciudad: new FormControl(this.currentUser.ciudad, [
 			Validators.required,
 		]),
-		lenguajes: new FormControl(this.currentUser.user.lenguajes, [
+		lenguajes: new FormControl(this.currentUser.lenguajes, [
 			Validators.required,
 		]),
 		fechaNacimiento: new FormControl(
-			this.currentUser.user.fechaNacimiento.substring(0, 10),
+			this.currentUser.fechaNacimiento.substring(0, 10),
 			[Validators.required],
 		),
-		genero: new FormControl(this.currentUser.user.genero, [
+		genero: new FormControl(this.currentUser.genero, [
 			Validators.required,
 		]),
-		biografia: new FormControl(this.currentUser.user.biografia, [
+		biografia: new FormControl(this.currentUser.biografia, [
 			Validators.required,
 		]),
 	})
 
-	interesesForm = new FormControl(this.currentUser.user.temasInteres, [
+	interesesForm = new FormControl(this.currentUser.temasInteres, [
 		Validators.required,
 	])
 
-	newEmail = new FormControl(this.currentUser.user.email, [
+	newEmail = new FormControl(this.currentUser.email, [
 		Validators.required,
 		Validators.email,
 	])
-	constructor(private mailSrvc: MailService, private userSrvc: UserService, private fileSrvc:FilesService) {
-		console.log(this.currentUser.user)
+	constructor(private mailSrvc: MailService, private userSrvc: UserService, private fileSrvc:FilesService, private store:Store<any>) {
+		console.log(this.currentUser)
 
 		const idx = this.condados.findIndex(
-			(c) => c.nombre === this.currentUser.user.condado,
+			(c) => c.nombre === this.currentUser.condado,
 		)
 		this.ciudades = this.condados[idx].ciudades
 		this.condadoSelected = this.condados[idx]
-		this.TipoConexion = [...this.currentUser.user.tipoConexion]
+		this.TipoConexion = [...this.currentUser.tipoConexion]
 	}
 
 	onCondadoChange() {
@@ -151,7 +157,7 @@ export class ProfileSettingsComponent {
 	async cambioInformacionBasica() {
 		this.isOnInformacionBasicaLoading = true
 		const regex = /'(.*?)'/
-		const user = { ...this.currentUser.user }
+		const user = { ...this.currentUser }
 		let idiomaValue: any = $("select#idioma").val()
 		idiomaValue = idiomaValue.map((i: string) => {
 			const match = i.match(regex)
@@ -177,7 +183,7 @@ export class ProfileSettingsComponent {
 			(data) => {
 				console.log(data)
 				this.isOnInformacionBasicaLoading = false
-				this.currentUser.user = user
+				this.currentUser = user
 				localStorage.setItem("session", JSON.stringify(this.currentUser))
 				this.onInformacionBasicaEdit = true
 			},
@@ -190,7 +196,7 @@ export class ProfileSettingsComponent {
 	async cambioIntereses() {
 		this.isOnInteresesLoading = true
 		const regex = /'(.*?)'/
-		const user = { ...this.currentUser.user }
+		const user = { ...this.currentUser }
 		console.log(user)
 		user.tipoConexion = this.TipoConexion
 		let intereses: any = $("select#interes").val()
@@ -204,7 +210,7 @@ export class ProfileSettingsComponent {
 			(data) => {
 				console.log(data)
 				this.isOnInteresesLoading = false
-				this.currentUser.user = user
+				this.currentUser = user
 				localStorage.setItem("session", JSON.stringify(this.currentUser))
 				this.onInteresesEdit = true
 			},
@@ -216,7 +222,7 @@ export class ProfileSettingsComponent {
 	}
 	async cambioEmail() {
 		const res = await this.mailSrvc.changeEmail({
-			email: this.currentUser.user.email,
+			email: this.currentUser.email,
 			newEmail: this.newEmail.value,
 		})
 
@@ -235,7 +241,7 @@ export class ProfileSettingsComponent {
 	async CambioPassword() {
 		this.isOnResetPassword = true
 		const res = await this.mailSrvc.resetPasswordEmail({
-			email: this.currentUser.user.email,
+			email: this.currentUser.email,
 		})
 		res.subscribe(
 			(data) => {
@@ -258,8 +264,9 @@ export class ProfileSettingsComponent {
 		res.subscribe(
 			(data:any) => {
 				console.log(data)
-        this.currentUser.user.avatar = data.path
-        localStorage.setItem("session", JSON.stringify(this.currentUser))
+
+        const user = { ...this.currentUser, avatar: data.path}
+        this.store.dispatch(setUser.set(user))
 			},
 			(err) => {
         console.log(err);

@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from '@auth0/auth0-angular';
 import { PagesModule } from './pages/pages.module';
 import { PipearrayPipe } from './tools/pipearray.pipe';
+import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from 'src/redux/app.state';
 @NgModule({
   declarations: [AppComponent, ],
   imports: [
@@ -32,6 +34,8 @@ import { PipearrayPipe } from './tools/pipearray.pipe';
         redirect_uri: window.location.origin,
       },
     }),
+
+    StoreModule.forRoot(ROOT_REDUCERS),
   ],
   providers: [],
   bootstrap: [AppComponent],

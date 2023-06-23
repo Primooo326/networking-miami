@@ -27,102 +27,10 @@
                   >Mis Contactos</a
                 >
               </li>
-              <!-- <li class="header-nav-item">
-                <a href="#" class="menu-link have-sub">Community</a>
-                <ul class="mega-menu mega-menu-col-2">
-                  <li>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="newsfeed.html">NewsFeed</a>
-                      </li>
-                      <li>
-                        <a href="user-timeline.html">Profile Timeline</a>
-                      </li>
-                      <li>
-                        <a href="user-about.html">Profile About</a>
-                      </li>
-                      <li>
-                        <a href="user-friends.html">Profile Friends</a>
-                      </li>
-                      <li>
-                        <a href="user-groups.html">Profile Group</a>
-                      </li>
-                      <li>
-                        <a href="user-photo.html">Profile Photo</a>
-                      </li>
-                      <li>
-                        <a href="user-video.html">Profile Video</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="user-badges.html">Profile Badges</a>
-                      </li>
-                      <li>
-                        <a href="forums.html">Forums</a>
-                      </li>
-                      <li>
-                        <a href="forums-forum.html">Forums Topic</a>
-                      </li>
-                      <li>
-                        <a href="forums-timeline.html">Forums Timeline</a>
-                      </li>
-                      <li>
-                        <a href="forums-info.html">Forums Info</a>
-                      </li>
-                      <li>
-                        <a href="forums-members.html">Forums Members</a>
-                      </li>
-                      <li>
-                        <a href="forums-media.html">Forums Media</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="header-nav-item">
-                <a href="#" class="menu-link have-sub">Pages</a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="about-us.html">About</a>
-                  </li>
-                  <li>
-                    <a href="user-blog.html">Blog</a>
-                  </li>
-                  <li>
-                    <a href="shop.html">Shop</a>
-                  </li>
-                  <li>
-                    <a href="single-blog.html">Blog Details</a>
-                  </li>
-                  <li>
-                    <a href="single-shop.html">Shop Details</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">Contact Us</a>
-                  </li>
-                </ul>
-              </li> -->
             </ul>
           </nav>
         </div>
         <div class="nav-item header-control">
-          <!-- <div class="inline-item d-none d-md-block">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Search here......."
-              />
-              <div class="input-group-append">
-                <button class="submit-btn" type="button">
-                  <i class="icofont-search"></i>
-                </button>
-              </div>
-            </div>
-          </div> -->
           <div class="inline-item d-flex align-items-center">
             <div class="dropdown dropdown-friend">
               <button
@@ -322,11 +230,10 @@
               >
                 <span class="media">
                   <span class="item-img">
-                    <img [src]="currentUser.user.avatar" style="width: 44px; height: 44px;" alt="img-profile" />
-                    <!-- <span class="acc-verified"><i class="icofont-check"></i></span> -->
+                    <img [src]="(user$ | async)!.avatar" style="width: 44px; height: 44px;" alt="img-profile" />
                   </span>
                   <span class="media-body">
-                    <span class="item-title">{{currentUser.user.nombre | titlecase}}</span>
+                    <span class="item-title">{{(user$ | async)!.nombre | titlecase}}</span>
                   </span>
                 </span>
               </button>
@@ -337,11 +244,7 @@
                       >Ajustes</a
                     >
                   </li>
-                  <!-- <li><a href="user-groups.html">Groups</a></li>
-                  <li><a href="forums.html">Forums</a></li>
-                  <li><a href="#">Settings</a></li>
-                  <li><a href="#">Terms and Conditions</a></li>
-                  <li><a href="contact.html">Contact</a></li> -->
+
                   <li><a class="text-danger" (click)="logOut()">Cerrar sesión</a></li>
                 </ul>
               </div>

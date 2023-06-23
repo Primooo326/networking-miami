@@ -7,15 +7,15 @@
     <div class="banner-content">
       <div class="media">
         <div role="button" (click)="openFileInput()" class="item-img">
-          <img  class="profileimage" [src]="currentUser.user.avatar" style="width: 115px; height: 115px;" alt="User" />
+          <img  class="profileimage" [src]="(user$ | async)!.avatar" style="width: 115px; height: 115px;" alt="User" />
           <img src="media/photo_upload.png" class="uploadimage" alt="img" />
           <input type="file" accept="image/*" #fileInput style="display: none" (change)="handleFileInput($event)">
         </div>
         <div class="media-body">
-          <h3 class="item-title">{{ currentUser.user.nombre }}</h3>
+          <h3 class="item-title">{{ (user$ | async)!.nombre }}</h3>
           <div class="item-subtitle">
-            {{ currentUser.user.areaExperiencia | pipearray }}
-            <!-- {{ currentUser.user.areaExperiencia.toString().replaceAll(",",", ") }} -->
+            {{ currentUser.areaExperiencia | pipearray }}
+            <!-- {{ currentUser.areaExperiencia.toString().replaceAll(",",", ") }} -->
           </div>
           <ul class="item-social">
             <li>
@@ -73,12 +73,12 @@
             <li>
               <label>Nombre:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.nombre }}
+                {{ currentUser.nombre }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="text"
-                [value]="currentUser.user.nombre"
+                [value]="currentUser.nombre"
                 class="form-control"
                 placeholder="Nombre y apellidos"
                 formControlName="nombre"
@@ -87,12 +87,12 @@
             <li>
               <label>Telefono:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.telefono }}
+                {{ currentUser.telefono }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="tel"
-                [value]="currentUser.user.telefono"
+                [value]="currentUser.telefono"
                 class="form-control"
                 placeholder="Numero telefónico"
                 formControlName="telefono"
@@ -101,7 +101,7 @@
             <li>
               <label>Ubicación:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.ciudad }}, {{ currentUser.user.condado }}
+                {{ currentUser.ciudad }}, {{ currentUser.condado }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -132,7 +132,7 @@
             <li>
               <label>Lenguajes:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.lenguajes | pipearray }}
+                {{ currentUser.lenguajes | pipearray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -152,12 +152,12 @@
             <li>
               <label>Fecha de nacimiento:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.fechaNacimiento | date }}
+                {{ currentUser.fechaNacimiento | date }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="date"
-                [value]="currentUser.user.fechaNacimiento"
+                [value]="currentUser.fechaNacimiento"
                 class="form-control"
                 placeholder="Año de nacimiento"
                 formControlName="fechaNacimiento"
@@ -166,7 +166,7 @@
             <li>
               <label>Genero:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.genero }}
+                {{ currentUser.genero }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -186,11 +186,11 @@
             <li>
               <label>Biografía:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.user.biografia }}
+                {{ currentUser.biografia }}
               </p>
               <textarea
                 *ngIf="!onInformacionBasicaEdit"
-                [value]="currentUser.user.biografia"
+                [value]="currentUser.biografia"
                 class="form-control textarea"
                 placeholder="Nota biográfica"
                 formControlName="biografia"
@@ -258,7 +258,7 @@
             <label>Intereses:</label>
             <p *ngIf="onInteresesEdit">
 
-              {{currentUser.user.temasInteres | pipearray}}
+              {{currentUser.temasInteres | pipearray}}
             </p>
             <div class="form-group" *ngIf="!onInteresesEdit">
               <select
@@ -278,7 +278,7 @@
             <label>Tipo de conexion:</label>
             <p *ngIf="onInteresesEdit">
               <span
-                *ngFor="let item of currentUser.user.tipoConexion"
+                *ngFor="let item of currentUser.tipoConexion"
                 class="badge mr-2"
                 >{{ item }}</span
               >
@@ -294,7 +294,7 @@
                   class="form-check-input"
                   [id]="i"
                   [value]="item"
-                  [checked]="currentUser.user.tipoConexion.includes(item)"
+                  [checked]="currentUser.tipoConexion.includes(item)"
                 />
                 <label class="form-check-label" [for]="i">{{ item }}</label>
               </div>
@@ -385,7 +385,7 @@
         <ul class="user-info">
           <li>
             <label class="text-danger">E-mail</label>
-            <p *ngIf="onzonarojaEdit">{{ currentUser.user.email }}</p>
+            <p *ngIf="onzonarojaEdit">{{ currentUser.email }}</p>
             <div *ngIf="!onzonarojaEdit" class="form-group">
               <input
                 type="email"
@@ -470,17 +470,17 @@
           </div>
         </div>
         <div class="user-info">
-          <p>{{ currentUser.user.biografia }}</p>
+          <p>{{ currentUser.biografia }}</p>
           <ul class="info-list">
             <li>
-              <span>Se unió:</span>{{ currentUser.user.fechaIngreso | date }}
+              <span>Se unió:</span>{{ currentUser.fechaIngreso | date }}
             </li>
-            <li><span>E-mail:</span>{{ currentUser.user.email }}</li>
+            <li><span>E-mail:</span>{{ currentUser.email }}</li>
             <li>
-              <span>Ubicación:</span>{{ currentUser.user.ciudad }},
-              {{ currentUser.user.condado }}
+              <span>Ubicación:</span>{{ currentUser.ciudad }},
+              {{ currentUser.condado }}
             </li>
-            <li><span>Teléfono:</span>{{ currentUser.user.telefono }}</li>
+            <li><span>Teléfono:</span>{{ currentUser.telefono }}</li>
             <!-- <li><span>Country:</span>USA</li>
             <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
             <li class="social-share">
