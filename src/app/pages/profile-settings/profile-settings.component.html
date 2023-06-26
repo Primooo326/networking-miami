@@ -2,7 +2,7 @@
   <!-- Banner Area Start -->
   <div
     class="banner-user"
-    style="background-image: '../../media/figure/shape_12.jpg'"
+    style="background-image: url('{{(user$ | async)!.fotoPortada}}') !important"
   >
     <div class="banner-content">
       <div class="media">
@@ -12,12 +12,11 @@
           <input type="file" accept="image/*" #fileInput style="display: none" (change)="handleFileInput($event)">
         </div>
         <div class="media-body">
-          <h3 class="item-title">{{ (user$ | async)!.nombre }}</h3>
+          <h3 class="item-title">{{ (user$ | async)!.nombre | titlecase }}</h3>
           <div class="item-subtitle">
-            {{ currentUser.areaExperiencia | pipearray }}
-            <!-- {{ currentUser.areaExperiencia.toString().replaceAll(",",", ") }} -->
+            {{ (user$ | async)!.areaExperiencia | pipearray }}
           </div>
-          <ul class="item-social">
+          <!-- <ul class="item-social">
             <li>
               <a href="#" class="bg-fb"><i class="icofont-facebook"></i></a>
             </li>
@@ -37,7 +36,7 @@
             <li>
               <a href="#" class="bg-behance"><i class="icofont-behance"></i></a>
             </li>
-          </ul>
+          </ul> -->
 
         </div>
       </div>
@@ -64,7 +63,7 @@
               >
                 Editar
               </button>
-              <button class="dropdown-item">Eliminar</button>
+
             </div>
           </div>
         </div>
@@ -73,12 +72,12 @@
             <li>
               <label>Nombre:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.nombre }}
+                {{ (user$ | async)!.nombre |titlecase }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="text"
-                [value]="currentUser.nombre"
+                [value]="(user$ | async)!.nombre"
                 class="form-control"
                 placeholder="Nombre y apellidos"
                 formControlName="nombre"
@@ -87,12 +86,12 @@
             <li>
               <label>Telefono:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.telefono }}
+                {{ (user$ | async)!.telefono }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="tel"
-                [value]="currentUser.telefono"
+                [value]="(user$ | async)!.telefono"
                 class="form-control"
                 placeholder="Numero telefónico"
                 formControlName="telefono"
@@ -101,7 +100,7 @@
             <li>
               <label>Ubicación:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.ciudad }}, {{ currentUser.condado }}
+                {{ (user$ | async)!.ciudad }}, {{ (user$ | async)!.condado }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -132,7 +131,7 @@
             <li>
               <label>Lenguajes:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.lenguajes | pipearray }}
+                {{ (user$ | async)!.lenguajes | pipearray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -152,12 +151,12 @@
             <li>
               <label>Fecha de nacimiento:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.fechaNacimiento | date }}
+                {{(user$ | async)!.fechaNacimiento | date }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 type="date"
-                [value]="currentUser.fechaNacimiento"
+                [value]="(user$ | async)!.fechaNacimiento"
                 class="form-control"
                 placeholder="Año de nacimiento"
                 formControlName="fechaNacimiento"
@@ -166,7 +165,7 @@
             <li>
               <label>Genero:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.genero }}
+                {{ (user$ | async)!.genero }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
                 <select
@@ -186,11 +185,11 @@
             <li>
               <label>Biografía:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ currentUser.biografia }}
+                {{ (user$ | async)!.biografia }}
               </p>
               <textarea
                 *ngIf="!onInformacionBasicaEdit"
-                [value]="currentUser.biografia"
+                [value]="(user$ | async)!.biografia"
                 class="form-control textarea"
                 placeholder="Nota biográfica"
                 formControlName="biografia"
@@ -230,6 +229,43 @@
           </button>
         </div>
       </div>
+      <!-- <div class="block-box user-about">
+        <div class="widget-heading">
+          <h3 class="widget-title">Redes sociales</h3>
+          <div class="dropdown">
+            <button
+              class="dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ...
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Editar</a>
+
+            </div>
+          </div>
+        </div>
+        <ul class="user-info">
+          <li>
+            <label>Education:</label>
+            <p>The New College of Design</p>
+          </li>
+          <li>
+            <label>Institution:</label>
+            <p>Radiustheme.com</p>
+          </li>
+          <li>
+            <label>Employment:</label>
+            <p>UI/UX Designer</p>
+          </li>
+          <li>
+            <label>Year:</label>
+            <p>2008-2020</p>
+          </li>
+        </ul>
+      </div> -->
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
@@ -249,7 +285,7 @@
               >
                 Editar
               </button>
-              <button class="dropdown-item">Eliminar</button>
+
             </div>
           </div>
         </div>
@@ -258,7 +294,7 @@
             <label>Intereses:</label>
             <p *ngIf="onInteresesEdit">
 
-              {{currentUser.temasInteres | pipearray}}
+              {{(user$ | async)!.temasInteres | pipearray}}
             </p>
             <div class="form-group" *ngIf="!onInteresesEdit">
               <select
@@ -278,7 +314,7 @@
             <label>Tipo de conexion:</label>
             <p *ngIf="onInteresesEdit">
               <span
-                *ngFor="let item of currentUser.tipoConexion"
+                *ngFor="let item of (user$ | async)!.tipoConexion"
                 class="badge mr-2"
                 >{{ item }}</span
               >
@@ -294,7 +330,7 @@
                   class="form-check-input"
                   [id]="i"
                   [value]="item"
-                  [checked]="currentUser.tipoConexion.includes(item)"
+                  [checked]="(user$ | async)!.tipoConexion.includes(item)"
                 />
                 <label class="form-check-label" [for]="i">{{ item }}</label>
               </div>
@@ -324,7 +360,7 @@
           </button>
         </div>
       </div>
-      <div class="block-box user-about">
+      <!-- <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Educación y empleo</h3>
           <div class="dropdown">
@@ -338,7 +374,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="#">Editar</a>
-              <a class="dropdown-item" href="#">Eliminar</a>
+
             </div>
           </div>
         </div>
@@ -360,7 +396,7 @@
             <p>2008-2020</p>
           </li>
         </ul>
-      </div>
+      </div> -->
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title text-danger">Zona roja</h3>
@@ -378,14 +414,14 @@
               <button class="dropdown-item" (click)="onEditSection('zonaroja')">
                 Editar
               </button>
-              <button class="dropdown-item">Eliminar</button>
+
             </div>
           </div>
         </div>
         <ul class="user-info">
           <li>
             <label class="text-danger">E-mail</label>
-            <p *ngIf="onzonarojaEdit">{{ currentUser.email }}</p>
+            <p *ngIf="onzonarojaEdit">{{ (user$ | async)!.email }}</p>
             <div *ngIf="!onzonarojaEdit" class="form-group">
               <input
                 type="email"
@@ -465,25 +501,25 @@
             </button> -->
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="#">Editar</a>
-              <a class="dropdown-item" href="#">Eliminar</a>
+
             </div>
           </div>
         </div>
         <div class="user-info">
-          <p>{{ currentUser.biografia }}</p>
+          <p>{{ (user$ | async)!.biografia }}</p>
           <ul class="info-list">
             <li>
-              <span>Se unió:</span>{{ currentUser.fechaIngreso | date }}
+              <span>Se unió:</span>{{ (user$ | async)!.fechaIngreso | date }}
             </li>
-            <li><span>E-mail:</span>{{ currentUser.email }}</li>
+            <li><span>E-mail:</span>{{ (user$ | async)!.email }}</li>
             <li>
-              <span>Ubicación:</span>{{ currentUser.ciudad }},
-              {{ currentUser.condado }}
+              <span>Ubicación:</span>{{ (user$ | async)!.ciudad }},
+              {{ (user$ | async)!.condado }}
             </li>
-            <li><span>Teléfono:</span>{{ currentUser.telefono }}</li>
+            <li><span>Teléfono:</span>{{ (user$ | async)!.telefono }}</li>
             <!-- <li><span>Country:</span>USA</li>
             <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
-            <li class="social-share">
+            <!-- <li class="social-share">
               <span>Social:</span>
               <div class="social-icon">
                 <a href="#"><i class="icofont-facebook"></i></a>
@@ -492,7 +528,7 @@
                 <a href="#"><i class="icofont-whatsapp"></i></a>
                 <a href="#"><i class="icofont-instagram"></i></a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

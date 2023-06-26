@@ -18,7 +18,7 @@ export class ProfileCardComponent implements OnInit {
 	ngOnInit(): void {}
 
 	async conectar() {
-		const { user } = JSON.parse(localStorage.getItem("session")!)
+		const  user  = JSON.parse(localStorage.getItem("user")!)
 		const body = {
 			idToMatch: this.user.id,
 			idUser: user.id,

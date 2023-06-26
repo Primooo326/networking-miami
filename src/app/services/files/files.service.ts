@@ -6,21 +6,19 @@ import { environment } from "src/environments/environment"
 })
 export class FilesService {
 	private backend = environment.backend
-	private user = JSON.parse(localStorage.getItem("session")!)
 
 	constructor(private http: HttpClient) {}
 
-  private getUser(){
-    this.user = JSON.parse(localStorage.getItem("session")!)
+  private get token():any{
+    return JSON.parse(localStorage.getItem("token")!)
   }
 
 	async updateUser(file: File) {
-		this.getUser()
     const formData = new FormData();
     formData.append('imagen', file);
     const url = this.backend + "file"
 		return this.http.post(url, formData, {
-			headers: { "x-access-token": this.user.token },
+			headers: { "x-access-token": this.token },
 		})
 	}
 }

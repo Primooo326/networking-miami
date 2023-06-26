@@ -7,31 +7,31 @@ import { environment } from "src/environments/environment"
 })
 export class MatchService {
 	private backend = environment.backend
-	user = JSON.parse(localStorage.getItem("session")!)
 
 	constructor(private http: HttpClient) {}
-  getUser(){
-    this.user = JSON.parse(localStorage.getItem("session")!)
+
+  private get getUser():any{
+    return JSON.parse(localStorage.getItem("user")!)
+  }
+  private get token():any{
+    return JSON.parse(localStorage.getItem("token")!)
   }
 	async createMatch(body: any) {
-		this.getUser()
     const url = this.backend + "match"
 		return this.http.post(url, body, {
-			headers: { "x-access-token": this.user.token },
+			headers: { "x-access-token": this.token },
 		})
 	}
 	async readMatch() {
-		this.getUser()
-    const url = this.backend + "match/" + this.user.user.id
+    const url = this.backend + "match/" + this.getUser.id
 		return this.http.get(url, {
-			headers: { "x-access-token": this.user.token },
+			headers: { "x-access-token": this.token },
 		})
 	}
 	async deleteMatch(id: string) {
-		this.getUser()
     const url = this.backend + "match/" + id
 		return this.http.delete(url, {
-			headers: { "x-access-token": this.user.token },
+			headers: { "x-access-token": this.token },
 		})
 	}
 }

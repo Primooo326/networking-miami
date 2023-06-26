@@ -157,9 +157,11 @@ export class LoginComponent implements AfterViewInit {
 				})
 				.then((obs) => {
 					obs.subscribe(
-						(data) => {
+						(data:any) => {
 							console.log(data)
-							localStorage.setItem("session", JSON.stringify(data))
+              const {token,user} = data
+							localStorage.setItem("user", JSON.stringify(user))
+							localStorage.setItem("token", JSON.stringify(token))
 							this.router.navigate(["/home"])
 						},
 						(err) => {
@@ -200,7 +202,9 @@ export class LoginComponent implements AfterViewInit {
 				obs.subscribe(
 					(data: any) => {
 						console.log(data)
-						localStorage.setItem("session", JSON.stringify(data))
+            const {token,user} = data
+            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("token", JSON.stringify(token))
 						this.router.navigate(["/home"])
 					},
 					(err: any) => {

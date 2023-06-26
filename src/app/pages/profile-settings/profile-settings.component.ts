@@ -184,7 +184,7 @@ export class ProfileSettingsComponent {
 				console.log(data)
 				this.isOnInformacionBasicaLoading = false
 				this.currentUser = user
-				localStorage.setItem("session", JSON.stringify(this.currentUser))
+        this.store.dispatch(setUser.set(user))
 				this.onInformacionBasicaEdit = true
 			},
 			(err) => {
@@ -211,7 +211,7 @@ export class ProfileSettingsComponent {
 				console.log(data)
 				this.isOnInteresesLoading = false
 				this.currentUser = user
-				localStorage.setItem("session", JSON.stringify(this.currentUser))
+        this.store.dispatch(setUser.set(user))
 				this.onInteresesEdit = true
 			},
 			(err) => {

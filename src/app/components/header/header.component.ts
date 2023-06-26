@@ -13,14 +13,11 @@ import { userSelect } from 'src/redux/selectors';
 export class HeaderComponent {
   page: EPages = EPages.landing;
   user$ = this.store.select(userSelect)
-  currentUser: any;
 
   constructor(private locate: Location, private route: Router, private store:Store<any>) {
-    console.log(JSON.parse(localStorage.getItem('session')!).user);
     this.locate.onUrlChange(() => {
       switch (this.locate.path()) {
         case '/home':
-          this.currentUser = JSON.parse(localStorage.getItem('session')!);
           this.page = EPages.home;
           this.user$.subscribe((user)=>{
             console.log(user);
@@ -33,7 +30,6 @@ export class HeaderComponent {
           this.page = EPages.landing;
           break;
         default:
-          this.currentUser = JSON.parse(localStorage.getItem('session')!);
           this.page = EPages.home;
           break;
       }
