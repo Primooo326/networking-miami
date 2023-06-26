@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { MatchService } from "src/app/services/match/match.service"
 import { UserService } from "src/app/services/user/user.service"
-import { UserData } from "src/app/tools/models"
+import { UserData, Usuario } from "src/app/tools/models"
 
 @Component({
 	selector: "app-profile-card",
@@ -9,7 +9,7 @@ import { UserData } from "src/app/tools/models"
 	styleUrls: ["./profile-card.component.scss"],
 })
 export class ProfileCardComponent implements OnInit {
-	@Input() user!: any
+	@Input() user!: Usuario
 	@Input() isMatch: boolean = false
 	@Output() isDeleted = new EventEmitter()
 	@Output() isMatched = new EventEmitter()
@@ -35,7 +35,7 @@ export class ProfileCardComponent implements OnInit {
 		)
 	}
 	async eliminar() {
-		const res = await this.matchSrvc.deleteMatch(this.user.id)
+		const res = await this.matchSrvc.deleteMatch(this.user.id.toString())
 		res.subscribe(
 			(data) => {
 				console.log(data)

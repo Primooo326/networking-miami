@@ -1,42 +1,22 @@
 <div class="widget-author" *ngIf="!isMatch">
   <div class="author-heading">
     <div class="cover-img">
-      <img src="media/figure/cover_1.jpg" alt="cover" />
+      <img [src]="user.fotoPortada" alt="fotoPortada" />
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a href="#" class="">
-        <img [src]="user.avatar" width="100" alt="author" />
+        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important;" alt="author" />
       </a>
     </div>
     <div class="profile-name">
-      {{ user.nombre }}
       <h4 class="author-name">
-        <a href="user-timeline.html">{{ user.name }}</a>
+        <a href="#">{{ user.nombre }}</a>
       </h4>
-      <div class="author-location">{{ user.email }}</div>
+      <div class="author-location">
+        <p *ngFor="let item of user.areaExperiencia " class=" badge text-wrap"  style="margin: 0 !important;" > {{item }} </p>
+      </div>
     </div>
   </div>
-
-  <ul class="author-statistics">
-    <li>
-      <a href="#"
-        ><span class="item-number">30</span>
-        <span class="item-text">POSTS</span></a
-      >
-    </li>
-    <li>
-      <a href="#"
-        ><span class="item-number">12</span>
-        <span class="item-text">COMMENTS</span></a
-      >
-    </li>
-    <li>
-      <a href="#"
-        ><span class="item-number">1,125</span>
-        <span class="item-text">VIEWS</span></a
-      >
-    </li>
-  </ul>
   <div class="d-flex justify-content-between mt-3">
     <button (click)="conectar()" class="btn btn-primary">conectar</button>
     <button class="btn btn-warning">ver perfil</button>
@@ -49,38 +29,16 @@
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a href="#" class="">
-        <img [src]="user.avatar" width="100" alt="author" />
+        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important;" alt="author" />
       </a>
     </div>
     <div class="profile-name">
-      {{ user.nombre }}
       <h4 class="author-name">
-        <a href="user-timeline.html">{{ user.name }}</a>
+        <a href="#">{{ user.nombre }}</a>
       </h4>
       <div class="author-location">{{ user.email }}</div>
     </div>
   </div>
-
-  <ul class="author-statistics">
-    <li>
-      <a href="#"
-        ><span class="item-number">30</span>
-        <span class="item-text">POSTS</span></a
-      >
-    </li>
-    <li>
-      <a href="#"
-        ><span class="item-number">12</span>
-        <span class="item-text">COMMENTS</span></a
-      >
-    </li>
-    <li>
-      <a href="#"
-        ><span class="item-number">1,125</span>
-        <span class="item-text">VIEWS</span></a
-      >
-    </li>
-  </ul>
   <div class="d-flex justify-content-between mt-3">
     <button (click)="eliminar()" class="btn btn-danger">eliminar</button>
     <button class="btn btn-warning">ver perfil</button>

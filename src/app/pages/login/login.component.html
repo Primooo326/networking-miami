@@ -495,8 +495,8 @@
                     id="experiencia"
                     data-placeholder="Experiencia"
                   >
-                    <option *ngFor="let item of experiencia" [value]="item">
-                      {{ item }}
+                    <option *ngFor="let item of experiencia" [value]="item.titulo">
+                      {{ item.titulo }}
                     </option>
                   </select>
                 </div>

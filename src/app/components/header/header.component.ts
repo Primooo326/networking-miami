@@ -40,7 +40,8 @@ export class HeaderComponent {
   }
 
   logOut() {
-    localStorage.clear();
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
     this.route.navigate(['/']);
   }
 }

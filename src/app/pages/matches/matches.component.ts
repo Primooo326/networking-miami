@@ -1,35 +1,31 @@
 import { Component, OnInit } from "@angular/core"
-import { UserData } from "src/app/tools/models"
+import { UserData, Usuario } from "src/app/tools/models"
 import { UserService } from "../../services/user/user.service"
 import { MatchService } from "../../services/match/match.service"
 import { FormControl, Validators } from "@angular/forms"
-import {
-	condados,
-	idiomas,
-	intereses,
-	conexiones,
-} from "src/assets/datasets/datasets"
+import * as Masonry  from "masonry-layout"
+
 @Component({
 	selector: "app-matches",
 	templateUrl: "./matches.component.html",
 	styleUrls: ["./matches.component.scss"],
 })
 export class MatchesComponent implements OnInit {
-	condados = condados
-	idiomas = idiomas
-	conexiones = conexiones
-	intereses = intereses
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
+	intereses = JSON.parse(localStorage.getItem("interes")!)
+	condados = JSON.parse(localStorage.getItem("condados")!)
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
 	TipoConexion: string[] = []
 	orderBy = "Todos los miembros"
 	currentPage = 1
-	currentPageNewMatches = 1
 	users: any[] = []
 	usersMatches: any[] = []
 	pages: number[] = []
 	showUsers: any[] = []
-	showUsersNewMatches: any[] = []
+	currentPageNewMatches = 1
+	showUsersNewMatches: Usuario[] = []
 	filterInput = new FormControl("", Validators.required)
 	isOnAdvancedFilters = false
 	constructor(private userSrvc: UserService, private matchSrvc: MatchService) {
@@ -40,7 +36,7 @@ export class MatchesComponent implements OnInit {
 		await this.matchSrvc.readMatch().then(
 			(obs) =>
 				obs.subscribe((data: any) => {
-					this.usersMatches = data.result
+					this.showUsersNewMatches = data.result
 					this.changePageMisMatches(0)
 				}),
 			(err) => {
@@ -49,8 +45,9 @@ export class MatchesComponent implements OnInit {
 		)
 
 		await this.userSrvc.readUsers().then((obs) =>
-			obs.subscribe((data) => {
-				this.users = data as UserData[]
+			obs.subscribe((data:any) => {
+				this.users = data
+        console.log(this.users[0]);
 				this.users.length / 4
 
 				while (this.pages.length < this.users.length / 4) {
@@ -66,14 +63,15 @@ export class MatchesComponent implements OnInit {
 	changePageMisMatches(page: number) {
 		this.currentPage = page
 		this.showUsers = this.usersMatches.filter(() => true)
-		this.showUsers = this.showUsers.splice(page * 4, 4)
+		this.showUsers = this.showUsers.splice(page * 4, 12)
 		console.log(this.usersMatches.length)
 	}
 	changePageNewMatches(page: number) {
 		this.currentPageNewMatches = page
 		this.showUsersNewMatches = this.users.filter(() => true)
-		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 4)
+		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 12)
 		console.log(this.users.length)
+    this.initMasonry()
 	}
 	canNextPageMisMatches(): Boolean {
 		const items = this.usersMatches.filter(() => true)
@@ -133,7 +131,7 @@ export class MatchesComponent implements OnInit {
 				$("select#condado").on("change", (e: any) => {
 					const condado: any = $(e.target).val()
 					// this.infoBasicaForm.get("condado")?.setValue(condado)
-					const idx = this.condados.findIndex((c) => c.nombre === condado)
+					const idx = this.condados.findIndex((c:any) => c.nombre === condado)
 					this.ciudades = this.condados[idx].ciudades
 					this.condadoSelected = this.condados[idx]
 					document.getElementById("boton")?.click()
@@ -154,4 +152,24 @@ export class MatchesComponent implements OnInit {
 			}, 100)
 		}
 	}
+  initMasonry(){
+    setTimeout(()=>{
+
+      var grid = document.querySelector('.rowmsry');
+      new Masonry( grid!, {
+        itemSelector: '.colmsry',
+        gutter: 0,
+        resize: true,
+        initLayout: true,
+        transitionDuration: '0.2s',
+        stagger: 0,
+        percentPosition: true,
+        horizontalOrder: true,
+        originLeft: true,
+        originTop: true,
+
+
+      });
+    },100)
+  }
 }

@@ -1,15 +1,10 @@
 import { AfterViewInit, Component } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
 import { Router, RouterLink } from "@angular/router"
+import { Store } from "@ngrx/store"
 import { AuthService } from "src/app/services/auth/auth.service"
 import { MailService } from "src/app/services/mail/mail.service"
-import {
-	ciudades,
-	experiencia,
-	idiomas,
-	intereses,
-	condados,
-} from "src/assets/datasets/datasets"
+import { setUser } from "src/redux/actions"
 import Swal from "sweetalert2"
 
 @Component({
@@ -18,10 +13,10 @@ import Swal from "sweetalert2"
 	styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements AfterViewInit {
-	idiomas = idiomas
-	experiencia = experiencia
-	intereses = intereses
-	condados = condados
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
+	intereses = JSON.parse(localStorage.getItem("interes")!)
+	condados = JSON.parse(localStorage.getItem("condados")!)
 
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
@@ -90,6 +85,7 @@ export class LoginComponent implements AfterViewInit {
 		private authSrvc: AuthService,
 		private router: Router,
 		private mailSrvc: MailService,
+    private store:Store<any>
 	) {
 		setInterval(() => {
 			this.experienciaV =
@@ -103,6 +99,7 @@ export class LoginComponent implements AfterViewInit {
 		}, 100)
 
 		this.condadoSelected = this.condados[0]
+    console.log(this.condadoSelected);
 		this.ciudades = this.condados[0].ciudades
 	}
 
@@ -125,7 +122,7 @@ export class LoginComponent implements AfterViewInit {
 		$("select#condado").on("change", (e: any) => {
 			const condado: any = $(e.target).val()
 			this.registroForm2Tab.get("condado")?.setValue(condado)
-			const idx = this.condados.findIndex((c) => c.nombre === condado)
+			const idx = this.condados.findIndex((c:any) => c.nombre === condado)
 			this.ciudades = this.condados[idx].ciudades
 			this.condadoSelected = this.condados[idx]
 			document.getElementById("boton")?.click()
@@ -160,6 +157,8 @@ export class LoginComponent implements AfterViewInit {
 						(data:any) => {
 							console.log(data)
               const {token,user} = data
+            this.store.dispatch(setUser.set(user))
+
 							localStorage.setItem("user", JSON.stringify(user))
 							localStorage.setItem("token", JSON.stringify(token))
 							this.router.navigate(["/home"])
@@ -202,7 +201,12 @@ export class LoginComponent implements AfterViewInit {
 				obs.subscribe(
 					(data: any) => {
 						console.log(data)
-            const {token,user} = data
+            const {token,id, avatar} = data
+            const user = newUser
+            user.id = id
+            user.avatar = avatar
+            this.store.dispatch(setUser.set(user))
+
             localStorage.setItem("user", JSON.stringify(user))
             localStorage.setItem("token", JSON.stringify(token))
 						this.router.navigate(["/home"])

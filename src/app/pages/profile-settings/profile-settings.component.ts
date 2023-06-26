@@ -5,12 +5,6 @@ import { AuthService } from "src/app/services/auth/auth.service"
 import { FilesService } from "src/app/services/files/files.service"
 import { MailService } from "src/app/services/mail/mail.service"
 import { UserService } from "src/app/services/user/user.service"
-import {
-	condados,
-	idiomas,
-	intereses,
-	conexiones,
-} from "src/assets/datasets/datasets"
 import { setUser } from "src/redux/actions"
 import { userSelect } from "src/redux/selectors"
 import Swal from "sweetalert2"
@@ -20,10 +14,11 @@ import Swal from "sweetalert2"
 	styleUrls: ["./profile-settings.component.scss"],
 })
 export class ProfileSettingsComponent {
-	condados = condados
-	idiomas = idiomas
-	conexiones = conexiones
-	intereses = intereses
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
+	intereses = JSON.parse(localStorage.getItem("interes")!)
+	condados = JSON.parse(localStorage.getItem("condados")!)
+	conexiones = JSON.parse(localStorage.getItem("conexion")!)
 	recharge = true
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
@@ -82,7 +77,7 @@ export class ProfileSettingsComponent {
 		console.log(this.currentUser)
 
 		const idx = this.condados.findIndex(
-			(c) => c.nombre === this.currentUser.condado,
+			(c:any) => c.nombre === this.currentUser.condado,
 		)
 		this.ciudades = this.condados[idx].ciudades
 		this.condadoSelected = this.condados[idx]
@@ -123,7 +118,7 @@ export class ProfileSettingsComponent {
 			$("select#condado").on("change", (e: any) => {
 				const condado: any = $(e.target).val()
 				this.infoBasicaForm.get("condado")?.setValue(condado)
-				const idx = this.condados.findIndex((c) => c.nombre === condado)
+				const idx = this.condados.findIndex((c:any) => c.nombre === condado)
 				this.ciudades = this.condados[idx].ciudades
 				this.condadoSelected = this.condados[idx]
 				document.getElementById("boton")?.click()

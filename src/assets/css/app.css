@@ -66,6 +66,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     background-color: #ffffff;
+    scroll-behavior: smooth !important;
 }
 
 p {
