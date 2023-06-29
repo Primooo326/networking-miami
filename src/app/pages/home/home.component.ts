@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MailService } from 'src/app/services/mail/mail.service';
 import { UserService } from 'src/app/services/user/user.service';
-import {  Usuario } from 'src/app/tools/models';
+import { Usuario } from 'src/app/tools/models';
 import Swal from 'sweetalert2';
-import * as Masonry  from "masonry-layout"
-
+import * as Masonry from 'masonry-layout';
 
 @Component({
   selector: 'app-home',
@@ -13,47 +12,101 @@ import * as Masonry  from "masonry-layout"
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
-	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
-	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
-	intereses = JSON.parse(localStorage.getItem("interes")!)
-	condados = JSON.parse(localStorage.getItem("condados")!)
-	condadoSelected: { nombre: string; ciudades: string[] }
-	ciudades: string[] = []
+  idiomas = JSON.parse(localStorage.getItem('lenguajes')!);
+  experiencia = JSON.parse(localStorage.getItem('experiencia')!);
+  intereses = JSON.parse(localStorage.getItem('interes')!);
+  condados = JSON.parse(localStorage.getItem('condados')!);
+  conexion = JSON.parse(localStorage.getItem('conexion')!);
+  conexion2 = [
+    'personas que quieran compartir su conocimiento.',
+    'personas con intereses similares.',
+    'personas que estén buscando nuevas conexiones.',
+    'personas que estén buscando trabajo.',
+    'personas que estén buscando nuevas oportunidades de negocio.',
+    'personas que estén buscando productos nuevos y únicos.',
+    'personas que estén buscando una comunidad de la que formar parte.',
+  ];
+  condadoSelected: { nombre: string; ciudades: string[] } | string = '';
+  ciudades: string[] = [];
   verificado = false;
   onVerifyEmail = false;
-	currentPageNewMatches = 1
-	showUsersNewMatches: any[] = []
-	users: Usuario[] = []
-	orderBy = "Todos los miembros"
-	pages: number[] = []
+  currentPageNewMatches = 1;
+  showUsersNewMatches: any[] = [];
+  users: Usuario[] = [];
+  orderBy = 'Todos los miembros';
+  pages: number[] = [];
 
-	isOnAdvancedFilters = false
+  isOnAdvancedFilters = false;
 
-	filterInput = new FormControl("", Validators.required)
+  filterInput = new FormControl('', Validators.required);
 
+  filtersGroup = new FormGroup({
+    condado: new FormControl('', Validators.required),
+    ciudad: new FormControl('', Validators.required),
+    idiomas: new FormControl('', Validators.required),
+    experiencia: new FormControl('', Validators.required),
+    conexiones: new FormControl('', Validators.required),
+  });
 
   currentUser = JSON.parse(localStorage.getItem('user')!);
   constructor(private userSrvc: UserService, private mailSrvc: MailService) {
-
-    this.ciudades = this.condados[0].ciudades
-		this.condadoSelected = this.condados[0]
+    // this.ciudades = this.condados[0].ciudades
+    // this.condadoSelected = this.condados[0]
   }
   async ngOnInit() {
-    this.currentUser.verificado == 0 ? (this.verificado = false) : (this.verificado = true);
+    this.currentUser.verificado == 0
+      ? (this.verificado = false)
+      : (this.verificado = true);
 
-		await this.userSrvc.readUsers().then((obs) =>
-			obs.subscribe((data:any) => {
-				this.users = data
+    await this.userSrvc.readUsers().then((obs) =>
+      obs.subscribe((data: any) => {
+        this.users = data;
         console.log(this.users[0]);
-				this.users.length / 4
+        this.users.length / 4;
 
-				while (this.pages.length < this.users.length / 4) {
-					this.pages.push(this.pages.length)
-				}
-				this.changePageNewMatches(0)
-			}),
-		)
+        while (this.pages.length < this.users.length / 4) {
+          this.pages.push(this.pages.length);
+        }
+        this.changePageNewMatches(0);
+      })
+    );
+
+    $('select.select2').select2({
+      // theme: "classic",
+      dropdownAutoWidth: true,
+      width: '100%',
+      minimumResultsForSearch: Infinity,
+    });
+    $('select#ciudad').on('change', (e: any) => {
+      const ciudad: any = $(e.target).val();
+      this.filtersGroup.get('ciudad')?.setValue(ciudad);
+    });
+    $('select#condado').on('change', (e: any) => {
+      const condado: any = $(e.target).val();
+      this.filtersGroup.get('condado')?.setValue(condado);
+    });
+    $('select#condado').on('change', (e: any) => {
+      const condado: any = $(e.target).val();
+      this.filtersGroup.get('condado')?.setValue(condado);
+      if (condado) {
+        const idx = this.condados.findIndex((c: any) => c.nombre === condado);
+        this.ciudades = this.condados[idx].ciudades;
+        this.condadoSelected = this.condados[idx];
+        document.getElementById('boton')?.click();
+      }
+    });
+    $('select#idiomas').on('change', (e: any) => {
+      const idiomas: any = $(e.target).val();
+      this.filtersGroup.get('idiomas')?.setValue(idiomas);
+    });
+    $('select#experiencia').on('change', (e: any) => {
+      const experiencia: any = $(e.target).val();
+      this.filtersGroup.get('experiencia')?.setValue(experiencia);
+    });
+    $('select#conexiones').on('change', (e: any) => {
+      const conexiones: any = $(e.target).val();
+      this.filtersGroup.get('conexiones')?.setValue(conexiones);
+    });
   }
   async verifyEmail() {
     this.onVerifyEmail = true;
@@ -69,82 +122,51 @@ export class HomeComponent implements OnInit {
         Swal.fire('error', err.error, 'error');
         this.onVerifyEmail = false;
       }
-    );}
-	onAdvanceFilters() {
-		this.isOnAdvancedFilters = !this.isOnAdvancedFilters
-		if (this.isOnAdvancedFilters) {
-			setTimeout(() => {
-				$("select.select2").select2({
-					theme: "classic",
-					dropdownAutoWidth: true,
-					width: "100%",
-					minimumResultsForSearch: Infinity,
-				})
-
-				// $("select#condado").val(this.infoBasicaForm.get("condado")?.value)
-
-				$("select#condado").on("change", (e: any) => {
-					const condado: any = $(e.target).val()
-					// this.infoBasicaForm.get("condado")?.setValue(condado)
-					const idx = this.condados.findIndex((c:any) => c.nombre === condado)
-					this.ciudades = this.condados[idx].ciudades
-					this.condadoSelected = this.condados[idx]
-					document.getElementById("boton")?.click()
-				})
-
-				// $("select#ciudad").val(this.infoBasicaForm.get("ciudad")?.value)
-
-				$("select#ciudad").on("change", (e: any) => {
-					const ciudad: any = $(e.target).val()
-
-					// this.infoBasicaForm.get("ciudad")?.setValue(ciudad)
-				})
-
-				$("select#gender").on("change", (e: any) => {
-					const genero: any = $(e.target).val()
-					// this.infoBasicaForm.get("genero")?.setValue(genero)
-				})
-			}, 100)
-		}
-    this.initMasonry()
-	}
+    );
+  }
+  onAdvanceFilters() {
+    this.isOnAdvancedFilters = !this.isOnAdvancedFilters;
+    this.initMasonry();
+  }
   async applyFilter() {
-		const filter = this.filterInput.value
+    const filter = this.filterInput.value;
 
-    const res = await this.userSrvc.searchUsers(50,0,filter!)
+    const res = await this.userSrvc.searchUsers(50, 0, filter!);
 
-    res.subscribe((data:any)=>{
-      this.users = data
-      // this.users.length / 4
+    res.subscribe(
+      (data: any) => {
+        this.users = data;
+        // this.users.length / 4
 
-      // while (this.pages.length < this.users.length / 4) {
-      //   this.pages.push(this.pages.length)
-      // }
-      console.log(data);
-      this.changePageNewMatches(0)
-    },(err)=>{
-      console.log(err);
-    })
+        // while (this.pages.length < this.users.length / 4) {
+        //   this.pages.push(this.pages.length)
+        // }
+        console.log(data);
+        this.changePageNewMatches(0);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
-		// this.showUsersNewMatches = this.users.filter(
-		// 	(user) =>
-		// 		user.nombre.toLowerCase().includes(filter!.toLowerCase()) ||
-		// 		user.email.toLowerCase().includes(filter!.toLowerCase()),
-		// )
-	}
+    // this.showUsersNewMatches = this.users.filter(
+    // 	(user) =>
+    // 		user.nombre.toLowerCase().includes(filter!.toLowerCase()) ||
+    // 		user.email.toLowerCase().includes(filter!.toLowerCase()),
+    // )
+  }
 
   changePageNewMatches(page: number) {
-		this.currentPageNewMatches = page
-		this.showUsersNewMatches = this.users.filter(() => true)
-		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 20)
-		console.log(this.users.length)
-    this.initMasonry()
-	}
-  initMasonry(){
-    setTimeout(()=>{
-
+    this.currentPageNewMatches = page;
+    this.showUsersNewMatches = this.users.filter(() => true);
+    this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 20);
+    console.log(this.users.length);
+    this.initMasonry();
+  }
+  initMasonry() {
+    setTimeout(() => {
       var grid = document.querySelector('.rowmsry');
-      new Masonry( grid!, {
+      new Masonry(grid!, {
         itemSelector: '.colmsry',
         gutter: 0,
         resize: true,
@@ -155,25 +177,38 @@ export class HomeComponent implements OnInit {
         horizontalOrder: true,
         originLeft: true,
         originTop: true,
-
-
       });
-    },10)
+    }, 10);
   }
   changeOrder(order: string) {
-		this.orderBy = order
-	}
+    this.orderBy = order;
+  }
   onChangeEvent(e: any) {
-		console.log(e)
-		this.ngOnInit()
-	}
+    console.log(e);
+    this.ngOnInit();
+  }
   canNextPageNewMatches(): Boolean {
-		const items = this.users.filter(() => true)
+    const items = this.users.filter(() => true);
 
-		const page = this.currentPageNewMatches + 1
-		return items.splice(page * 4, 20).length == 0
-	}
+    const page = this.currentPageNewMatches + 1;
+    return items.splice(page * 4, 20).length == 0;
+  }
   onCondadoChange() {
-		this.ciudades = this.ciudades.filter((c) => true)
-	}
+    this.ciudades = this.ciudades.filter((c) => true);
+  }
+  search() {
+    console.log(this.filtersGroup.value);
+  }
+  clean() {
+    this.filtersGroup.reset();
+    // this.ciudades = []
+    // this.condadoSelected = ""
+    $("select#ciudad").val("Todos").trigger("change")
+    $('select#condado').val('').trigger('change');
+    $('select#idiomas').val('').trigger('change');
+    $('select#experiencia').val('').trigger('change');
+    $('select#conexiones').val('').trigger('change');
+
+    // document.getElementById("boton")?.click()
+  }
 }
