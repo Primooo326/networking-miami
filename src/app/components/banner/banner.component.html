@@ -12,7 +12,12 @@
           alt="User"
         />
       </div>
-      <div *ngIf="isCurrentUser" role="button" class="item-img">
+      <div
+        *ngIf="isCurrentUser"
+        role="button"
+        (click)="onEdit()"
+        class="item-img"
+      >
         <img
           class="profileimage"
           [src]="user.avatar"

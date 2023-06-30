@@ -1,6 +1,14 @@
 <div class="container">
   <!-- Banner Area Start -->
-  <app-banner [user]="currentUser"></app-banner>
+  <app-banner [user]="currentUser" (isOnEdit)="openFileInput()"></app-banner>
+  <input
+    type="file"
+    accept="image/*"
+    hidden
+    #fileInput
+    style="display: none"
+    (change)="handleFileInput($event)"
+  />
   <!--
   <div
     class="banner-user"
@@ -18,13 +26,6 @@
             alt="User"
           />
           <img src="media/photo_upload.png" class="uploadimage" alt="img" />
-          <input
-            type="file"
-            accept="image/*"
-            #fileInput
-            style="display: none"
-            (change)="handleFileInput($event)"
-          />
         </div>
         <div class="media-body">
           <h3 class="item-title">{{ (user$ | async)!.nombre | titlecase }}</h3>

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core"
+import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { Usuario } from "src/app/tools/models"
 
 @Component({
@@ -9,8 +9,13 @@ import { Usuario } from "src/app/tools/models"
 export class BannerComponent {
 	@Input() user!: Usuario
 
+	@Output() isOnEdit = new EventEmitter<boolean>()
+
 	get isCurrentUser(): boolean {
 		const localUser = JSON.parse(localStorage.getItem("user") || "{}")
 		return localUser.id === this.user.id
+	}
+	onEdit() {
+		this.isOnEdit.emit(true)
 	}
 }
