@@ -1,260 +1,169 @@
-<div class="text-center">
-  <h1>
-    Mis Matches <span class="badge"> {{ usersMatches.length }} </span>
-  </h1>
-  <div id="user-view" class="user-grid-view">
-    <div class="row gutters-20">
-      <app-profile-card
-        *ngFor="let item of showUsers"
-        [user]="item"
-        [isMatch]="true"
-        (isDeleted)="onChangeEvent($event)"
-        class="col-xl-3 col-lg-4 col-md-6"
-      >
-      </app-profile-card>
+<div class="banner-user">
+  <div class="banner-content">
+    <div class="media">
+      <div class="item-img">
+        <img src="media/banner/user_1.jpg" alt="User" />
+      </div>
+      <div class="media-body">
+        <h3 class="item-title">Rebeca Powel</h3>
+        <div class="item-subtitle">United State of America</div>
+        <ul class="item-social">
+          <li>
+            <a href="#" class="bg-fb"><i class="icofont-facebook"></i></a>
+          </li>
+          <li>
+            <a href="#" class="bg-twitter"><i class="icofont-twitter"></i></a>
+          </li>
+          <li>
+            <a href="#" class="bg-dribble"><i class="icofont-dribbble"></i></a>
+          </li>
+          <li>
+            <a href="#" class="bg-youtube"
+              ><i class="icofont-brand-youtube"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="bg-behance"><i class="icofont-behance"></i></a>
+          </li>
+        </ul>
+        <ul class="user-meta">
+          <li>Posts: <span>30</span></li>
+          <li>Comments: <span>12</span></li>
+          <li>Views: <span>1.2k</span></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div>
-    <a
-      role="button"
-      [hidden]="currentPage == 0"
-      (click)="changePageMisMatches(currentPage - 1)"
-      class="item-btn mx-2"
-    >
-      <span class="btn-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="21px"
-          height="10px"
+</div>
+<div class="block-box user-top-header">
+  <ul class="menu-list">
+    <li class="active"><a href="#">Timeline</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Friends</a></li>
+    <li><a href="#">Groups</a></li>
+    <li><a href="#">Photos</a></li>
+    <li><a href="#">Videos</a></li>
+    <li><a href="#">Badges</a></li>
+    <li><a href="#">Blogs</a></li>
+    <li><a href="#">Forums</a></li>
+    <li>
+      <div class="dropdown">
+        <button
+          class="dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+          aria-expanded="false"
         >
-          <g transform="translate(21,0) scale(-1,1)">
-            <path
-              fill-rule="evenodd"
-              d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
-            />
-          </g>
-        </svg>
-      </span>
-    </a>
-    <a
-      role="button"
-      [hidden]="canNextPageMisMatches()"
-      (click)="changePageMisMatches(currentPage + 1)"
-      class="item-btn mx-2"
+          ...
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="#">Shop</a>
+          <a class="dropdown-item" href="#">Blog</a>
+          <a class="dropdown-item" href="#">Others</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="block-box user-search-bar">
+  <div class="box-item search-box">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search Member" />
+      <div class="input-group-append">
+        <button class="search-btn" type="button">
+          <i class="icofont-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="box-item search-filter">
+    <div class="dropdown">
+      <label>Order By:</label>
+      <button
+        class="dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Newest Member
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">All Member</a>
+        <a class="dropdown-item" href="#">Newest Member</a>
+        <a class="dropdown-item" href="#">Oldest Member</a>
+      </div>
+    </div>
+  </div>
+  <div class="box-item search-switcher">
+    <ul class="user-view-switcher">
+      <li class="active">
+        <a class="user-view-trigger" href="#" data-type="user-grid-view">
+          <i class="icofont-layout"></i>
+        </a>
+      </li>
+      <li>
+        <a class="user-view-trigger" href="#" data-type="user-list-view">
+          <i class="icofont-listine-dots"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="user-view" class="user-grid-view">
+  <div class="row rowmsry">
+    <app-profile-card
+      *ngFor="let item of showUsers"
+      [user]="item"
+      [isMatch]="true"
+      (isMatched)="onChangeEvent($event)"
+      class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
     >
-      <span class="btn-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="21px"
-          height="10px"
-        >
+    </app-profile-card>
+  </div>
+</div>
+<div class="text-center">
+  <a
+    role="button"
+    href="#matchestitle"
+    [hidden]="currentPageNewMatches == 0"
+    (click)="changePageNewMatches(currentPageNewMatches - 1)"
+    class="item-btn mx-2"
+  >
+    <span class="btn-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="21px"
+        height="10px"
+      >
+        <g transform="translate(21,0) scale(-1,1)">
           <path
             fill-rule="evenodd"
             d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
           />
-        </svg>
-      </span>
-    </a>
-  </div>
-</div>
-<div id="matchestitle"></div>
-<div class="mt-4">
-  <h1 class="text-center">
-    Haz nuevos matches <span class="badge"> {{ users.length }} </span>
-  </h1>
-
-  <div class="row">
-    <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
-      <div class="block-box user-search-bar">
-        <div class="box-item search-box">
-          <div class="input-group">
-            <input
-              type="text"
-              [formControl]="filterInput"
-              class="form-control"
-              placeholder="Buscar miembros"
-            />
-            <div class="input-group-append">
-              <button class="search-btn" type="button" (click)="applyFilter()">
-                <i class="icofont-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="box-item search-filter">
-          <div class="dropdown">
-            <label>Ordenar por:</label>
-            <button
-              class="dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{ orderBy }}
-            </button>
-            <div class="dropdown-menu">
-              <button
-                (click)="changeOrder('Todos los miembros')"
-                class="dropdown-item"
-                href="#"
-              >
-                Todos los miembros
-              </button>
-              <button
-                (click)="changeOrder('Recientes')"
-                class="dropdown-item"
-                href="#"
-              >
-                Recientes
-              </button>
-              <button
-                (click)="changeOrder('Destacados')"
-                class="dropdown-item"
-                href="#"
-              >
-                Destacados
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="box-item search-switcher">
-          <ul class="user-view-switcher">
-            <li>
-              <a
-                class="user-view-trigger active"
-                (click)="onAdvanceFilters()"
-                data-type="user-list-view"
-              >
-                <i class="icofont-listine-dots"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div id="user-view" class="user-grid-view">
-        <div class="row rowmsry">
-          <app-profile-card
-            *ngFor="let item of showUsersNewMatches"
-            [user]="item"
-            (isMatched)="onChangeEvent($event)"
-            class=" colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
-            [ngClass]="{
-              'col-xl-3 col-lg-6 col-md-6 col-sm-6': isOnAdvancedFilters,
-              'col-xl-3 col-lg-4 col-md-6': !isOnAdvancedFilters
-            }"
-          >
-          </app-profile-card>
-        </div>
-      </div>
-      <div class="text-center">
-        <a
-          role="button"
-          href="#matchestitle"
-          [hidden]="currentPageNewMatches == 0"
-          (click)="changePageNewMatches(currentPageNewMatches - 1)"
-          class="item-btn mx-2"
-        >
-          <span class="btn-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="21px"
-              height="10px"
-            >
-              <g transform="translate(21,0) scale(-1,1)">
-                <path
-                  fill-rule="evenodd"
-                  d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
-                />
-              </g>
-            </svg>
-          </span>
-        </a>
-        <a
-          role="button"
-          href="#matchestitle"
-          [hidden]="canNextPageNewMatches()"
-          (click)="changePageNewMatches(currentPageNewMatches + 1)"
-          class="item-btn mx-2"
-        >
-          <span class="btn-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="21px"
-              height="10px"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
-              />
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
-    <div
-      *ngIf="isOnAdvancedFilters"
-      class="col-lg-4 widget-block widget-user-about widget-break-lg"
-    >
-      <div class="widget widget-user-about">
-        <div class="widget-heading">
-          <h3 class="widget-title">Filtros avanzados</h3>
-        </div>
-        <div class="user-info">
-          <ul class="info-list">
-            <li>
-              <label>Ubicación:</label>
-              <div class="form-group">
-                <select
-                  class="select2 mb-3 w-100"
-                  id="condado"
-                  name="Condado"
-                  data-placeholder="Condado"
-                  formControlName="condado"
-                >
-                  <option *ngFor="let item of condados" [value]="item.nombre">
-                    {{ item.nombre }}
-                  </option>
-                </select>
-                <select
-                  class="select2 w-100"
-                  id="ciudad"
-                  name="Ciudad"
-                  data-placeholder="Ciudad"
-                  formControlName="ciudad"
-                >
-                  <option *ngFor="let item of ciudades" [value]="item">
-                    {{ item }}
-                  </option>
-                </select>
-                <button id="boton" hidden (click)="onCondadoChange()"></button>
-              </div>
-            </li>
-            <li><span>Se unió:</span>{{ users[0].fechaIngreso | date }}</li>
-            <li><span>E-mail:</span>{{ users[0].email }}</li>
-            <li>
-              <span>Ubicación:</span>{{ users[0].ciudad }},
-              {{ users[0].condado }}
-            </li>
-            <li><span>Teléfono:</span>{{ users[0].telefono }}</li>
-            <!-- <li><span>Country:</span>USA</li>
-            <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
-            <li class="social-share">
-              <span>Social:</span>
-              <div class="social-icon">
-                <a href="#"><i class="icofont-facebook"></i></a>
-                <a href="#"><i class="icofont-twitter"></i></a>
-                <a href="#"><i class="icofont-dribbble"></i></a>
-                <a href="#"><i class="icofont-whatsapp"></i></a>
-                <a href="#"><i class="icofont-instagram"></i></a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+        </g>
+      </svg>
+    </span>
+  </a>
+  <a
+    role="button"
+    href="#matchestitle"
+    [hidden]="canNextPageNewMatches()"
+    (click)="changePageNewMatches(currentPageNewMatches + 1)"
+    class="item-btn mx-2"
+  >
+    <span class="btn-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="21px"
+        height="10px"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
+        />
+      </svg>
+    </span>
+  </a>
 </div>

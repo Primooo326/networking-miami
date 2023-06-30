@@ -3,7 +3,7 @@ import { UserData, Usuario } from "src/app/tools/models"
 import { UserService } from "../../services/user/user.service"
 import { MatchService } from "../../services/match/match.service"
 import { FormControl, Validators } from "@angular/forms"
-import * as Masonry  from "masonry-layout"
+import * as Masonry from "masonry-layout"
 
 @Component({
 	selector: "app-matches",
@@ -36,8 +36,9 @@ export class MatchesComponent implements OnInit {
 		await this.matchSrvc.readMatch().then(
 			(obs) =>
 				obs.subscribe((data: any) => {
-					this.showUsersNewMatches = data.result
+					this.usersMatches = data.result
 					this.changePageMisMatches(0)
+					console.log(data)
 				}),
 			(err) => {
 				console.log("err:", err)
@@ -45,9 +46,9 @@ export class MatchesComponent implements OnInit {
 		)
 
 		await this.userSrvc.readUsers().then((obs) =>
-			obs.subscribe((data:any) => {
+			obs.subscribe((data: any) => {
 				this.users = data
-        console.log(this.users[0]);
+				console.log(this.users[0])
 				this.users.length / 4
 
 				while (this.pages.length < this.users.length / 4) {
@@ -71,7 +72,7 @@ export class MatchesComponent implements OnInit {
 		this.showUsersNewMatches = this.users.filter(() => true)
 		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 12)
 		console.log(this.users.length)
-    this.initMasonry()
+		this.initMasonry()
 	}
 	canNextPageMisMatches(): Boolean {
 		const items = this.usersMatches.filter(() => true)
@@ -87,20 +88,23 @@ export class MatchesComponent implements OnInit {
 	async applyFilter() {
 		const filter = this.filterInput.value
 
-    const res = await this.userSrvc.searchUsers(50,0,filter!)
+		const res = await this.userSrvc.searchUsers(50, 0, filter!)
 
-    res.subscribe((data:any)=>{
-      this.users = data
-      // this.users.length / 4
+		res.subscribe(
+			(data: any) => {
+				this.users = data
+				// this.users.length / 4
 
-      // while (this.pages.length < this.users.length / 4) {
-      //   this.pages.push(this.pages.length)
-      // }
-      console.log(data);
-      this.changePageNewMatches(0)
-    },(err)=>{
-      console.log(err);
-    })
+				// while (this.pages.length < this.users.length / 4) {
+				//   this.pages.push(this.pages.length)
+				// }
+				console.log(data)
+				this.changePageNewMatches(0)
+			},
+			(err) => {
+				console.log(err)
+			},
+		)
 
 		// this.showUsersNewMatches = this.users.filter(
 		// 	(user) =>
@@ -131,7 +135,7 @@ export class MatchesComponent implements OnInit {
 				$("select#condado").on("change", (e: any) => {
 					const condado: any = $(e.target).val()
 					// this.infoBasicaForm.get("condado")?.setValue(condado)
-					const idx = this.condados.findIndex((c:any) => c.nombre === condado)
+					const idx = this.condados.findIndex((c: any) => c.nombre === condado)
 					this.ciudades = this.condados[idx].ciudades
 					this.condadoSelected = this.condados[idx]
 					document.getElementById("boton")?.click()
@@ -152,24 +156,21 @@ export class MatchesComponent implements OnInit {
 			}, 100)
 		}
 	}
-  initMasonry(){
-    setTimeout(()=>{
-
-      var grid = document.querySelector('.rowmsry');
-      new Masonry( grid!, {
-        itemSelector: '.colmsry',
-        gutter: 0,
-        resize: true,
-        initLayout: true,
-        transitionDuration: '0.2s',
-        stagger: 0,
-        percentPosition: true,
-        horizontalOrder: true,
-        originLeft: true,
-        originTop: true,
-
-
-      });
-    },100)
-  }
+	initMasonry() {
+		setTimeout(() => {
+			var grid = document.querySelector(".rowmsry")
+			new Masonry(grid!, {
+				itemSelector: ".colmsry",
+				gutter: 0,
+				resize: true,
+				initLayout: true,
+				transitionDuration: "0.2s",
+				stagger: 0,
+				percentPosition: true,
+				horizontalOrder: true,
+				originLeft: true,
+				originTop: true,
+			})
+		}, 100)
+	}
 }

@@ -1,47 +1,41 @@
 <div class="container">
   <!-- Banner Area Start -->
+  <app-banner [user]="currentUser"></app-banner>
+  <!--
   <div
     class="banner-user"
-    style="background-image: url('{{(user$ | async)!.fotoPortada}}') !important"
+    style="background-image: url('{{
+      (user$ | async)!.fotoPortada
+    }}') !important"
   >
     <div class="banner-content">
       <div class="media">
         <div role="button" (click)="openFileInput()" class="item-img">
-          <img  class="profileimage" [src]="(user$ | async)!.avatar" style="width: 115px; height: 115px;" alt="User" />
+          <img
+            class="profileimage"
+            [src]="(user$ | async)!.avatar"
+            style="width: 115px; height: 115px"
+            alt="User"
+          />
           <img src="media/photo_upload.png" class="uploadimage" alt="img" />
-          <input type="file" accept="image/*" #fileInput style="display: none" (change)="handleFileInput($event)">
+          <input
+            type="file"
+            accept="image/*"
+            #fileInput
+            style="display: none"
+            (change)="handleFileInput($event)"
+          />
         </div>
         <div class="media-body">
           <h3 class="item-title">{{ (user$ | async)!.nombre | titlecase }}</h3>
           <div class="item-subtitle">
             {{ (user$ | async)!.areaExperiencia | pipearray }}
           </div>
-          <!-- <ul class="item-social">
-            <li>
-              <a href="#" class="bg-fb"><i class="icofont-facebook"></i></a>
-            </li>
-            <li>
-              <a href="#" class="bg-twitter"><i class="icofont-twitter"></i></a>
-            </li>
-            <li>
-              <a href="#" class="bg-dribble"
-                ><i class="icofont-dribbble"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#" class="bg-youtube"
-                ><i class="icofont-brand-youtube"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#" class="bg-behance"><i class="icofont-behance"></i></a>
-            </li>
-          </ul> -->
-
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+
   <div class="row">
     <div class="col-lg-8">
       <div class="block-box user-about">
@@ -63,7 +57,6 @@
               >
                 Editar
               </button>
-
             </div>
           </div>
         </div>
@@ -72,7 +65,7 @@
             <li>
               <label>Nombre:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ (user$ | async)!.nombre |titlecase }}
+                {{ (user$ | async)!.nombre | titlecase }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
@@ -151,7 +144,7 @@
             <li>
               <label>Fecha de nacimiento:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{(user$ | async)!.fechaNacimiento | date }}
+                {{ (user$ | async)!.fechaNacimiento | date }}
               </p>
               <input
                 *ngIf="!onInformacionBasicaEdit"
@@ -285,58 +278,81 @@
               >
                 Editar
               </button>
-
             </div>
           </div>
         </div>
-        <ul class="user-info">
-          <li>
-            <label>Intereses:</label>
-            <p *ngIf="onInteresesEdit">
-
-              {{(user$ | async)!.temasInteres | pipearray}}
-            </p>
-            <div class="form-group" *ngIf="!onInteresesEdit">
-              <select
-                class="select2"
-                multiple="multiple"
-                id="interes"
-                data-placeholder="Interés"
-                [formControl]="interesesForm"
-              >
-                <option *ngFor="let item of intereses" [value]="item">
-                  {{ item }}
-                </option>
-              </select>
-            </div>
-          </li>
-          <li>
-            <label>Tipo de conexion:</label>
-            <p *ngIf="onInteresesEdit">
-              <span
-                *ngFor="let item of (user$ | async)!.tipoConexion"
-                class="badge mr-2"
-                >{{ item }}</span
-              >
-            </p>
-            <div class="form-group" *ngIf="!onInteresesEdit">
-              <div
-                class="form-check"
-                *ngFor="let item of conexiones; let i = index"
-              >
-                <input
-                  type="checkbox"
-                  (change)="onChangeConexiones($event)"
-                  class="form-check-input"
-                  [id]="i"
-                  [value]="item"
-                  [checked]="(user$ | async)!.tipoConexion.includes(item)"
-                />
-                <label class="form-check-label" [for]="i">{{ item }}</label>
+        <form [formGroup]="interesesFormGroup">
+          <ul class="user-info">
+            <li>
+              <label>Intereses:</label>
+              <p *ngIf="onInteresesEdit">
+                {{ (user$ | async)!.temasInteres | pipearray }}
+              </p>
+              <div class="form-group" *ngIf="!onInteresesEdit">
+                <select
+                  class="select2"
+                  multiple="multiple"
+                  id="interes"
+                  data-placeholder="Interés"
+                  formControlName="temasInteres"
+                >
+                  <option *ngFor="let item of intereses" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
               </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+            <li>
+              <label>Area de experiencia:</label>
+              <p *ngIf="onInteresesEdit">
+                {{ (user$ | async)!.areaExperiencia | pipearray }}
+              </p>
+              <div class="form-group" *ngIf="!onInteresesEdit">
+                <select
+                  class="select2"
+                  multiple="multiple"
+                  formControlName="areaExperiencia"
+                  style="width: 100%"
+                  id="experiencia"
+                  data-placeholder="Experiencia"
+                >
+                  <option
+                    *ngFor="let item of experiencia"
+                    [value]="item.titulo"
+                  >
+                    {{ item.titulo }}
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <label>Tipo de conexion:</label>
+              <p *ngIf="onInteresesEdit">
+                <span
+                  *ngFor="let item of (user$ | async)!.tipoConexion"
+                  class="badge mr-2"
+                  >{{ item }}</span
+                >
+              </p>
+              <div class="form-group" *ngIf="!onInteresesEdit">
+                <div
+                  class="form-check"
+                  *ngFor="let item of conexiones; let i = index"
+                >
+                  <input
+                    type="checkbox"
+                    (change)="onChangeConexiones($event)"
+                    class="form-check-input"
+                    [id]="i"
+                    [value]="item"
+                    [checked]="(user$ | async)!.tipoConexion.includes(item)"
+                  />
+                  <label class="form-check-label" [for]="i">{{ item }}</label>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </form>
         <div
           *ngIf="!onInteresesEdit"
           class="d-flex justify-content-between mt-2"
@@ -360,43 +376,7 @@
           </button>
         </div>
       </div>
-      <!-- <div class="block-box user-about">
-        <div class="widget-heading">
-          <h3 class="widget-title">Educación y empleo</h3>
-          <div class="dropdown">
-            <button
-              class="dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              ...
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Editar</a>
 
-            </div>
-          </div>
-        </div>
-        <ul class="user-info">
-          <li>
-            <label>Education:</label>
-            <p>The New College of Design</p>
-          </li>
-          <li>
-            <label>Institution:</label>
-            <p>Radiustheme.com</p>
-          </li>
-          <li>
-            <label>Employment:</label>
-            <p>UI/UX Designer</p>
-          </li>
-          <li>
-            <label>Year:</label>
-            <p>2008-2020</p>
-          </li>
-        </ul>
-      </div> -->
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title text-danger">Zona roja</h3>
@@ -414,7 +394,6 @@
               <button class="dropdown-item" (click)="onEditSection('zonaroja')">
                 Editar
               </button>
-
             </div>
           </div>
         </div>
@@ -501,7 +480,6 @@
             </button> -->
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="#">Editar</a>
-
             </div>
           </div>
         </div>

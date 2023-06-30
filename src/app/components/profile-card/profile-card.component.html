@@ -5,7 +5,11 @@
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a href="#" class="">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important;" alt="author" />
+        <img
+          [src]="user.avatar"
+          style="width: 100px !important; height: 100px !important"
+          alt="author"
+        />
       </a>
     </div>
     <div class="profile-name">
@@ -13,7 +17,13 @@
         <a href="#">{{ user.nombre }}</a>
       </h4>
       <div class="author-location">
-        <p *ngFor="let item of user.areaExperiencia " class=" badge text-wrap"  style="margin: 0 !important;" > {{item }} </p>
+        <p
+          *ngFor="let item of user.areaExperiencia"
+          class="badge text-wrap"
+          style="margin: 0 !important"
+        >
+          {{ item }}
+        </p>
       </div>
     </div>
   </div>
@@ -25,11 +35,15 @@
 <div class="widget-author" *ngIf="isMatch">
   <div class="author-heading">
     <div class="cover-img">
-      <img src="media/figure/cover_1.jpg" alt="cover" />
+      <img [src]="user.fotoPortada" alt="fotoPortada" />
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a href="#" class="">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important;" alt="author" />
+        <img
+          [src]="user.avatar"
+          style="width: 100px !important; height: 100px !important"
+          alt="author"
+        />
       </a>
     </div>
     <div class="profile-name">

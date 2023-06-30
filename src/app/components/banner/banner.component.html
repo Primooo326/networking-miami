@@ -1,0 +1,33 @@
+<div
+  class="banner-user"
+  style="background-image: url('{{ user.fotoPortada }}') !important"
+>
+  <div class="banner-content">
+    <div class="media">
+      <div *ngIf="!isCurrentUser" class="item-img">
+        <img
+          class="profileimage"
+          [src]="user.avatar"
+          style="width: 115px; height: 115px"
+          alt="User"
+        />
+      </div>
+      <div *ngIf="isCurrentUser" role="button" class="item-img">
+        <img
+          class="profileimage"
+          [src]="user.avatar"
+          style="width: 115px; height: 115px"
+          alt="User"
+        />
+        <img src="media/photo_upload.png" class="uploadimage" alt="img" />
+        <input type="file" accept="image/*" #fileInput style="display: none" />
+      </div>
+      <div class="media-body">
+        <h3 class="item-title">{{ user.nombre | titlecase }}</h3>
+        <div class="item-subtitle">
+          {{ user.areaExperiencia | pipearray }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

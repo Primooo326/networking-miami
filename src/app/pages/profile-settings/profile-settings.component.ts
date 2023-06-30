@@ -5,6 +5,7 @@ import { AuthService } from "src/app/services/auth/auth.service"
 import { FilesService } from "src/app/services/files/files.service"
 import { MailService } from "src/app/services/mail/mail.service"
 import { UserService } from "src/app/services/user/user.service"
+import { Usuario } from "src/app/tools/models"
 import { setUser } from "src/redux/actions"
 import { userSelect } from "src/redux/selectors"
 import Swal from "sweetalert2"
@@ -23,9 +24,9 @@ export class ProfileSettingsComponent {
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
 	TipoConexion: string[] = []
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+	@ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>
 
-  user$ = this.store.select(userSelect)
+	user$ = this.store.select(userSelect)
 	currentUser = JSON.parse(localStorage.getItem("user")!)
 
 	onInformacionBasicaEdit = true
@@ -44,12 +45,8 @@ export class ProfileSettingsComponent {
 			Validators.required,
 			Validators.minLength(8),
 		]),
-		condado: new FormControl(this.currentUser.condado, [
-			Validators.required,
-		]),
-		ciudad: new FormControl(this.currentUser.ciudad, [
-			Validators.required,
-		]),
+		condado: new FormControl(this.currentUser.condado, [Validators.required]),
+		ciudad: new FormControl(this.currentUser.ciudad, [Validators.required]),
 		lenguajes: new FormControl(this.currentUser.lenguajes, [
 			Validators.required,
 		]),
@@ -57,27 +54,36 @@ export class ProfileSettingsComponent {
 			this.currentUser.fechaNacimiento.substring(0, 10),
 			[Validators.required],
 		),
-		genero: new FormControl(this.currentUser.genero, [
-			Validators.required,
-		]),
+		genero: new FormControl(this.currentUser.genero, [Validators.required]),
 		biografia: new FormControl(this.currentUser.biografia, [
 			Validators.required,
 		]),
 	})
 
-	interesesForm = new FormControl(this.currentUser.temasInteres, [
-		Validators.required,
-	])
+	interesesFormGroup = new FormGroup({
+		temasInteres: new FormControl(this.currentUser.temasInteres, [
+			Validators.required,
+		]),
+		areaExperiencia: new FormControl(this.currentUser.areaExperiencia, [
+			Validators.required,
+		]),
+	})
 
 	newEmail = new FormControl(this.currentUser.email, [
 		Validators.required,
 		Validators.email,
 	])
-	constructor(private mailSrvc: MailService, private userSrvc: UserService, private fileSrvc:FilesService, private store:Store<any>) {
+	constructor(
+		private mailSrvc: MailService,
+		private userSrvc: UserService,
+		private fileSrvc: FilesService,
+		private store: Store<any>,
+	) {
 		console.log(this.currentUser)
+		console.log(this.currentUser.temasInteres)
 
 		const idx = this.condados.findIndex(
-			(c:any) => c.nombre === this.currentUser.condado,
+			(c: any) => c.nombre === this.currentUser.condado,
 		)
 		this.ciudades = this.condados[idx].ciudades
 		this.condadoSelected = this.condados[idx]
@@ -118,7 +124,7 @@ export class ProfileSettingsComponent {
 			$("select#condado").on("change", (e: any) => {
 				const condado: any = $(e.target).val()
 				this.infoBasicaForm.get("condado")?.setValue(condado)
-				const idx = this.condados.findIndex((c:any) => c.nombre === condado)
+				const idx = this.condados.findIndex((c: any) => c.nombre === condado)
 				this.ciudades = this.condados[idx].ciudades
 				this.condadoSelected = this.condados[idx]
 				document.getElementById("boton")?.click()
@@ -136,7 +142,7 @@ export class ProfileSettingsComponent {
 				const genero: any = $(e.target).val()
 				this.infoBasicaForm.get("genero")?.setValue(genero)
 			})
-		}, 10)
+		}, 5)
 	}
 	onChangeConexiones(data: any) {
 		const value = data.target.value
@@ -152,7 +158,7 @@ export class ProfileSettingsComponent {
 	async cambioInformacionBasica() {
 		this.isOnInformacionBasicaLoading = true
 		const regex = /'(.*?)'/
-		const user = { ...this.currentUser }
+		const user: any = { ...this.currentUser }
 		let idiomaValue: any = $("select#idioma").val()
 		idiomaValue = idiomaValue.map((i: string) => {
 			const match = i.match(regex)
@@ -179,7 +185,7 @@ export class ProfileSettingsComponent {
 				console.log(data)
 				this.isOnInformacionBasicaLoading = false
 				this.currentUser = user
-        this.store.dispatch(setUser.set(user))
+				this.store.dispatch(setUser.set(user))
 				this.onInformacionBasicaEdit = true
 			},
 			(err) => {
@@ -194,11 +200,18 @@ export class ProfileSettingsComponent {
 		const user = { ...this.currentUser }
 		console.log(user)
 		user.tipoConexion = this.TipoConexion
-		let intereses: any = $("select#interes").val()
-		user.temasInteres = intereses.map((i: string) => {
+		let temasInteres: any = $("select#interes").val()
+		temasInteres = temasInteres.map((i: string) => {
 			const match = i.match(regex)
 			return match ? match[1] : i
 		})
+		let areaExperiencia: any = $("select#experiencia").val()
+		areaExperiencia = areaExperiencia.map((i: string) => {
+			const match = i.match(regex)
+			return match ? match[1] : i
+		})
+		user.temasInteres = temasInteres
+		user.areaExperiencia = areaExperiencia
 		console.log(user)
 		const res = await this.userSrvc.updateUser(user)
 		res.subscribe(
@@ -206,8 +219,12 @@ export class ProfileSettingsComponent {
 				console.log(data)
 				this.isOnInteresesLoading = false
 				this.currentUser = user
-        this.store.dispatch(setUser.set(user))
+				this.store.dispatch(setUser.set(user))
 				this.onInteresesEdit = true
+				this.interesesFormGroup.get("temasInteres")?.setValue(user.temasInteres)
+				this.interesesFormGroup
+					.get("areaExperiencia")
+					?.setValue(user.areaExperiencia)
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")
@@ -249,24 +266,24 @@ export class ProfileSettingsComponent {
 			},
 		)
 	}
-  openFileInput() {
-    this.fileInput.nativeElement.click();
-  }
+	openFileInput() {
+		this.fileInput.nativeElement.click()
+	}
 
-  async handleFileInput(event: any) {
-    const file = event.target.files[0];
-    const res = await this.fileSrvc.updateUser(file)
+	async handleFileInput(event: any) {
+		const file = event.target.files[0]
+		const res = await this.fileSrvc.updateUser(file)
 		res.subscribe(
-			(data:any) => {
+			(data: any) => {
 				console.log(data)
 
-        const user = { ...this.currentUser, avatar: data.path}
-        this.store.dispatch(setUser.set(user))
+				const user = { ...this.currentUser, avatar: data.path }
+				this.store.dispatch(setUser.set(user))
 			},
 			(err) => {
-        console.log(err);
+				console.log(err)
 				Swal.fire("error", err.error, "error")
 			},
 		)
-  }
+	}
 }

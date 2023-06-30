@@ -85,7 +85,7 @@ export class LoginComponent implements AfterViewInit {
 		private authSrvc: AuthService,
 		private router: Router,
 		private mailSrvc: MailService,
-    private store:Store<any>
+		private store: Store<any>,
 	) {
 		setInterval(() => {
 			this.experienciaV =
@@ -99,7 +99,7 @@ export class LoginComponent implements AfterViewInit {
 		}, 100)
 
 		this.condadoSelected = this.condados[0]
-    console.log(this.condadoSelected);
+		console.log(this.condadoSelected)
 		this.ciudades = this.condados[0].ciudades
 	}
 
@@ -122,7 +122,7 @@ export class LoginComponent implements AfterViewInit {
 		$("select#condado").on("change", (e: any) => {
 			const condado: any = $(e.target).val()
 			this.registroForm2Tab.get("condado")?.setValue(condado)
-			const idx = this.condados.findIndex((c:any) => c.nombre === condado)
+			const idx = this.condados.findIndex((c: any) => c.nombre === condado)
 			this.ciudades = this.condados[idx].ciudades
 			this.condadoSelected = this.condados[idx]
 			document.getElementById("boton")?.click()
@@ -154,10 +154,10 @@ export class LoginComponent implements AfterViewInit {
 				})
 				.then((obs) => {
 					obs.subscribe(
-						(data:any) => {
+						(data: any) => {
 							console.log(data)
-              const {token,user} = data
-            this.store.dispatch(setUser.set(user))
+							const { token, user } = data
+							this.store.dispatch(setUser.set(user))
 
 							localStorage.setItem("user", JSON.stringify(user))
 							localStorage.setItem("token", JSON.stringify(token))
@@ -201,14 +201,15 @@ export class LoginComponent implements AfterViewInit {
 				obs.subscribe(
 					(data: any) => {
 						console.log(data)
-            const {token,id, avatar} = data
-            const user = newUser
-            user.id = id
-            user.avatar = avatar
-            this.store.dispatch(setUser.set(user))
+						const { token, id, avatar, fotoPortada } = data
+						const user = newUser
+						user.id = id
+						user.avatar = avatar
+						user.fotoPortada = fotoPortada
+						this.store.dispatch(setUser.set(user))
 
-            localStorage.setItem("user", JSON.stringify(user))
-            localStorage.setItem("token", JSON.stringify(token))
+						localStorage.setItem("user", JSON.stringify(user))
+						localStorage.setItem("token", JSON.stringify(token))
 						this.router.navigate(["/home"])
 					},
 					(err: any) => {
