@@ -278,6 +278,7 @@ export class ProfileSettingsComponent {
 				console.log(data)
 
 				const user = { ...this.currentUser, avatar: data.path }
+        this.currentUser = user
 				this.store.dispatch(setUser.set(user))
 			},
 			(err) => {

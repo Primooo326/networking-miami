@@ -8,13 +8,10 @@ import { Usuario } from "src/app/tools/models"
 })
 export class BannerComponent {
 	@Input() user!: Usuario
+  @Input() canEdit: boolean = false
 
 	@Output() isOnEdit = new EventEmitter<boolean>()
 
-	get isCurrentUser(): boolean {
-		const localUser = JSON.parse(localStorage.getItem("user") || "{}")
-		return localUser.id === this.user.id
-	}
 	onEdit() {
 		this.isOnEdit.emit(true)
 	}

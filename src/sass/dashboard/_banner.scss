@@ -151,22 +151,22 @@
 			margin-bottom: 2px;
 			position: relative;
 			display: inline-block;
-			&:before {
-				content: "\eed6";
-				font-family: IcoFont;
-			    text-align: center;
-			    display: inline-block;
-			    height: 26px;
-			    width: 26px;
-			    line-height: 26px;
-			    background-color: #17dd17;
-			    border-radius: 50%;
-			    font-size: 20px;
-			    color: $color_light;
-			    position: absolute;
-			    top: 1px;
-			    right: -38px;
-			}
+			// &:before {
+			// 	content: "\eed6";
+			// 	font-family: IcoFont;
+			//     text-align: center;
+			//     display: inline-block;
+			//     height: 26px;
+			//     width: 26px;
+			//     line-height: 26px;
+			//     background-color: #17dd17;
+			//     border-radius: 50%;
+			//     font-size: 20px;
+			//     color: $color_light;
+			//     position: absolute;
+			//     top: 1px;
+			//     right: -38px;
+			// }
 		}
 		.item-subtitle {
 			font-weight: 600;

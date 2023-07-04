@@ -4,7 +4,7 @@
 >
   <div class="banner-content">
     <div class="media">
-      <div *ngIf="!isCurrentUser" class="item-img">
+      <div *ngIf="!canEdit" class="item-img">
         <img
           class="profileimage"
           [src]="user.avatar"
@@ -13,7 +13,7 @@
         />
       </div>
       <div
-        *ngIf="isCurrentUser"
+        *ngIf="canEdit"
         role="button"
         (click)="onEdit()"
         class="item-img"
@@ -28,7 +28,7 @@
         <input type="file" accept="image/*" #fileInput style="display: none" />
       </div>
       <div class="media-body">
-        <h3 class="item-title">{{ user.nombre | titlecase }}</h3>
+        <h3 class="item-title " [ngClass]="{'check': user.verificado}" >{{ user.nombre | titlecase }} </h3>
         <div class="item-subtitle">
           {{ user.areaExperiencia | pipearray }}
         </div>

@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
 	orderBy = "Todos los miembros"
 	pages: number[] = []
 
+
 	isOnAdvancedFilters = false
 
 	filterInput = new FormControl("", Validators.required)
@@ -143,7 +144,7 @@ export class HomeComponent implements OnInit {
 	changePageNewMatches(page: number) {
 		this.currentPageNewMatches = page
 		this.showUsersNewMatches = this.users.filter(() => true)
-		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 4, 20)
+		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 20, 20)
 		console.log(this.users.length)
 		this.initMasonry()
 	}
@@ -175,7 +176,7 @@ export class HomeComponent implements OnInit {
 		const items = this.users.filter(() => true)
 
 		const page = this.currentPageNewMatches + 1
-		return items.splice(page * 4, 20).length == 0
+		return items.splice(page * 20, 20).length == 0
 	}
 	onCondadoChange() {
 		this.ciudades = this.ciudades.filter((c) => true)

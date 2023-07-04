@@ -15,6 +15,8 @@ export class MatchesComponent implements OnInit {
 	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
 	intereses = JSON.parse(localStorage.getItem("interes")!)
 	condados = JSON.parse(localStorage.getItem("condados")!)
+	currentUser = JSON.parse(localStorage.getItem("user")!)
+
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
 	TipoConexion: string[] = []

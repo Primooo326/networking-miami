@@ -1,6 +1,6 @@
 <div class="container">
   <!-- Banner Area Start -->
-  <app-banner [user]="currentUser" (isOnEdit)="openFileInput()"></app-banner>
+  <app-banner [user]="currentUser" [canEdit]="true" (isOnEdit)="openFileInput()"></app-banner>
   <input
     type="file"
     accept="image/*"

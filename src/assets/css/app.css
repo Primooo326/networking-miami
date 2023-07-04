@@ -6614,7 +6614,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     display: inline-block;
 }
 
-.banner-user .media .item-title:before {
+.banner-user .media .check:before {
     content: "\eed6";
     font-family: IcoFont;
     text-align: center;
