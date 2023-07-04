@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment"
 	providedIn: "root",
 })
 export class UserService {
-	private backend = environment.backend
+	private backend = environment.backend + "api/"
 	constructor(private http: HttpClient) {}
 
 	private get token(): any {

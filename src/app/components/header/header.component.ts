@@ -19,9 +19,6 @@ export class HeaderComponent {
       switch (this.locate.path()) {
         case '/home':
           this.page = EPages.home;
-          this.user$.subscribe((user)=>{
-            console.log(user);
-          })
           break;
         case '/login':
           this.page = EPages.login;

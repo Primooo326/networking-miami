@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment"
   providedIn: 'root'
 })
 export class FilesService {
-	private backend = environment.backend
+	private backend = environment.backend + "api/"
 
 	constructor(private http: HttpClient) {}
 

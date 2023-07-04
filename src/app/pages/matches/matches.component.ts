@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core"
-import { UserData, Usuario } from "src/app/tools/models"
+import { Usuario } from "src/app/tools/models"
 import { UserService } from "../../services/user/user.service"
 import { MatchService } from "../../services/match/match.service"
 import { FormControl, Validators } from "@angular/forms"

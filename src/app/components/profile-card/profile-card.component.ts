@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { MatchService } from "src/app/services/match/match.service"
+import { SocketService } from "src/app/services/socket/socket.service"
 import { UserService } from "src/app/services/user/user.service"
-import { UserData, Usuario } from "src/app/tools/models"
+import { Usuario } from "src/app/tools/models"
 import Swal from "sweetalert2"
 
 @Component({
@@ -14,7 +15,7 @@ export class ProfileCardComponent implements OnInit {
 	@Input() isMatch: boolean = false
 	@Output() isDeleted = new EventEmitter()
 	@Output() isMatched = new EventEmitter()
-	constructor(private userSrvc: UserService, private matchSrvc: MatchService) {}
+	constructor(private userSrvc: UserService, private matchSrvc: MatchService, private socketSrvc:SocketService) {}
 
 	ngOnInit(): void {}
 
@@ -27,22 +28,24 @@ export class ProfileCardComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire('Solicitud enviada!', '', 'success')
         const  user  = JSON.parse(localStorage.getItem("user")!)
         const body = {
-          idToMatch: this.user.id,
-          idUser: user.id,
+          usuario_id: this.user.id,
+          usuario_request: user,
         }
-        const res = await this.matchSrvc.createMatch(body)
-        res.subscribe(
-          (data) => {
-            console.log(data)
-            this.isMatched.emit("match")
-          },
-          (err) => {
-            console.log("error::", err)
-          },
-        )
+        this.socketSrvc.notifyEmitter(body, 'match')
+        Swal.fire('¡Solicitud enviada!', '', 'success')
+        // const res = await this.matchSrvc.createMatch(body)
+        // res.subscribe(
+        //   (data) => {
+        //     console.log(data)
+        //     this.isMatched.emit("match")
+        //   },
+        //   (err) => {
+        //     Swal.fire('Error', err, 'error')
+        //     console.log("error::", err)
+        //   },
+        // )
       }
     })
 

@@ -59,7 +59,6 @@ export class HomeComponent implements OnInit {
 		await this.userSrvc.readUsers().then((obs) =>
 			obs.subscribe((data: any) => {
 				this.users = data
-				console.log(this.users[0])
 				this.users.length / 4
 
 				while (this.pages.length < this.users.length / 4) {
@@ -145,7 +144,6 @@ export class HomeComponent implements OnInit {
 		this.currentPageNewMatches = page
 		this.showUsersNewMatches = this.users.filter(() => true)
 		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 20, 20)
-		console.log(this.users.length)
 		this.initMasonry()
 	}
 	initMasonry() {
