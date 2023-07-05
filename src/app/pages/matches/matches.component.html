@@ -1,134 +1,137 @@
-<app-banner [user]="currentUser"></app-banner>
+<div class="container">
 
-<!-- <div class="block-box user-top-header">
-  <ul class="menu-list">
-    <li class="active"><a href="#">Timeline</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Friends</a></li>
-    <li><a href="#">Groups</a></li>
-    <li><a href="#">Photos</a></li>
-    <li><a href="#">Videos</a></li>
-    <li><a href="#">Badges</a></li>
-    <li><a href="#">Blogs</a></li>
-    <li><a href="#">Forums</a></li>
-    <li>
+  <app-banner [user]="currentUser"></app-banner>
+
+  <!-- <div class="block-box user-top-header">
+    <ul class="menu-list">
+      <li class="active"><a href="#">Timeline</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Friends</a></li>
+      <li><a href="#">Groups</a></li>
+      <li><a href="#">Photos</a></li>
+      <li><a href="#">Videos</a></li>
+      <li><a href="#">Badges</a></li>
+      <li><a href="#">Blogs</a></li>
+      <li><a href="#">Forums</a></li>
+      <li>
+        <div class="dropdown">
+          <button
+            class="dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-expanded="false"
+          >
+            ...
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Shop</a>
+            <a class="dropdown-item" href="#">Blog</a>
+            <a class="dropdown-item" href="#">Others</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div> -->
+  <div class="block-box user-search-bar">
+    <div class="box-item search-box">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Member" />
+        <div class="input-group-append">
+          <button class="search-btn" type="button">
+            <i class="icofont-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="box-item search-filter">
       <div class="dropdown">
+        <label>Order By:</label>
         <button
           class="dropdown-toggle"
           type="button"
           data-toggle="dropdown"
           aria-expanded="false"
         >
-          ...
+          Newest Member
         </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#">Shop</a>
-          <a class="dropdown-item" href="#">Blog</a>
-          <a class="dropdown-item" href="#">Others</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">All Member</a>
+          <a class="dropdown-item" href="#">Newest Member</a>
+          <a class="dropdown-item" href="#">Oldest Member</a>
         </div>
       </div>
-    </li>
-  </ul>
-</div> -->
-<div class="block-box user-search-bar">
-  <div class="box-item search-box">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search Member" />
-      <div class="input-group-append">
-        <button class="search-btn" type="button">
-          <i class="icofont-search"></i>
-        </button>
-      </div>
+    </div>
+    <div class="box-item search-switcher">
+      <ul class="user-view-switcher">
+        <li class="active">
+          <a class="user-view-trigger" href="#" data-type="user-grid-view">
+            <i class="icofont-layout"></i>
+          </a>
+        </li>
+        <li>
+          <a class="user-view-trigger" href="#" data-type="user-list-view">
+            <i class="icofont-listine-dots"></i>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="box-item search-filter">
-    <div class="dropdown">
-      <label>Order By:</label>
-      <button
-        class="dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-        aria-expanded="false"
+  <div id="user-view" class="user-grid-view">
+    <div class="row rowmsry">
+      <app-profile-card
+        *ngFor="let item of showUsers"
+        [user]="item"
+        [typeProfile]="'contacto'"
+        (isMatched)="onChangeEvent($event)"
+        class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
       >
-        Newest Member
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">All Member</a>
-        <a class="dropdown-item" href="#">Newest Member</a>
-        <a class="dropdown-item" href="#">Oldest Member</a>
-      </div>
+      </app-profile-card>
     </div>
   </div>
-  <div class="box-item search-switcher">
-    <ul class="user-view-switcher">
-      <li class="active">
-        <a class="user-view-trigger" href="#" data-type="user-grid-view">
-          <i class="icofont-layout"></i>
-        </a>
-      </li>
-      <li>
-        <a class="user-view-trigger" href="#" data-type="user-list-view">
-          <i class="icofont-listine-dots"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-<div id="user-view" class="user-grid-view">
-  <div class="row rowmsry">
-    <app-profile-card
-      *ngFor="let item of showUsers"
-      [user]="item"
-      [isMatch]="true"
-      (isMatched)="onChangeEvent($event)"
-      class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
+  <div class="text-center">
+    <a
+      role="button"
+      href="#matchestitle"
+      [hidden]="currentPageNewMatches == 0"
+      (click)="changePageNewMatches(currentPageNewMatches - 1)"
+      class="item-btn mx-2"
     >
-    </app-profile-card>
-  </div>
-</div>
-<div class="text-center">
-  <a
-    role="button"
-    href="#matchestitle"
-    [hidden]="currentPageNewMatches == 0"
-    (click)="changePageNewMatches(currentPageNewMatches - 1)"
-    class="item-btn mx-2"
-  >
-    <span class="btn-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="21px"
-        height="10px"
-      >
-        <g transform="translate(21,0) scale(-1,1)">
+      <span class="btn-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="21px"
+          height="10px"
+        >
+          <g transform="translate(21,0) scale(-1,1)">
+            <path
+              fill-rule="evenodd"
+              d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
+            />
+          </g>
+        </svg>
+      </span>
+    </a>
+    <a
+      role="button"
+      href="#matchestitle"
+      [hidden]="canNextPageNewMatches()"
+      (click)="changePageNewMatches(currentPageNewMatches + 1)"
+      class="item-btn mx-2"
+    >
+      <span class="btn-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="21px"
+          height="10px"
+        >
           <path
             fill-rule="evenodd"
             d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
           />
-        </g>
-      </svg>
-    </span>
-  </a>
-  <a
-    role="button"
-    href="#matchestitle"
-    [hidden]="canNextPageNewMatches()"
-    (click)="changePageNewMatches(currentPageNewMatches + 1)"
-    class="item-btn mx-2"
-  >
-    <span class="btn-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="21px"
-        height="10px"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
-        />
-      </svg>
-    </span>
-  </a>
+        </svg>
+      </span>
+    </a>
+  </div>
 </div>

@@ -33,3 +33,4 @@ export interface INotificacion {
     data:any
 }
 export type ENotifyStatus = "leido" | "no leido" | "eliminado";
+export type ETypePerfil = "contacto" | "solicitud" | "desconocido";

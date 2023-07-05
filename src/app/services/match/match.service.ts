@@ -20,7 +20,15 @@ export class MatchService {
 	async createMatch(body: any) {
 
     const url = this.backend + "match"
-    this.socketSrvc.notifyEmitter(body, "match")
+    // this.socketSrvc.notifyEmitter(body, "match")
+		return this.http.post(url, body, {
+			headers: { "x-access-token": this.token },
+		})
+	}
+	async requestMatch(body: any) {
+
+    const url = this.backend + "match/request"
+    // this.socketSrvc.notifyEmitter(body, "match")
 		return this.http.post(url, body, {
 			headers: { "x-access-token": this.token },
 		})
