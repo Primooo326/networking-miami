@@ -18,13 +18,13 @@ export class HomeComponent implements OnInit {
 	condados = JSON.parse(localStorage.getItem("condados")!)
 	conexion = JSON.parse(localStorage.getItem("conexion")!)
 	conexion2 = [
-		"personas que quieran compartir su conocimiento.",
-		"personas con intereses similares.",
-		"personas que estén buscando nuevas conexiones.",
-		"personas que estén buscando trabajo.",
-		"personas que estén buscando nuevas oportunidades de negocio.",
-		"personas que estén buscando productos nuevos y únicos.",
-		"personas que estén buscando una comunidad de la que formar parte.",
+		{searchBy:"personas que quieran compartir su conocimiento.",value:"Quiero compartir mi conocimiento." },
+		{searchBy:"personas con intereses similares.",value:"Quiero conectar con personas con intereses similares."},
+		{searchBy:"personas que estén buscando nuevas conexiones.",value:"Estoy buscando nuevas conexiones."},
+		{searchBy:"personas que estén buscando trabajo.",value:"Estoy buscando trabajo."},
+		{searchBy:"personas que estén buscando nuevas oportunidades de negocio.",value:"Estoy buscando nuevas oportunidades de negocio."},
+		{searchBy:"personas que estén buscando productos nuevos y únicos.",value:"Estoy buscando productos nuevos y únicos."},
+		{searchBy:"personas que estén buscando una comunidad de la que formar parte.", value:"Estoy buscando una comunidad de la que formar parte."},
 	]
 	condadoSelected: { nombre: string; ciudades: string[] } | string = ""
 	ciudades: string[] = []
@@ -56,17 +56,7 @@ export class HomeComponent implements OnInit {
 			? (this.verificado = false)
 			: (this.verificado = true)
 
-		await this.userSrvc.readUsers().then((obs) =>
-			obs.subscribe((data: any) => {
-				this.users = data
-				this.users.length / 4
-
-				while (this.pages.length < this.users.length / 4) {
-					this.pages.push(this.pages.length)
-				}
-				this.changePageNewMatches(0)
-			}),
-		)
+    await this.readAllUsers()
 
 		$("select.select2").select2({
 			dropdownAutoWidth: true,
@@ -104,6 +94,19 @@ export class HomeComponent implements OnInit {
 			this.filtersGroup.get("conexiones")?.setValue(conexiones)
 		})
 	}
+  async readAllUsers(){
+    await this.userSrvc.readUsers().then((obs) =>
+			obs.subscribe((data: any) => {
+				this.users = data
+				this.users.length / 4
+
+				while (this.pages.length < this.users.length / 4) {
+					this.pages.push(this.pages.length)
+				}
+				this.changePageNewMatches(0)
+			}),
+		)
+  }
 	async verifyEmail() {
 		this.onVerifyEmail = true
 		const res = await this.mailSrvc.verifyEmail({
@@ -167,8 +170,7 @@ export class HomeComponent implements OnInit {
 		this.orderBy = order
 	}
 	onChangeEvent(e: any) {
-		console.log(e)
-		this.ngOnInit()
+    this.readAllUsers()
 	}
 	canNextPageNewMatches(): Boolean {
 		const items = this.users.filter(() => true)
@@ -178,6 +180,7 @@ export class HomeComponent implements OnInit {
 	}
 	onCondadoChange() {
 		this.ciudades = this.ciudades.filter((c) => true)
+    this.filtersGroup.get("ciudad")?.setValue(null)
 	}
 	async search() {
 		console.log(this.filtersGroup.value)
@@ -202,6 +205,7 @@ export class HomeComponent implements OnInit {
 			idiomas,
 			experiencia,
 			conexiones,
+      batchsize:400
 		})
 
 		res.subscribe(
@@ -214,12 +218,15 @@ export class HomeComponent implements OnInit {
 			},
 		)
 	}
-	clean() {
+	async clean() {
+    await this.readAllUsers()
+
 		this.filtersGroup.reset()
 		$("select#ciudad").val("Todos").trigger("change")
 		$("select#condado").val("").trigger("change")
 		$("select#idiomas").val("").trigger("change")
 		$("select#experiencia").val("").trigger("change")
 		$("select#conexiones").val("").trigger("change")
+
 	}
 }

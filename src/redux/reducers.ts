@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { Usuario } from "src/app/tools/models";
-import { setUser } from "./actions";
+import { INotificacion, Usuario } from "src/app/tools/models";
+import { setUser, newNotification, newMatchRequest } from "./actions";
 
 
 
@@ -50,4 +50,22 @@ export const initialState:Usuario = user
 export const userReducer = createReducer(
   initialState,
   on(setUser.set, (state, {user}) => { console.log(user); localStorage.setItem("user",JSON.stringify(user)); return user})
+)
+
+const notification:INotificacion[] = []
+
+export const initialNotification:INotificacion[] = notification
+
+export const notificationReducer = createReducer(
+  initialNotification,
+  on( newNotification.set, (state, {notification}) => { console.log([...state, notification]); return [...state, notification]})
+)
+
+const matchRequest:any[] = []
+
+export const initialMatchRequest = matchRequest
+
+export const matchRequestReducer = createReducer(
+  initialMatchRequest,
+  on( newMatchRequest.set, (state, {matchRequest}) => { console.log([...state, matchRequest]); return [...state, matchRequest]})
 )

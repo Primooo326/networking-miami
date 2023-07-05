@@ -40,24 +40,30 @@
                 aria-expanded="false"
               >
                 <i class="icofont-users-alt-4"></i>
+                <span *ngIf="(matchsRequest$ | async).length != 0" class="notify-count">{{(matchsRequest$ | async).length}}</span>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="item-heading">
-                  <h6 class="heading-title">Friend Requests</h6>
+                  <h6 class="heading-title">Solicitud de conexión</h6>
                   <div class="heading-btn">
-                    <a href="#">Settings</a>
-                    <a href="#">Mark all as Read</a>
+                    <!-- <a href="#">Settings</a> -->
+                    <a href="#">Eliminar todo</a>
                   </div>
                 </div>
                 <div class="item-body">
-                  <div class="media">
+
+                  <div *ngIf="(matchsRequest$ | async).length == 0" class="text-center" >
+                    <p><small>No tienes solicitudes aun</small></p>
+                  </div>
+
+                  <div *ngFor="let item of matchsRequest$ | async" class="media" >
                     <div class="item-img">
-                      <img src="media/figure/chat_5.jpg" alt="Notify" />
+                      <img [src]="item.avatar" alt="Notify" />
                       <span class="chat-status offline"></span>
                     </div>
                     <div class="media-body">
-                      <h6 class="item-title"><a href="#">Lily Zaman</a></h6>
-                      <p>4 in mutual friends</p>
+                      <h6 class="item-title"><a href="#">{{item.nombre}}</a></h6>
+                      <!-- <p>4 in mutual friends</p> -->
                       <div class="btn-area">
                         <a href="#" class="item-btn"
                           ><i class="icofont-plus"></i
@@ -68,45 +74,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="media">
-                    <div class="item-img">
-                      <img src="media/figure/chat_1.jpg" alt="Notify" />
-                      <span class="chat-status online"></span>
-                    </div>
-                    <div class="media-body">
-                      <h6 class="item-title"><a href="#">Ketty Rose</a></h6>
-                      <p>3 in mutual friends</p>
-                      <div class="btn-area">
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-plus"></i
-                        ></a>
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-minus"></i
-                        ></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="media">
-                    <div class="item-img">
-                      <img src="media/figure/chat_8.jpg" alt="Notify" />
-                      <span class="chat-status online"></span>
-                    </div>
-                    <div class="media-body">
-                      <h6 class="item-title"><a href="#">Rustom vai</a></h6>
-                      <p>6 in mutual friends</p>
-                      <div class="btn-area">
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-plus"></i
-                        ></a>
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-minus"></i
-                        ></a>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
                 <div class="item-footer">
-                  <a href="#" class="view-btn">View All Friend Request</a>
+                  <a href="#" class="view-btn">Ver todas la solicitudes</a>
                 </div>
               </div>
             </div>
@@ -172,40 +143,35 @@
                 aria-expanded="false"
               >
                 <i class="icofont-notification"></i
-                ><span class="notify-count">3</span>
+                >
+                <span *ngIf="(notification$ | async)!.length != 0" class="notify-count">{{(matchsRequest$ | async).length}}</span>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="item-heading">
-                  <h6 class="heading-title">Notifications</h6>
+                  <h6 class="heading-title">Notificaciones</h6>
                   <div class="heading-btn">
-                    <a href="#">Settings</a>
-                    <a href="#">Mark all as Read</a>
+                    <a href="#">Marcar todo como leído</a>
                   </div>
                 </div>
                 <div class="item-body">
-                  <a href="#" class="media">
+
+                  <div *ngIf="(notification$ | async)!.length == 0" class="text-center" >
+                    <p><small>No tienes notificaciones</small></p>
+                  </div>
+
+                  <a href="#" class="media" *ngFor="let item of notification$ | async" >
                     <div class="item-img">
-                      <img src="media/figure/notifiy_1.png" alt="Notify" />
+                      <img [src]="item.data.avatar" width="40" alt="Notify" />
                     </div>
                     <div class="media-body">
-                      <h6 class="item-title">Diana Jameson</h6>
-                      <div class="item-time">15 mins ago</div>
-                      <p>when are nknowen printer took galley of types ...</p>
+                      <h6 class="item-title">{{item.title}}</h6>
+                      <div class="item-time">{{calcularTiempoTranscurrido(item.time)}}</div>
+                      <p>{{item.message}}</p>
                     </div>
                   </a>
                   <a href="#" class="media">
                     <div class="item-img">
-                      <img src="media/figure/notifiy_2.png" alt="Notify" />
-                    </div>
-                    <div class="media-body">
-                      <h6 class="item-title">Quirty</h6>
-                      <div class="item-time">15 mins ago</div>
-                      <p>when are nknowen printer took galley of types ...</p>
-                    </div>
-                  </a>
-                  <a href="#" class="media">
-                    <div class="item-img">
-                      <img src="media/figure/notifiy_3.png" alt="Notify" />
+                      <img src="media/figure/notifiy_3.png" width="40" alt="Notify" />
                     </div>
                     <div class="media-body">
                       <h6 class="item-title">Zinia Jessy</h6>
@@ -213,6 +179,7 @@
                       <p>when are nknowen printer took galley of types ...</p>
                     </div>
                   </a>
+
                 </div>
                 <div class="item-footer">
                   <a href="#" class="view-btn">View All Notification</a>

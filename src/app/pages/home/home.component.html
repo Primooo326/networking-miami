@@ -24,9 +24,7 @@
     </ul>
   </div>
   <div class="mt-4">
-    <h1 class="text-center">
-      Haz nuevos matches <span class="badge"> {{ users.length }} </span>
-    </h1>
+
 
     <div class="row">
       <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
@@ -70,6 +68,7 @@
             </ul>
           </div>
         </div>
+        <p class="text-center" >{{ users.length }} usuarios encontrados</p>
         <div id="user-view" class="user-grid-view">
           <div class="row rowmsry">
             <app-profile-card *ngFor="let item of showUsersNewMatches" [user]="item" (isMatched)="onChangeEvent($event)"
@@ -135,8 +134,8 @@
                   <span>¿Qué tipo de personas te interesa encontrar?</span>
                   <select class="select2 mb-3" id="conexiones" formArrayName="conexiones" name="Conexion" multiple="multiple"
                     data-placeholder="Elige las opciones que apliquen">
-                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of conexion2" [value]="item">
-                       <p class="text-wrap" >{{ item }}</p>
+                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of conexion2" [value]="item.value">
+                       <p class="text-wrap" >{{ item.searchBy }}</p>
                     </option>
                   </select>
                 </li>

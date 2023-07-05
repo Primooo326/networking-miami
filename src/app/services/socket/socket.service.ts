@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { ENotifyTypes } from 'src/app/tools/models';
+import { Store } from '@ngrx/store';
+import {  newNotification, newMatchRequest } from "src/redux/actions"
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ import { ENotifyTypes } from 'src/app/tools/models';
 export class SocketService {
   private socket!: Socket;
 
-  constructor() {}
+  constructor(private store:Store<any>) {}
 
   openSocket() {
     // Establecer la conexión con el servidor de sockets
@@ -21,6 +23,11 @@ export class SocketService {
     this.socket.on('notify', (data: any) => {
       // Realizar acciones con los datos recibidos de las notificaciones
       console.log('Notificación recibida:', data);
+      this.store.dispatch(newNotification.set({data: data.data, title: data.title, message:data.message, time: data.time}))
+      if(data.type = "match"){
+        this.store.dispatch(newMatchRequest.set(data.data))
+      }
+
     });
 
     // Realizar acciones adicionales después de abrir el socket
@@ -32,6 +39,7 @@ export class SocketService {
   notifyEmitter(data: any, type:ENotifyTypes) {
     // Emitir el evento "new-notify" al servidor de sockets
     this.socket.emit('new-notify', {data,type});
+
   }
 
   closeSocket() {
