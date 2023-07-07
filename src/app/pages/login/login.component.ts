@@ -4,7 +4,9 @@ import { Router, RouterLink } from "@angular/router"
 import { Store } from "@ngrx/store"
 import { AuthService } from "src/app/services/auth/auth.service"
 import { MailService } from "src/app/services/mail/mail.service"
+import { SocketService } from "src/app/services/socket/socket.service"
 import { setUser } from "src/redux/actions"
+
 import Swal from "sweetalert2"
 
 @Component({
@@ -86,6 +88,7 @@ export class LoginComponent implements AfterViewInit {
 		private router: Router,
 		private mailSrvc: MailService,
 		private store: Store<any>,
+		private socketSrvc: SocketService,
 	) {
 		setInterval(() => {
 			this.experienciaV =
@@ -160,6 +163,7 @@ export class LoginComponent implements AfterViewInit {
 
 							localStorage.setItem("user", JSON.stringify(user))
 							localStorage.setItem("token", JSON.stringify(token))
+							this.socketSrvc.openSocket()
 							this.router.navigate(["/home"])
 						},
 						(err) => {
@@ -205,10 +209,12 @@ export class LoginComponent implements AfterViewInit {
 						user.id = id
 						user.avatar = avatar
 						user.fotoPortada = fotoPortada
+						user.verificado = 0
 						this.store.dispatch(setUser.set(user))
-
 						localStorage.setItem("user", JSON.stringify(user))
 						localStorage.setItem("token", JSON.stringify(token))
+						this.socketSrvc.openSocket()
+
 						this.router.navigate(["/home"])
 					},
 					(err: any) => {
