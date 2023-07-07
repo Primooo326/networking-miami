@@ -69,7 +69,7 @@ export class ProfileCardComponent implements OnInit {
 
         Swal.fire('¡Solicitud aceptada!', '', 'success')
         const res = await this.matchSrvc.createMatch(body)
-        this.appComponent.ngOnInit()
+        // this.appComponent.ngOnInit()
         res.subscribe(
           (data) => {
             console.log(data)

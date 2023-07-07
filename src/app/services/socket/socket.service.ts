@@ -36,6 +36,10 @@ export class SocketService {
       }
     });
 
+    this.socket.on('newMatch', (data: any) => {
+      console.log('Nuevo match:', data);
+    });
+
     // Realizar acciones adicionales después de abrir el socket
     this.socket.on('connect', () => {
       console.log('Socket conectado');
