@@ -1,17 +1,37 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-chat-modal',
   templateUrl: './chat-modal.component.html',
   styleUrls: ['./chat-modal.component.scss']
 })
-export class ChatModalComponent {
-
-  @Input() user:any
+export class ChatModalComponent implements OnInit {
   isShrink = true
   isHidden = true
 
-  constructor() { }
+
+  @Input() user:any
+
+  @Input()
+  set valor(value:boolean){
+    this.isShrink = false
+    this.isHidden = value
+  }
+
+  get valor(){
+    return this.isHidden
+  }
+
+  @Output() valorChange = new EventEmitter<boolean>();
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log(this.user);
+  }
 
 
   shrinkChat(){
@@ -20,6 +40,7 @@ export class ChatModalComponent {
 
   hideChat(){
     this.isHidden = !this.isHidden
+    this.valorChange.emit(this.isHidden)
   }
 
 }

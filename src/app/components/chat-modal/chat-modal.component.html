@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h6 class="modal-title" id="chat-modal-label">
-            Fahim Rahman <span class="online"></span>
+            {{user.nombre}} <span class="online"></span>
           </h6>
           <div class="action-icon">
             <button class="chat-shrink" (click)="shrinkChat()"><i class="icofont-minus"></i></button>
@@ -18,7 +18,7 @@
           <ul class="chat-conversion">
             <li class="chat-others">
               <div class="author-img">
-                <img src="media/figure/chat_12.jpg" alt="Chat" />
+                <img [src]="user.avatar" class="user_chat" alt="Chat" />
               </div>
               <div class="author-text">
                 <span>How are you Fahim vai ? Tommorow office will be your last day

@@ -39,8 +39,8 @@ export class MatchesComponent implements OnInit {
 			(obs) =>
 				obs.subscribe((data: any) => {
 					this.usersMatches = data
-					this.changePageMisMatches(0)
 					console.log(data)
+					this.changePageMisMatches(0)
 				}),
 			(err) => {
 				console.log("err:", err)

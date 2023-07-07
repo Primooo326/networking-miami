@@ -33,3 +33,10 @@ export const myRequestMatches = createActionGroup({
   }
 })
 
+export const myMatches = createActionGroup({
+  source:"[Sistem] My Matches",
+  events:{
+    set: (matches:any) => ({matches}),
+    delete: (cancelMatch:any) => ({cancelMatch})
+  }
+})

@@ -189,64 +189,10 @@
       <div class="sidebar-menu-wrap">
         <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
           <ul class="user-chat-list">
-            <li class="chat-item chat-open">
+            <li *ngFor="let item of misMatches$ | async" role="button" (click)="setUserChat(item)" class="chat-item chat-open">
               <div class="author-img">
-                <img src="media/figure/chat_1.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_2.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_3.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_4.jpg" alt="chat" />
+                <img [src]="item.avatar" class="user_chat" alt="chat"/>
                 <span class="chat-status online"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_5.jpg" alt="chat" />
-                <span class="chat-status online"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_6.jpg" alt="chat" />
-                <span class="chat-status online"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_7.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_8.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_9.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
-              </div>
-            </li>
-            <li class="chat-item chat-open">
-              <div class="author-img">
-                <img src="media/figure/chat_10.jpg" alt="chat" />
-                <span class="chat-status offline"></span>
               </div>
             </li>
           </ul>
@@ -255,7 +201,10 @@
     </div>
   </div>
 
-  <app-chat-modal></app-chat-modal>
+  <div *ngIf="userChat">
+
+    <app-chat-modal [user]="userChat" [(valor)]="isCloseChat" ></app-chat-modal>
+  </div>
 
 </div>
 <div *ngIf="page === 'landing'">

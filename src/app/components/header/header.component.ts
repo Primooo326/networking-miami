@@ -3,7 +3,12 @@ import { Location } from '@angular/common';
 import { EPages, Usuario } from 'src/app/tools/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { userSelect, matchPendingSelect, notificationSelect } from 'src/redux/selectors';
+import {
+  userSelect,
+  matchPendingSelect,
+  notificationSelect,
+  matchSelect,
+} from 'src/redux/selectors';
 import Swal from 'sweetalert2';
 import { MatchService } from 'src/app/services/match/match.service';
 import { newPendingMatch } from 'src/redux/actions';
@@ -15,15 +20,21 @@ import { newPendingMatch } from 'src/redux/actions';
 })
 export class HeaderComponent implements OnInit {
   page: EPages = EPages.landing;
-  user$ = this.store.select(userSelect)
-  matchsRequest$ = this.store.select(matchPendingSelect)
-  misMatches$:any
-  notification$ = this.store.select(notificationSelect)
-
+  user$ = this.store.select(userSelect);
+  matchsRequest$ = this.store.select(matchPendingSelect);
+  misMatches$ = this.store.select(matchSelect);
+  notification$ = this.store.select(notificationSelect);
+  userChat!: Usuario
+  isCloseChat = false;
   isOpenSideBarChat = false;
 
-  @Output() event:any
-  constructor(private locate: Location, private route: Router,private matchSrvc:MatchService, private store:Store<any>) {
+  @Output() event: any;
+  constructor(
+    private locate: Location,
+    private route: Router,
+    private matchSrvc: MatchService,
+    private store: Store<any>
+  ) {
     this.locate.onUrlChange(() => {
       switch (this.locate.path()) {
         case '/home':
@@ -40,22 +51,17 @@ export class HeaderComponent implements OnInit {
           break;
       }
     });
-
-
-
   }
   ngOnInit(): void {
-
-    this.notification$.subscribe((notification) => {
-      console.log("new notify:",notification);
-    }
-    )
-
+    this.misMatches$.subscribe((data: any) => {
+      console.log('matches::', data);
+    });
   }
   calcularTiempoTranscurrido(desde: string): string {
     const fechaActual = new Date();
     const fechaPasada = new Date(desde);
-    const diferenciaMilisegundos = fechaActual.getTime() - fechaPasada.getTime();
+    const diferenciaMilisegundos =
+      fechaActual.getTime() - fechaPasada.getTime();
 
     // Cálculo de las diferentes unidades de tiempo
     const segundos = Math.floor(diferenciaMilisegundos / 1000);
@@ -74,7 +80,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  async aceptar(user:Usuario) {
+  async aceptar(user: Usuario) {
     Swal.fire({
       title: '¿Seguro quieres aceptar la solicitud?',
       showCancelButton: true,
@@ -92,7 +98,7 @@ export class HeaderComponent implements OnInit {
         // this.appComponent.ngOnInit()
         res.subscribe(
           (data) => {
-            this.store.dispatch(newPendingMatch.delete(user))
+            this.store.dispatch(newPendingMatch.delete(user));
             Swal.fire('¡Solicitud aceptada!', '', 'success');
             console.log(data);
             this.event.emit('match');
@@ -105,7 +111,7 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
-  async eliminarSolictud(user:Usuario) {
+  async eliminarSolictud(user: Usuario) {
     Swal.fire({
       title: '¿Seguro quieres cancelar la solicitud?',
       showCancelButton: true,
@@ -114,12 +120,12 @@ export class HeaderComponent implements OnInit {
       icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.rejectPendingMatch(user.id.toString())
+        const res = await this.matchSrvc.rejectPendingMatch(user.id.toString());
         res.subscribe(
           (data) => {
             Swal.fire('¡Solicitud eliminada!', '', 'success');
             console.log(data);
-            this.store.dispatch(newPendingMatch.delete(user))
+            this.store.dispatch(newPendingMatch.delete(user));
             this.event.emit({ type: 'deleteRequest', user: user });
           },
           (err) => {
@@ -130,13 +136,18 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  openSideBarChat(){
+  openSideBarChat() {
     this.isOpenSideBarChat = !this.isOpenSideBarChat;
   }
 
+  setUserChat(user: Usuario) {
+    this.isCloseChat = true;
+    this.userChat = user;
+  }
+
   logOut() {
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.route.navigate(['/']);
   }
 }
