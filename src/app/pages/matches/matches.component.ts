@@ -38,7 +38,7 @@ export class MatchesComponent implements OnInit {
 		await this.matchSrvc.readMatch().then(
 			(obs) =>
 				obs.subscribe((data: any) => {
-					this.usersMatches = data.result
+					this.usersMatches = data
 					this.changePageMisMatches(0)
 					console.log(data)
 				}),

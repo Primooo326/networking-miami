@@ -181,8 +181,8 @@
   <!-- Sidebar Right -->
   <div class="fixed-sidebar right " [ngClass]="{'chat-head-hide': isOpenSideBarChat}" >
     <div class="fixed-sidebar-right small-sidebar">
-      <div class="sidebar-toggle" id="chat-head-toggle">
-        <button class="chat-icon" (click)="openSideBarChat()" >
+      <div class="sidebar-toggle" role="button" (click)="openSideBarChat()" id="chat-head-toggle">
+        <button class="chat-icon"  >
           <i class="icofont-speech-comments"></i>
         </button>
       </div>

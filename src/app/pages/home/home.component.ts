@@ -116,12 +116,14 @@ export class HomeComponent implements OnInit {
 			obs.subscribe((data: any) => {
 				this.users = data
 				this.users.length / 4
+        console.log(data[0])
 
 				while (this.pages.length < this.users.length / 4) {
 					this.pages.push(this.pages.length)
 				}
 				this.changePageNewMatches(0)
 			}),
+
 		)
   }
 	async verifyEmail() {
