@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
-import { EPages } from 'src/app/tools/models';
+import { EPages, Usuario } from 'src/app/tools/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { userSelect, matchPendingSelect, notificationSelect } from 'src/redux/selectors';
+import Swal from 'sweetalert2';
+import { MatchService } from 'src/app/services/match/match.service';
+import { newPendingMatch } from 'src/redux/actions';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +18,8 @@ export class HeaderComponent implements OnInit {
   user$ = this.store.select(userSelect)
   matchsRequest$ = this.store.select(matchPendingSelect)
   notification$ = this.store.select(notificationSelect)
-
-  constructor(private locate: Location, private route: Router, private store:Store<any>) {
+  @Output() event:any
+  constructor(private locate: Location, private route: Router,private matchSrvc:MatchService, private store:Store<any>) {
     this.locate.onUrlChange(() => {
       switch (this.locate.path()) {
         case '/home':
@@ -66,6 +69,63 @@ export class HeaderComponent implements OnInit {
       return `Hace unos segundos`;
     }
   }
+
+  async aceptar(user:Usuario) {
+    Swal.fire({
+      title: '¿Seguro quieres aceptar la solicitud?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const currentUser = JSON.parse(localStorage.getItem('user')!);
+        const body = {
+          idToMatch: user.id,
+          idUser: currentUser.id,
+        };
+        // this.socketSrvc.notifyEmitter(body, 'match')
+        const res = await this.matchSrvc.createMatch(body);
+        // this.appComponent.ngOnInit()
+        res.subscribe(
+          (data) => {
+            this.store.dispatch(newPendingMatch.delete(user))
+            Swal.fire('¡Solicitud aceptada!', '', 'success');
+            console.log(data);
+            this.event.emit('match');
+          },
+          (err) => {
+            Swal.fire('Error', err, 'error');
+            console.log('error::', err);
+          }
+        );
+      }
+    });
+  }
+  async eliminarSolictud(user:Usuario) {
+    Swal.fire({
+      title: '¿Seguro quieres cancelar la solicitud?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      icon: 'warning',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await this.matchSrvc.rejectPendingMatch(user.id.toString())
+        res.subscribe(
+          (data) => {
+            Swal.fire('¡Solicitud eliminada!', '', 'success');
+            console.log(data);
+            this.store.dispatch(newPendingMatch.delete(user))
+            this.event.emit({ type: 'deleteRequest', user: user });
+          },
+          (err) => {
+            console.log('error::', err);
+          }
+        );
+      }
+    });
+  }
+
   logOut() {
     localStorage.removeItem("user")
     localStorage.removeItem("token")

@@ -161,22 +161,12 @@
 
                   <a href="#" class="media" *ngFor="let item of notification$ | async" >
                     <div class="item-img">
-                      <img [src]="item.data.avatar" width="40" alt="Notify" />
+                      <img [src]="item.data.avatar" class="user_profile" alt="Notify" />
                     </div>
                     <div class="media-body">
                       <h6 class="item-title">{{item.title}}</h6>
                       <div class="item-time">{{calcularTiempoTranscurrido(item.time)}}</div>
                       <p>{{item.message}}</p>
-                    </div>
-                  </a>
-                  <a href="#" class="media">
-                    <div class="item-img">
-                      <img src="media/figure/notifiy_3.png" width="40" alt="Notify" />
-                    </div>
-                    <div class="media-body">
-                      <h6 class="item-title">Zinia Jessy</h6>
-                      <div class="item-time">15 mins ago</div>
-                      <p>when are nknowen printer took galley of types ...</p>
                     </div>
                   </a>
 
