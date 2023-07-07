@@ -17,7 +17,11 @@ export class HeaderComponent implements OnInit {
   page: EPages = EPages.landing;
   user$ = this.store.select(userSelect)
   matchsRequest$ = this.store.select(matchPendingSelect)
+  misMatches$:any
   notification$ = this.store.select(notificationSelect)
+
+  isOpenSideBarChat = false;
+
   @Output() event:any
   constructor(private locate: Location, private route: Router,private matchSrvc:MatchService, private store:Store<any>) {
     this.locate.onUrlChange(() => {
@@ -124,6 +128,10 @@ export class HeaderComponent implements OnInit {
         );
       }
     });
+  }
+
+  openSideBarChat(){
+    this.isOpenSideBarChat = !this.isOpenSideBarChat;
   }
 
   logOut() {

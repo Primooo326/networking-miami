@@ -7,7 +7,8 @@ import { RouterModule } from "@angular/router"
 import { ProfileCardComponent } from "./profile-card/profile-card.component"
 import { BannerComponent } from "./banner/banner.component"
 import { ToolsModule } from "../tools/tools.module";
-import { ToastComponent } from './toast/toast.component'
+import { ToastComponent } from './toast/toast.component';
+import { ChatModalComponent } from './chat-modal/chat-modal.component'
 
 @NgModule({
 	declarations: [
@@ -17,6 +18,7 @@ import { ToastComponent } from './toast/toast.component'
 		ProfileCardComponent,
 		BannerComponent,
   ToastComponent,
+  ChatModalComponent,
 	],
 	imports: [CommonModule, RouterModule, ToolsModule],
 	exports: [
@@ -25,7 +27,8 @@ import { ToastComponent } from './toast/toast.component'
 		Auth0Component,
 		ProfileCardComponent,
 		BannerComponent,
-    ToastComponent
+    ToastComponent,
+    ChatModalComponent
 	],
 })
 export class ComponentsModule {}

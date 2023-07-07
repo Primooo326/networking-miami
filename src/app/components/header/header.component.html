@@ -12,20 +12,11 @@
           <nav id="dropdown" class="template-main-menu">
             <ul class="menu-content">
               <li class="header-nav-item">
-                <a
-                  [routerLink]="['/home']"
-                  routerLinkActive="router-link-active"
-                  class="menu-link active"
-                  >Inicio</a
-                >
+                <a [routerLink]="['/home']" routerLinkActive="router-link-active" class="menu-link active">Inicio</a>
               </li>
               <li class="header-nav-item">
-                <a
-                  [routerLink]="['/match']"
-                  routerLinkActive="router-link-active"
-                  class="menu-link active"
-                  >Mis Contactos</a
-                >
+                <a [routerLink]="['/match']" routerLinkActive="router-link-active" class="menu-link active">Mis
+                  Contactos</a>
               </li>
             </ul>
           </nav>
@@ -33,14 +24,10 @@
         <div class="nav-item header-control">
           <div class="inline-item d-flex align-items-center">
             <div class="dropdown dropdown-friend">
-              <button
-                class="dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <i class="icofont-users-alt-4"></i>
-                <span *ngIf="(matchsRequest$ | async).length != 0" class="notify-count">{{(matchsRequest$ | async).length}}</span>
+                <span *ngIf="(matchsRequest$ | async).length != 0" class="notify-count">{{(matchsRequest$ |
+                  async).length}}</span>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="item-heading">
@@ -52,11 +39,11 @@
                 </div>
                 <div class="item-body">
 
-                  <div *ngIf="(matchsRequest$ | async).length == 0" class="text-center" >
+                  <div *ngIf="(matchsRequest$ | async).length == 0" class="text-center">
                     <p><small>No tienes solicitudes aun</small></p>
                   </div>
 
-                  <div *ngFor="let item of matchsRequest$ | async" class="media" >
+                  <div *ngFor="let item of matchsRequest$ | async" class="media">
                     <div class="item-img">
                       <img [src]="item.avatar" class="user_profile" alt="Notify" />
                       <span class="chat-status offline"></span>
@@ -65,12 +52,8 @@
                       <h6 class="item-title"><a href="#">{{item.nombre}}</a></h6>
                       <!-- <p>4 in mutual friends</p> -->
                       <div class="btn-area">
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-plus"></i
-                        ></a>
-                        <a href="#" class="item-btn"
-                          ><i class="icofont-minus"></i
-                        ></a>
+                        <a href="#" class="item-btn"><i class="icofont-plus"></i></a>
+                        <a href="#" class="item-btn"><i class="icofont-minus"></i></a>
                       </div>
                     </div>
                   </div>
@@ -82,12 +65,7 @@
               </div>
             </div>
             <div class="dropdown dropdown-message">
-              <button
-                class="dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <i class="icofont-speech-comments"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -136,15 +114,10 @@
               </div>
             </div>
             <div class="dropdown dropdown-notification">
-              <button
-                class="dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="icofont-notification"></i
-                >
-                <span *ngIf="(notification$ | async)!.length != 0" class="notify-count">{{(notification$ | async)!.length}}</span>
+              <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="icofont-notification"></i>
+                <span *ngIf="(notification$ | async)!.length != 0" class="notify-count">{{(notification$ |
+                  async)!.length}}</span>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="item-heading">
@@ -155,11 +128,11 @@
                 </div>
                 <div class="item-body">
 
-                  <div *ngIf="(notification$ | async)!.length == 0" class="text-center" >
+                  <div *ngIf="(notification$ | async)!.length == 0" class="text-center">
                     <p><small>No tienes notificaciones</small></p>
                   </div>
 
-                  <a href="#" class="media" *ngFor="let item of notification$ | async" >
+                  <a href="#" class="media" *ngFor="let item of notification$ | async">
                     <div class="item-img">
                       <img [src]="item.data.avatar" class="user_profile" alt="Notify" />
                     </div>
@@ -179,12 +152,7 @@
           </div>
           <div class="inline-item">
             <div class="dropdown dropdown-admin">
-              <button
-                class="dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <span class="media">
                   <span class="item-img">
                     <img [src]="(user$ | async)!.avatar" style="width: 44px; height: 44px;" alt="img-profile" />
@@ -197,9 +165,7 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <ul class="admin-options">
                   <li>
-                    <a routerLink="/profile-settings" routerLinkActive="active"
-                      >Ajustes</a
-                    >
+                    <a routerLink="/profile-settings" routerLinkActive="active">Ajustes</a>
                   </li>
 
                   <li><a class="text-danger" (click)="logOut()">Cerrar sesión</a></li>
@@ -211,234 +177,12 @@
       </div>
     </div>
   </header>
-  <!-- Sidebar Left -->
-  <div class="fixed-sidebar">
-    <div class="fixed-sidebar-left small-sidebar">
-      <div class="sidebar-toggle">
-        <button class="toggle-btn toggler-open">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-      <div class="sidebar-menu-wrap">
-        <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
-          <ul class="side-menu">
-            <li>
-              <a
-                href="newsfeed.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title=" NEWSFEED"
-                ><i class="icofont-newspaper"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="user-timeline.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="MEMBERS TIMELINE"
-                ><i class="icofont-list"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="user-groups.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="GROUPS"
-                ><i class="icofont-users-alt-2"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="user-friends.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="MEMBERS FRIENDS"
-                ><i class="icofont-users-alt-4"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="user-photo.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="GALLERY"
-                ><i class="icofont-photobucket"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="user-video.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="VIDEOS"
-                ><i class="icofont-play-alt-1"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="EVENT SCHEDULE"
-                ><i class="icofont-calendar"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="forums-timeline.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="FORUM"
-                ><i class="icofont-ui-text-chat"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="shop.html"
-                class="menu-link"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="SHOP"
-                ><i class="icofont-shopping-cart"></i
-              ></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="fixed-sidebar-left large-sidebar">
-      <div class="sidebar-toggle">
-        <div class="sidebar-logo">
-          <img src="media/logotipo.png" width="150" alt="Logo" />
-        </div>
-        <button class="toggle-btn toggler-close">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-      <div class="sidebar-menu-wrap">
-        <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
-          <ul class="side-menu">
-            <li>
-              <a href="newsfeed.html" class="menu-link"
-                ><i class="icofont-newspaper"></i
-                ><span class="menu-title">Newsfeed</span></a
-              >
-            </li>
-            <li>
-              <a href="user-timeline.html" class="menu-link"
-                ><i class="icofont-list"></i
-                ><span class="menu-title">Members Timeline</span></a
-              >
-            </li>
-            <li>
-              <a href="user-groups.html" class="menu-link"
-                ><i class="icofont-users-alt-2"></i
-                ><span class="menu-title">Groups</span></a
-              >
-            </li>
-            <li>
-              <a href="user-friends.html" class="menu-link"
-                ><i class="icofont-users-alt-4"></i
-                ><span class="menu-title">Members Friends</span></a
-              >
-            </li>
-            <li>
-              <a href="user-photo.html" class="menu-link"
-                ><i class="icofont-photobucket"></i
-                ><span class="menu-title">Gallery</span></a
-              >
-            </li>
-            <li>
-              <a href="user-video.html" class="menu-link"
-                ><i class="icofont-play-alt-1"></i
-                ><span class="menu-title">Videos</span></a
-              >
-            </li>
-            <li>
-              <a href="#" class="menu-link"
-                ><i class="icofont-calendar"></i
-                ><span class="menu-title">Event Schedule</span></a
-              >
-            </li>
-            <li>
-              <a href="forums-timeline.html" class="menu-link"
-                ><i class="icofont-ui-text-chat"></i
-                ><span class="menu-title">Forum</span></a
-              >
-            </li>
-            <li>
-              <a href="shop.html" class="menu-link"
-                ><i class="icofont-shopping-cart"></i
-                ><span class="menu-title">Shop</span></a
-              >
-            </li>
-          </ul>
-          <ul class="top-menu-mobile">
-            <li class="menu-label">Community</li>
-            <li>
-              <a href="user-about.html" class="menu-link">Profile About</a>
-            </li>
-            <li>
-              <a href="user-badges.html" class="menu-link">Profile Badges</a>
-            </li>
-            <li>
-              <a href="forums.html" class="menu-link">Forums</a>
-            </li>
-            <li>
-              <a href="forums-forum.html" class="menu-link">Forums Topic</a>
-            </li>
-            <li>
-              <a href="forums-info.html" class="menu-link">Forums Info</a>
-            </li>
-            <li>
-              <a href="forums-members.html" class="menu-link">Forums Members</a>
-            </li>
-            <li>
-              <a href="forums-media.html" class="menu-link">Forums Media</a>
-            </li>
-            <li class="menu-label">Pages</li>
-            <li>
-              <a href="about-us.html" class="menu-link">About</a>
-            </li>
-            <li>
-              <a href="user-blog.html" class="menu-link">Blog</a>
-            </li>
-            <li>
-              <a href="shop.html" class="menu-link">Shop</a>
-            </li>
-            <li>
-              <a href="single-blog.html" class="menu-link">Blog Details</a>
-            </li>
-            <li>
-              <a href="single-shop.html" class="menu-link">Shop Details</a>
-            </li>
-            <li>
-              <a href="contact.html" class="menu-link">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <!-- Sidebar Right -->
-  <div class="fixed-sidebar right">
+  <div class="fixed-sidebar right " [ngClass]="{'chat-head-hide': isOpenSideBarChat}" >
     <div class="fixed-sidebar-right small-sidebar">
       <div class="sidebar-toggle" id="chat-head-toggle">
-        <button class="chat-icon">
+        <button class="chat-icon" (click)="openSideBarChat()" >
           <i class="icofont-speech-comments"></i>
         </button>
       </div>
@@ -511,78 +255,8 @@
     </div>
   </div>
 
-  <!-- Chat Modal Here -->
-  <div
-    class="chat-conversion-box"
-    id="chat-box-modal"
-    tabindex="-1"
-    aria-labelledby="chat-modal-label"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="chat-modal-label">
-            Fahim Rahman <span class="online"></span>
-          </h6>
-          <div class="action-icon">
-            <button class="chat-shrink"><i class="icofont-minus"></i></button>
-            <button
-              type="button"
-              class="close chat-close chat-open"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </div>
-        <div class="modal-body">
-          <ul class="chat-conversion">
-            <li class="chat-others">
-              <div class="author-img">
-                <img src="media/figure/chat_12.jpg" alt="Chat" />
-              </div>
-              <div class="author-text">
-                <span
-                  >How are you Fahim vai ? Tommorow office will be your last day
-                  of Bachelor life.</span
-                >
-              </div>
-            </li>
-            <li class="chat-you">
-              <div class="author-img">
-                <img src="media/figure/chat_11.jpg" alt="Chat" />
-              </div>
-              <div class="author-text">
-                <span>hmm That's great</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <form>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Write your text here....."
-              />
-              <div class="chat-plus-icon">
-                <i class="icofont-plus-circle"></i>
-              </div>
-              <div class="file-attach-icon">
-                <a href="#"><i class="icofont-slightly-smile"></i></a>
-                <a href="#"><i class="icofont-camera"></i></a>
-                <a href="#"><i class="icofont-image"></i></a>
-                <a href="#"><i class="icofont-mic"></i></a>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-chat-modal></app-chat-modal>
+
 </div>
 <div *ngIf="page === 'landing'">
   <header class="header">
@@ -592,14 +266,10 @@
         <div class="row align-items-center">
           <div class="col-lg-2">
             <div class="temp-logo">
-              <a
-                ><img src="media/logotipo.png" style="width: 30vw !important;"  alt="Logo"
-              /></a>
+              <a><img src="media/logotipo.png" style="width: 30vw !important;" alt="Logo" /></a>
             </div>
           </div>
-          <div
-            class="col-xl-6 col-lg-7 col-sm-7 col-8 d-flex justify-content-xl-start justify-content-center"
-          >
+          <div class="col-xl-6 col-lg-7 col-sm-7 col-8 d-flex justify-content-xl-start justify-content-center">
             <div class="mobile-nav-item hide-on-desktop-menu">
               <div class="mobile-toggler">
                 <button type="button" class="mobile-menu-toggle">
@@ -607,16 +277,13 @@
                 </button>
               </div>
               <div class="mobile-logo">
-                <a >
+                <a>
                   <img src="media/logotipo.png" style="width: 30vw !important;" alt="Logo" />
                 </a>
               </div>
             </div>
             <nav id="dropdown" class="template-main-menu">
-              <button
-                type="button"
-                class="mobile-menu-toggle mobile-toggle-close"
-              >
+              <button type="button" class="mobile-menu-toggle mobile-toggle-close">
                 <i class="icofont-close"></i>
               </button>
               <ul class="menu-content">
@@ -626,9 +293,7 @@
               </ul>
             </nav>
           </div>
-          <div
-            class="col-xl-4 col-lg-3 col-sm-5 col-4 d-flex justify-content-end"
-          >
+          <div class="col-xl-4 col-lg-3 col-sm-5 col-4 d-flex justify-content-end">
             <div class="header-action">
               <ul>
                 <li class="header-social">
@@ -639,20 +304,13 @@
                   <a href="#"><i class="icofont-skype"></i></a>
                 </li>
                 <li class="header-search-icon">
-                  <a href="#header-search" title="Search"
-                    ><i class="icofont-search"></i
-                  ></a>
+                  <a href="#header-search" title="Search"><i class="icofont-search"></i></a>
                 </li>
 
                 <li class="login-btn">
                   <!-- <app-auth0></app-auth0> -->
-                  <a
-                    [routerLink]="['/login']"
-                    routerLinkActive="router-link-active"
-                    class="item-btn"
-                    style="margin: 0;"
-                    ><i class="fas fa-user"></i>Login</a
-                  >
+                  <a [routerLink]="['/login']" routerLinkActive="router-link-active" class="item-btn"
+                    style="margin: 0;"><i class="fas fa-user"></i>Login</a>
                 </li>
               </ul>
             </div>

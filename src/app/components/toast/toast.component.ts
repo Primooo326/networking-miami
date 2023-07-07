@@ -61,6 +61,12 @@ export class ToastComponent implements OnInit {
     new bootstrap.Toast(toast).show()
   }
 
+  cerrarToast(){
+    const toast = document.getElementById('liveToast') as HTMLElement
+    new bootstrap.Toast(toast).hide()
+
+  }
+
   calcularTiempoTranscurrido(desde: string): string {
     const fechaActual = new Date();
     const fechaPasada = new Date(desde);
