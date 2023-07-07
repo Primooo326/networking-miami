@@ -67,7 +67,8 @@ export const initialpendingMatches = pendingMatches
 
 export const pendingMatchesReducer = createReducer(
   initialpendingMatches,
-  on( newPendingMatch.set, (state, {matchRequest}) => { console.log([...state, matchRequest]); return [...state, matchRequest]})
+  on( newPendingMatch.set, (state, {matchRequest}) => { console.log([...state, matchRequest]); return [...state, matchRequest]}),
+  on( newPendingMatch.delete, (state, {cancelMatch}) => { console.log([...state, cancelMatch]); return state.filter((item:any) => item.id !== cancelMatch.id)})
 )
 
 

@@ -82,7 +82,7 @@
         *ngFor="let item of showUsers"
         [user]="item"
         [typeProfile]="'contacto'"
-        (isMatched)="onChangeEvent($event)"
+        (event)="onChangeEvent($event)"
         class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
       >
       </app-profile-card>

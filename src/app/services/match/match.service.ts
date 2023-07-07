@@ -57,6 +57,12 @@ export class MatchService {
 			headers: { "x-access-token": this.token },
 		})
 	}
+	async rejectPendingMatch(id: string) {
+    const url = this.backend + "match/rejectPendingMatch/" + id
+		return this.http.delete(url, {
+			headers: { "x-access-token": this.token },
+		})
+	}
 	async deleteMatch(id: string) {
     const url = this.backend + "match/deleteMatch/" + id
 		return this.http.delete(url, {

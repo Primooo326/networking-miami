@@ -1,26 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
-import { AppComponent } from "src/app/app.component"
-import { MatchService } from "src/app/services/match/match.service"
-import { SocketService } from "src/app/services/socket/socket.service"
-import { UserService } from "src/app/services/user/user.service"
-import { ETypePerfil, Usuario } from "src/app/tools/models"
-import Swal from "sweetalert2"
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppComponent } from 'src/app/app.component';
+import { MatchService } from 'src/app/services/match/match.service';
+import { SocketService } from 'src/app/services/socket/socket.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { ETypePerfil, Usuario } from 'src/app/tools/models';
+import { newPendingMatch } from 'src/redux/actions';
+import Swal from 'sweetalert2';
 
 @Component({
-	selector: "app-profile-card",
-	templateUrl: "./profile-card.component.html",
-	styleUrls: ["./profile-card.component.scss"],
+  selector: 'app-profile-card',
+  templateUrl: './profile-card.component.html',
+  styleUrls: ['./profile-card.component.scss'],
 })
 export class ProfileCardComponent implements OnInit {
-	@Input() user!: Usuario
-	@Input() typeProfile: ETypePerfil = "desconocido"
-	@Output() event = new EventEmitter()
-	constructor(private userSrvc: UserService, private matchSrvc: MatchService, private socketSrvc:SocketService, private appComponent:AppComponent) {}
+  @Input() user!: Usuario;
+  @Input() typeProfile: ETypePerfil = 'desconocido';
+  @Output() event = new EventEmitter();
+  constructor(
+    private userSrvc: UserService,
+    private matchSrvc: MatchService,
+    private socketSrvc: SocketService,
+    private appComponent: AppComponent,
+    private store:Store<any>
+  ) {}
 
-	ngOnInit(): void {}
+  ngOnInit(): void {}
 
-	async solicitar() {
-
+  async solicitar() {
     Swal.fire({
       title: '¿Seguro quieres conectar con este usuario?',
       showCancelButton: true,
@@ -28,31 +35,29 @@ export class ProfileCardComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const  user  = JSON.parse(localStorage.getItem("user")!)
+        const user = JSON.parse(localStorage.getItem('user')!);
         const body = {
           usuario_id: this.user.id,
           usuario_request: user,
-        }
+        };
         // this.socketSrvc.notifyEmitter(body, 'match')
 
-        Swal.fire('¡Solicitud enviada!', '', 'success')
-        const res = await this.matchSrvc.requestMatch(body)
+        Swal.fire('¡Solicitud enviada!', '', 'success');
+        const res = await this.matchSrvc.requestMatch(body);
         res.subscribe(
           (data) => {
-            console.log(data)
-            this.event.emit({type:"matchRequest",user:this.user})
+            console.log(data);
+            this.event.emit({ type: 'matchRequest', user: this.user });
           },
           (err) => {
-            Swal.fire('Error', err, 'error')
-            console.log("error::", err)
-          },
-        )
+            Swal.fire('Error', err, 'error');
+            console.log('error::', err);
+          }
+        );
       }
-    })
-
-	}
-  async aceptar(){
-
+    });
+  }
+  async aceptar() {
     Swal.fire({
       title: '¿Seguro quieres aceptar la solicitud?',
       showCancelButton: true,
@@ -60,80 +65,76 @@ export class ProfileCardComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const  user  = JSON.parse(localStorage.getItem("user")!)
+        const user = JSON.parse(localStorage.getItem('user')!);
         const body = {
           idToMatch: this.user.id,
           idUser: user.id,
-        }
+        };
+        this
         // this.socketSrvc.notifyEmitter(body, 'match')
-
-        Swal.fire('¡Solicitud aceptada!', '', 'success')
-        const res = await this.matchSrvc.createMatch(body)
+        const res = await this.matchSrvc.createMatch(body);
         // this.appComponent.ngOnInit()
         res.subscribe(
           (data) => {
-            console.log(data)
-            this.event.emit("match")
+            this.store.dispatch(newPendingMatch.delete(this.user))
+            Swal.fire('¡Solicitud aceptada!', '', 'success');
+            console.log(data);
+            this.event.emit('match');
           },
           (err) => {
-            Swal.fire('Error', err, 'error')
-            console.log("error::", err)
-          },
-        )
+            Swal.fire('Error', err, 'error');
+            console.log('error::', err);
+          }
+        );
       }
-    })
-
+    });
   }
-	async eliminarSolictud() {
-
+  async eliminarSolictud(isClient:boolean) {
     Swal.fire({
       title: '¿Seguro quieres cancelar la solicitud?',
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
-      'icon': 'warning'
+      icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.deleteRequestMatch(this.user.id.toString())
+        const res = isClient ? await this.matchSrvc.rejectPendingMatch(this.user.id.toString()) : await this.matchSrvc.deleteRequestMatch(this.user.id.toString());
         res.subscribe(
           (data) => {
-            Swal.fire('¡Solicitud eliminada!', '', 'success')
-            console.log(data)
-            this.event.emit({type:"deleteRequest",user:this.user})
+            Swal.fire('¡Solicitud eliminada!', '', 'success');
+            console.log(data);
+            this.store.dispatch(newPendingMatch.delete(this.user))
+            this.event.emit({ type: 'deleteRequest', user: this.user });
           },
           (err) => {
-            console.log("error::", err)
-          },
-        )
+            console.log('error::', err);
+          }
+        );
       }
-    })
-
-
-	}
+    });
+  }
   async eliminarMatch() {
     Swal.fire({
-      title: '¿Seguro quieres eliminar al contacto?'+ this.user.nombre,
+      title: '¿Seguro quieres eliminar al contacto?' + this.user.nombre,
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
-      'icon': 'warning'
+      icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.deleteMatch(this.user.id.toString())
+        const res = await this.matchSrvc.deleteMatch(this.user.id.toString());
         res.subscribe(
           (data) => {
-            Swal.fire('¡Contacto eliminado!', '', 'success')
-            console.log(data)
-            this.appComponent.ngOnInit()
-            this.event.emit({type:"deleteMatch",user:this.user})
+            Swal.fire('¡Contacto eliminado!', '', 'success');
+            console.log(data);
+            this.event.emit({ type: 'deleteMatch', user: this.user });
           },
           (err) => {
-            Swal.fire('¡Error!', err, 'error')
-            console.log("error::", err)
-          },
-        )
+            Swal.fire('¡Error!', err, 'error');
+            console.log('error::', err);
+          }
+        );
       }
-    })
-
+    });
   }
 }

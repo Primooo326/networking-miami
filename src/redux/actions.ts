@@ -19,7 +19,8 @@ export const newNotification = createActionGroup({
 export const newPendingMatch = createActionGroup({
   source:"[Sistem] Match Request",
   events:{
-    set: (pendingMatch:any) => ({matchRequest: pendingMatch})
+    set: (pendingMatch:any) => ({matchRequest: pendingMatch}),
+    delete: (cancelMatch:any) => ({cancelMatch})
 
   }
 })
