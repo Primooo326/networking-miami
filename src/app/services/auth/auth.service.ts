@@ -22,27 +22,27 @@ export class AuthService {
 	}
 	async datas() {
 		await this.http
-			.get("http://localhost:4000/api/admin/interes")
+			.get(`${this.backend}admin/interes`)
 			.subscribe((data) => {
 				localStorage.setItem("interes", JSON.stringify(data))
 			})
 		await this.http
-			.get("http://localhost:4000/api/admin/conexion")
+			.get(`${this.backend}admin/conexion`)
 			.subscribe((data) => {
 				localStorage.setItem("conexion", JSON.stringify(data))
 			})
 		await this.http
-			.get("http://localhost:4000/api/admin/condados")
+			.get(`${this.backend}admin/condados`)
 			.subscribe((data) => {
 				localStorage.setItem("condados", JSON.stringify(data))
 			})
 		await this.http
-			.get("http://localhost:4000/api/admin/lenguaje")
+			.get(`${this.backend}admin/lenguaje`)
 			.subscribe((data) => {
 				localStorage.setItem("lenguajes", JSON.stringify(data))
 			})
 		await this.http
-			.get("http://localhost:4000/api/admin/experiencia")
+			.get(`${this.backend}admin/experiencia`)
 			.subscribe((data) => {
 				localStorage.setItem("experiencia", JSON.stringify(data))
 			})

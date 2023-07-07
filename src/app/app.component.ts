@@ -6,7 +6,8 @@ import * as bootstrap from 'bootstrap';
 import { Store } from '@ngrx/store';
 import { notificationSelect } from 'src/redux/selectors';
 import { NotifyService } from './services/notify/notify.service';
-import { newMatchRequest, newNotification } from 'src/redux/actions';
+import { newPendingMatch, newNotification, myRequestMatches } from 'src/redux/actions';
+import { MatchService } from './services/match/match.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     private dataSrvc: AuthService,
     private SocketSrvc: SocketService,
     private notifySrvc:NotifyService,
+    private matchSrvc:MatchService,
     private store: Store<any>
   ) {
     this.location.onUrlChange(() => {
@@ -33,15 +35,36 @@ export class AppComponent implements OnInit {
     }
     if(localStorage.getItem('token')){
       this.SocketSrvc.openSocket();
-      const notifiys =await  this.notifySrvc.getNorifications()
+      const notifiys = await this.notifySrvc.getNorifications()
 
       notifiys.subscribe((data:any)=>{
         console.log(data);
         data.forEach((element:any) => {
           this.store.dispatch(newNotification.set({data: element.data, title: element.title, message:element.message, time: element.time}))
-          if(element.type = "match"){
-            this.store.dispatch(newMatchRequest.set(element.data))
-          }
+          // if(element.type = "match"){
+          //   this.store.dispatch(newPendingMatch.set(element.data))
+          // }
+        })
+      },(err:any)=>{
+        console.log(err);
+      }
+      )
+
+      const matchesPending = await this.matchSrvc.readPendingMatch()
+
+      matchesPending.subscribe((data:any)=>{
+        console.log(data);
+        data.forEach((element:any) => {
+          this.store.dispatch(newPendingMatch.set(element))
+        })
+      }
+      )
+      const matchesRequest = await this.matchSrvc.readrequestMatches()
+
+      matchesRequest.subscribe((data:any)=>{
+        console.log(data);
+        data.forEach((element:any) => {
+          this.store.dispatch(myRequestMatches.set(element))
         })
       }
       )

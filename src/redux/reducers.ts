@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { INotificacion, Usuario } from "src/app/tools/models";
-import { setUser, newNotification, newMatchRequest } from "./actions";
+import { setUser, newNotification, newPendingMatch,myRequestMatches } from "./actions";
 
 
 
@@ -61,11 +61,23 @@ export const notificationReducer = createReducer(
   on( newNotification.set, (state, {notification}) => { console.log([...state, notification]); return [...state, notification]})
 )
 
+const pendingMatches:any[] = []
+
+export const initialpendingMatches = pendingMatches
+
+export const pendingMatchesReducer = createReducer(
+  initialpendingMatches,
+  on( newPendingMatch.set, (state, {matchRequest}) => { console.log([...state, matchRequest]); return [...state, matchRequest]})
+)
+
+
 const matchRequest:any[] = []
 
 export const initialMatchRequest = matchRequest
 
-export const matchRequestReducer = createReducer(
+export const requestMatchesReducer = createReducer(
   initialMatchRequest,
-  on( newMatchRequest.set, (state, {matchRequest}) => { console.log([...state, matchRequest]); return [...state, matchRequest]})
+  on( myRequestMatches.set, (state, {requestMatches}) => { console.log([...state, requestMatches]); return [...state, requestMatches]}),
+  on( myRequestMatches.delete, (state, {cancelRequestMatch}) => { console.log([...state, cancelRequestMatch]); return state.filter((item:any) => item.id !== cancelRequestMatch.id)})
 )
+

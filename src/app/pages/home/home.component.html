@@ -71,7 +71,7 @@
         <p class="text-center" >{{ users.length }} usuarios encontrados</p>
         <div id="user-view" class="user-grid-view">
           <div class="row rowmsry">
-            <app-profile-card *ngFor="let item of showUsersNewMatches" [user]="item" (isMatched)="onChangeEvent($event)"
+            <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)"
               class=" colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6" [ngClass]="{
                 'col-xl-3 col-lg-6 col-md-6 col-sm-6': isOnAdvancedFilters,
                 'col-xl-3 col-lg-4 col-md-6': !isOnAdvancedFilters

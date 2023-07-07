@@ -243,9 +243,12 @@ export class ProfileSettingsComponent {
 			(data) => {
 				console.log(data)
 				this.isOnLoadingEmail = false
+        Swal.fire("Correo enviado", `Se ha enviado un correo de confirmación a ${this.newEmail.value}. Acéptalo y cambia tu correo`, "success")
+        this.newEmail.setValue(this.currentUser.email)
+        this.onEditSection("zonaroja")
 			},
 			(err) => {
-				Swal.fire("error", err.error, "error")
+        Swal.fire("error", err.error, "error")
 				this.isOnLoadingEmail = false
 			},
 		)
@@ -257,8 +260,11 @@ export class ProfileSettingsComponent {
 		})
 		res.subscribe(
 			(data) => {
-				console.log(data)
 				this.isOnResetPassword = false
+				Swal.fire("Correo enviado", `Se ha enviado un correo de cambio de contraseña a ${this.currentUser.email}. Acéptalo y cambia tu contraseña`, "success")
+				this.onEditSection("zonaroja")
+
+
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")

@@ -99,7 +99,6 @@ export class LoginComponent implements AfterViewInit {
 		}, 100)
 
 		this.condadoSelected = this.condados[0]
-		console.log(this.condadoSelected)
 		this.ciudades = this.condados[0].ciudades
 	}
 

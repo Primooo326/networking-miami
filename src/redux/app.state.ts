@@ -1,17 +1,19 @@
 import { ActionReducerMap } from "@ngrx/store";
 import { INotificacion, Usuario } from "src/app/tools/models";
-import { userReducer, notificationReducer, matchRequestReducer } from "./reducers";
+import { userReducer, notificationReducer, pendingMatchesReducer, requestMatchesReducer } from "./reducers";
 
 
 
 export interface AppState {
   user: Usuario;
   notifications: INotificacion[];
-  matchRequest: any;
+  pendingMatches: any;
+  requestMatches: any;
 }
 
 export const ROOT_REDUCERS:ActionReducerMap<AppState> = {
   user: userReducer,
   notifications: notificationReducer,
-  matchRequest: matchRequestReducer
+  pendingMatches: pendingMatchesReducer,
+  requestMatches: requestMatchesReducer
 }

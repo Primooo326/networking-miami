@@ -5,7 +5,10 @@ import { UserService } from "src/app/services/user/user.service"
 import { Usuario } from "src/app/tools/models"
 import Swal from "sweetalert2"
 import * as Masonry from "masonry-layout"
-
+import { Store } from "@ngrx/store"
+import { matchPendingSelect,matchRequestSelect } from "src/redux/selectors"
+import { ETypePerfil } from "src/app/tools/models"
+import { myRequestMatches } from "src/redux/actions"
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
@@ -37,6 +40,9 @@ export class HomeComponent implements OnInit {
 	pages: number[] = []
 
 
+  solicitudesDeMatch:Usuario[] = []
+  peticionesDeMatch:Usuario[] = []
+
 	isOnAdvancedFilters = false
 
 	filterInput = new FormControl("", Validators.required)
@@ -50,8 +56,19 @@ export class HomeComponent implements OnInit {
 	})
 
 	currentUser = JSON.parse(localStorage.getItem("user")!)
-	constructor(private userSrvc: UserService, private mailSrvc: MailService) {}
+	constructor(private userSrvc: UserService, private mailSrvc: MailService, private store:Store<any>) {}
 	async ngOnInit() {
+
+
+    this.store.select(matchPendingSelect).subscribe((users:any) => {
+      this.solicitudesDeMatch = users
+    })
+    this.store.select(matchRequestSelect).subscribe((users:any) => {
+      this.peticionesDeMatch = users
+      console.log("usersssss::",users);
+    })
+
+
 		this.currentUser.verificado == 0
 			? (this.verificado = false)
 			: (this.verificado = true)
@@ -116,6 +133,7 @@ export class HomeComponent implements OnInit {
 			(data) => {
 				console.log(data)
 				this.onVerifyEmail = false
+        Swal.fire("Correo enviado", `Se ha enviado un correo de cambio de verificacion a ${this.currentUser.email}. Acéptalo y verifica tu correo`, "success")
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")
@@ -170,6 +188,12 @@ export class HomeComponent implements OnInit {
 		this.orderBy = order
 	}
 	onChangeEvent(e: any) {
+    if(e.type == "matchRequest"){
+      this.store.dispatch(myRequestMatches.set(e.user))
+    }else if(e.type == "deleteRequest"){
+      this.store.dispatch(myRequestMatches.delete(e.user))
+    }
+
     this.readAllUsers()
 	}
 	canNextPageNewMatches(): Boolean {
@@ -229,4 +253,17 @@ export class HomeComponent implements OnInit {
 		$("select#conexiones").val("").trigger("change")
 
 	}
+
+  typeUser(user:Usuario):ETypePerfil {
+
+    if(this.solicitudesDeMatch.find(s=>s.id==user.id)){
+      return "solicitud"
+    }else if(this.peticionesDeMatch.find(s=>s.id==user.id)){
+      return "solicitante"
+    }
+    else {
+      return "desconocido"
+    }
+
+  }
 }

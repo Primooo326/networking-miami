@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { EPages } from 'src/app/tools/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { userSelect, matchRequestSelect, notificationSelect } from 'src/redux/selectors';
+import { userSelect, matchPendingSelect, notificationSelect } from 'src/redux/selectors';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ import { userSelect, matchRequestSelect, notificationSelect } from 'src/redux/se
 export class HeaderComponent implements OnInit {
   page: EPages = EPages.landing;
   user$ = this.store.select(userSelect)
-  matchsRequest$ = this.store.select(matchRequestSelect)
+  matchsRequest$ = this.store.select(matchPendingSelect)
   notification$ = this.store.select(notificationSelect)
 
   constructor(private locate: Location, private route: Router, private store:Store<any>) {
@@ -39,8 +39,8 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.notification$.subscribe((matchRequest) => {
-      console.log("new notify:",matchRequest);
+    this.notification$.subscribe((notification) => {
+      console.log("new notify:",notification);
     }
     )
 

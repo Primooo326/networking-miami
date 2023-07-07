@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { AppComponent } from "src/app/app.component"
 import { MatchService } from "src/app/services/match/match.service"
 import { SocketService } from "src/app/services/socket/socket.service"
 import { UserService } from "src/app/services/user/user.service"
@@ -13,9 +14,8 @@ import Swal from "sweetalert2"
 export class ProfileCardComponent implements OnInit {
 	@Input() user!: Usuario
 	@Input() typeProfile: ETypePerfil = "desconocido"
-	@Output() isDeleted = new EventEmitter()
-	@Output() isMatched = new EventEmitter()
-	constructor(private userSrvc: UserService, private matchSrvc: MatchService, private socketSrvc:SocketService) {}
+	@Output() event = new EventEmitter()
+	constructor(private userSrvc: UserService, private matchSrvc: MatchService, private socketSrvc:SocketService, private appComponent:AppComponent) {}
 
 	ngOnInit(): void {}
 
@@ -33,14 +33,14 @@ export class ProfileCardComponent implements OnInit {
           usuario_id: this.user.id,
           usuario_request: user,
         }
-        this.socketSrvc.notifyEmitter(body, 'match')
+        // this.socketSrvc.notifyEmitter(body, 'match')
 
         Swal.fire('¡Solicitud enviada!', '', 'success')
         const res = await this.matchSrvc.requestMatch(body)
         res.subscribe(
           (data) => {
             console.log(data)
-            this.isMatched.emit("match")
+            this.event.emit({type:"matchRequest",user:this.user})
           },
           (err) => {
             Swal.fire('Error', err, 'error')
@@ -65,14 +65,15 @@ export class ProfileCardComponent implements OnInit {
           idToMatch: this.user.id,
           idUser: user.id,
         }
-        this.socketSrvc.notifyEmitter(body, 'match')
+        // this.socketSrvc.notifyEmitter(body, 'match')
 
-        Swal.fire('¡Solicitud enviada!', '', 'success')
+        Swal.fire('¡Solicitud aceptada!', '', 'success')
         const res = await this.matchSrvc.createMatch(body)
+        this.appComponent.ngOnInit()
         res.subscribe(
           (data) => {
             console.log(data)
-            this.isMatched.emit("match")
+            this.event.emit("match")
           },
           (err) => {
             Swal.fire('Error', err, 'error')
@@ -83,16 +84,56 @@ export class ProfileCardComponent implements OnInit {
     })
 
   }
-	async eliminar() {
-		const res = await this.matchSrvc.deleteMatch(this.user.id.toString())
-		res.subscribe(
-			(data) => {
-				console.log(data)
-				this.isDeleted.emit("delete")
-			},
-			(err) => {
-				console.log("error::", err)
-			},
-		)
+	async eliminarSolictud() {
+
+    Swal.fire({
+      title: '¿Seguro quieres cancelar la solicitud?',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      'icon': 'warning'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await this.matchSrvc.deleteRequestMatch(this.user.id.toString())
+        res.subscribe(
+          (data) => {
+            Swal.fire('¡Solicitud eliminada!', '', 'success')
+            console.log(data)
+            this.event.emit({type:"deleteRequest",user:this.user})
+          },
+          (err) => {
+            console.log("error::", err)
+          },
+        )
+      }
+    })
+
+
 	}
+  async eliminarMatch() {
+    Swal.fire({
+      title: '¿Seguro quieres eliminar al contacto?'+ this.user.nombre,
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      'icon': 'warning'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await this.matchSrvc.deleteMatch(this.user.id.toString())
+        res.subscribe(
+          (data) => {
+            Swal.fire('¡Contacto eliminado!', '', 'success')
+            console.log(data)
+            this.appComponent.ngOnInit()
+            this.event.emit({type:"deleteMatch",user:this.user})
+          },
+          (err) => {
+            Swal.fire('¡Error!', err, 'error')
+            console.log("error::", err)
+          },
+        )
+      }
+    })
+
+  }
 }

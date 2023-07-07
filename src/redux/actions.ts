@@ -16,10 +16,19 @@ export const newNotification = createActionGroup({
     set: (notification:INotificacion) => ({notification})
   }
 })
-export const newMatchRequest = createActionGroup({
+export const newPendingMatch = createActionGroup({
   source:"[Sistem] Match Request",
   events:{
-    set: (matchRequest:any) => ({matchRequest})
+    set: (pendingMatch:any) => ({matchRequest: pendingMatch})
 
   }
 })
+export const myRequestMatches = createActionGroup({
+  source:"[Sistem] My Request Matches",
+  events:{
+    set: (requestMatches:any) => ({requestMatches}),
+    delete: (cancelRequestMatch:any) => ({cancelRequestMatch})
+
+  }
+})
+

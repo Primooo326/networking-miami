@@ -20,7 +20,6 @@ export class MatchService {
 	async createMatch(body: any) {
 
     const url = this.backend + "match"
-    // this.socketSrvc.notifyEmitter(body, "match")
 		return this.http.post(url, body, {
 			headers: { "x-access-token": this.token },
 		})
@@ -28,8 +27,21 @@ export class MatchService {
 	async requestMatch(body: any) {
 
     const url = this.backend + "match/request"
-    // this.socketSrvc.notifyEmitter(body, "match")
 		return this.http.post(url, body, {
+			headers: { "x-access-token": this.token },
+		})
+	}
+	async readPendingMatch() {
+
+    const url = this.backend + "match/pendingmatches"
+		return this.http.get(url, {
+			headers: { "x-access-token": this.token },
+		})
+	}
+	async readrequestMatches() {
+
+    const url = this.backend + "match/requestmatches"
+		return this.http.get(url, {
 			headers: { "x-access-token": this.token },
 		})
 	}
@@ -39,10 +51,17 @@ export class MatchService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-	async deleteMatch(id: string) {
-    const url = this.backend + "match/" + id
+	async deleteRequestMatch(id: string) {
+    const url = this.backend + "match/deleteRequestMatch/" + id
 		return this.http.delete(url, {
 			headers: { "x-access-token": this.token },
 		})
 	}
+	async deleteMatch(id: string) {
+    const url = this.backend + "match/deleteMatch/" + id
+		return this.http.delete(url, {
+			headers: { "x-access-token": this.token },
+		})
+	}
+
 }
