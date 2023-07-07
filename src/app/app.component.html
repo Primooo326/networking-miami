@@ -1,36 +1,38 @@
-<a href="#wrapper" data-type="section-switch" class="scrollup">
-  <i class="icofont-bubble-up"></i>
-</a>
-
-<!-- Preloader Start Here -->
-<!-- <div id="preloader"></div> -->
-<!-- Preloader End Here -->
-
-<app-header></app-header>
-
-<div *ngFor="let item of notifications$ | async" >
-
-  <app-toast [data]="item" ></app-toast>
-</div>
-<div *ngIf="!isNavHome()" style="background-color: #f5f5f5;">
-  <div class="page-content">
 
 
-      <router-outlet >
-      </router-outlet>
+  <a href="#wrapper" data-type="section-switch" class="scrollup">
+    <i class="icofont-bubble-up"></i>
+  </a>
 
+  <!-- Preloader Start Here -->
+  <!-- <div id="preloader"></div> -->
+  <!-- Preloader End Here -->
 
+  <app-header></app-header>
+
+  <div *ngFor="let item of notifications$ | async" >
+
+    <app-toast [data]="item" ></app-toast>
   </div>
-</div>
-
-<div *ngIf="isNavHome()">
-
-  <router-outlet>
-  </router-outlet>
-</div>
+  <div *ngIf="!isNavHome()" style="background-color: #f8f8f8;">
+    <div class="page-content">
 
 
-  <!-- button to initialize toast -->
+        <router-outlet >
+        </router-outlet>
 
 
+    </div>
+  </div>
+
+  <div *ngIf="isNavHome()">
+
+    <router-outlet>
+    </router-outlet>
+  </div>
   <app-footer></app-footer>
+
+
+    <!-- button to initialize toast -->
+
+

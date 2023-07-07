@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppComponent } from 'src/app/app.component';
 import { MatchService } from 'src/app/services/match/match.service';
@@ -22,7 +23,8 @@ export class ProfileCardComponent implements OnInit {
     private matchSrvc: MatchService,
     private socketSrvc: SocketService,
     private appComponent: AppComponent,
-    private store:Store<any>
+    private store:Store<any>,
+    private route:Router,
   ) {}
 
   ngOnInit(): void {}
@@ -136,5 +138,9 @@ export class ProfileCardComponent implements OnInit {
         );
       }
     });
+  }
+  async verPerfil(){
+    localStorage.setItem('userToView', JSON.stringify(this.user));
+    this.route.navigate(['/user']);
   }
 }

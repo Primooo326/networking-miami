@@ -29,7 +29,7 @@
   </div>
   <div class="d-flex justify-content-between mt-3">
     <button (click)="solicitar()" class="btn btn-primary">conectar</button>
-    <button class="btn btn-warning">ver perfil</button>
+    <button class="btn btn-warning" (click)="verPerfil()" >Ver perfil</button>
   </div>
 </div>
 <div class="widget-author" *ngIf="typeProfile == 'contacto'">
@@ -55,7 +55,7 @@
   </div>
   <div class="d-flex justify-content-between mt-3">
     <button (click)="eliminarMatch()" class="btn btn-danger">eliminar</button>
-    <button class="btn btn-warning">ver perfil</button>
+    <button class="btn btn-warning" (click)="verPerfil()" >Ver perfil</button>
   </div>
 </div>
 <div class="widget-author" *ngIf="typeProfile == 'solicitud'">
@@ -82,7 +82,7 @@
   <div class="d-flex flex-column align-items-center justify-content-between mt-3">
     <button (click)="aceptar()" class="btn btn-success mb-3">Aceptar solicitud</button>
     <button (click)="eliminarSolictud(true)" class="btn btn-danger mb-3">Rechazar solicitud</button>
-    <button class="btn btn-warning mb-3">ver perfil</button>
+    <button class="btn btn-warning mb-3" (click)="verPerfil()" >Ver perfil</button>
   </div>
 </div>
 <div class="widget-author" *ngIf="typeProfile == 'solicitante'">
@@ -108,6 +108,6 @@
   </div>
   <div class="d-flex justify-content-between mt-3">
     <button (click)="eliminarSolictud(false)" class="btn btn-secondary">Cancelar solicitud</button>
-    <button class="btn btn-warning">ver perfil</button>
+    <button class="btn btn-warning" (click)="verPerfil()" >Ver perfil</button>
   </div>
 </div>

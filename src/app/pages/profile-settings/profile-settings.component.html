@@ -9,34 +9,6 @@
     style="display: none"
     (change)="handleFileInput($event)"
   />
-  <!--
-  <div
-    class="banner-user"
-    style="background-image: url('{{
-      (user$ | async)!.fotoPortada
-    }}') !important"
-  >
-    <div class="banner-content">
-      <div class="media">
-        <div role="button" (click)="openFileInput()" class="item-img">
-          <img
-            class="profileimage"
-            [src]="(user$ | async)!.avatar"
-            style="width: 115px; height: 115px"
-            alt="User"
-          />
-          <img src="media/photo_upload.png" class="uploadimage" alt="img" />
-        </div>
-        <div class="media-body">
-          <h3 class="item-title">{{ (user$ | async)!.nombre | titlecase }}</h3>
-          <div class="item-subtitle">
-            {{ (user$ | async)!.areaExperiencia | pipearray }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <div class="row">
     <div class="col-lg-8">
       <div class="block-box user-about">
@@ -78,7 +50,7 @@
               />
             </li>
             <li>
-              <label>Telefono:</label>
+              <label>Teléfono:</label>
               <p *ngIf="onInformacionBasicaEdit">
                 {{ (user$ | async)!.telefono }}
               </p>
@@ -327,7 +299,7 @@
               </div>
             </li>
             <li>
-              <label>Tipo de conexion:</label>
+              <label>Tipo de conexión:</label>
               <p *ngIf="onInteresesEdit">
                 <span
                   *ngFor="let item of (user$ | async)!.tipoConexion"

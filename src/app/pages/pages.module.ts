@@ -8,7 +8,8 @@ import { RouterModule } from "@angular/router"
 import { ComponentsModule } from "../components/components.module"
 import { ProfileSettingsComponent } from "./profile-settings/profile-settings.component"
 import { MatchesComponent } from "./matches/matches.component"
-import { ToolsModule } from "../tools/tools.module"
+import { ToolsModule } from "../tools/tools.module";
+import { UserComponent } from './user/user.component'
 
 @NgModule({
 	declarations: [
@@ -17,6 +18,7 @@ import { ToolsModule } from "../tools/tools.module"
 		HomeComponent,
 		ProfileSettingsComponent,
 		MatchesComponent,
+    UserComponent,
 	],
 	imports: [
 		CommonModule,
