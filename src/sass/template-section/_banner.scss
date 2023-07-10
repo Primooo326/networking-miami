@@ -10,10 +10,10 @@
     overflow: hidden;
     z-index: 5;
     @media only screen and (max-width: 1199px) {
-        padding: 180px 0 100px;  
+        padding: 180px 0 100px;
     }
     @media only screen and (max-width: 991px) {
-        padding: 160px 0 80px;  
+        padding: 160px 0 80px;
         min-height: auto;
     }
     @media only screen and (max-width: 767px) {
@@ -41,10 +41,10 @@
             width: 35%;
             margin-bottom: 40px;
             @media only screen and (max-width: 991px) {
-                width: 70%;     
+                width: 70%;
             }
             @media only screen and (max-width: 575px) {
-                width: 100%;                     
+                width: 100%;
             }
         }
 
@@ -54,13 +54,13 @@
             color: $color_light;
             margin-bottom: 6px;
             @media only screen and (max-width: 1199px) {
-                font-size: 38px;     
+                font-size: 38px;
             }
             @media only screen and (max-width: 991px) {
-                font-size: 34px;     
+                font-size: 34px;
             }
             @media only screen and (max-width: 767px) {
-                font-size: 30px;                     
+                font-size: 30px;
             }
         }
 
@@ -83,11 +83,11 @@
         left: 11%;
         z-index: -1;
         @media only screen and (max-width: 1440px) {
-           left: 0;  
+           left: 0;
         }
         @media only screen and (max-width: 1199px) {
             left: auto;
-            right: 0;     
+            right: 0;
         }
         .map-marker {
             li {
@@ -129,22 +129,22 @@
     }
     .leftside-image {
         @media only screen and (max-width: 1199px) {
-            display: none;     
+            display: none;
         }
         .cartoon-image {
             position: absolute;
             bottom: 100px;
             right: 80px;
             z-index: 2;
-            @media only screen and (max-width: 1440px) { 
-                right: 0; 
+            @media only screen and (max-width: 1440px) {
+                right: 0;
                 img {
                     transform: scale(0.8);
                 }
             }
-            @media only screen and (max-width: 1366px) { 
+            @media only screen and (max-width: 1366px) {
                 right: -10%;
-                bottom: 20px; 
+                bottom: 20px;
                 img {
                     transform: scale(0.5);
                 }
@@ -155,15 +155,15 @@
             top: 90px;
             right: 60px;
             z-index: 1;
-            @media only screen and (max-width: 1440px) {  
+            @media only screen and (max-width: 1440px) {
                 right: 0;
                 img {
                     transform: scale(0.8);
                 }
             }
-            @media only screen and (max-width: 1366px) { 
-                right: -14%; 
-                top: 80px; 
+            @media only screen and (max-width: 1366px) {
+                right: -14%;
+                top: 80px;
                 img {
                     transform: scale(0.5);
                 }
@@ -177,13 +177,13 @@
     padding: 120px 0 190px;
     position: relative;
     @media only screen and (max-width: 1199px) {
-        padding: 95px 0 190px; 
+        padding: 95px 0 190px;
     }
     @media only screen and (max-width: 991px) {
-        padding: 75px 0 180px; 
+        padding: 75px 0 180px;
     }
     @media only screen and (max-width: 479px) {
-        padding: 75px 0 80px; 
+        padding: 75px 0 80px;
     }
     .newsletter-box {
         text-align: center;
@@ -197,21 +197,21 @@
             width: 60%;
             margin: 0 auto 22px;
             @media only screen and (max-width: 767px) {
-                width: 100%;                     
+                width: 100%;
             }
         }
         .input-group {
             @media only screen and (max-width: 479px) {
-                display: block;       
-                background-color: transparent;              
+                display: block;
+                background-color: transparent;
             }
             .form-control {
                 height: 52px;
                 border-radius: 30px;
                 font-size: 14px;
                 @media only screen and (max-width: 479px) {
-                    width: 100%;   
-                    margin-bottom: 15px;                  
+                    width: 100%;
+                    margin-bottom: 15px;
                 }
             }
             .input-group-append {
@@ -233,7 +233,7 @@
 
                 }
                 @media only screen and (max-width: 479px) {
-                    justify-content: center;                    
+                    justify-content: center;
                 }
             }
         }
@@ -308,8 +308,8 @@
     background-color: #f8f8f8;
     position: relative;
     @media only screen and (max-width: 991px) {
-        padding-top: 70px; 
-        text-align: center;    
+        padding-top: 70px;
+        text-align: center;
     }
     &:before {
         content: url('../../media/banner/shape_2.png');
@@ -318,7 +318,7 @@
         left: -20px;
         line-height: 0;
         @media only screen and (max-width: 991px) {
-            display: none;     
+            display: none;
         }
     }
     .banner-content {
@@ -327,16 +327,16 @@
             line-height: 48px;
             margin-bottom: 12px;
             @media only screen and (max-width: 1199px) {
-                font-size: 36px;     
+                font-size: 36px;
             }
             @media only screen and (max-width: 991px) {
-                font-size: 32px;     
+                font-size: 32px;
             }
             @media only screen and (max-width: 767px) {
-                font-size: 28px;                     
+                font-size: 28px;
             }
             @media only screen and (max-width: 575px) {
-                font-size: 26px;                     
+                font-size: 26px;
             }
         }
         p {
@@ -344,7 +344,7 @@
             color: #71728c;
             margin-bottom: 22px;
             @media only screen and (max-width: 991px) {
-                width: 100%;     
+                width: 100%;
             }
         }
         .button-slide {
@@ -358,7 +358,7 @@
         position: relative;
         z-index: 1;
         @media only screen and (max-width: 991px) {
-            padding-top: 80px;     
+            padding-top: 80px;
         }
         &:before {
             content: url('../../media/banner/shape_3.png');
@@ -367,7 +367,7 @@
             right: 30px;
             z-index: -1;
             @media only screen and (max-width: 991px) {
-                display: none;     
+                display: none;
             }
         }
         &:after {

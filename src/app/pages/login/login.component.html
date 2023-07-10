@@ -6,7 +6,7 @@
     <div class="content-wrap">
       <div class="login-content">
         <div class="item-logo">
-          <a href="#"
+          <a [routerLink]="['/']" routerLinkActive="router-link-active"
             ><img src="media/logotipo.png" width="300" alt="logo"
           /></a>
         </div>
@@ -46,13 +46,13 @@
               id="login-tab"
               role="tabpanel"
             >
-              <h3 class="item-title">Ingresa <span>Tu cuenta</span></h3>
-              <div class="google-signin">
+              <h3 class="item-title">Inicia sesión</h3>
+              <!-- <div class="google-signin">
                 <a href="#"
                   ><img src="media/figure/google-icon.png" alt="Google" />Google
                   Sign in</a
                 >
-              </div>
+              </div> -->
               <form [formGroup]="loginForm">
                 <div class="form-group">
                   <input
@@ -60,7 +60,7 @@
                     class="form-control"
                     formControlName="email"
                     placeholder="Tu E-mail"
-                    [ngClass]="{ 'is-invalid': emailLoginValidator() }"
+                    [ngClass]="{ 'is-invalid': loginForm.controls.email.dirty && emailLoginValidator() }"
                   />
                   <div
                     class="invalid-feedback"
@@ -87,7 +87,7 @@
                     class="form-control"
                     formControlName="password"
                     placeholder="Contraseña"
-                    [ngClass]="{ 'is-invalid': passwordLoginValidator() }"
+                    [ngClass]="{ 'is-invalid': loginForm.controls.password.dirty && passwordLoginValidator() }"
                   />
                   <div
                     class="invalid-feedback"
@@ -118,7 +118,7 @@
                     />
                     <!-- <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label> -->
                     <a (click)="onReset = true" class="text-danger"
-                      >¿olvidaste tu contraseña?</a
+                      >¿Olvidaste tu contraseña?</a
                     >
                   </div>
                 </div>
@@ -149,8 +149,9 @@
               id="registration-tab"
               role="tabpanel"
             >
-              <h3 class="item-title">Registro</h3>
-
+              <h3>Regístrate</h3>
+              <p>{{textTabRegistro}}</p>
+              <span class="item-title"></span>
               <!-- !primer tab registro -->
               <form
                 [hidden]="tabRegistro != 'primero'"
@@ -161,7 +162,7 @@
                     type="email"
                     formControlName="email"
                     class="form-control"
-                    [ngClass]="{ 'is-invalid': emailRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm1Tab.controls.email.dirty && emailRegistroValidator() }"
                     placeholder="Tu E-mail"
                   />
                   <div
@@ -197,7 +198,7 @@
                     type="password"
                     formControlName="password"
                     class="form-control"
-                    [ngClass]="{ 'is-invalid': passwordRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm1Tab.controls.password.dirty && passwordRegistroValidator() }"
                     placeholder="Contraseña"
                   />
                   <div
@@ -234,7 +235,7 @@
                     type="password"
                     formControlName="repeatPassword"
                     class="form-control"
-                    [ngClass]="{ 'is-invalid': passwordRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm1Tab.controls.repeatPassword.dirty && passwordRegistroValidator() }"
                     placeholder="Repite tu contraseña"
                   />
                   <div
@@ -282,7 +283,8 @@
                   <button
                     class="submit-btn"
                     (click)="register1Tab()"
-                    [disabled]="registroForm1Tab.invalid"
+                    [disabled]="registroForm1Tab.invalid || registroForm1Tab.controls.password.value !==
+                    registroForm1Tab.controls.repeatPassword.value"
                   >
                     Continuar
                   </button>
@@ -306,7 +308,7 @@
                     type="text"
                     formControlName="nombre"
                     class="form-control"
-                    [ngClass]="{ 'is-invalid': nameRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm2Tab.controls.nombre.dirty && nameRegistroValidator() }"
                     placeholder="Nombre y apellidos"
                   />
                   <div
@@ -328,13 +330,27 @@
                     {{ hintErrorLength }}
                   </div>
                 </div>
+
+                <!-- <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="quote-phone" class="sr-only">Mobile Number</label>
+                    <div class="input-group input-group-lg">
+                      <input id="phone" type="tel" class="form-control" placeholder="Phone Number">
+                      <div class="invalid-feedback">
+                        Please provide a phone number.
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
                 <div class="form-group">
                   <input
                     type="tel"
+                    id="phone"
                     formControlName="telefono"
                     class="form-control"
                     placeholder="Numero telefónico"
-                    [ngClass]="{ 'is-invalid': phoneRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm2Tab.controls.telefono.dirty && phoneRegistroValidator() }"
                   />
                   <div
                     class="invalid-feedback"
@@ -358,12 +374,12 @@
                 <div class="form-group">
                   <label for="date">Fecha de nacimiento</label>
                   <input
-                    type="date"
-                    formControlName="fechaNacimiento"
+                    type="text"
+                    data-toggle="datepicker"
                     class="form-control"
                     placeholder="Año de nacimiento"
-                    [ngClass]="{ 'is-invalid': birthdateRegistroValidator() }"
                   />
+                  <input hidden type="text" formControlName="fechaNacimiento" >
                   <div
                     class="invalid-feedback"
                     *ngIf="
@@ -439,7 +455,7 @@
                     placeholder="Nota biográfica"
                     cols="10"
                     rows="3"
-                    [ngClass]="{ 'is-invalid': biographyRegistroValidator() }"
+                    [ngClass]="{ 'is-invalid': registroForm2Tab.controls.biografia.dirty && biographyRegistroValidator() }"
                   ></textarea>
                   <div
                     class="invalid-feedback"
@@ -650,6 +666,8 @@
                 </div>
               </form>
             </div>
+
+
           </div>
           <div class="tab-content" [hidden]="!onReset">
             <!--=====================================-->

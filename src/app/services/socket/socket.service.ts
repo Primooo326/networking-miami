@@ -5,7 +5,7 @@ import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { ENotifyTypes } from 'src/app/tools/models';
 import { Store } from '@ngrx/store';
-import { newNotification, newPendingMatch } from 'src/redux/actions';
+import { newNotification, newPendingMatch,myMatches } from 'src/redux/actions';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +38,7 @@ export class SocketService {
 
     this.socket.on('newMatch', (data: any) => {
       console.log('Nuevo match:', data);
+      this.store.dispatch(myMatches.set(data));
     });
 
     // Realizar acciones adicionales después de abrir el socket

@@ -16,12 +16,12 @@
           <h3 class="widget-title">Información básica</h3>
           <div class="dropdown">
             <button
-              class="dropdown-toggle"
+              class="btn"
               type="button"
               data-toggle="dropdown"
               aria-expanded="false"
             >
-              ...
+            <i class="fas fa-pen"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button
@@ -54,14 +54,16 @@
               <p *ngIf="onInformacionBasicaEdit">
                 {{ (user$ | async)!.telefono }}
               </p>
-              <input
-                *ngIf="!onInformacionBasicaEdit"
-                type="tel"
-                [value]="(user$ | async)!.telefono"
-                class="form-control"
-                placeholder="Numero telefónico"
-                formControlName="telefono"
-              />
+              <div class="form-group" [hidden]="onInformacionBasicaEdit">
+                  <input
+                  id="phone"
+                  type="tel"
+                  [value]="(user$ | async)!.telefono"
+                  class="form-control"
+                  placeholder="Numero telefónico"
+                  formControlName="telefono"
+                />
+              </div>
             </li>
             <li>
               <label>Ubicación:</label>
@@ -120,8 +122,9 @@
                 {{ (user$ | async)!.fechaNacimiento | date }}
               </p>
               <input
-                *ngIf="!onInformacionBasicaEdit"
-                type="date"
+                [hidden]="onInformacionBasicaEdit"
+                type="text"
+                data-toggle="datepicker"
                 [value]="(user$ | async)!.fechaNacimiento"
                 class="form-control"
                 placeholder="Año de nacimiento"
@@ -195,54 +198,18 @@
           </button>
         </div>
       </div>
-      <!-- <div class="block-box user-about">
-        <div class="widget-heading">
-          <h3 class="widget-title">Redes sociales</h3>
-          <div class="dropdown">
-            <button
-              class="dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              ...
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Editar</a>
-
-            </div>
-          </div>
-        </div>
-        <ul class="user-info">
-          <li>
-            <label>Education:</label>
-            <p>The New College of Design</p>
-          </li>
-          <li>
-            <label>Institution:</label>
-            <p>Radiustheme.com</p>
-          </li>
-          <li>
-            <label>Employment:</label>
-            <p>UI/UX Designer</p>
-          </li>
-          <li>
-            <label>Year:</label>
-            <p>2008-2020</p>
-          </li>
-        </ul>
-      </div> -->
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
             <button
-              class="dropdown-toggle"
+              class="btn"
               type="button"
               data-toggle="dropdown"
               aria-expanded="false"
             >
-              ...
+            <i class="fas fa-pen"></i>
+
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button
@@ -356,12 +323,13 @@
 
           <div class="dropdown">
             <button
-              class="dropdown-toggle"
+              class="btn"
               type="button"
               data-toggle="dropdown"
               aria-expanded="false"
             >
-              ...
+            <i class="fas fa-pen"></i>
+
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button class="dropdown-item" (click)="onEditSection('zonaroja')">
@@ -448,9 +416,6 @@
         <div class="widget-heading">
           <h3 class="widget-title">Sobre Mi</h3>
           <div class="dropdown">
-            <!-- <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-              ...
-            </button> -->
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="#">Editar</a>
             </div>
@@ -468,38 +433,10 @@
               {{ (user$ | async)!.condado }}
             </li>
             <li><span>Teléfono:</span>{{ (user$ | async)!.telefono }}</li>
-            <!-- <li><span>Country:</span>USA</li>
-            <li><span>Web:</span><a href="#">www.rebeca.com</a></li> -->
-            <!-- <li class="social-share">
-              <span>Social:</span>
-              <div class="social-icon">
-                <a href="#"><i class="icofont-facebook"></i></a>
-                <a href="#"><i class="icofont-twitter"></i></a>
-                <a href="#"><i class="icofont-dribbble"></i></a>
-                <a href="#"><i class="icofont-whatsapp"></i></a>
-                <a href="#"><i class="icofont-instagram"></i></a>
-              </div>
-            </li> -->
+
           </ul>
         </div>
       </div>
-      <!-- <div class="widget widget-banner">
-        <h3 class="item-title">Most Popular</h3>
-        <div class="item-subtitle">Circle Application</div>
-        <a href="#" class="item-btn">
-          <span class="btn-text">Register Now</span>
-          <span class="btn-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px"
-              height="10px">
-              <path fill-rule="evenodd"
-                d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
-            </svg>
-          </span>
-        </a>
-        <div class="item-img">
-          <img src="media/figure/widget_banner_1.png" alt="banner">
-        </div>
-      </div> -->
     </div>
   </div>
 </div>

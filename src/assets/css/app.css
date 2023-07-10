@@ -4334,18 +4334,18 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     z-index: 1;
 }
 
-@media only screen and (max-width: 1440px) {
+@media only screen and (min-width: 1441px) {
     .hero-banner .leftside-image .shape-image {
         right: 0;
     }
     .hero-banner .leftside-image .shape-image img {
-        -webkit-transform: scale(0.8);
-        -ms-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        transform: scale(0.7);
     }
 }
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1440px) {
     .hero-banner .leftside-image .shape-image {
         right: -10%;
         top: 20px;
