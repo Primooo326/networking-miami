@@ -6,7 +6,7 @@ import { Usuario } from "src/app/tools/models"
 import Swal from "sweetalert2"
 import * as Masonry from "masonry-layout"
 import { Store } from "@ngrx/store"
-import { matchPendingSelect,matchRequestSelect } from "src/redux/selectors"
+import { matchPendingSelect, matchRequestSelect } from "src/redux/selectors"
 import { ETypePerfil } from "src/app/tools/models"
 import { myRequestMatches } from "src/redux/actions"
 @Component({
@@ -21,13 +21,35 @@ export class HomeComponent implements OnInit {
 	condados = JSON.parse(localStorage.getItem("condados")!)
 	conexion = JSON.parse(localStorage.getItem("conexion")!)
 	conexion2 = [
-		{searchBy:"personas que quieran compartir su conocimiento.",value:"Quiero compartir mi conocimiento." },
-		{searchBy:"personas con intereses similares.",value:"Quiero conectar con personas con intereses similares."},
-		{searchBy:"personas que estén buscando nuevas conexiones.",value:"Estoy buscando nuevas conexiones."},
-		{searchBy:"personas que estén buscando trabajo.",value:"Estoy buscando trabajo."},
-		{searchBy:"personas que estén buscando nuevas oportunidades de negocio.",value:"Estoy buscando nuevas oportunidades de negocio."},
-		{searchBy:"personas que estén buscando productos nuevos y únicos.",value:"Estoy buscando productos nuevos y únicos."},
-		{searchBy:"personas que estén buscando una comunidad de la que formar parte.", value:"Estoy buscando una comunidad de la que formar parte."},
+		{
+			searchBy: "personas que quieran compartir su conocimiento.",
+			value: "Quiero compartir mi conocimiento.",
+		},
+		{
+			searchBy: "personas con intereses similares.",
+			value: "Quiero conectar con personas con intereses similares.",
+		},
+		{
+			searchBy: "personas que estén buscando nuevas conexiones.",
+			value: "Estoy buscando nuevas conexiones.",
+		},
+		{
+			searchBy: "personas que estén buscando trabajo.",
+			value: "Estoy buscando trabajo.",
+		},
+		{
+			searchBy: "personas que estén buscando nuevas oportunidades de negocio.",
+			value: "Estoy buscando nuevas oportunidades de negocio.",
+		},
+		{
+			searchBy: "personas que estén buscando productos nuevos y únicos.",
+			value: "Estoy buscando productos nuevos y únicos.",
+		},
+		{
+			searchBy:
+				"personas que estén buscando una comunidad de la que formar parte.",
+			value: "Estoy buscando una comunidad de la que formar parte.",
+		},
 	]
 	condadoSelected: { nombre: string; ciudades: string[] } | string = ""
 	ciudades: string[] = []
@@ -39,9 +61,8 @@ export class HomeComponent implements OnInit {
 	orderBy = "Todos los miembros"
 	pages: number[] = []
 
-
-  solicitudesDeMatch:Usuario[] = []
-  peticionesDeMatch:Usuario[] = []
+	solicitudesDeMatch: Usuario[] = []
+	peticionesDeMatch: Usuario[] = []
 
 	isOnAdvancedFilters = false
 
@@ -56,24 +77,25 @@ export class HomeComponent implements OnInit {
 	})
 
 	currentUser = JSON.parse(localStorage.getItem("user")!)
-	constructor(private userSrvc: UserService, private mailSrvc: MailService, private store:Store<any>) {}
+	constructor(
+		private userSrvc: UserService,
+		private mailSrvc: MailService,
+		private store: Store<any>,
+	) {}
 	async ngOnInit() {
-
-
-    this.store.select(matchPendingSelect).subscribe((users:any) => {
-      this.solicitudesDeMatch = users
-    })
-    this.store.select(matchRequestSelect).subscribe((users:any) => {
-      this.peticionesDeMatch = users
-      console.log("usersssss::",users);
-    })
-
+		this.store.select(matchPendingSelect).subscribe((users: any) => {
+			this.solicitudesDeMatch = users
+		})
+		this.store.select(matchRequestSelect).subscribe((users: any) => {
+			this.peticionesDeMatch = users
+			console.log("usersssss::", users)
+		})
 
 		this.currentUser.verificado == 0
 			? (this.verificado = false)
 			: (this.verificado = true)
 
-    await this.readAllUsers()
+		await this.readAllUsers()
 
 		$("select.select2").select2({
 			dropdownAutoWidth: true,
@@ -111,21 +133,18 @@ export class HomeComponent implements OnInit {
 			this.filtersGroup.get("conexiones")?.setValue(conexiones)
 		})
 	}
-  async readAllUsers(){
-    await this.userSrvc.readUsers().then((obs) =>
+	async readAllUsers() {
+		await this.userSrvc.readUsers().then((obs) =>
 			obs.subscribe((data: any) => {
 				this.users = data
 				this.users.length / 4
-        console.log(data[0])
-
 				while (this.pages.length < this.users.length / 4) {
 					this.pages.push(this.pages.length)
 				}
 				this.changePageNewMatches(0)
 			}),
-
 		)
-  }
+	}
 	async verifyEmail() {
 		this.onVerifyEmail = true
 		const res = await this.mailSrvc.verifyEmail({
@@ -135,7 +154,11 @@ export class HomeComponent implements OnInit {
 			(data) => {
 				console.log(data)
 				this.onVerifyEmail = false
-        Swal.fire("Correo enviado", `Se ha enviado un correo de cambio de verificacion a ${this.currentUser.email}. Acéptalo y verifica tu correo`, "success")
+				Swal.fire(
+					"Correo enviado",
+					`Se ha enviado un correo de cambio de verificacion a ${this.currentUser.email}. Acéptalo y verifica tu correo`,
+					"success",
+				)
 			},
 			(err) => {
 				Swal.fire("error", err.error, "error")
@@ -190,13 +213,13 @@ export class HomeComponent implements OnInit {
 		this.orderBy = order
 	}
 	onChangeEvent(e: any) {
-    if(e.type == "matchRequest"){
-      this.store.dispatch(myRequestMatches.set(e.user))
-    }else if(e.type == "deleteRequest"){
-      this.store.dispatch(myRequestMatches.delete(e.user))
-    }
+		if (e.type == "matchRequest") {
+			this.store.dispatch(myRequestMatches.set(e.user))
+		} else if (e.type == "deleteRequest") {
+			this.store.dispatch(myRequestMatches.delete(e.user))
+		}
 
-    this.readAllUsers()
+		this.readAllUsers()
 	}
 	canNextPageNewMatches(): Boolean {
 		const items = this.users.filter(() => true)
@@ -206,7 +229,7 @@ export class HomeComponent implements OnInit {
 	}
 	onCondadoChange() {
 		this.ciudades = this.ciudades.filter((c) => true)
-    this.filtersGroup.get("ciudad")?.setValue(null)
+		this.filtersGroup.get("ciudad")?.setValue(null)
 	}
 	async search() {
 		console.log(this.filtersGroup.value)
@@ -231,7 +254,7 @@ export class HomeComponent implements OnInit {
 			idiomas,
 			experiencia,
 			conexiones,
-      batchsize:400
+			batchsize: 400,
 		})
 
 		res.subscribe(
@@ -245,7 +268,7 @@ export class HomeComponent implements OnInit {
 		)
 	}
 	async clean() {
-    await this.readAllUsers()
+		await this.readAllUsers()
 
 		this.filtersGroup.reset()
 		$("select#ciudad").val("Todos").trigger("change")
@@ -253,19 +276,15 @@ export class HomeComponent implements OnInit {
 		$("select#idiomas").val("").trigger("change")
 		$("select#experiencia").val("").trigger("change")
 		$("select#conexiones").val("").trigger("change")
-
 	}
 
-  typeUser(user:Usuario):ETypePerfil {
-
-    if(this.solicitudesDeMatch.find(s=>s.id==user.id)){
-      return "solicitud"
-    }else if(this.peticionesDeMatch.find(s=>s.id==user.id)){
-      return "solicitante"
-    }
-    else {
-      return "desconocido"
-    }
-
-  }
+	typeUser(user: Usuario): ETypePerfil {
+		if (this.solicitudesDeMatch.find((s) => s.id == user.id)) {
+			return "solicitud"
+		} else if (this.peticionesDeMatch.find((s) => s.id == user.id)) {
+			return "solicitante"
+		} else {
+			return "desconocido"
+		}
+	}
 }
