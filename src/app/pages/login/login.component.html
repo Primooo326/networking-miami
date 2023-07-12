@@ -330,19 +330,6 @@
                     {{ hintErrorLength }}
                   </div>
                 </div>
-
-                <!-- <div class="form-row">
-                  <div class="form-group col-sm-12">
-                    <label for="quote-phone" class="sr-only">Mobile Number</label>
-                    <div class="input-group input-group-lg">
-                      <input id="phone" type="tel" class="form-control" placeholder="Phone Number">
-                      <div class="invalid-feedback">
-                        Please provide a phone number.
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
                 <div class="form-group">
                   <input
                     type="tel"
@@ -393,12 +380,14 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label>Sexo</label>
+
                   <select
                     class="select2"
                     formControlName="genero"
                     id="gender"
                     name="Genero"
-                    data-placeholder="Genero"
+                    data-placeholder="Escoge tu sexo"
                   >
                     <option value="" selected></option>
                     <option value="Masculino">Masculino</option>
@@ -408,12 +397,14 @@
                 </div>
 
                 <div class="form-group">
+                  <label>Condado</label>
+
                   <select
                     formControlName="condado"
                     class="select2"
                     id="condado"
                     name="Condado"
-                    data-placeholder="Condado"
+                    data-placeholder="Escoge tu condado"
                   >
                     <option *ngFor="let item of condados" [value]="item.nombre">
                       {{ item.nombre }}
@@ -421,12 +412,13 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label>Ciudad</label>
                   <select
                     formControlName="ciudad"
                     class="select2"
                     id="ciudad"
                     name="Ciudad"
-                    data-placeholder="Ciudad"
+                    data-placeholder="Escoge tu ciudad"
                   >
                     <option *ngFor="let item of ciudades" [value]="item">
                       {{ item }}
@@ -449,10 +441,12 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label>Nota biográfica</label>
+
                   <textarea
                     formControlName="biografia"
                     class="form-control textarea is-invalid"
-                    placeholder="Nota biográfica"
+                    placeholder="Cuéntanos un poco sobre ti"
                     cols="10"
                     rows="3"
                     [ngClass]="{ 'is-invalid': registroForm2Tab.controls.biografia.dirty && biographyRegistroValidator() }"
@@ -532,7 +526,7 @@
                   </select>
                 </div>
 
-                <h4>¿Que tipo de conexiones estas buscando?</h4>
+                <h4>¿Qué tipo de conexiones estas buscando?</h4>
                 <div class="form-group">
                   <div class="form-check">
                     <input
@@ -633,12 +627,12 @@
                     >
                   </div>
                 </div>
-                <h4>¿Cuál es tu objetivo en Networking Miami?</h4>
+                <h4>¿Cuál es tu objetivo con Networking Miami?</h4>
                 <div class="form-group">
                   <textarea
                     formControlName="objetivo"
                     class="form-control textarea"
-                    placeholder="objetivo en Networking Miami"
+                    placeholder="Objetivo con Networking Miami"
                     cols="10"
                     rows="3"
                   ></textarea>
