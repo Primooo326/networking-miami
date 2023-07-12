@@ -3426,7 +3426,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 .chat-conversion-box .modal-body .chat-conversion li .author-text span {
     display: block;
-    font-size: 13px;
+    font-size: 18px;
     line-height: 20px;
     background-color: #5edfff;
     color: #ffffff;
@@ -3531,7 +3531,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 .chat-conversion-box .modal-footer .form-control {
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 18px;
     height: 42px;
     border-color: #e0e0e0;
     padding: 10px 35px 10px 20px;

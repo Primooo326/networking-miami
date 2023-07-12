@@ -41,10 +41,8 @@ export class AppComponent implements OnInit {
     if (localStorage.getItem('token')) {
       this.SocketSrvc.openSocket();
       const notifiys = await this.notifySrvc.getNorifications();
-
       notifiys.subscribe(
         (data: any) => {
-          console.log(data);
           data.forEach((element: any) => {
             this.store.dispatch(
               newNotification.set({
@@ -60,25 +58,20 @@ export class AppComponent implements OnInit {
           console.log(err);
         }
       );
-
       const matchesPending = await this.matchSrvc.readPendingMatch();
-
       matchesPending.subscribe((data: any) => {
         data.forEach((element: any) => {
           this.store.dispatch(newPendingMatch.set(element));
         });
       });
       const matchesRequest = await this.matchSrvc.readrequestMatches();
-
       matchesRequest.subscribe((data: any) => {
         data.forEach((element: any) => {
           this.store.dispatch(myRequestMatches.set(element));
         });
       });
-
       const matches = await this.matchSrvc.readMatch();
       matches.subscribe((data: any) => {
-        console.log(data);
         data.forEach((element: any) => {
           this.store.dispatch(myMatches.set(element));
         });

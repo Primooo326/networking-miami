@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 	matchsRequest$ = this.store.select(matchPendingSelect)
 	misMatches$ = this.store.select(matchSelect)
 	notification$ = this.store.select(notificationSelect)
-	userChat!: Usuario
+	userChat!: Usuario | null
 	isCloseChat = false
 	isOpenSideBarChat = false
 
@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit {
 	}
 	ngOnInit(): void {
 		this.misMatches$.subscribe((data: any) => {
-			console.log("matches::", data)
 		})
 	}
 	calcularTiempoTranscurrido(desde: string): string {
@@ -138,8 +137,12 @@ export class HeaderComponent implements OnInit {
 	}
 
 	setUserChat(user: Usuario) {
+    this.userChat = null
 		this.isCloseChat = true
-		this.userChat = user
+    setTimeout(() => {
+
+      this.userChat = user
+    }, 100);
 	}
 	async verPerfil(user: Usuario) {
 		localStorage.setItem("userToView", JSON.stringify(user))

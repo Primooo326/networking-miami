@@ -9,6 +9,7 @@ import { BannerComponent } from "./banner/banner.component"
 import { ToolsModule } from "../tools/tools.module";
 import { ToastComponent } from './toast/toast.component';
 import { ChatModalComponent } from './chat-modal/chat-modal.component'
+import { ReactiveFormsModule } from "@angular/forms"
 
 @NgModule({
 	declarations: [
@@ -20,7 +21,7 @@ import { ChatModalComponent } from './chat-modal/chat-modal.component'
   ToastComponent,
   ChatModalComponent,
 	],
-	imports: [CommonModule, RouterModule, ToolsModule],
+	imports: [CommonModule, RouterModule, ToolsModule,ReactiveFormsModule],
 	exports: [
 		HeaderComponent,
 		FooterComponent,

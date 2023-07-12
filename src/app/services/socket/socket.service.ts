@@ -16,7 +16,7 @@ import {
 	providedIn: "root",
 })
 export class SocketService {
-	private socket!: Socket
+	 socket!: Socket
 
 	constructor(private store: Store<any>) {}
 
@@ -83,6 +83,10 @@ export class SocketService {
 		// Emitir el evento "new-notify" al servidor de sockets
 		this.socket.emit("new-notify", { data, type })
 	}
+
+  // getChat(){
+  //   this.socket.on("newMessage")
+  // }
 
 	closeSocket() {
 		// Cerrar la conexión del socket si está abierta

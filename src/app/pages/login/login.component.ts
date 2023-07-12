@@ -5,10 +5,12 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MailService } from 'src/app/services/mail/mail.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
-import { setUser } from 'src/redux/actions';
+import { myMatches, myRequestMatches, newNotification, newPendingMatch, setUser } from 'src/redux/actions';
 import intlTelInput from 'intl-tel-input';
 
 import Swal from 'sweetalert2';
+import { NotifyService } from 'src/app/services/notify/notify.service';
+import { MatchService } from 'src/app/services/match/match.service';
 
 @Component({
   selector: 'app-login',
@@ -97,7 +99,9 @@ export class LoginComponent implements AfterViewInit {
     private router: Router,
     private mailSrvc: MailService,
     private store: Store<any>,
-    private socketSrvc: SocketService
+    private socketSrvc: SocketService,
+    private notifySrvc:NotifyService,
+    private matchSrvc: MatchService
   ) {
     setInterval(() => {
       this.experienciaV =
@@ -200,7 +204,7 @@ export class LoginComponent implements AfterViewInit {
         })
         .then((obs) => {
           obs.subscribe(
-            (data: any) => {
+            async (data: any) => {
               console.log(data);
               const { token, user } = data;
               this.store.dispatch(setUser.set(user));
@@ -208,7 +212,41 @@ export class LoginComponent implements AfterViewInit {
               localStorage.setItem('user', JSON.stringify(user));
               localStorage.setItem('token', JSON.stringify(token));
               this.socketSrvc.openSocket();
+
+              const notifiys = await this.notifySrvc.getNorifications();
+              notifiys.subscribe(
+                (data: any) => {
+                  data.forEach((element: any) => {
+                    this.store.dispatch(
+                      newNotification.set({
+                        data: element.data,
+                        title: element.title,
+                        message: element.message,
+                        time: element.time,
+                      })
+                    );
+                  });
+                },
+                (err: any) => {
+                  console.log(err);
+                }
+              );
+              const matchesPending = await this.matchSrvc.readPendingMatch();
+              matchesPending.subscribe((data: any) => {
+                data.forEach((element: any) => {
+                  this.store.dispatch(newPendingMatch.set(element));
+                });
+              });
+              const matchesRequest = await this.matchSrvc.readrequestMatches();
+              matchesRequest.subscribe((data: any) => {
+                data.forEach((element: any) => {
+                  this.store.dispatch(myRequestMatches.set(element));
+                });
+              });
+
               this.router.navigate(['/home']);
+
+
             },
             (err) => {
               console.log(err);
@@ -249,7 +287,7 @@ export class LoginComponent implements AfterViewInit {
     await this.authSrvc.register(newUser).then(
       (obs) => {
         obs.subscribe(
-          (data: any) => {
+          async (data: any) => {
             console.log(data);
             const { token, id, avatar, fotoPortada } = data;
             const user = newUser;
@@ -261,7 +299,6 @@ export class LoginComponent implements AfterViewInit {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('token', JSON.stringify(token));
             this.socketSrvc.openSocket();
-
             this.router.navigate(['/home']);
           },
           (err: any) => {

@@ -49,7 +49,6 @@ export const initialState: Usuario = user
 export const userReducer = createReducer(
 	initialState,
 	on(setUser.set, (state, { user }) => {
-		console.log(user)
 		localStorage.setItem("user", JSON.stringify(user))
 		return user
 	}),
@@ -62,7 +61,6 @@ export const initialNotification: INotificacion[] = notification
 export const notificationReducer = createReducer(
 	initialNotification,
 	on(newNotification.set, (state, { notification }) => {
-		console.log([...state, notification])
 		return [...state, notification]
 	}),
 )
@@ -74,11 +72,9 @@ export const initialpendingMatches = pendingMatches
 export const pendingMatchesReducer = createReducer(
 	initialpendingMatches,
 	on(newPendingMatch.set, (state, { matchRequest }) => {
-		console.log([...state, matchRequest])
 		return [...state, matchRequest]
 	}),
 	on(newPendingMatch.delete, (state, { cancelMatch }) => {
-		console.log([...state, cancelMatch])
 		return state.filter((item: any) => item.id !== cancelMatch.id)
 	}),
 )
@@ -90,11 +86,9 @@ export const initialMatchRequest = matchRequest
 export const requestMatchesReducer = createReducer(
 	initialMatchRequest,
 	on(myRequestMatches.set, (state, { requestMatches }) => {
-		console.log([...state, requestMatches])
 		return [...state, requestMatches]
 	}),
 	on(myRequestMatches.delete, (state, { cancelRequestMatch }) => {
-		console.log([...state, cancelRequestMatch])
 		return state.filter((item: any) => item.id !== cancelRequestMatch.id)
 	}),
 )
@@ -105,12 +99,9 @@ export const initialMatches = matches
 export const matchesReducer = createReducer(
 	initialMatches,
 	on(myMatches.set, (state, { matches }) => {
-		console.log([...state, matches])
 		return [...state, matches]
 	}),
 	on(myMatches.delete, (state, { cancelMatch }) => {
-		console.log([...state, cancelMatch])
-		console.log(state.filter((item: any) => item.id !== Number(cancelMatch.id)))
 		return state.filter((item: any) => item.id !== Number(cancelMatch.id))
 	}),
 )

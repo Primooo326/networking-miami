@@ -6,25 +6,37 @@ import { environment } from "src/environments/environment"
 	providedIn: "root",
 })
 export class ChatService {
+
 	private backend = environment.backend + "api/"
 
 	constructor(private http: HttpClient) {}
+
 	private get getUser(): any {
 		return JSON.parse(localStorage.getItem("user")!)
 	}
+
 	private get token(): any {
 		return JSON.parse(localStorage.getItem("token")!)
 	}
+
 	async readChats() {
 		const url = this.backend + "chat/readChats"
 		return this.http.get(url, {
 			headers: { "x-access-token": this.token },
 		})
 	}
+	async sendMessage(body:any) {
+		const url = this.backend + "chat/sendMessage"
+		return this.http.post(url,body, {
+			headers: { "x-access-token": this.token },
+		})
+	}
+
 	async readMessages(body: any) {
-		const url = this.backend + "chat/readMessages"
+		const url = this.backend + "chat/getChatByIdUser"
 		return this.http.post(url, body, {
 			headers: { "x-access-token": this.token },
 		})
 	}
+
 }

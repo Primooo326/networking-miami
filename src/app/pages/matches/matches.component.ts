@@ -46,7 +46,6 @@ export class MatchesComponent implements OnInit {
 
 
     this.misMatches$.subscribe((data: any) => {
-      console.log('matches::', data);
       this.usersMatches = data;
       this.changePageMisMatches(0);
     });
@@ -58,7 +57,6 @@ export class MatchesComponent implements OnInit {
     this.currentPage = page;
     this.showUsers = this.usersMatches.filter(() => true);
     this.showUsers = this.showUsers.splice(page * 4, 12);
-    console.log(this.usersMatches.length);
   }
   changePageNewMatches(page: number) {
     this.currentPageNewMatches = page;
