@@ -88,7 +88,7 @@ export class ProfileCardComponent implements OnInit {
 
   async eliminarSolictud(isClient: boolean) {
     Swal.fire({
-      title: '¿Seguro quieres cancelar la solicitud?',
+      title: '¿Estas seguro quieres cancelar la solicitud?',
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
@@ -115,7 +115,7 @@ export class ProfileCardComponent implements OnInit {
 
   async eliminarMatch() {
     Swal.fire({
-      title: '¿Seguro quieres eliminar al contacto?' + this.user.nombre,
+      title: '¿Estas seguro quieres eliminar al contacto? ' + this.user.nombre,
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',

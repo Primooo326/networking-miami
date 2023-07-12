@@ -183,7 +183,6 @@ export class LoginComponent implements AfterViewInit {
 
     $('[data-toggle="datepicker"]').datepicker({
       language: 'es-ES',
-      startView: 2,
       startDate:"1900",
       endDate:"2010",
       format: 'yyyy-mm-dd',
