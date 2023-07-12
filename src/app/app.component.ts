@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
       const matchesPending = await this.matchSrvc.readPendingMatch();
 
       matchesPending.subscribe((data: any) => {
-        console.log(data);
         data.forEach((element: any) => {
           this.store.dispatch(newPendingMatch.set(element));
         });
@@ -72,7 +71,6 @@ export class AppComponent implements OnInit {
       const matchesRequest = await this.matchSrvc.readrequestMatches();
 
       matchesRequest.subscribe((data: any) => {
-        console.log(data);
         data.forEach((element: any) => {
           this.store.dispatch(myRequestMatches.set(element));
         });

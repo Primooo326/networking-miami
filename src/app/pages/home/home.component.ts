@@ -85,10 +85,11 @@ export class HomeComponent implements OnInit {
 	async ngOnInit() {
 		this.store.select(matchPendingSelect).subscribe((users: any) => {
 			this.solicitudesDeMatch = users
+  		this.readAllUsers()
+
 		})
 		this.store.select(matchRequestSelect).subscribe((users: any) => {
 			this.peticionesDeMatch = users
-			console.log("usersssss::", users)
 		})
 
 		this.currentUser.verificado == 0

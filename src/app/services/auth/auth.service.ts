@@ -10,6 +10,10 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
+  private get getUser(): any {
+		return JSON.parse(localStorage.getItem("user")!)
+	}
+
 	async login(body: any) {
 		const url = this.backend + "auth/login"
 
@@ -20,6 +24,7 @@ export class AuthService {
 		const url = this.backend + "auth/register"
 		return this.http.post(url, body)
 	}
+
 	async datas() {
 		await this.http
 			.get(`${this.backend}admin/interes`)
@@ -47,4 +52,9 @@ export class AuthService {
 				localStorage.setItem("experiencia", JSON.stringify(data))
 			})
 	}
+
+  async refreshToken(){
+    const url = this.backend + "auth/refresh-token"
+    return this.http.post(url, {id: this.getUser.id})
+  }
 }
