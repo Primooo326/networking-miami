@@ -11,7 +11,7 @@ import {
 } from "src/redux/selectors"
 import Swal from "sweetalert2"
 import { MatchService } from "src/app/services/match/match.service"
-import { newPendingMatch } from "src/redux/actions"
+import { myMatches, newPendingMatch } from "src/redux/actions"
 
 @Component({
 	selector: "app-header",
@@ -95,6 +95,7 @@ export class HeaderComponent implements OnInit {
 				const res = await this.matchSrvc.createMatch(body)
 				res.subscribe(
 					(data) => {
+            this.store.dispatch(myMatches.set(user));
 						this.store.dispatch(newPendingMatch.delete(user))
 						Swal.fire("¡Solicitud aceptada!", "", "success")
 						console.log(data)

@@ -45,6 +45,7 @@ export class SocketService {
 			console.log("Nuevo match:", data)
 			this.store.dispatch(myMatches.set(data))
 			this.store.dispatch(newPendingMatch.delete(data))
+			this.store.dispatch(myRequestMatches.delete(data))
 		})
 
 		this.socket.on("deleteRequestMatch", (data: any) => {
@@ -57,6 +58,7 @@ export class SocketService {
 		})
 		this.socket.on("deleteMatch", (data: any) => {
 			console.log("deleteMatch::", data)
+			this.store.dispatch(newPendingMatch.delete(data))
 			this.store.dispatch(myMatches.delete(data))
 		})
 

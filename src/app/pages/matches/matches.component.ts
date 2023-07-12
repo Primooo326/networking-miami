@@ -43,6 +43,8 @@ export class MatchesComponent implements OnInit {
     this.condadoSelected = this.condados[0];
   }
   async ngOnInit() {
+
+
     this.misMatches$.subscribe((data: any) => {
       console.log('matches::', data);
       this.usersMatches = data;
