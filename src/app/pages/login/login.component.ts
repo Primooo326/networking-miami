@@ -5,12 +5,19 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MailService } from 'src/app/services/mail/mail.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
-import { myMatches, myRequestMatches, newNotification, newPendingMatch, setUser } from 'src/redux/actions';
+import {
+  myMatches,
+  myRequestMatches,
+  newNotification,
+  newPendingMatch,
+  setUser,
+} from 'src/redux/actions';
 import intlTelInput from 'intl-tel-input';
 
 import Swal from 'sweetalert2';
 import { NotifyService } from 'src/app/services/notify/notify.service';
 import { MatchService } from 'src/app/services/match/match.service';
+import { FilesService } from 'src/app/services/files/files.service';
 
 @Component({
   selector: 'app-login',
@@ -35,16 +42,14 @@ export class LoginComponent implements AfterViewInit {
   isOnLogin = true;
   onReset = false;
   isOnResetEmail = false;
-  tabRegistro = 'primero';
+  tabRegistro = 'cuarto';
   textTabRegistro = 'Correo y contraseña 1/3';
 
   lenguajesV = true;
   experienciaV = true;
   interesesV = true;
 
-
-  itiInput:any
-
+  itiInput: any;
 
   registroForm1Tab = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -94,14 +99,17 @@ export class LoginComponent implements AfterViewInit {
     Validators.email,
   ]);
 
+  pathFile = '';
+  onloadFile = false;
   constructor(
     private authSrvc: AuthService,
     private router: Router,
     private mailSrvc: MailService,
     private store: Store<any>,
     private socketSrvc: SocketService,
-    private notifySrvc:NotifyService,
-    private matchSrvc: MatchService
+    private notifySrvc: NotifyService,
+    private matchSrvc: MatchService,
+    private fileSrvc: FilesService
   ) {
     setInterval(() => {
       this.experienciaV =
@@ -161,37 +169,40 @@ export class LoginComponent implements AfterViewInit {
     var inputIti: any = document.querySelector('#phone');
     this.itiInput = intlTelInput(inputIti, {
       utilsScript:
-      'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.0.3/js/utils.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.0.3/js/utils.js',
       allowDropdown: true,
       separateDialCode: true,
       initialCountry: 'auto',
       geoIpLookup: function (callback) {
         fetch('https://ipapi.co/json')
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (data) {
-          callback(data.country_code);
-        })
-        .catch(function () {
-          callback('us');
-        });
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            callback(data.country_code);
+          })
+          .catch(function () {
+            callback('us');
+          });
       },
     });
-    const iti:any = document.querySelector('.iti');
+    const iti: any = document.querySelector('.iti');
     iti.style.width = '100%';
 
     $('[data-toggle="datepicker"]').datepicker({
       language: 'es-ES',
-      startDate:"1900",
-      endDate:"2010",
+      startDate: '1900',
+      endDate: '2010',
       format: 'yyyy-mm-dd',
       autoHide: true,
     });
-    $('[data-toggle="datepicker"]').on("pick.datepicker", (e:any) => {
+    $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
       this.registroForm2Tab.get('fechaNacimiento')?.setValue(e.date);
     });
 
+    $(document).on('change', '.uploadProfileInput', (event) => {
+      this.uploadProfileImage(event);
+    });
   }
 
   async login() {
@@ -244,8 +255,6 @@ export class LoginComponent implements AfterViewInit {
               });
 
               this.router.navigate(['/home']);
-
-
             },
             (err) => {
               console.log(err);
@@ -270,14 +279,12 @@ export class LoginComponent implements AfterViewInit {
     }
   }
   async register(registro3Value: any) {
-    const date:any = $('[data-toggle="datepicker"]').datepicker('getDate')
+    const date: any = $('[data-toggle="datepicker"]').datepicker('getDate');
     const newUser: any = {
       ...this.registroForm1Tab.value,
       ...this.registroForm2Tab.value,
       ...registro3Value,
-      fechaNacimiento: new Date(
-        date
-      ).toISOString(),
+      fechaNacimiento: new Date(date).toISOString(),
       fechaIngreso: new Date().toISOString(),
     };
     var number = this.itiInput.getNumber();
@@ -298,7 +305,8 @@ export class LoginComponent implements AfterViewInit {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('token', JSON.stringify(token));
             this.socketSrvc.openSocket();
-            this.router.navigate(['/home']);
+            // this.router.navigate(['/home']);
+            this.onChangeTabRegister('cuarto');
           },
           (err: any) => {
             if (err.error == 'User already registered') {
@@ -344,7 +352,6 @@ export class LoginComponent implements AfterViewInit {
     this.onChangeTabRegister('segundo');
   }
   register2Tab() {
-
     console.log(this.registroForm2Tab.value);
 
     var number = this.itiInput.getNumber();
@@ -440,5 +447,73 @@ export class LoginComponent implements AfterViewInit {
   }
   biographyRegistroValidator(): boolean {
     return this.registroForm2Tab.controls.biografia.hasError('required');
+  }
+  async handleFileInput(event: any) {
+    const file = event.target.files[0];
+    const res = await this.fileSrvc.updateUser(file);
+    res.subscribe(
+      (data: any) => {
+        console.log(data);
+
+        // const user = { ...this.currentUser, avatar: data.path };
+        // this.currentUser = user;
+        // this.store.dispatch(setUser.set(user));
+      },
+      (err) => {
+        console.log(err);
+        Swal.fire('error', err.error, 'error');
+      }
+    );
+  }
+  async uploadProfileImage(event: any) {
+    const triggerInput = event.target;
+    const currentImg: any = $(triggerInput)
+      .closest('.pic-holder')
+      .find('.pic')
+      .attr('src');
+    const holder = $(triggerInput).closest('.pic-holder');
+    const wrapper = $(triggerInput).closest('.profile-pic-wrapper');
+    $(wrapper).find('[role="alert"]').remove();
+    triggerInput.blur();
+    const files = !!event.target.files ? event.target.files : [];
+    if (!files.length || !window.FileReader) {
+      return;
+    }
+    if (/^image/.test(files[0].type)) {
+      this.onloadFile = true;
+
+      const res = await this.fileSrvc.updateUser(files[0]);
+      res.subscribe(
+        (data: any) => {
+          console.log(data);
+          this.onloadFile = false;
+
+          $(wrapper).append(
+            '<div class="snackbar show" role="alert"><i class="fa fa-check-circle text-success"></i>Imagen del perfil agregada correctamente.</div>'
+          );
+          $(holder).find('.pic').attr('src', data.path);
+          this.pathFile = data.path;
+        },
+        (err) => {
+          this.onloadFile = false;
+          console.log(err);
+          $(wrapper).append(
+            '<div class="alert alert-danger d-inline-block p-2 small" role="alert">Error al subir una imagen.</div>'
+          );
+
+          Swal.fire('error', err.error, 'error');
+        }
+      );
+      setTimeout(() => {
+        $(wrapper).find('[role="alert"]').remove();
+      }, 3000);
+    } else {
+      $(wrapper).append(
+        '<div class="alert alert-danger d-inline-block p-2 small" role="alert">Por favor selecciona una imagen válida.</div>'
+      );
+      setTimeout(() => {
+        $(wrapper).find('[role="alert"]').remove();
+      }, 3000);
+    }
   }
 }
