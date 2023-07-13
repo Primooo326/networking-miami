@@ -236,14 +236,14 @@
       <div class="sidebar-menu-wrap">
         <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
           <ul class="side-menu">
-            <li><a href="newsfeed.html" class="menu-link"><i class="icofont-home"></i><span
+            <li><a routerLink="/home" class="menu-link"><i class="icofont-home"></i><span
                   class="menu-title">Inicio</span></a></li>
 
-            <li><a href="user-groups.html" class="menu-link"><i class="icofont-users-alt-2"></i><span
+            <li><a routerLink="/match" class="menu-link"><i class="icofont-users-alt-2"></i><span
                   class="menu-title">Mis Contactos</span></a></li>
-            <li><a href="user-friends.html" class="menu-link"><i class="icofont-settings-alt"></i><span
+            <li><a routerLink="/profile-settings" class="menu-link"><i class="icofont-settings-alt"></i><span
                   class="menu-title">Editar Perfil</span></a></li>
-            <li><a href="user-photo.html" class="menu-link text-danger"><i class="icofont-logout"></i><span
+            <li><a (click)="logOut()" class="menu-link text-danger"><i class="icofont-logout"></i><span
                   class="menu-title">Cerrar Sesión</span></a></li>
 
           </ul>
