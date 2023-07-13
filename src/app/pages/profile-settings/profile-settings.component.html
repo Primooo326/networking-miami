@@ -125,11 +125,12 @@
                 [hidden]="onInformacionBasicaEdit"
                 type="text"
                 data-toggle="datepicker"
-                [value]="(user$ | async)!.fechaNacimiento"
                 class="form-control"
                 placeholder="Año de nacimiento"
-                formControlName="fechaNacimiento"
+
               />
+              <input hidden type="text"formControlName="fechaNacimiento"  >
+
             </li>
             <li>
               <label>Genero:</label>

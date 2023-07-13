@@ -97,15 +97,16 @@ export class ProfileSettingsComponent implements AfterViewInit {
       this.onInputTel();
       $('[data-toggle="datepicker"]').datepicker({
         language: 'es-ES',
-        startView: 2,
         startDate: '1900',
         endDate: '2010',
         format: 'yyyy-mm-dd',
         autoHide: true,
+        date:this.currentUser,
+        autoPick: true,
       });
 
       $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
-        e.preventDefault();
+        // e.preventDefault();
         console.log(e);
         this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
       });

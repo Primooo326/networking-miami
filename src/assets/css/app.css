@@ -4236,21 +4236,23 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 .hero-banner .map-line {
     position: absolute;
-    bottom: 0;
-    left: 11%;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: -1;
 }
 
 @media only screen and (max-width: 1440px) {
     .hero-banner .map-line {
-        left: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
 }
 
 @media only screen and (max-width: 1199px) {
     .hero-banner .map-line {
-        left: auto;
-        right: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
 }
 
@@ -4260,17 +4262,17 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 .hero-banner .map-line .map-marker li:nth-child(1n) {
     top: 0;
-    right: 40%;
+    right: 70%;
 }
 
 .hero-banner .map-line .map-marker li:nth-child(2n) {
-    top: 33%;
-    right: 50%;
+    top: 6%;
+    right: 31%;
 }
 
 .hero-banner .map-line .map-marker li:nth-child(3n) {
-    top: 60%;
-    right: 37%;
+    top: 64%;
+    right: 3%;
 }
 
 .hero-banner .map-line .map-marker li:nth-child(4n) {
