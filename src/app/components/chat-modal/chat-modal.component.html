@@ -8,7 +8,7 @@
             {{user.nombre}} <span class="online"></span>
           </h6>
           <div class="action-icon">
-            <button class="chat-shrink" (click)="shrinkChat()"><i class="icofont-minus"></i></button>
+            <button class="chat-shrink" (click)="shrinkChat()"><i *ngIf="isShrink" class="icofont-rounded-up"></i><i *ngIf="!isShrink" class="icofont-rounded-down"></i></button>
             <button type="button" (click)="hideChat()" class="close chat-close chat-open" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

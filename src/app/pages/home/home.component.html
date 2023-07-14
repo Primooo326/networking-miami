@@ -31,7 +31,7 @@
         <div class="block-box user-search-bar">
           <div class="box-item search-box">
             <div class="input-group">
-              <input type="text" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros" />
+              <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros por nombre o email" />
               <div class="input-group-append">
                 <button class="search-btn" type="button" (click)="applyFilter()">
                   <i class="icofont-search"></i>
@@ -62,7 +62,7 @@
             <ul class="user-view-switcher">
               <li>
                 <a class="user-view-trigger active" (click)="onAdvanceFilters()" data-type="user-list-view">
-                  <i class="icofont-listine-dots"></i>
+                  Filtros avanzados<i class="ml-3 icofont-listine-dots"></i>
                 </a>
               </li>
             </ul>
@@ -107,7 +107,7 @@
       <div [hidden]="!isOnAdvancedFilters" class="col-lg-4 widget-block widget-user-about widget-break-lg">
         <div class="widget widget-user-about">
           <div class="widget-heading">
-            <h3 class="widget-title">Filtros avanzados</h3>
+            <h3 class="widget-title">Busca miembros por:</h3>
           </div>
           <div class="user-info">
             <form  [formGroup]="filtersGroup">
@@ -161,7 +161,7 @@
             </form>
 
             <button class="btn btn-success btn-block mt-2" (click)="search()" >Buscar</button>
-            <button class="btn btn-warning btn-block mt-2" (click)="clean()" >Limpiar</button>
+            <button class="btn btn-warning btn-block mt-2" (click)="clean()" >Limpiar filtros</button>
           </div>
         </div>
       </div>

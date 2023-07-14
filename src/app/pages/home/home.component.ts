@@ -261,6 +261,7 @@ export class HomeComponent implements OnInit {
 		res.subscribe(
 			(data: any) => {
 				this.users = data
+        console.log(data);
 				this.changePageNewMatches(0)
 			},
 			(err) => {
@@ -288,4 +289,9 @@ export class HomeComponent implements OnInit {
 			return "desconocido"
 		}
 	}
+  onEnterPress(e:any){
+    if(e.keyCode == 13 && !e.shiftKey){
+      this.applyFilter();
+    }
+  }
 }

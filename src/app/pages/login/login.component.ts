@@ -13,7 +13,6 @@ import {
 	setUser,
 } from "src/redux/actions"
 import intlTelInput from "intl-tel-input"
-
 import Swal from "sweetalert2"
 import { NotifyService } from "src/app/services/notify/notify.service"
 import { MatchService } from "src/app/services/match/match.service"
@@ -131,6 +130,16 @@ export class LoginComponent implements AfterViewInit {
 			width: "100%",
 			minimumResultsForSearch: Infinity,
 		})
+
+    $("input.select2-search__field").on("keyup", (e: any) => {
+      //set input width = 100%
+      $(e.target).css("width", "100%")
+
+    })
+
+    //class="select2-search__field"
+
+
 
 		$("select#ciudad").on("change", (e: any) => {
 			const ciudad: any = $(e.target).val()

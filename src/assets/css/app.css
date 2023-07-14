@@ -11007,6 +11007,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     background-color: #ffffff;
     padding: 5px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .widget-author .profile-img a:before {
