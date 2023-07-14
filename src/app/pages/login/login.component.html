@@ -436,7 +436,7 @@
                   </div>
 
                 </div>
-                <button *ngIf="pathFile != ''" class="btn btn-success btn-block btn-volver" (click)="register3Tab()">
+                <button *ngIf="pathFile != ''" class="btn btn-success btn-block btn-volver" [routerLink]="['/home']" class="text-primary">
                   Finalizar
                 </button>
                 <a *ngIf="pathFile == ''" [routerLink]="['/home']" class="text-primary" routerLinkActive="router-link-active"  >Continuar sin foto de perfil</a>

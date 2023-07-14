@@ -449,6 +449,7 @@ export class LoginComponent implements AfterViewInit {
     return this.registroForm2Tab.controls.biografia.hasError('required');
   }
   async handleFileInput(event: any) {
+
     const file = event.target.files[0];
     const res = await this.fileSrvc.updateUser(file);
     res.subscribe(
