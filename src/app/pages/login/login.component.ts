@@ -42,7 +42,7 @@ export class LoginComponent implements AfterViewInit {
 	onReset = false
 	isOnResetEmail = false
 	tabRegistro = "primero"
-	textTabRegistro = "Correo y contraseña 1/4"
+	textTabRegistro = "Correo y contraseña 1/5"
 
 	lenguajesV = true
 	experienciaV = true
@@ -83,7 +83,6 @@ export class LoginComponent implements AfterViewInit {
 	registroForm3Tab = new FormGroup({
 		areaExperiencia: new FormControl(""),
 		temasInteres: new FormControl(""),
-		objetivo: new FormControl("", [Validators.required]),
 	})
 
 	loginForm = new FormGroup({
@@ -92,6 +91,19 @@ export class LoginComponent implements AfterViewInit {
 			Validators.required,
 			Validators.minLength(8),
 		]),
+	})
+
+	contacto1Form = new FormGroup({
+		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		email: new FormControl("", [Validators.required, Validators.email]),
+	})
+	contacto2Form = new FormGroup({
+		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		email: new FormControl("", [Validators.required, Validators.email]),
+	})
+	contacto3Form = new FormGroup({
+		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		email: new FormControl("", [Validators.required, Validators.email]),
 	})
 
 	emailResetInput = new FormControl("", [Validators.required, Validators.email])
@@ -131,15 +143,12 @@ export class LoginComponent implements AfterViewInit {
 			minimumResultsForSearch: Infinity,
 		})
 
-    $("input.select2-search__field").on("keyup", (e: any) => {
-      //set input width = 100%
-      $(e.target).css("width", "100%")
+		$("input.select2-search__field").on("keyup", (e: any) => {
+			//set input width = 100%
+			$(e.target).css("width", "100%")
+		})
 
-    })
-
-    //class="select2-search__field"
-
-
+		//class="select2-search__field"
 
 		$("select#ciudad").on("change", (e: any) => {
 			const ciudad: any = $(e.target).val()
@@ -375,13 +384,15 @@ export class LoginComponent implements AfterViewInit {
 	onChangeTabRegister(tab: string) {
 		this.tabRegistro = tab
 		if (tab == "primero") {
-			this.textTabRegistro = "Correo y contraseña 1/4"
+			this.textTabRegistro = "Correo y contraseña 1/5"
 		} else if (tab == "segundo") {
-			this.textTabRegistro = "Datos personales 2/4"
+			this.textTabRegistro = "Datos personales 2/5"
 		} else if (tab == "tercero") {
-			this.textTabRegistro = "Conexiones e intereses 3/4"
+			this.textTabRegistro = "Conexiones e intereses 3/5"
 		} else if (tab == "cuarto") {
-			this.textTabRegistro = "Sube tu foto de perfil 4/4"
+			this.textTabRegistro = "Sube tu foto de perfil 4/5"
+		} else if (tab == "quinto") {
+			this.textTabRegistro = "Invita a tus contactos 5/5"
 		}
 	}
 	onChangeConexiones(data: any) {
@@ -457,22 +468,6 @@ export class LoginComponent implements AfterViewInit {
 	biographyRegistroValidator(): boolean {
 		return this.registroForm2Tab.controls.biografia.hasError("required")
 	}
-	async handleFileInput(event: any) {
-		const file = event.target.files[0]
-		const res = await this.fileSrvc.updateUser(file)
-		res.subscribe(
-			(data: any) => {
-				console.log(data)
-
-				const user = { ...this.onUserRegister, avatar: data.path }
-				this.store.dispatch(setUser.set(user))
-			},
-			(err) => {
-				console.log(err)
-				Swal.fire("error", err.error, "error")
-			},
-		)
-	}
 	async uploadProfileImage(event: any) {
 		const triggerInput = event.target
 		const currentImg: any = $(triggerInput)
@@ -525,5 +520,24 @@ export class LoginComponent implements AfterViewInit {
 				$(wrapper).find('[role="alert"]').remove()
 			}, 3000)
 		}
+	}
+	async sendContacts() {
+		const contactos = [
+			this.contacto1Form.value,
+			this.contacto2Form.value,
+			this.contacto3Form.value,
+		]
+		const data = { contactos, user: this.onUserRegister.nombre }
+		const res = await this.mailSrvc.sendInvitation(data)
+		res.subscribe(
+			(data: any) => {
+				console.log(data)
+			},
+			(err) => {
+				console.warn(err)
+			},
+		)
+
+		console.log(contactos)
 	}
 }

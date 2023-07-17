@@ -664,7 +664,7 @@
                     >
                   </div>
                 </div>
-                <h4>¿Cuál es tu objetivo con Networking Miami?</h4>
+                <!-- <h4>¿Cuál es tu objetivo con Networking Miami?</h4>
                 <div class="form-group">
                   <textarea
                     formControlName="objetivo"
@@ -673,7 +673,7 @@
                     cols="10"
                     rows="3"
                   ></textarea>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                   <button
@@ -742,22 +742,115 @@
                 <button
                   *ngIf="pathFile != ''"
                   class="btn btn-success btn-block btn-volver mt-3"
-                  [routerLink]="['/home']"
+                  (click)="onChangeTabRegister('quinto')"
                 >
-                  Finalizar
+                  Continuar
                 </button>
                 <a
                   *ngIf="pathFile == ''"
-                  [routerLink]="['/home']"
                   class="text-primary"
                   routerLinkActive="router-link-active"
+                  (click)="onChangeTabRegister('quinto')"
                   >Continuar sin foto de perfil</a
                 >
-                <button
-                  (click)="onChangeTabRegister('segundo')"
+                <!-- <button
+                  (click)="onChangeTabRegister('tercero')"
                   class="btn btn-warning btn-block btn-volver mt-3"
                 >
                   Volver
+                </button> -->
+              </div>
+              <div [hidden]="tabRegistro != 'quinto'" class="text-center">
+                <h4>Invita a tus contactos</h4>
+                <form [formGroup]="contacto1Form" class="row mb-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Nombre contacto 1</label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre"
+                        formControlName="nombre"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Correo contacto 1</label>
+
+                      <input
+                        type="email"
+                        class="form-control"
+                        placeholder="E-mail"
+                        formControlName="email"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <form [formGroup]="contacto2Form" class="row mb-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Nombre contacto 2</label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre"
+                        formControlName="nombre"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Correo contacto 2</label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="E-mail"
+                        formControlName="email"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <form [formGroup]="contacto3Form" class="row mb-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Nombre contacto 3</label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Nombre"
+                        formControlName="nombre"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Correo contacto 3</label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="E-mail"
+                        formControlName="email"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <button
+                  class="btn btn-success btn-block btn-volver mt-3"
+                  [routerLink]="['/home']"
+                  [disabled]="
+                    contacto1Form.invalid ||
+                    contacto2Form.invalid ||
+                    contacto3Form.invalid
+                  "
+                  (click)="sendContacts()"
+                >
+                  Finalizar
                 </button>
               </div>
             </div>
