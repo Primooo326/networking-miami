@@ -94,15 +94,15 @@ export class LoginComponent implements AfterViewInit {
 	})
 
 	contacto1Form = new FormGroup({
-		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		nombre: new FormControl("", [Validators.required]),
 		email: new FormControl("", [Validators.required, Validators.email]),
 	})
 	contacto2Form = new FormGroup({
-		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		nombre: new FormControl("", [Validators.required]),
 		email: new FormControl("", [Validators.required, Validators.email]),
 	})
 	contacto3Form = new FormGroup({
-		nombre: new FormControl("", [Validators.required, Validators.minLength(8)]),
+		nombre: new FormControl("", [Validators.required]),
 		email: new FormControl("", [Validators.required, Validators.email]),
 	})
 
@@ -249,6 +249,7 @@ export class LoginComponent implements AfterViewInit {
 												title: element.title,
 												message: element.message,
 												time: element.time,
+												id: element.id,
 											}),
 										)
 									})

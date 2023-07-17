@@ -10,13 +10,14 @@ import {
 	newPendingMatch,
 	myMatches,
 	myRequestMatches,
+	myMessages,
 } from "src/redux/actions"
 
 @Injectable({
 	providedIn: "root",
 })
 export class SocketService {
-	 socket!: Socket
+	socket!: Socket
 
 	constructor(private store: Store<any>) {}
 
@@ -34,6 +35,7 @@ export class SocketService {
 					title: data.title,
 					message: data.message,
 					time: data.time,
+					id: data.id,
 				}),
 			)
 			if ((data.type = "match")) {
@@ -61,7 +63,10 @@ export class SocketService {
 			this.store.dispatch(newPendingMatch.delete(data))
 			this.store.dispatch(myMatches.delete(data))
 		})
-
+		this.socket.on("newMessage", (data: any) => {
+			console.log("newMessage::", data)
+			this.store.dispatch(myMessages.set(data))
+		})
 		// Realizar acciones adicionales después de abrir el socket
 		this.socket.on("connect", () => {
 			console.log("Socket conectado")
@@ -84,9 +89,9 @@ export class SocketService {
 		this.socket.emit("new-notify", { data, type })
 	}
 
-  // getChat(){
-  //   this.socket.on("newMessage")
-  // }
+	// getChat(){
+	//   this.socket.on("newMessage")
+	// }
 
 	closeSocket() {
 		// Cerrar la conexión del socket si está abierta

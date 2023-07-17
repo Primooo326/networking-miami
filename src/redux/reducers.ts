@@ -6,6 +6,7 @@ import {
 	newPendingMatch,
 	myRequestMatches,
 	myMatches,
+	myMessages,
 } from "./actions"
 
 const user: Usuario =
@@ -63,6 +64,9 @@ export const notificationReducer = createReducer(
 	on(newNotification.set, (state, { notification }) => {
 		return [...state, notification]
 	}),
+	on(newNotification.delete, (state, { notification }) => {
+		return state.filter((item: any) => item.id !== notification.id)
+	}),
 )
 
 const pendingMatches: any[] = []
@@ -103,5 +107,22 @@ export const matchesReducer = createReducer(
 	}),
 	on(myMatches.delete, (state, { cancelMatch }) => {
 		return state.filter((item: any) => item.id !== Number(cancelMatch.id))
+	}),
+)
+const messages: any[] = []
+export const initialMessages = messages
+
+export const messagesReducer = createReducer(
+	initialMessages,
+	on(myMessages.set, (state, { messages }) => {
+		return [...state, messages]
+	}),
+	on(myMessages.update, (state, { message }) => {
+		return state.map((item: any) => {
+			if (item.id === message.id) {
+				return message
+			}
+			return item
+		})
 	}),
 )

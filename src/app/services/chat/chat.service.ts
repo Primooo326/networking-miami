@@ -6,7 +6,6 @@ import { environment } from "src/environments/environment"
 	providedIn: "root",
 })
 export class ChatService {
-
 	private backend = environment.backend + "api/"
 
 	constructor(private http: HttpClient) {}
@@ -25,9 +24,9 @@ export class ChatService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-	async sendMessage(body:any) {
+	async sendMessage(body: any) {
 		const url = this.backend + "chat/sendMessage"
-		return this.http.post(url,body, {
+		return this.http.post(url, body, {
 			headers: { "x-access-token": this.token },
 		})
 	}
@@ -38,5 +37,10 @@ export class ChatService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-
+	async updateMessage(body: any) {
+		const url = this.backend + "chat/updateMessage"
+		return this.http.post(url, body, {
+			headers: { "x-access-token": this.token },
+		})
+	}
 }
