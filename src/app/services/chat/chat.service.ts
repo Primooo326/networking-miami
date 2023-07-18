@@ -39,7 +39,7 @@ export class ChatService {
 	}
 	async updateMessage(body: any) {
 		const url = this.backend + "chat/updateMessage"
-		return this.http.post(url, body, {
+		return this.http.put(url, body, {
 			headers: { "x-access-token": this.token },
 		})
 	}

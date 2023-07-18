@@ -69,7 +69,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			this.notificaciones = data
 		})
 		this.messages$.subscribe((data: any) => {
-			console.log("messages", data)
 			this.misMensajesNoVistos = data.filter(
 				(item: any) => item.estado === "no_visto",
 			)
@@ -158,11 +157,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 	setUserChat(user: Usuario) {
 		this.userChat = null
-		this.isCloseChat = true
 		setTimeout(() => {
-			this.userChat = user
-		}, 100)
+      this.userChat = user
+      this.isCloseChat = true
+		}, 150)
 	}
+  quitUserChat(){
+    console.log("quitUser");
+    this.userChat = null
+  }
 	async verPerfil(user: Usuario) {
 		localStorage.setItem("userToView", JSON.stringify(user))
 		this.route.navigate(["/user"])

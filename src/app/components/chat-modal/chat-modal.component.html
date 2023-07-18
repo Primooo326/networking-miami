@@ -18,8 +18,8 @@
           <ul class="chat-conversion">
             <li *ngFor="let mensaje of mensajes" [ngClass]="{'chat-others': mensaje.remitente_id == user.id,'chat-you':mensaje.remitente_id != user.id}" >
               <div class="author-img">
-                <img *ngIf="mensaje.remitente_id == user.id" [src]="user.avatar" class="user_chat" alt="Chat" />
-                <img *ngIf="mensaje.remitente_id != user.id" [src]="currentUser.avatar" class="user_chat" alt="Chat" />
+                <img *ngIf="mensaje.remitente_id == user.id" style="object-fit: cover;" [src]="user.avatar" class="user_chat" alt="Chat" />
+                <img *ngIf="mensaje.remitente_id != user.id" style="object-fit: cover;" [src]="currentUser.avatar" class="user_chat" alt="Chat" />
               </div>
               <div class="author-text w-75">
                 <span class="w-100 text-break">{{mensaje.contenido}}</span>

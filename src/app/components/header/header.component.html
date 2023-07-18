@@ -400,9 +400,9 @@
     </div>
   </div>
 
-  <div *ngIf="userChat">
-    <app-chat-modal [user]="userChat" [(valor)]="isCloseChat"></app-chat-modal>
-  </div>
+  <ng-container *ngIf="userChat && isCloseChat">
+    <app-chat-modal [user]="userChat" [(valor)]="isCloseChat" (valorChange)="quitUserChat()" ></app-chat-modal>
+  </ng-container>
 </div>
 <div *ngIf="page === 'landing'">
   <header class="header">

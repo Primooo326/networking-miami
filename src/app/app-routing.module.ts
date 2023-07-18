@@ -10,7 +10,7 @@ import { LandingGuard } from "./services/guards/landing.guard"
 import { UserComponent } from "./pages/user/user.component"
 
 const routes: Routes = [
-	{ path: "login", component: LoginComponent },
+	{ path: "login", component: LoginComponent, canActivate:[LandingGuard] },
 	{ path: "home", component: HomeComponent, canActivate:[AuthGuard] },
 	{ path: "profile-settings", component: ProfileSettingsComponent, canActivate:[AuthGuard] },
   { path: "user", component: UserComponent },

@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
 			const notifiys = await this.notifySrvc.getNorifications()
 			notifiys.subscribe(
 				(data: any) => {
-					console.log(data)
 					data.forEach((element: any) => {
 						this.store.dispatch(
 							newNotification.set({
