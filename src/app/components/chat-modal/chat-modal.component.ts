@@ -61,7 +61,6 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    console.log("initt");
     const res = await this.chatSrvc.readMessages({
       idUser: this.user.id,
       idUser2: this.currentUser.id,
@@ -71,14 +70,12 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subscription = res.subscribe(async (data: any) => {
       this.conversacion_id = data.conversacion_id
-      console.log(this.conversacion_id);
       this.mensajes = data.results.sort((a:any, b:any) => {
         return new Date(a.fecha_envio).getTime() - new Date(b.fecha_envio).getTime();
       });
 
 
       for(const element of data.results){
-        console.log(element);
         if(element.estado != "visto"){
           element.estado = "visto"
          const res2 = await this.chatSrvc.updateMessage({ id: element.id });
@@ -103,7 +100,6 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   shrinkChat() {
     this.isShrink = !this.isShrink;
-    console.log('isShrink');
 
     if (!this.isShrink) {
       setTimeout(() => {
@@ -128,7 +124,6 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
         remitente_id: this.currentUser.id,
       });
       res.subscribe((data: any) => {
-        console.log(data);
         this.mensajes.push(data);
         this.inputText.reset();
         setTimeout(() => {
@@ -157,9 +152,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   async handleNewMessage(data: any) {
-    console.log(data);
     if (data.conversacion_id === this.conversacion_id) {
-      console.log(this.conversacion_id);
       if (data.estado != 'visto') {
         const res = await this.chatSrvc.updateMessage({ id: data.id });
         res.subscribe((data)=>{
