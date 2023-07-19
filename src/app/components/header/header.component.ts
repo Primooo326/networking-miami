@@ -73,6 +73,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 				(item: any) => item.estado === "no_visto",
 			)
 		})
+    // this.misMatches$.subscribe((data)=>
+    // console.log(data))
 	}
 	ngAfterViewInit(): void {}
 	calcularTiempoTranscurrido(desde: string): string {

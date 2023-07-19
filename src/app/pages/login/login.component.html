@@ -56,10 +56,11 @@
               <form [formGroup]="loginForm">
                 <div class="form-group">
                   <input
-                    type="text"
+                    type="email"
+                    autocomplete="email"
                     class="form-control"
                     formControlName="email"
-                    placeholder="Tu E-mail"
+                    placeholder="Tu e-mail"
                     [ngClass]="{
                       'is-invalid':
                         loginForm.controls.email.dirty && emailLoginValidator()
@@ -90,6 +91,7 @@
                     class="form-control"
                     formControlName="password"
                     placeholder="Contraseña"
+                    autocomplete="current-password"
                     [ngClass]="{
                       'is-invalid':
                         loginForm.controls.password.dirty &&
@@ -156,7 +158,13 @@
               id="registration-tab"
               role="tabpanel"
             >
-              <h3>Regístrate</h3>
+              <div class="d-flex justify-content-between">
+
+                <h3>Regístrate</h3>
+                <p class="text-right" >
+                  {{pageNumber}}
+                </p>
+              </div>
               <p>{{ textTabRegistro }}</p>
               <span class="item-title"></span>
               <!-- !primer tab registro -->
@@ -167,6 +175,7 @@
                 <div class="form-group">
                   <input
                     type="email"
+                    autocomplete="email"
                     formControlName="email"
                     class="form-control"
                     [ngClass]="{
@@ -174,7 +183,7 @@
                         registroForm1Tab.controls.email.dirty &&
                         emailRegistroValidator()
                     }"
-                    placeholder="Tu E-mail"
+                    placeholder="Tu e-mail"
                   />
                   <div
                     class="invalid-feedback"
@@ -209,6 +218,7 @@
                     type="password"
                     formControlName="password"
                     class="form-control"
+                    autocomplete="new-password"
                     [ngClass]="{
                       'is-invalid':
                         registroForm1Tab.controls.password.dirty &&
@@ -248,6 +258,7 @@
                 <div class="form-group">
                   <input
                     type="password"
+                    autocomplete="new-password"
                     formControlName="repeatPassword"
                     class="form-control"
                     [ngClass]="{
@@ -760,9 +771,12 @@
                   Volver
                 </button> -->
               </div>
-              <div [hidden]="tabRegistro != 'quinto'" class="text-center">
-                <h4>Invita a tus contactos</h4>
-                <form [formGroup]="contacto1Form" class="row mb-3">
+              <div [hidden]="tabRegistro != 'quinto'">
+                <div class="my-3">
+                  <h5 >No subestimes el poder de las conexiones. Invita a tus contactos y sé parte de una comunidad dinámica que impulsa tu éxito profesional en Miami.</h5>
+                  <hr>
+                </div>
+                <form [formGroup]="contacto1Form" class="row mt-2 mb-3">
                   <div class="col-6">
                     <div class="form-group">
                       <label>Nombre contacto 1</label>
@@ -770,6 +784,7 @@
                       <input
                         type="text"
                         class="form-control"
+                        autocomplete="username"
                         placeholder="Nombre"
                         formControlName="nombre"
                       />
@@ -781,8 +796,9 @@
 
                       <input
                         type="email"
+                        autocomplete="email"
                         class="form-control"
-                        placeholder="E-mail"
+                        placeholder="e-mail"
                         formControlName="email"
                       />
                     </div>
@@ -795,6 +811,7 @@
 
                       <input
                         type="text"
+                        autocomplete="username"
                         class="form-control"
                         placeholder="Nombre"
                         formControlName="nombre"
@@ -806,9 +823,10 @@
                       <label>Correo contacto 2</label>
 
                       <input
-                        type="text"
+                        type="email"
+                        autocomplete="email"
                         class="form-control"
-                        placeholder="E-mail"
+                        placeholder="e-mail"
                         formControlName="email"
                       />
                     </div>
@@ -821,6 +839,7 @@
 
                       <input
                         type="text"
+                        autocomplete="username"
                         class="form-control"
                         placeholder="Nombre"
                         formControlName="nombre"
@@ -832,9 +851,10 @@
                       <label>Correo contacto 3</label>
 
                       <input
-                        type="text"
+                        type="email"
+                        autocomplete="email"
                         class="form-control"
-                        placeholder="E-mail"
+                        placeholder="e-mail"
                         formControlName="email"
                       />
                     </div>
@@ -843,11 +863,6 @@
                 <button
                   class="btn btn-success btn-block btn-volver mt-3"
                   [routerLink]="['/home']"
-                  [disabled]="
-                    contacto1Form.invalid ||
-                    contacto2Form.invalid ||
-                    contacto3Form.invalid
-                  "
                   (click)="sendContacts()"
                 >
                   Finalizar
@@ -871,9 +886,10 @@
                 <div class="form-group">
                   <input
                     type="email"
+                    autocomplete="email"
                     class="form-control"
                     [formControl]="emailResetInput"
-                    placeholder="Tu E-mail"
+                    placeholder="Tu e-mail"
                     [ngClass]="{
                       'is-invalid':
                         emailResetInput.hasError('required') ||

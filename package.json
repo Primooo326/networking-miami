@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.3",
-    "@angular/cli": "~16.0.3",
+    "@angular/cli": "^16.1.4",
     "@angular/compiler-cli": "^16.0.0",
     "@types/bootstrap": "^5.2.6",
     "@types/chenfengyuan__datepicker": "^1.0.2",

@@ -7,14 +7,14 @@
         <i class="icofont-megaphone-alt"></i>
       </div>
       <div class="media-body">
-        <h3 class="item-title">Verifica tu correo electrónico</h3>
-        <p>Tu correo aún no ha sido verificado</p>
+        <h3 class="item-title">Verifica tu cuenta de Networking Miami</h3>
+        <p>Tu cuenta aún no ha sido verificada</p>
         <button (click)="verifyEmail()" type="button" class="btn btn-primary" [disabled]="onVerifyEmail">
 
           <span *ngIf="onVerifyEmail" class="spinner-border spinner-border-sm me-3" role="status"
             aria-hidden="true"></span>
-          <span *ngIf="onVerifyEmail" class="visually-hidden">Enviando correo de verificación...</span>
-          <span *ngIf="!onVerifyEmail" class="visually-hidden">Verificar ahora</span>
+          <span *ngIf="onVerifyEmail" class="visually-hidden">Reenviando correo...</span>
+          <span *ngIf="!onVerifyEmail" class="visually-hidden">Reenviar correo</span>
         </button>
       </div>
     </div>
@@ -24,8 +24,6 @@
     </ul>
   </div>
   <div class="mt-4">
-
-
     <div class="row">
       <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
         <div class="block-box user-search-bar">
@@ -39,25 +37,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="box-item search-filter">
-            <div class="dropdown">
-              <label>Ordenar por:</label>
-              <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                {{ orderBy }}
-              </button>
-              <div class="dropdown-menu">
-                <button (click)="changeOrder('Todos los miembros')" class="dropdown-item" href="#">
-                  Todos los miembros
-                </button>
-                <button (click)="changeOrder('Recientes')" class="dropdown-item" href="#">
-                  Recientes
-                </button>
-                <button (click)="changeOrder('Destacados')" class="dropdown-item" href="#">
-                  Destacados
-                </button>
-              </div>
-            </div>
-          </div> -->
           <div class="box-item search-switcher">
             <ul class="user-view-switcher">
               <li>

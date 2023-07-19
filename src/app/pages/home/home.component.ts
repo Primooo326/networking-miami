@@ -156,8 +156,8 @@ export class HomeComponent implements OnInit {
 				console.log(data)
 				this.onVerifyEmail = false
 				Swal.fire(
-					"Correo enviado",
-					`Se ha enviado un correo de cambio de verificacion a ${this.currentUser.email}. Acéptalo y verifica tu correo`,
+					"Correo reenviado",
+					`Se ha reenviado un correo a ${this.currentUser.email}. Acéptalo y verifica tu cuenta`,
 					"success",
 				)
 			},

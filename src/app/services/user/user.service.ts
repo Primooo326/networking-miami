@@ -19,6 +19,10 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
+	async readAllUsers() {
+		const url = this.backend + "users/all"
+		return this.http.get(url)
+	}
 	async updateUser(body: any) {
 		const url = this.backend + "users"
 		return this.http.put(url, body, {
