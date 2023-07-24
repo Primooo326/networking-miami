@@ -47,8 +47,8 @@
             </ul>
           </div>
         </div>
-        <p class="text-center" >{{ users.length }} usuarios encontrados</p>
-        <div id="user-view" class="user-grid-view">
+        <h5 class="text-center mb-5" >{{ users.length }} usuarios encontrados</h5>
+        <div id="user-view" class="user-grid-view" [ngClass]="{'isNotVerifyed': !verificado}" >
           <div class="row rowmsry">
             <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)"
               class=" colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6" [ngClass]="{
@@ -149,3 +149,4 @@
 
 
 </div>
+

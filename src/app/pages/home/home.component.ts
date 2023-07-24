@@ -9,6 +9,7 @@ import { Store } from "@ngrx/store"
 import { matchPendingSelect, matchRequestSelect } from "src/redux/selectors"
 import { ETypePerfil } from "src/app/tools/models"
 import { myRequestMatches } from "src/redux/actions"
+import { userSelect } from '../../../redux/selectors';
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
@@ -83,6 +84,11 @@ export class HomeComponent implements OnInit {
 		private store: Store<any>,
 	) {}
 	async ngOnInit() {
+    this.store.select(userSelect).subscribe((user:Usuario)=>{
+      console.log(user);
+      this.currentUser = user
+      this.verificado = user.verificado == 0 ? false : true
+    })
 		this.store.select(matchPendingSelect).subscribe((users: any) => {
 			this.solicitudesDeMatch = users
   		this.readAllUsers()

@@ -3,7 +3,7 @@
 import { Injectable } from "@angular/core"
 import { io, Socket } from "socket.io-client"
 import { environment } from "../../../environments/environment"
-import { ENotifyTypes } from "src/app/tools/models"
+import { ENotifyTypes, Usuario } from "src/app/tools/models"
 import { Store } from "@ngrx/store"
 import {
 	newNotification,
@@ -11,6 +11,7 @@ import {
 	myMatches,
 	myRequestMatches,
 	myMessages,
+  setUser
 } from "src/redux/actions"
 
 @Injectable({
@@ -79,6 +80,14 @@ export class SocketService {
 			})
 			this.socket.emit("userConnect", JSON.parse(localStorage.getItem("user")!))
 		})
+    if(this.user.verificado == 0){
+
+      this.socket.on("emailverification", (data: any) => {
+        this.store.dispatch(setUser.verifyEmail(data))
+        console.log("email verificado");
+        this.socket.off("emailverification")
+      })
+    }
 
 		this.socket.on("disconnect", (d) => {
 			console.log("Socket desconectado ", d)
@@ -89,10 +98,9 @@ export class SocketService {
 		this.socket.emit("new-notify", { data, type })
 	}
 
-	// getChat(){
-	//   this.socket.on("newMessage")
-	// }
-
+ get user():Usuario{
+  return JSON.parse(localStorage.getItem("user")!)
+ }
 	closeSocket() {
 		// Cerrar la conexión del socket si está abierta
 		if (this.socket) {

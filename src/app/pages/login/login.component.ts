@@ -537,7 +537,7 @@ export class LoginComponent implements AfterViewInit {
     }
   }
   async sendContacts() {
-    const contactos = [];
+    const contactos:any[] = [];
     if (this.contacto1Form.valid) {
       contactos.push(this.contacto1Form.value);
     }

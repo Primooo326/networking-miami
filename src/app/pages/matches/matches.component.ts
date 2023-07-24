@@ -5,7 +5,9 @@ import { MatchService } from "../../services/match/match.service"
 import { FormControl, Validators } from "@angular/forms"
 import * as Masonry from "masonry-layout"
 import { Store } from "@ngrx/store"
-import { matchSelect } from "src/redux/selectors"
+import { matchSelect, userSelect } from "src/redux/selectors"
+import Swal from "sweetalert2"
+import { MailService } from "src/app/services/mail/mail.service"
 
 @Component({
 	selector: "app-matches",
@@ -18,6 +20,7 @@ export class MatchesComponent implements OnInit {
 	intereses = JSON.parse(localStorage.getItem("interes")!)
 	condados = JSON.parse(localStorage.getItem("condados")!)
 	currentUser = JSON.parse(localStorage.getItem("user")!)
+	onVerifyEmail = false
 
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
@@ -33,11 +36,12 @@ export class MatchesComponent implements OnInit {
 	filterInput = new FormControl("", Validators.required)
 	isOnAdvancedFilters = false
 	misMatches$ = this.store.select(matchSelect)
-
+  verificado = false;
 	constructor(
 		private userSrvc: UserService,
 		private matchSrvc: MatchService,
 		private store: Store<any>,
+    private mailSrvc: MailService
 	) {
 		this.ciudades = this.condados[0].ciudades
 		this.condadoSelected = this.condados[0]
@@ -57,9 +61,33 @@ export class MatchesComponent implements OnInit {
 				console.log(err)
 			},
 		)
+    this.store.select(userSelect).subscribe((data)=>{
+      data.verificado == 0 ? this.verificado = false : this.verificado = true;
+    })
 	}
 	changeOrder(order: string) {
 		this.orderBy = order
+	}
+  async verifyEmail() {
+		this.onVerifyEmail = true
+		const res = await this.mailSrvc.verifyEmail({
+			email: this.currentUser.email,
+		})
+		res.subscribe(
+			(data) => {
+				console.log(data)
+				this.onVerifyEmail = false
+				Swal.fire(
+					"Correo reenviado",
+					`Se ha reenviado un correo a ${this.currentUser.email}. Acéptalo y verifica tu cuenta`,
+					"success",
+				)
+			},
+			(err) => {
+				Swal.fire("error", err.error, "error")
+				this.onVerifyEmail = false
+			},
+		)
 	}
 	changePageMisMatches(page: number) {
 		this.currentPage = page

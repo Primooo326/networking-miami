@@ -1,11 +1,12 @@
-import { createActionGroup } from "@ngrx/store"
+import { createActionGroup, emptyProps } from "@ngrx/store"
 import { INotificacion, Usuario } from "../app/tools/models"
 
 export const setUser = createActionGroup({
 	source: "[User] Set Current User",
 	events: {
 		set: (user: Usuario) => ({ user }),
-	},
+    verifyEmail:(data:any) => (data)
+  }
 })
 export const newNotification = createActionGroup({
 	source: "[Sistem] New Notification",

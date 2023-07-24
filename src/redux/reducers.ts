@@ -53,6 +53,7 @@ export const userReducer = createReducer(
 		localStorage.setItem("user", JSON.stringify(user))
 		return user
 	}),
+  on(setUser.verifyEmail, (state, { user }) => ({...state,verificado:1}))
 )
 
 const notification: INotificacion[] = []
