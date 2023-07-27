@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <!-- Banner Area Start -->
   <div *ngIf="!verificado
 " class="newsfeed-banner">
@@ -23,7 +23,7 @@
           alt="shape"></li>
     </ul>
   </div>
-  <h5>Buenos días {{currentUser.nombre}}!</h5>
+  <h4>Buenos días {{currentUser.nombre}}!</h4>
   <p id="phrase" style="font-family: 'Kalam', cursive;"></p>
   <div class="mt-4">
     <div class="row">
@@ -31,7 +31,7 @@
         <div class="block-box user-search-bar">
           <div class="box-item search-box">
             <div class="input-group">
-              <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros por nombre o email" />
+              <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros por nombre" />
               <div class="input-group-append">
                 <button class="search-btn" type="button" (click)="applyFilter()">
                   <i class="icofont-search"></i>
@@ -49,7 +49,7 @@
             </ul>
           </div>
         </div>
-        <h5 class="text-center mb-5" >{{ users.length }} usuarios encontrados con intereses similares</h5>
+        <h5 class="text-center mb-5" >{{ users.length }} {{messajeFilter}}</h5>
         <div id="user-view" class="user-grid-view" [ngClass]="{'isNotVerifyed': !verificado}" >
           <div class="row rowmsry">
             <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)"

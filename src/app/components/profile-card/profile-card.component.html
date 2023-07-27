@@ -14,7 +14,7 @@
     </div>
     <div class="profile-name">
       <h4 class="author-name">
-        <a href="#">{{ user.nombre }}</a>
+        <a (click)="verPerfil()">{{ user.nombre }}</a>
       </h4>
       <div class="author-location">
         <p>{{user.biografia}}</p>
@@ -36,7 +36,7 @@
 <div class="widget-author" *ngIf="typeProfile == 'contacto'">
   <div class="author-heading">
     <div class="cover-img">
-      <img [src]="user.fotoPortada" alt="fotoPortada" />
+      <!-- <img [src]="user.fotoPortada" alt="fotoPortada" /> -->
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a (click)="verPerfil()">
@@ -49,7 +49,7 @@
     </div>
     <div class="profile-name">
       <h4 class="author-name">
-        <a href="#">{{ user.nombre }}</a>
+        <a (click)="verPerfil()">{{ user.nombre }}</a>
       </h4>
       <!-- <div class="author-location">{{ user.email }}</div> -->
     </div>
@@ -62,7 +62,7 @@
 <div class="widget-author" *ngIf="typeProfile == 'solicitud'">
   <div class="author-heading">
     <div class="cover-img">
-      <img [src]="user.fotoPortada" alt="fotoPortada" />
+      <!-- <img [src]="user.fotoPortada" alt="fotoPortada" /> -->
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a (click)="verPerfil()">
@@ -75,7 +75,7 @@
     </div>
     <div class="profile-name">
       <h4 class="author-name">
-        <a href="#">{{ user.nombre }}</a>
+        <a (click)="verPerfil()">{{ user.nombre }}</a>
       </h4>
       <!-- <div class="author-location">{{ user.email }}</div> -->
     </div>
@@ -95,7 +95,7 @@
 <div class="widget-author" *ngIf="typeProfile == 'solicitante'">
   <div class="author-heading">
     <div class="cover-img">
-      <img [src]="user.fotoPortada" alt="fotoPortada" />
+      <!-- <img [src]="user.fotoPortada" alt="fotoPortada" /> -->
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a (click)="verPerfil()">
@@ -108,7 +108,7 @@
     </div>
     <div class="profile-name">
       <h4 class="author-name">
-        <a href="#">{{ user.nombre }}</a>
+        <a (click)="verPerfil()">{{ user.nombre }}</a>
       </h4>
       <!-- <div class="author-location">{{ user.email }}</div> -->
     </div>

@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
   showUsersNewMatches: any[] = [];
   users: Usuario[] = [];
   orderBy = 'Todos los miembros';
+  messajeFilter = 'usuarios encontrados con intereses similares';
   pages: number[] = [];
 
   solicitudesDeMatch: Usuario[] = [];
@@ -141,14 +142,19 @@ export class HomeComponent implements OnInit {
       this.filtersGroup.get('conexiones')?.setValue(conexiones);
     });
 
-    this.initTypewriter()
-
+    this.initTypewriter();
   }
   async readSimilarUsers() {
     await this.userSrvc.readSimilarUsers(this.currentUser).then((obs) =>
       obs.subscribe((data: any) => {
-        this.users = data;
-        this.users.length / 4;
+        this.users = data.sort((a, b) => {
+          if (
+            this.typeUser(a) == 'solicitud' &&
+            this.typeUser(b) != 'solicitud'
+          )
+            return -1;
+          else return 1;
+        });
         while (this.pages.length < this.users.length / 4) {
           this.pages.push(this.pages.length);
         }
@@ -182,19 +188,30 @@ export class HomeComponent implements OnInit {
     this.initMasonry();
   }
   async applyFilter() {
-    const filter = this.filterInput.value;
-
-    const res = await this.userSrvc.searchUsers(50, 0, filter!);
-
-    res.subscribe(
-      (data: any) => {
-        this.users = data;
-        this.changePageNewMatches(0);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    const filter = this.filterInput.value?.trim();
+    if (filter!.length != 0) {
+      const res = await this.userSrvc.searchUsers(50, 0, filter!);
+      res.subscribe(
+        (data: any) => {
+          this.messajeFilter = 'usuarios encontrados';
+          this.users = data.sort((a, b) => {
+            if (
+              this.typeUser(a) == 'solicitud' &&
+              this.typeUser(b) != 'solicitud'
+            )
+              return -1;
+            else return 1;
+          });
+          this.changePageNewMatches(0);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.messajeFilter = 'usuarios encontrados con intereses similares';
+      this.readSimilarUsers();
+    }
   }
 
   changePageNewMatches(page: number) {
@@ -220,19 +237,14 @@ export class HomeComponent implements OnInit {
       });
     }, 10);
   }
-  get frase ():string{
-    return frases[Math.floor(Math.random() * frases.length)]
-  }
   initTypewriter() {
     const phrase = document.getElementById('phrase');
-
 
     new Typewriter(phrase, {
       delay: 10,
       strings: frases[Math.floor(Math.random() * frases.length)],
       autoStart: true,
     });
-
   }
   changeOrder(order: string) {
     this.orderBy = order;
@@ -257,7 +269,6 @@ export class HomeComponent implements OnInit {
     this.filtersGroup.get('ciudad')?.setValue(null);
   }
   async search() {
-    console.log(this.filtersGroup.value);
     const condado = this.filtersGroup.get('condado')?.value;
     const ciudad = this.filtersGroup.get('ciudad')?.value;
     const idiomas =
@@ -284,7 +295,14 @@ export class HomeComponent implements OnInit {
 
     res.subscribe(
       (data: any) => {
-        this.users = data;
+        this.users = data.sort((a, b) => {
+          if (
+            this.typeUser(a) == 'solicitud' &&
+            this.typeUser(b) != 'solicitud'
+          )
+            return -1;
+          else return 1;
+        });
         console.log(data);
         this.changePageNewMatches(0);
       },

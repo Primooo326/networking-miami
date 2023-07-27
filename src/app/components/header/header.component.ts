@@ -105,6 +105,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			showCancelButton: true,
 			confirmButtonText: "Aceptar",
 			cancelButtonText: "Cancelar",
+      confirmButtonColor:"#28a745"
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const currentUser = JSON.parse(localStorage.getItem("user")!)

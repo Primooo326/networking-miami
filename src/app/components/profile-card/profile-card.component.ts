@@ -60,6 +60,8 @@ export class ProfileCardComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
+      confirmButtonColor:"#28a745"
+
     }).then(async (result) => {
       if (result.isConfirmed) {
         const user = JSON.parse(localStorage.getItem('user')!);

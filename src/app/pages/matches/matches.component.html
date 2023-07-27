@@ -37,8 +37,8 @@
     </div>
   </div>
   <div class="text-center">
-    <a role="button" href="#matchestitle" [hidden]="currentPageNewMatches == 0"
-      (click)="changePageNewMatches(currentPageNewMatches - 1)" class="item-btn mx-2">
+    <a role="button" href="#matchestitle" [hidden]="currentPage == 0"
+      (click)="changePageMisMatches(currentPage - 1)" class="item-btn mx-2">
       <span class="btn-icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
           <g transform="translate(21,0) scale(-1,1)">
@@ -48,8 +48,8 @@
         </svg>
       </span>
     </a>
-    <a role="button" href="#matchestitle" [hidden]="canNextPageNewMatches()"
-      (click)="changePageNewMatches(currentPageNewMatches + 1)" class="item-btn mx-2">
+    <a role="button" href="#matchestitle" [hidden]="canNextPageMisMatches()"
+      (click)="changePageMisMatches(currentPage + 1)" class="item-btn mx-2">
       <span class="btn-icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
           <path fill-rule="evenodd"
