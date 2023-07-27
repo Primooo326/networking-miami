@@ -23,6 +23,8 @@
           alt="shape"></li>
     </ul>
   </div>
+  <h5>Buenos días {{currentUser.nombre}}!</h5>
+  <p id="phrase" style="font-family: 'Kalam', cursive;"></p>
   <div class="mt-4">
     <div class="row">
       <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
@@ -47,7 +49,7 @@
             </ul>
           </div>
         </div>
-        <h5 class="text-center mb-5" >{{ users.length }} usuarios encontrados</h5>
+        <h5 class="text-center mb-5" >{{ users.length }} usuarios encontrados con intereses similares</h5>
         <div id="user-view" class="user-grid-view" [ngClass]="{'isNotVerifyed': !verificado}" >
           <div class="row rowmsry">
             <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)"

@@ -1,5 +1,5 @@
 <div class="container">
-  <app-banner [user]="user" [canEdit]="false"></app-banner>
+  <app-banner [user]="currentUser" [canEdit]="false"></app-banner>
   <div class="row">
     <div class="col-lg-8">
       <div class="block-box user-about">
@@ -11,47 +11,47 @@
             <li>
               <label>Nombre:</label>
               <p>
-                {{ user.nombre | titlecase }}
+                {{ currentUser.nombre | titlecase }}
               </p>
             </li>
             <!-- <li>
               <label>Teléfono:</label>
               <p >
-                {{ user.telefono }}
+                {{ currentUser.telefono }}
               </p>
             </li> -->
             <li>
               <label>Ubicación:</label>
               <p >
-                {{ user.ciudad }}, {{ user.condado }}
+                {{ currentUser.ciudad }}, {{ currentUser.condado }}
               </p>
 
             </li>
             <li>
               <label>Lenguajes:</label>
               <p>
-                {{ user.lenguajes | pipearray }}
+                {{ currentUser.lenguajes | pipearray }}
               </p>
 
             </li>
             <li>
               <label>Fecha de nacimiento:</label>
               <p >
-                {{ user.fechaNacimiento | date }}
+                {{ currentUser.fechaNacimiento | date }}
               </p>
 
             </li>
             <li>
               <label>Genero:</label>
               <p >
-                {{ user.genero }}
+                {{ currentUser.genero }}
               </p>
 
             </li>
             <li>
               <label>Biografía:</label>
               <p >
-                {{ user.biografia }}
+                {{ currentUser.biografia }}
               </p>
 
             </li>
@@ -67,14 +67,14 @@
             <li>
               <label>Intereses:</label>
               <p >
-                {{ user.temasInteres | pipearray }}
+                {{ currentUser.temasInteres | pipearray }}
               </p>
 
             </li>
             <li>
               <label>Area de experiencia:</label>
               <p >
-                {{ user.areaExperiencia | pipearray }}
+                {{ currentUser.areaExperiencia | pipearray }}
               </p>
 
             </li>
@@ -82,7 +82,7 @@
               <label>Tipo de conexión:</label>
               <p >
                 <span
-                  *ngFor="let item of user.tipoConexion"
+                  *ngFor="let item of currentUser.tipoConexion"
                   class="badge mr-2"
                   >{{ item }}</span
                 >
@@ -104,16 +104,16 @@
           </div>
         </div>
         <div class="user-info">
-          <p>{{ user.biografia }}</p>
+          <p>{{ currentUser.biografia }}</p>
           <ul class="info-list">
             <li>
-              <span>Se unió:</span>{{ user.fechaIngreso | date }}
+              <span>Se unió:</span>{{ currentUser.fechaIngreso | date }}
             </li>
             <li>
-              <span>Ubicación:</span>{{ user.ciudad }},
-              {{ user.condado }}
+              <span>Ubicación:</span>{{ currentUser.ciudad }},
+              {{ currentUser.condado }}
             </li>
-            <!-- <li><span>Teléfono:</span>{{ user.telefono }}</li> -->
+            <!-- <li><span>Teléfono:</span>{{ currentUser.telefono }}</li> -->
 
           </ul>
         </div>

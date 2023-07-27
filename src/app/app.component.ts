@@ -48,8 +48,7 @@ export class AppComponent implements OnInit {
       await this.dataSrvc.datas();
     }
     if (localStorage.getItem('token')) {
-
-      const getUser = await this.userSrvc.getUserById()
+      const getUser = await this.userSrvc.getUserById(JSON.parse(localStorage.getItem('user')!).id)
       getUser.subscribe(async(data:any)=>{
         this.store.dispatch(setUser.set(data))
         this.SocketSrvc.openSocket();
@@ -67,19 +66,6 @@ export class AppComponent implements OnInit {
                 })
               );
             });
-          },
-          (err: any) => {
-            console.log(err);
-            if (err.status == 401) {
-              Swal.fire(
-                'Su sesión ha expirado',
-                'Por favor vuelve a iniciar sesión',
-                'error'
-              );
-              localStorage.removeItem('user');
-              localStorage.removeItem('token');
-              this.route.navigate(['/']);
-            }
           }
         );
         const matchesPending = await this.matchSrvc.readPendingMatch();
@@ -107,6 +93,18 @@ export class AppComponent implements OnInit {
             this.store.dispatch(myMessages.set(element));
           });
         });
+      },(err)=>{
+        console.log(err);
+        if (err.status == 401) {
+          Swal.fire(
+            'Su sesión ha expirado',
+            'Por favor vuelve a iniciar sesión',
+            'error'
+          );
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          this.route.navigate(['/']);
+        }
       })
     }
   }

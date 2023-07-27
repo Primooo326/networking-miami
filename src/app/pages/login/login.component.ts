@@ -327,12 +327,10 @@ export class LoginComponent implements AfterViewInit {
             localStorage.setItem('token', JSON.stringify(token));
             this.socketSrvc.openSocket();
             this.onChangeTabRegister('cuarto');
-            if(environment.production){
 
               await this.mailSrvc.verifyEmail({
                 email: user.email,
               })
-            }
           },
           (err: any) => {
             if (err.error == 'User already registered') {
@@ -421,7 +419,18 @@ export class LoginComponent implements AfterViewInit {
     }
     console.log(this.TipoConexion);
   }
+  capitalize(str:string) {
+    // Dividimos la cadena en palabras individuales
+    const words = str.split(' ');
 
+    // Capitalizamos la primera letra de cada palabra
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1).toLowerCase();
+    }
+
+    // Unimos las palabras capitalizadas en una sola cadena
+    return words.join(' ');
+  }
   //!Validadores
 
   emailLoginValidator(): boolean {

@@ -184,6 +184,7 @@
                         emailRegistroValidator()
                     }"
                     placeholder="Tu e-mail"
+                    (keyup)="registroForm1Tab.controls.email.setValue(registroForm1Tab.controls.email.value!.toLowerCase())"
                   />
                   <div
                     class="invalid-feedback"
@@ -346,6 +347,7 @@
                         nameRegistroValidator()
                     }"
                     placeholder="Nombre y apellidos"
+                    (keyup)="registroForm2Tab.controls.nombre.setValue(capitalize(registroForm2Tab.controls.nombre.value!))"
                   />
                   <div
                     class="invalid-feedback"
@@ -787,6 +789,8 @@
                         autocomplete="username"
                         placeholder="Nombre"
                         formControlName="nombre"
+                    (keyup)="contacto1Form.controls.nombre.setValue(capitalize(contacto1Form.controls.nombre.value!))"
+
                       />
                     </div>
                   </div>
@@ -800,6 +804,7 @@
                         class="form-control"
                         placeholder="e-mail"
                         formControlName="email"
+                        (keyup)="contacto1Form.controls.email.setValue(contacto1Form.controls.email.value!.toLowerCase())"
                       />
                     </div>
                   </div>
@@ -815,6 +820,8 @@
                         class="form-control"
                         placeholder="Nombre"
                         formControlName="nombre"
+                    (keyup)="contacto2Form.controls.nombre.setValue(capitalize(contacto2Form.controls.nombre.value!))"
+
                       />
                     </div>
                   </div>
@@ -828,6 +835,8 @@
                         class="form-control"
                         placeholder="e-mail"
                         formControlName="email"
+                        (keyup)="contacto2Form.controls.email.setValue(contacto2Form.controls.email.value!.toLowerCase())"
+
                       />
                     </div>
                   </div>
@@ -843,6 +852,8 @@
                         class="form-control"
                         placeholder="Nombre"
                         formControlName="nombre"
+                    (keyup)="contacto3Form.controls.nombre.setValue(capitalize(contacto3Form.controls.nombre.value!))"
+
                       />
                     </div>
                   </div>
@@ -856,6 +867,7 @@
                         class="form-control"
                         placeholder="e-mail"
                         formControlName="email"
+                        (keyup)="contacto3Form.controls.email.setValue(contacto3Form.controls.email.value!.toLowerCase())"
                       />
                     </div>
                   </div>

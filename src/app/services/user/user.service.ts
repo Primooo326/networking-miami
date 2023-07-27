@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
+import { Usuario } from "src/app/tools/models"
 import { environment } from "src/environments/environment"
 
 @Injectable({
@@ -19,6 +20,12 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
+	async readSimilarUsers(user:Usuario) {
+		const url = this.backend + "users/readSimilarUsers"
+		return this.http.post(url, user, {
+			headers: { "x-access-token": this.token },
+		})
+	}
 	async readAllUsers() {
 		const url = this.backend + "users/all"
 		return this.http.get(url)
@@ -29,8 +36,8 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-	async getUserById() {
-		const url = this.backend + "users/" + "userById"
+	async getUserById(id:any) {
+		const url = this.backend + "users/" + "userById/"+ id
 		return this.http.get(url, {
 			headers: { "x-access-token": this.token },
 		})

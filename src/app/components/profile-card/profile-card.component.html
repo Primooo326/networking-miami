@@ -1,7 +1,7 @@
 <div class="widget-author" *ngIf="typeProfile == 'desconocido'">
   <div class="author-heading">
     <div class="cover-img">
-      <img [src]="user.fotoPortada" alt="fotoPortada" />
+      <!-- <img [src]="user.fotoPortada" alt="fotoPortada" /> -->
     </div>
     <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
       <a (click)="verPerfil()">
@@ -17,13 +17,14 @@
         <a href="#">{{ user.nombre }}</a>
       </h4>
       <div class="author-location">
-        <p
-          *ngFor="let item of user.areaExperiencia"
+        <p>{{user.biografia}}</p>
+        <!-- <p
+          *ngFor="let item of user.arpeaExperiencia"
           class="badge text-wrap"
-          style="margin: 0 0 10px 0 !important"
+          style="margin: 0 0 10px 0 !imortant"
         >
           {{ item }}
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
