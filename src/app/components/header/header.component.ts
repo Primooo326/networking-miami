@@ -176,7 +176,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	logOut() {
 		localStorage.removeItem("user")
 		localStorage.removeItem("token")
-		this.route.navigate(["/"])
+		location.reload()
 	}
 	async eliminarNotificaciones() {
 		this.notificaciones.forEach(async (notificacion: any) => {

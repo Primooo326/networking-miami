@@ -2529,9 +2529,10 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .fixed-header .header-control .dropdown-friend .dropdown-menu .item-body .media .btn-area {
-    position: absolute;
+  position: relative !important;
+    /* position: absolute;
     top: 0;
-    right: 0;
+    right: 0; */
 }
 
 .fixed-header .header-control .dropdown-friend .dropdown-menu .item-body .media .btn-area a {
