@@ -1,10 +1,13 @@
 .user_profile {
   width: 40px !important;
   height: 40px !important;
+  object-fit: cover;
 }
 .user_chat {
   width: 44px !important;
   height: 44px !important;
+  object-fit: cover;
+
 }
 .btn-aceptar:hover{
   background-color: #28a745 !important;
@@ -16,5 +19,5 @@
 .content-media {
 
     overflow-y: auto;
-    height: 300px;
+    max-height: 300px;
 }

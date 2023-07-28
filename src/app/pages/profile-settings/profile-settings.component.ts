@@ -1,23 +1,22 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { FilesService } from 'src/app/services/files/files.service';
 import { MailService } from 'src/app/services/mail/mail.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { Usuario } from 'src/app/tools/models';
 import { setUser } from 'src/redux/actions';
 import { userSelect } from 'src/redux/selectors';
 import Swal from 'sweetalert2';
 import intlTelInput from 'intl-tel-input';
-import datepicker from '@chenfengyuan/datepicker';
+import  Datepicker  from '@chenfengyuan/datepicker'; // Import Datepicker class
+
 
 @Component({
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss'],
 })
-export class ProfileSettingsComponent implements AfterViewInit {
+export class ProfileSettingsComponent implements OnInit  {
   idiomas = JSON.parse(localStorage.getItem('lenguajes')!);
   experiencia = JSON.parse(localStorage.getItem('experiencia')!);
   intereses = JSON.parse(localStorage.getItem('interes')!);
@@ -91,6 +90,25 @@ export class ProfileSettingsComponent implements AfterViewInit {
     this.ciudades = this.condados[idx].ciudades;
     this.condadoSelected = this.condados[idx];
     this.TipoConexion = [...this.currentUser.tipoConexion];
+  }
+  ngOnInit(): void {
+    this.onInputTel();
+
+    // Initialize the datepicker using the Datepicker class
+    $('[data-toggle="datepicker"]').datepicker({
+      language: 'es-ES',
+      startDate: '1900',
+      endDate: '2010',
+      format: 'yyyy-mm-dd',
+      autoHide: true,
+      date:this.currentUser,
+      autoPick: true,
+    });
+
+    // Listen for date changes from the datepicker and update the form control
+    $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
+      this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
+    });
   }
   ngAfterViewInit(): void {
     setTimeout(() => {

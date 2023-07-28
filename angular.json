@@ -40,24 +40,22 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/dependencies/jquery/js/jquery.min.js",
+              "src/dependencies/popper.js/js/popper.min.js",
               "src/dependencies/jquery.countdown/js/jquery.countdown.min.js",
               "src/dependencies/elevate-zoom/jquery.elevatezoom.js",
               "src/dependencies/imagesloaded/js/imagesloaded.pkgd.min.js",
               "src/dependencies/isotope-layout/js/isotope.pkgd.min.js",
               "src/dependencies/magnific-popup/js/jquery.magnific-popup.min.js",
               "src/dependencies/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js",
-              "src/dependencies/popper.js/js/popper.min.js",
               "src/dependencies/slick-carousel/js/slick.min.js",
               "src/dependencies/waypoints/js/jquery.waypoints.min.js",
-              "src/dependencies/bootstrap/js/bootstrap.min.js",
-              "src/dependencies/bootstrap-validator/js/validator.min.js",
               "src/dependencies/saljs/sal.js",
+              "src/dependencies/bootstrap-validator/js/validator.min.js",
               "src/dependencies/datepicker/dist/datepicker.js",
               "src/dependencies/select2/js/select2.min.js",
               "src/assets/js/app.js",
-              "node_modules/bs4-toast/dist/toast.min.js"
+              "src/dependencies/bootstrap/js/bootstrap.min.js"
             ]
           },
           "configurations": {

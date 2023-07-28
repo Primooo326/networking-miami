@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit {
   ) {}
   async ngOnInit() {
     this.store.select(userSelect).subscribe((user: Usuario) => {
-      console.log(user);
       this.currentUser = user;
       this.verificado = user.verificado == 0 ? false : true;
     });

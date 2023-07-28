@@ -274,8 +274,9 @@ export class LoginComponent implements AfterViewInit {
                   this.store.dispatch(myRequestMatches.set(element));
                 });
               });
+              location.reload()
 
-              this.router.navigate(['/home']);
+              // this.router.navigate(['/home']);
             },
             (err) => {
               console.log(err);

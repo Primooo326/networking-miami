@@ -2,14 +2,14 @@
 .about-us {
     padding: 120px 0 110px;
     @media only screen and (max-width: 1199px) {
-        padding: 100px 0 90px;  
+        padding: 100px 0 90px;
     }
     @media only screen and (max-width: 991px) {
-        padding: 75px 0 80px;  
+        padding: 75px 0 80px;
     }
     .about-us-content {
         @media only screen and (max-width: 991px) {
-            margin-bottom: 50px;     
+            margin-bottom: 50px;
         }
     	>.item-subtitle {
     		color: $color_primary;
@@ -20,13 +20,13 @@
     		width: 80%;
     		margin-bottom: 22px;
             @media only screen and (max-width: 991px) {
-                width: 100%;     
+                width: 100%;
             }
     	}
     	p {
     		width: 80%;
             @media only screen and (max-width: 991px) {
-                width: 100%;     
+                width: 100%;
             }
     	}
         .progress-box {
@@ -38,7 +38,7 @@
         	align-items: center;
         	margin-right: 45px;
             @media only screen and (max-width: 575px) {
-                margin-right: 10px;                     
+                margin-right: 10px;
             }
         	&:last-child {
         		margin-right: 0;
@@ -48,10 +48,10 @@
         		font-size: 36px;
         		color: $color_secondary;
                 @media only screen and (max-width: 767px) {
-                    font-size: 30px;                     
+                    font-size: 30px;
                 }
                 @media only screen and (max-width: 575px) {
-                    font-size: 26px;                     
+                    font-size: 26px;
                 }
         	}
         	.item-title {
@@ -60,10 +60,10 @@
         		color: $color_black;
         		margin-bottom: 6px;
                 @media only screen and (max-width: 767px) {
-                    font-size: 30px;                     
+                    font-size: 30px;
                 }
                 @media only screen and (max-width: 575px) {
-                    font-size: 24px;                     
+                    font-size: 24px;
                 }
         	}
         	.item-subtitle {
@@ -78,11 +78,11 @@
     		display: inline-block;
     		position: relative;
             @media only screen and (max-width: 575px) {
-                display: block;                     
+                display: block;
             }
             img {
                 @media only screen and (max-width: 575px) {
-                    width: 100%;                     
+                    width: 100%;
                 }
             }
     		&:before {
@@ -97,12 +97,12 @@
     			bottom: 0;
     		}
     		&:after {
-    			content: url('../../media/about/shape_1.png');
+    			// content: url('../../media/about/shape_1.png');
     			position: absolute;
     			right: -10px;
     			bottom: -55px;
                 @media only screen and (max-width: 767px) {
-                    display: none;                     
+                    display: none;
                 }
     		}
     	}
@@ -112,10 +112,10 @@
     		left: -10px;
     		box-shadow: 0 6px 43px 0 rgba(16, 9, 30, 0.30);
             @media only screen and (max-width: 991px) {
-                bottom: 40px;   
+                bottom: 40px;
             }
             @media only screen and (max-width: 575px) {
-                display: none;                     
+                display: none;
             }
     		&:before {
     			content: "";

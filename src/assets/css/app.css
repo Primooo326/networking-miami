@@ -4065,7 +4065,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .about-us .about-us-img .item-img:after {
-    content: url("../../media/about/shape_1.png");
+    /* content: url("../../media/about/shape_1.png"); */
     position: absolute;
     right: -10px;
     bottom: -55px;
@@ -4567,7 +4567,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .banner-apps:before {
-    content: url("../../media/banner/shape_2.png");
+    /* content: url("../../media/banner/shape_2.png"); */
     position: absolute;
     bottom: 0;
     left: -20px;
@@ -6721,7 +6721,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .banner-forum {
-    background-image: url("../../media/banner/banner_forum.jpg");
+    /* background-image: url("../../media/banner/banner_forum.jpg"); */
 }
 
 .banner-forum .media .media-body .item-title:before {
@@ -6733,7 +6733,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 }
 
 .banner-user-group {
-    background-image: url("../../media/banner/banner_group.jpg");
+    /* background-image: url("../../media/banner/banner_group.jpg"); */
 }
 
 .banner-user-group .media .media-body .item-title:before {

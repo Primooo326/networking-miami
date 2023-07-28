@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { SocketService } from './services/socket/socket.service';
@@ -24,9 +24,10 @@ import { UserService } from './services/user/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'Networking-Miami | Home';
   notifications$ = this.store.select(notificationSelect);
+  preloader = true
   constructor(
     private location: Location,
     private dataSrvc: AuthService,
@@ -107,6 +108,13 @@ export class AppComponent implements OnInit {
         }
       })
     }
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $("#preloader").fadeOut("slow", function() {
+        $(this).remove();
+    });
+    }, 2000);
   }
 
   isNavHome(): boolean {
