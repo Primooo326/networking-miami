@@ -4,7 +4,7 @@ import { MailService } from 'src/app/services/mail/mail.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Usuario } from 'src/app/tools/models';
 import Swal from 'sweetalert2';
-import * as Masonry from 'masonry-layout';
+import Masonry from 'masonry-layout';
 import { Store } from '@ngrx/store';
 import { matchPendingSelect, matchRequestSelect } from 'src/redux/selectors';
 import { ETypePerfil } from 'src/app/tools/models';
@@ -142,6 +142,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.initTypewriter();
+    this.initMasonry()
   }
   async readSimilarUsers() {
     await this.userSrvc.readSimilarUsers(this.currentUser).then((obs) =>
@@ -234,6 +235,7 @@ export class HomeComponent implements OnInit {
         originLeft: true,
         originTop: true,
       });
+
     }, 10);
   }
   initTypewriter() {

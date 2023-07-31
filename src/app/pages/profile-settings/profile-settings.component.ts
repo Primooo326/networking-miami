@@ -8,15 +8,14 @@ import { setUser } from 'src/redux/actions';
 import { userSelect } from 'src/redux/selectors';
 import Swal from 'sweetalert2';
 import intlTelInput from 'intl-tel-input';
-import  Datepicker  from '@chenfengyuan/datepicker'; // Import Datepicker class
-
+import Datepicker from '@chenfengyuan/datepicker'; // Import Datepicker class
 
 @Component({
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss'],
 })
-export class ProfileSettingsComponent implements OnInit  {
+export class ProfileSettingsComponent implements OnInit {
   idiomas = JSON.parse(localStorage.getItem('lenguajes')!);
   experiencia = JSON.parse(localStorage.getItem('experiencia')!);
   intereses = JSON.parse(localStorage.getItem('interes')!);
@@ -101,7 +100,7 @@ export class ProfileSettingsComponent implements OnInit  {
       endDate: '2010',
       format: 'yyyy-mm-dd',
       autoHide: true,
-      date:this.currentUser,
+      date: this.currentUser,
       autoPick: true,
     });
 
@@ -119,7 +118,7 @@ export class ProfileSettingsComponent implements OnInit  {
         endDate: '2010',
         format: 'yyyy-mm-dd',
         autoHide: true,
-        date:this.currentUser,
+        date: this.currentUser,
         autoPick: true,
       });
 
@@ -306,29 +305,35 @@ export class ProfileSettingsComponent implements OnInit  {
     );
   }
   async cambioEmail() {
-    const res = await this.mailSrvc.changeEmail({
-      email: this.currentUser.email,
-      newEmail: this.newEmail.value,
-    });
+    if (this.newEmail.value != this.currentUser.email) {
+      const res = await this.mailSrvc.changeEmail({
+        email: this.currentUser.email,
+        newEmail: this.newEmail.value,
+      });
 
-    this.isOnLoadingEmail = true;
-    res.subscribe(
-      (data) => {
-        console.log(data);
-        this.isOnLoadingEmail = false;
-        Swal.fire(
-          'Correo enviado',
-          `Se ha enviado un correo de confirmación a ${this.newEmail.value}. Acéptalo y cambia tu correo`,
-          'success'
-        );
-        this.newEmail.setValue(this.currentUser.email);
-        this.onEditSection('zonaroja');
-      },
-      (err) => {
-        Swal.fire('error', err.error, 'error');
-        this.isOnLoadingEmail = false;
-      }
-    );
+      this.isOnLoadingEmail = true;
+      res.subscribe(
+        (data) => {
+          console.log(data);
+          this.isOnLoadingEmail = false;
+          Swal.fire(
+            'Correo enviado',
+            `Se ha enviado un correo de confirmación a ${this.newEmail.value}. Acéptalo y cambia tu correo`,
+            'success'
+          );
+          this.newEmail.setValue(this.currentUser.email);
+          this.onEditSection('zonaroja');
+        },
+        (err) => {
+          if (err.error == 'New email already exists') {
+            Swal.fire('error', 'Correo ya registrado', 'error');
+          } else {
+            Swal.fire('error', err.error, 'error');
+          }
+          this.isOnLoadingEmail = false;
+        }
+      );
+    }
   }
   async CambioPassword() {
     this.isOnResetPassword = true;
