@@ -6,33 +6,20 @@
     <div class="content-wrap">
       <div class="login-content">
         <div class="item-logo">
-          <a [routerLink]="['/']" routerLinkActive="router-link-active"
-            ><img src="media/logotipo.png" width="300" alt="logo"
-          /></a>
+          <a [routerLink]="['/']" routerLinkActive="router-link-active"><img src="media/logotipo.png" width="300"
+              alt="logo" /></a>
         </div>
 
         <div class="login-form-wrap">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-toggle="tab"
-                (click)="isOnLogin = true"
-                href="#login-tab"
-                role="tab"
-                aria-selected="true"
-                ><i class="icofont-users-alt-4"></i> Ingreso
+              <a class="nav-link active" data-toggle="tab" (click)="isOnLogin = true" href="#login-tab" role="tab"
+                aria-selected="true"><i class="icofont-users-alt-4"></i> Ingreso
               </a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                data-toggle="tab"
-                href="#registration-tab"
-                (click)="isOnLogin = false"
-                role="tab"
-                aria-selected="false"
-                ><i class="icofont-download"></i> Registro
+              <a class="nav-link" data-toggle="tab" href="#registration-tab" (click)="isOnLogin = false" role="tab"
+                aria-selected="false"><i class="icofont-download"></i> Registro
               </a>
             </li>
           </ul>
@@ -41,11 +28,7 @@
             <!--=          Tab login       	=-->
             <!--=====================================-->
 
-            <div
-              class="tab-pane login-tab fade show active"
-              id="login-tab"
-              role="tabpanel"
-            >
+            <div class="tab-pane login-tab fade show active" id="login-tab" role="tabpanel">
               <h3 class="item-title">Inicia sesión</h3>
               <!-- <div class="google-signin">
                 <a href="#"
@@ -55,94 +38,63 @@
               </div> -->
               <form [formGroup]="loginForm">
                 <div class="form-group">
-                  <input
-                    type="email"
-                    autocomplete="email"
-                    class="form-control"
-                    formControlName="email"
-                    placeholder="Tu e-mail"
-                    [ngClass]="{
+                  <input type="email" autocomplete="email" class="form-control" formControlName="email"
+                    placeholder="Tu e-mail" [ngClass]="{
                       'is-invalid':
                         loginForm.controls.email.dirty && emailLoginValidator()
-                    }"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" />
+                  <div class="invalid-feedback" *ngIf="
                       loginForm.controls.email.dirty &&
                       loginForm.controls.email.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       loginForm.controls.email.dirty &&
                       loginForm.controls.email.hasError('email')
-                    "
-                  >
+                    ">
                     {{ hintErrorEmail }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    formControlName="password"
-                    placeholder="Contraseña"
-                    autocomplete="current-password"
-                    [ngClass]="{
+                  <input type="password" id="passwordLogin" class="form-control" formControlName="password"
+                    placeholder="Contraseña" autocomplete="current-password" [ngClass]="{
                       'is-invalid':
                         loginForm.controls.password.dirty &&
                         passwordLoginValidator()
-                    }"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" />
+                  <div class="invalid-feedback" *ngIf="
                       loginForm.controls.password.dirty &&
                       loginForm.controls.password.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       loginForm.controls.password.dirty &&
                       loginForm.controls.password.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
                 </div>
-                <div class="form-group reset-password"></div>
+                <div class="form-group">
+
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="validationFormCheck1"
+                      (change)="seePasswords()" />
+                    <label class="form-check-label" for="validationFormCheck1">Ver contraseña</label>
+                  </div>
+                </div>
                 <div class="form-group mb-4">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="validationFormCheck2"
-                    />
-                    <!-- <label class="form-check-label" for="validationFormCheck2"> <a> Keep me as signed in</a></label> -->
-                    <a (click)="onReset = true" class="text-danger"
-                      >¿Olvidaste tu contraseña?</a
-                    >
+                    <input type="checkbox" class="form-check-input" id="validationFormCheck2" />
+                    <a (click)="onReset = true" class="text-danger">¿Olvidaste tu contraseña?</a>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button
-                    (click)="login()"
-                    [disabled]="loginForm.invalid"
-                    class="submit-btn"
-                  >
+                  <button (click)="login()" [disabled]="loginForm.invalid" class="submit-btn">
                     Ingresa
                   </button>
-                  <button
-                    class="btn btn-warning btn-lg btn-volver btn-block mt-3"
-                    [routerLink]="['/']"
-                  >
+                  <button class="btn btn-warning btn-lg btn-volver btn-block mt-3" [routerLink]="['/']">
                     Volver
                   </button>
                 </div>
@@ -153,152 +105,108 @@
             <!--=          Tab registration       	=-->
             <!--=====================================-->
 
-            <div
-              class="tab-pane registration-tab fade"
-              id="registration-tab"
-              role="tabpanel"
-            >
+            <div class="tab-pane registration-tab fade" id="registration-tab" role="tabpanel">
               <div class="d-flex justify-content-between">
 
                 <h3>Regístrate</h3>
-                <p class="text-right" >
+                <p class="text-right">
                   {{pageNumber}}
                 </p>
               </div>
               <p>{{ textTabRegistro }}</p>
               <span class="item-title"></span>
               <!-- !primer tab registro -->
-              <form
-                [hidden]="tabRegistro != 'primero'"
-                [formGroup]="registroForm1Tab"
-              >
+              <form [hidden]="tabRegistro != 'primero'" [formGroup]="registroForm1Tab">
                 <div class="form-group">
-                  <input
-                    type="email"
-                    autocomplete="email"
-                    formControlName="email"
-                    class="form-control"
-                    [ngClass]="{
+                  <input type="email" autocomplete="email" formControlName="email" class="form-control" [ngClass]="{
                       'is-invalid':
                         registroForm1Tab.controls.email.dirty &&
                         emailRegistroValidator()
-                    }"
-                    placeholder="Tu e-mail"
-                    (keyup)="registroForm1Tab.controls.email.setValue(registroForm1Tab.controls.email.value!.toLowerCase())"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" placeholder="Tu e-mail"
+                    (keyup)="registroForm1Tab.controls.email.setValue(registroForm1Tab.controls.email.value!.toLowerCase())" />
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.email.dirty &&
                       registroForm1Tab.controls.email.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.email.dirty &&
                       registroForm1Tab.controls.email.hasError('email')
-                    "
-                  >
+                    ">
                     {{ hintErrorEmail }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.email.dirty &&
                       registroForm1Tab.controls.email.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="password"
-                    formControlName="password"
-                    class="form-control"
-                    autocomplete="new-password"
-                    [ngClass]="{
+                  <input type="password" id="passwordRegister" formControlName="password" class="form-control"
+                    autocomplete="new-password" [ngClass]="{
                       'is-invalid':
                         registroForm1Tab.controls.password.dirty &&
                         passwordRegistroValidator()
-                    }"
-                    placeholder="Contraseña"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" placeholder="Contraseña" />
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.password.dirty &&
                       registroForm1Tab.controls.password.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.password.dirty &&
                       registroForm1Tab.controls.password.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.repeatPassword.dirty &&
                       registroForm1Tab.controls.password.value !==
                         registroForm1Tab.controls.repeatPassword.value
-                    "
-                  >
+                    ">
                     {{ hintErrorPassword }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="password"
-                    autocomplete="new-password"
-                    formControlName="repeatPassword"
-                    class="form-control"
-                    [ngClass]="{
+                  <input type="password" id="repeatPasswordRegister" autocomplete="new-password"
+                    formControlName="repeatPassword" class="form-control" [ngClass]="{
                       'is-invalid':
                         registroForm1Tab.controls.repeatPassword.dirty &&
                         passwordRegistroValidator()
-                    }"
-                    placeholder="Repite tu contraseña"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" placeholder="Repite tu contraseña" />
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.repeatPassword.dirty &&
                       registroForm1Tab.controls.password.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.repeatPassword.dirty &&
                       registroForm1Tab.controls.password.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm1Tab.controls.repeatPassword.dirty &&
                       registroForm1Tab.controls.password.value !==
                         registroForm1Tab.controls.repeatPassword.value
-                    "
-                  >
+                    ">
                     {{ hintErrorPassword }}
                   </div>
                 </div>
                 <div class="form-group">
+
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="validationFormCheck1"
+                      (change)="seePasswords()" />
+                    <label class="form-check-label" for="validationFormCheck1">Ver contraseñas</label>
+                  </div>
+                </div>
+                <div class="form-group">
+
                   <!-- <div class="form-check mb-3">
                     <input
                       type="checkbox"
@@ -310,127 +218,79 @@
                                     </div> -->
                 </div>
                 <div class="form-group">
-                  <button
-                    class="submit-btn"
-                    (click)="register1Tab()"
-                    [disabled]="
+                  <button class="submit-btn" (click)="register1Tab()" [disabled]="
                       registroForm1Tab.invalid ||
                       registroForm1Tab.controls.password.value !==
                         registroForm1Tab.controls.repeatPassword.value
-                    "
-                  >
+                    ">
                     Continuar
                   </button>
-                  <button
-                    class="btn btn-warning btn-block btn-volver mt-3"
-                    routerLink="/"
-                    routerLinkActive="active"
-                  >
+                  <button class="btn btn-warning btn-block btn-volver mt-3" routerLink="/" routerLinkActive="active">
                     Volver
                   </button>
                 </div>
               </form>
 
               <!-- !segundo tab registro -->
-              <form
-                [hidden]="tabRegistro != 'segundo'"
-                [formGroup]="registroForm2Tab"
-              >
+              <form [hidden]="tabRegistro != 'segundo'" [formGroup]="registroForm2Tab">
                 <div class="form-group">
-                  <input
-                    type="text"
-                    formControlName="nombre"
-                    class="form-control"
-                    [ngClass]="{
+                  <input type="text" formControlName="nombre" class="form-control" [ngClass]="{
                       'is-invalid':
                         registroForm2Tab.controls.nombre.dirty &&
                         nameRegistroValidator()
-                    }"
-                    placeholder="Nombre y apellidos"
-                    (keyup)="registroForm2Tab.controls.nombre.setValue(capitalize(registroForm2Tab.controls.nombre.value!))"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" placeholder="Nombre y apellidos"
+                    (keyup)="registroForm2Tab.controls.nombre.setValue(capitalize(registroForm2Tab.controls.nombre.value!))" />
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.nombre.dirty &&
                       registroForm2Tab.controls.nombre.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.nombre.dirty &&
                       registroForm2Tab.controls.nombre.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input
-                    type="tel"
-                    id="phone"
-                    formControlName="telefono"
-                    class="form-control"
-                    placeholder="Numero telefónico"
-                    [ngClass]="{
+                  <input type="tel" id="phone" formControlName="telefono" class="form-control"
+                    placeholder="Numero telefónico" [ngClass]="{
                       'is-invalid':
                         registroForm2Tab.controls.telefono.dirty &&
                         phoneRegistroValidator()
-                    }"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" />
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.telefono.dirty &&
                       registroForm2Tab.controls.telefono.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.telefono.dirty &&
                       registroForm2Tab.controls.telefono.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="date">Fecha de nacimiento</label>
-                  <input
-                    type="text"
-                    data-toggle="datepicker"
-                    class="form-control"
-                    placeholder="Fecha de nacimiento"
-                  />
+                  <input type="text" data-toggle="datepicker" class="form-control" placeholder="Fecha de nacimiento" />
                   <input hidden type="text" formControlName="fechaNacimiento" />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.fechaNacimiento.dirty &&
                       registroForm2Tab.controls.fechaNacimiento.hasError(
                         'required'
                       )
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
                 </div>
                 <div class="form-group">
                   <label>Sexo</label>
 
-                  <select
-                    class="select2"
-                    formControlName="genero"
-                    id="gender"
-                    name="Genero"
-                    data-placeholder="Escoge tu sexo"
-                  >
+                  <select class="select2" formControlName="genero" id="gender" name="Genero"
+                    data-placeholder="Escoge tu sexo">
                     <option value="" selected></option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
@@ -441,13 +301,8 @@
                 <div class="form-group">
                   <label>Condado</label>
 
-                  <select
-                    formControlName="condado"
-                    class="select2"
-                    id="condado"
-                    name="Condado"
-                    data-placeholder="Escoge tu condado"
-                  >
+                  <select formControlName="condado" class="select2" id="condado" name="Condado"
+                    data-placeholder="Escoge tu condado">
                     <option *ngFor="let item of condados" [value]="item.nombre">
                       {{ item.nombre }}
                     </option>
@@ -455,13 +310,8 @@
                 </div>
                 <div class="form-group">
                   <label>Ciudad</label>
-                  <select
-                    formControlName="ciudad"
-                    class="select2"
-                    id="ciudad"
-                    name="Ciudad"
-                    data-placeholder="Escoge tu ciudad"
-                  >
+                  <select formControlName="ciudad" class="select2" id="ciudad" name="Ciudad"
+                    data-placeholder="Escoge tu ciudad">
                     <option *ngFor="let item of ciudades" [value]="item">
                       {{ item }}
                     </option>
@@ -469,14 +319,8 @@
                 </div>
                 <div class="form-group">
                   <label for="idioma">Idioma</label>
-                  <select
-                    formArrayName="lenguajes"
-                    class="select2"
-                    multiple="multiple"
-                    id="idioma"
-                    name="Idioma"
-                    data-placeholder="Idioma"
-                  >
+                  <select formArrayName="lenguajes" class="select2" multiple="multiple" id="idioma" name="Idioma"
+                    data-placeholder="Idioma">
                     <option *ngFor="let item of idiomas" [value]="item">
                       {{ item }}
                     </option>
@@ -485,77 +329,44 @@
                 <div class="form-group">
                   <label>Nota biográfica</label>
 
-                  <textarea
-                    formControlName="biografia"
-                    class="form-control textarea is-invalid"
-                    placeholder="Cuéntanos un poco sobre ti"
-                    cols="10"
-                    rows="3"
-                    [ngClass]="{
+                  <textarea formControlName="biografia" class="form-control textarea is-invalid"
+                    placeholder="Cuéntanos un poco sobre ti" cols="10" rows="3" [ngClass]="{
                       'is-invalid':
                         registroForm2Tab.controls.biografia.dirty &&
                         biographyRegistroValidator()
-                    }"
-                  ></textarea>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }"></textarea>
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.biografia.dirty &&
                       registroForm2Tab.controls.biografia.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       registroForm2Tab.controls.biografia.dirty &&
                       registroForm2Tab.controls.biografia.hasError('minlength')
-                    "
-                  >
+                    ">
                     {{ hintErrorLength }}
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <button
-                    class="submit-btn"
-                    (click)="register2Tab()"
-                    [disabled]="registroForm2Tab.invalid || lenguajesV"
-                  >
+                  <button class="submit-btn" (click)="register2Tab()"
+                    [disabled]="registroForm2Tab.invalid || lenguajesV">
                     Continuar
                   </button>
-                  <button
-                    (click)="onChangeTabRegister('primero')"
-                    class="btn btn-warning btn-block btn-volver mt-3"
-                  >
+                  <button (click)="onChangeTabRegister('primero')" class="btn btn-warning btn-block btn-volver mt-3">
                     Volver
                   </button>
                 </div>
               </form>
 
               <!-- !tercero tab registro -->
-              <form
-                [hidden]="tabRegistro != 'tercero'"
-                [formGroup]="registroForm3Tab"
-              >
+              <form [hidden]="tabRegistro != 'tercero'" [formGroup]="registroForm3Tab">
                 <div class="form-group">
-                  <label for="experiencia"
-                    >¿Cuál es tu area de experiencia?</label
-                  >
-                  <select
-                    class="select2"
-                    multiple="multiple"
-                    formArrayName="areaExperiencia"
-                    style="width: 200%"
-                    id="experiencia"
-                    data-placeholder="Experiencia"
-                    data-style="width: 100%"
-                  >
-                    <option
-                      *ngFor="let item of experiencia"
-                      [value]="item.titulo"
-                    >
+                  <label for="experiencia">¿Cuál es tu area de experiencia?</label>
+                  <select class="select2" multiple="multiple" formArrayName="areaExperiencia" style="width: 200%"
+                    id="experiencia" data-placeholder="Experiencia" data-style="width: 100%">
+                    <option *ngFor="let item of experiencia" [value]="item.titulo">
                       {{ item.titulo }}
                     </option>
                   </select>
@@ -563,13 +374,8 @@
 
                 <div class="form-group">
                   <label for="interes">¿Cuáles son tus temas de interés?</label>
-                  <select
-                    class="select2"
-                    multiple="multiple"
-                    formArrayName="temasInteres"
-                    id="interes"
-                    data-placeholder="Interés"
-                  >
+                  <select class="select2" multiple="multiple" formArrayName="temasInteres" id="interes"
+                    data-placeholder="Interés">
                     <option *ngFor="let item of intereses" [value]="item">
                       {{ item }}
                     </option>
@@ -579,102 +385,54 @@
                 <h4>¿Qué tipo de conexiones estas buscando?</h4>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes1"
-                      value="Quiero compartir mi conocimiento."
-                      (change)="onChangeConexiones($event)"
-                    />
-                    <label class="form-check-label" for="interes1"
-                      >Quiero compartir mi conocimiento.</label
-                    >
+                    <input type="checkbox" class="form-check-input" id="interes1"
+                      value="Quiero compartir mi conocimiento." (change)="onChangeConexiones($event)" />
+                    <label class="form-check-label" for="interes1">Quiero compartir mi conocimiento.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes2"
-                      (change)="onChangeConexiones($event)"
-                      value="Quiero conectar con personas con intereses similares."
-                    />
-                    <label class="form-check-label" for="interes2"
-                      >Quiero conectar con personas con intereses
-                      similares.</label
-                    >
+                    <input type="checkbox" class="form-check-input" id="interes2" (change)="onChangeConexiones($event)"
+                      value="Quiero conectar con personas con intereses similares." />
+                    <label class="form-check-label" for="interes2">Quiero conectar con personas con intereses
+                      similares.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes3"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando nuevas conexiones."
-                    />
-                    <label class="form-check-label" for="interes3"
-                      >Estoy buscando nuevas conexiones.</label
-                    >
+                    <input type="checkbox" class="form-check-input" id="interes3" (change)="onChangeConexiones($event)"
+                      value="Estoy buscando nuevas conexiones." />
+                    <label class="form-check-label" for="interes3">Estoy buscando nuevas conexiones.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes4"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando trabajo."
-                    />
-                    <label class="form-check-label" for="interes4"
-                      >Estoy buscando trabajo.</label
-                    >
+                    <input type="checkbox" class="form-check-input" id="interes4" (change)="onChangeConexiones($event)"
+                      value="Estoy buscando trabajo." />
+                    <label class="form-check-label" for="interes4">Estoy buscando trabajo.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando nuevas oportunidades de negocio."
-                      id="interes5"
-                    />
-                    <label class="form-check-label" for="interes5"
-                      >Estoy buscando nuevas oportunidades de negocio.</label
-                    >
+                    <input type="checkbox" class="form-check-input" (change)="onChangeConexiones($event)"
+                      value="Estoy buscando nuevas oportunidades de negocio." id="interes5" />
+                    <label class="form-check-label" for="interes5">Estoy buscando nuevas oportunidades de
+                      negocio.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando productos nuevos y únicos."
-                      id="interes6"
-                    />
-                    <label class="form-check-label" for="interes6"
-                      >Estoy buscando productos nuevos y únicos.</label
-                    >
+                    <input type="checkbox" class="form-check-input" (change)="onChangeConexiones($event)"
+                      value="Estoy buscando productos nuevos y únicos." id="interes6" />
+                    <label class="form-check-label" for="interes6">Estoy buscando productos nuevos y únicos.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando una comunidad de la que formar parte."
-                      id="interes7"
-                    />
-                    <label class="form-check-label" for="interes7"
-                      >Estoy buscando una comunidad de la que formar
-                      parte.</label
-                    >
+                    <input type="checkbox" class="form-check-input" (change)="onChangeConexiones($event)"
+                      value="Estoy buscando una comunidad de la que formar parte." id="interes7" />
+                    <label class="form-check-label" for="interes7">Estoy buscando una comunidad de la que formar
+                      parte.</label>
                   </div>
                 </div>
                 <!-- <h4>¿Cuál es tu objetivo con Networking Miami?</h4>
@@ -689,22 +447,15 @@
                 </div> -->
 
                 <div class="form-group">
-                  <button
-                    class="submit-btn"
-                    (click)="register3Tab()"
-                    [disabled]="
+                  <button class="submit-btn" (click)="register3Tab()" [disabled]="
                       registroForm3Tab.invalid ||
                       experienciaV ||
                       interesesV ||
                       TipoConexion.length == 0
-                    "
-                  >
+                    ">
                     Continuar
                   </button>
-                  <button
-                    (click)="onChangeTabRegister('segundo')"
-                    class="btn btn-warning btn-block btn-volver mt-3"
-                  >
+                  <button (click)="onChangeTabRegister('segundo')" class="btn btn-warning btn-block btn-volver mt-3">
                     Volver
                   </button>
                 </div>
@@ -712,11 +463,7 @@
 
               <div [hidden]="tabRegistro != 'cuarto'" class="text-center">
                 <div class="profile-pic-wrapper">
-                  <div
-                    class="pic-holder"
-                    [ngClass]="{ uploadInProgress: onloadFile }"
-                    role="button"
-                  >
+                  <div class="pic-holder" [ngClass]="{ uploadInProgress: onloadFile }" role="button">
                     <div *ngIf="onloadFile" class="upload-loader">
                       <div class="spinner-border text-primary" role="status">
                         <span class="sr-only">Loading...</span>
@@ -724,21 +471,10 @@
                     </div>
 
                     <!-- uploaded pic shown here -->
-                    <img
-                      id="profilePic"
-                      class="pic"
-                      src="https://networking.miami/media/user-image.png"
-                    />
+                    <img id="profilePic" class="pic" src="https://networking.miami/media/user-image.png" />
 
-                    <Input
-                      class="uploadProfileInput"
-                      hidden
-                      type="file"
-                      name="profile_pic"
-                      id="newProfilePhoto"
-                      accept="image/*"
-                      style="opacity: 0"
-                    />
+                    <Input class="uploadProfileInput" hidden type="file" name="profile_pic" id="newProfilePhoto"
+                      accept="image/*" style="opacity: 0" />
                     <label for="newProfilePhoto" class="upload-file-block">
                       <div class="text-center">
                         <div class="mb-2">
@@ -752,20 +488,12 @@
                     </label>
                   </div>
                 </div>
-                <button
-                  *ngIf="pathFile != ''"
-                  class="btn btn-success btn-block btn-volver mt-3"
-                  (click)="onChangeTabRegister('quinto')"
-                >
+                <button *ngIf="pathFile != ''" class="btn btn-success btn-block btn-volver mt-3"
+                  (click)="onChangeTabRegister('quinto')">
                   Continuar
                 </button>
-                <a
-                  *ngIf="pathFile == ''"
-                  class="text-primary"
-                  routerLinkActive="router-link-active"
-                  (click)="onChangeTabRegister('quinto')"
-                  >Continuar sin foto de perfil</a
-                >
+                <a *ngIf="pathFile == ''" class="text-primary" routerLinkActive="router-link-active"
+                  (click)="onChangeTabRegister('quinto')">Continuar sin foto de perfil</a>
                 <!-- <button
                   (click)="onChangeTabRegister('tercero')"
                   class="btn btn-warning btn-block btn-volver mt-3"
@@ -775,7 +503,8 @@
               </div>
               <div [hidden]="tabRegistro != 'quinto'">
                 <div class="my-3">
-                  <h5 >No subestimes el poder de las conexiones. Invita a tus contactos y sé parte de una comunidad dinámica que impulsa tu éxito profesional en Miami.</h5>
+                  <h5>No subestimes el poder de las conexiones. Invita a tus contactos y sé parte de una comunidad
+                    dinámica que impulsa tu éxito profesional en Miami.</h5>
                   <hr>
                 </div>
                 <form [formGroup]="contacto1Form" class="row mt-2 mb-3">
@@ -783,29 +512,16 @@
                     <div class="form-group">
                       <label>Nombre contacto 1</label>
 
-                      <input
-                        type="text"
-                        class="form-control"
-                        autocomplete="username"
-                        placeholder="Nombre"
-                        formControlName="nombre"
-                    (keyup)="contacto1Form.controls.nombre.setValue(capitalize(contacto1Form.controls.nombre.value!))"
-
-                      />
+                      <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre"
+                        (keyup)="contacto1Form.controls.nombre.setValue(capitalize(contacto1Form.controls.nombre.value!))" />
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <label>Correo contacto 1</label>
 
-                      <input
-                        type="email"
-                        autocomplete="email"
-                        class="form-control"
-                        placeholder="e-mail"
-                        formControlName="email"
-                        (keyup)="contacto1Form.controls.email.setValue(contacto1Form.controls.email.value!.toLowerCase())"
-                      />
+                      <input type="email" class="form-control" placeholder="e-mail" formControlName="email"
+                        (keyup)="contacto1Form.controls.email.setValue(contacto1Form.controls.email.value!.toLowerCase())" />
                     </div>
                   </div>
                 </form>
@@ -814,30 +530,16 @@
                     <div class="form-group">
                       <label>Nombre contacto 2</label>
 
-                      <input
-                        type="text"
-                        autocomplete="username"
-                        class="form-control"
-                        placeholder="Nombre"
-                        formControlName="nombre"
-                    (keyup)="contacto2Form.controls.nombre.setValue(capitalize(contacto2Form.controls.nombre.value!))"
-
-                      />
+                      <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre"
+                        (keyup)="contacto2Form.controls.nombre.setValue(capitalize(contacto2Form.controls.nombre.value!))" />
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <label>Correo contacto 2</label>
 
-                      <input
-                        type="email"
-                        autocomplete="email"
-                        class="form-control"
-                        placeholder="e-mail"
-                        formControlName="email"
-                        (keyup)="contacto2Form.controls.email.setValue(contacto2Form.controls.email.value!.toLowerCase())"
-
-                      />
+                      <input type="email" class="form-control" placeholder="e-mail" formControlName="email"
+                        (keyup)="contacto2Form.controls.email.setValue(contacto2Form.controls.email.value!.toLowerCase())" />
                     </div>
                   </div>
                 </form>
@@ -846,37 +548,21 @@
                     <div class="form-group">
                       <label>Nombre contacto 3</label>
 
-                      <input
-                        type="text"
-                        autocomplete="username"
-                        class="form-control"
-                        placeholder="Nombre"
-                        formControlName="nombre"
-                    (keyup)="contacto3Form.controls.nombre.setValue(capitalize(contacto3Form.controls.nombre.value!))"
-
-                      />
+                      <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre"
+                        (keyup)="contacto3Form.controls.nombre.setValue(capitalize(contacto3Form.controls.nombre.value!))" />
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <label>Correo contacto 3</label>
 
-                      <input
-                        type="email"
-                        autocomplete="email"
-                        class="form-control"
-                        placeholder="e-mail"
-                        formControlName="email"
-                        (keyup)="contacto3Form.controls.email.setValue(contacto3Form.controls.email.value!.toLowerCase())"
-                      />
+                      <input type="email" class="form-control" placeholder="e-mail" formControlName="email"
+                        (keyup)="contacto3Form.controls.email.setValue(contacto3Form.controls.email.value!.toLowerCase())" />
                     </div>
                   </div>
                 </form>
-                <button
-                  class="btn btn-success btn-block btn-volver mt-3"
-                  [routerLink]="['/home']"
-                  (click)="sendContacts()"
-                >
+                <button class="btn btn-success btn-block btn-volver mt-3" [routerLink]="['/home']"
+                  (click)="sendContacts()">
                   Finalizar
                 </button>
               </div>
@@ -887,68 +573,37 @@
             <!--=          Tab reset       	=-->
             <!--=====================================-->
 
-            <div
-              class="tab-pane login-tab fade show active"
-              id="reset-tab"
-              role="tabpanel"
-            >
+            <div class="tab-pane login-tab fade show active" id="reset-tab" role="tabpanel">
               <h3 class="item-title">Resetea tu contraseña</h3>
 
               <form>
                 <div class="form-group">
-                  <input
-                    type="email"
-                    autocomplete="email"
-                    class="form-control"
-                    [formControl]="emailResetInput"
-                    placeholder="Tu e-mail"
-                    [ngClass]="{
+                  <input type="email" autocomplete="email" class="form-control" [formControl]="emailResetInput"
+                    placeholder="Tu e-mail" [ngClass]="{
                       'is-invalid':
                         emailResetInput.hasError('required') ||
                         emailResetInput.hasError('email')
-                    }"
-                  />
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                    }" />
+                  <div class="invalid-feedback" *ngIf="
                       emailResetInput.dirty &&
                       emailResetInput.hasError('required')
-                    "
-                  >
+                    ">
                     {{ hintErrorRequired }}
                   </div>
-                  <div
-                    class="invalid-feedback"
-                    *ngIf="
+                  <div class="invalid-feedback" *ngIf="
                       emailResetInput.dirty && emailResetInput.hasError('email')
-                    "
-                  >
+                    ">
                     {{ hintErrorEmail }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <button
-                    (click)="reset()"
-                    [disabled]="emailResetInput.invalid"
-                    class="submit-btn"
-                  >
-                    <span
-                      *ngIf="isOnResetEmail"
-                      class="spinner-border spinner-border-sm me-3"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                    <span *ngIf="isOnResetEmail" class="visually-hidden"
-                      >Enviando correo de Recuperacion...</span
-                    >
-                    <span *ngIf="!isOnResetEmail" class="visually-hidden"
-                      >Enviar correo</span
-                    >
+                  <button (click)="reset()" [disabled]="emailResetInput.invalid" class="submit-btn">
+                    <span *ngIf="isOnResetEmail" class="spinner-border spinner-border-sm me-3" role="status"
+                      aria-hidden="true"></span>
+                    <span *ngIf="isOnResetEmail" class="visually-hidden">Enviando correo de Recuperacion...</span>
+                    <span *ngIf="!isOnResetEmail" class="visually-hidden">Enviar correo</span>
                   </button>
-                  <button
-                    class="btn btn-warning btn-lg btn-volver btn-block mt-3"
-                    (click)="onReset = false"
-                  >
+                  <button class="btn btn-warning btn-lg btn-volver btn-block mt-3" (click)="onReset = false">
                     Volver
                   </button>
                 </div>

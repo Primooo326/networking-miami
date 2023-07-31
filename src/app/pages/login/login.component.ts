@@ -114,6 +114,7 @@ export class LoginComponent implements AfterViewInit {
 
   pathFile = '';
   onloadFile = false;
+  viewPassword = false;
   constructor(
     private authSrvc: AuthService,
     private router: Router,
@@ -274,7 +275,7 @@ export class LoginComponent implements AfterViewInit {
                   this.store.dispatch(myRequestMatches.set(element));
                 });
               });
-              location.reload()
+              location.reload();
 
               // this.router.navigate(['/home']);
             },
@@ -329,9 +330,17 @@ export class LoginComponent implements AfterViewInit {
             this.socketSrvc.openSocket();
             this.onChangeTabRegister('cuarto');
 
-              await this.mailSrvc.verifyEmail({
-                email: user.email,
-              })
+            const mail = await this.mailSrvc.verifyEmail({
+              email: user.email,
+            });
+            mail.subscribe(
+              (data) => {
+                console.log(data);
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
           },
           (err: any) => {
             if (err.error == 'User already registered') {
@@ -370,6 +379,24 @@ export class LoginComponent implements AfterViewInit {
         }
       );
     }
+  }
+
+  seePasswords() {
+    const passwordRegister: any = document.getElementById('passwordRegister');
+    const repeatPasswordRegister: any = document.getElementById(
+      'repeatPasswordRegister'
+    );
+    const passwordLogin: any = document.getElementById('passwordLogin');
+    if (!this.viewPassword) {
+      passwordRegister!.type = 'text';
+      repeatPasswordRegister!.type = 'text';
+      passwordLogin!.type = 'text';
+    } else {
+      passwordRegister!.type = 'password';
+      repeatPasswordRegister!.type = 'password';
+      passwordLogin!.type = 'password';
+    }
+    this.viewPassword = !this.viewPassword;
   }
 
   register1Tab() {
@@ -420,7 +447,7 @@ export class LoginComponent implements AfterViewInit {
     }
     console.log(this.TipoConexion);
   }
-  capitalize(str:string) {
+  capitalize(str: string) {
     // Dividimos la cadena en palabras individuales
     const words = str.split(' ');
 
@@ -443,10 +470,8 @@ export class LoginComponent implements AfterViewInit {
   }
   passwordLoginValidator(): boolean {
     return (
-      this.registroForm1Tab.controls.password.hasError('required') ||
-      this.registroForm1Tab.controls.password.hasError('minlength') ||
-      this.registroForm1Tab.controls.password.value !==
-        this.registroForm1Tab.controls.repeatPassword.value
+      this.loginForm.controls.password.hasError('required') ||
+      this.loginForm.controls.password.hasError('minlength')
     );
   }
 
@@ -547,7 +572,7 @@ export class LoginComponent implements AfterViewInit {
     }
   }
   async sendContacts() {
-    const contactos:any[] = [];
+    const contactos: any[] = [];
     if (this.contacto1Form.valid) {
       contactos.push(this.contacto1Form.value);
     }

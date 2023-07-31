@@ -1,61 +1,62 @@
 <div class="container">
   <app-banner [user]="currentUser" [canEdit]="false"></app-banner>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+      <!-- <div class="col-lg-8"> -->
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
 
         </div>
-          <ul class="user-info">
-            <li>
-              <label>Nombre:</label>
-              <p>
-                {{ currentUser.nombre | titlecase }}
-              </p>
-            </li>
-            <!-- <li>
+        <ul class="user-info">
+          <li>
+            <label>Nombre:</label>
+            <p>
+              {{ currentUser.nombre | titlecase }}
+            </p>
+          </li>
+          <!-- <li>
               <label>Teléfono:</label>
               <p >
                 {{ currentUser.telefono }}
               </p>
             </li> -->
-            <li>
-              <label>Ubicación:</label>
-              <p >
-                {{ currentUser.ciudad }}, {{ currentUser.condado }}
-              </p>
+          <li>
+            <label>Ubicación:</label>
+            <p>
+              {{ currentUser.ciudad }}, {{ currentUser.condado }}
+            </p>
 
-            </li>
-            <li>
-              <label>Lenguajes:</label>
-              <p>
-                {{ currentUser.lenguajes | pipearray }}
-              </p>
+          </li>
+          <li>
+            <label>Lenguajes:</label>
+            <p>
+              {{ currentUser.lenguajes | pipearray }}
+            </p>
 
-            </li>
-            <li>
-              <label>Fecha de nacimiento:</label>
-              <p >
-                {{ currentUser.fechaNacimiento | date }}
-              </p>
+          </li>
+          <li>
+            <label>Fecha de nacimiento:</label>
+            <p>
+              {{ currentUser.fechaNacimiento | date }}
+            </p>
 
-            </li>
-            <li>
-              <label>Genero:</label>
-              <p >
-                {{ currentUser.genero }}
-              </p>
+          </li>
+          <li>
+            <label>Genero:</label>
+            <p>
+              {{ currentUser.genero }}
+            </p>
 
-            </li>
-            <li>
-              <label>Biografía:</label>
-              <p >
-                {{ currentUser.biografia }}
-              </p>
+          </li>
+          <li>
+            <label>Biografía:</label>
+            <p>
+              {{ currentUser.biografia }}
+            </p>
 
-            </li>
-          </ul>
+          </li>
+        </ul>
 
       </div>
       <div class="block-box user-about">
@@ -63,37 +64,33 @@
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
 
         </div>
-          <ul class="user-info">
-            <li>
-              <label>Intereses:</label>
-              <p >
-                {{ currentUser.temasInteres | pipearray }}
-              </p>
+        <ul class="user-info">
+          <li>
+            <label>Intereses:</label>
+            <p>
+              {{ currentUser.temasInteres | pipearray }}
+            </p>
 
-            </li>
-            <li>
-              <label>Area de experiencia:</label>
-              <p >
-                {{ currentUser.areaExperiencia | pipearray }}
-              </p>
+          </li>
+          <li>
+            <label>Area de experiencia:</label>
+            <p>
+              {{ currentUser.areaExperiencia | pipearray }}
+            </p>
 
-            </li>
-            <li>
-              <label>Tipo de conexión:</label>
-              <p >
-                <span
-                  *ngFor="let item of currentUser.tipoConexion"
-                  class="badge mr-2"
-                  >{{ item }}</span
-                >
-              </p>
+          </li>
+          <li>
+            <label>Tipo de conexión:</label>
+            <p>
+              <span *ngFor="let item of currentUser.tipoConexion" class="badge mr-2">{{ item }}</span>
+            </p>
 
-            </li>
-          </ul>
+          </li>
+        </ul>
       </div>
 
     </div>
-    <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
+    <!-- <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
       <div class="widget widget-user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Sobre Mí</h3>
@@ -113,12 +110,10 @@
               <span>Ubicación:</span>{{ currentUser.ciudad }},
               {{ currentUser.condado }}
             </li>
-            <!-- <li><span>Teléfono:</span>{{ currentUser.telefono }}</li> -->
-
           </ul>
         </div>
       </div>
 
-    </div>
+    </div> -->
   </div>
 </div>

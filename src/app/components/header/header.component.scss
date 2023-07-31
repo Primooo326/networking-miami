@@ -21,3 +21,14 @@
     overflow-y: auto;
     max-height: 300px;
 }
+.trash {
+  height: 100%;
+  display: flex;
+  width: 50px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.collapse {
+  height: 110px !important;
+}
