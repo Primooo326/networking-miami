@@ -24,7 +24,7 @@
     </ul>
   </div>
 
-  <app-banner [user]="currentUser"></app-banner>
+  <!-- <app-banner [user]="currentUser"></app-banner> -->
 
 
   <h3 class="text-center">Mis contactos</h3>
@@ -37,8 +37,8 @@
     </div>
   </div>
   <div class="text-center">
-    <a role="button" href="#matchestitle" [hidden]="currentPage == 0"
-      (click)="changePageMisMatches(currentPage - 1)" class="item-btn mx-2">
+    <a role="button" href="#matchestitle" [hidden]="currentPage == 0" (click)="changePageMisMatches(currentPage - 1)"
+      class="item-btn mx-2">
       <span class="btn-icon">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px" height="10px">
           <g transform="translate(21,0) scale(-1,1)">
