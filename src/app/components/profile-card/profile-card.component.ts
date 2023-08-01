@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { MailService } from 'src/app/services/mail/mail.service';
 import { MatchService } from 'src/app/services/match/match.service';
 import { ETypePerfil, Usuario } from 'src/app/tools/models';
 import { newPendingMatch, myMatches } from 'src/redux/actions';
@@ -17,6 +18,7 @@ export class ProfileCardComponent {
   @Output() event = new EventEmitter();
   constructor(
     private matchSrvc: MatchService,
+    private mailSrvc: MailService,
     private store: Store<any>,
     private route: Router
   ) {}
@@ -46,6 +48,18 @@ export class ProfileCardComponent {
           (err) => {
             Swal.fire('Error', err, 'error');
             console.log('error::', err);
+          }
+        );
+        const res2 = await this.mailSrvc.sendNewContact({
+          solicitante: user,
+          receptor: this.user,
+        });
+        res2.subscribe(
+          (data) => {
+            console.log(data);
+          },
+          (err) => {
+            console.log(err);
           }
         );
       }

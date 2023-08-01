@@ -42,20 +42,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   notificaciones: any[] = [];
   misMensajesNoVistos: any = [];
   @Output() event = new EventEmitter();
-  // Agrega el ViewChild para acceder al elemento desde el componente
   @ViewChild('parentElement') parentElementRef!: ElementRef;
-
-  // Variable para controlar si el collapse se muestra o no
   showChild: boolean[] = [];
-
-  // Resto de tu código del componente ...
-
-  // Método para mostrar el collapse
   showCollapse(index: number) {
     this.showChild[index] = true;
   }
-
-  // Método para ocultar el collapse
   hideCollapse(index: number) {
     this.showChild[index] = false;
   }
@@ -92,8 +83,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         (item: any) => item.estado === 'no_visto'
       );
     });
-    // this.misMatches$.subscribe((data)=>
-    // console.log(data))
   }
   ngAfterViewInit(): void {}
   calcularTiempoTranscurrido(desde: string): string {
@@ -190,8 +179,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.userChat = null;
   }
   verPerfil(user: Usuario) {
-    console.log(user);
-    console.log(`/user/${user.id}`);
     this.route.navigate([`/user/${user.id}`]);
   }
   logOut() {

@@ -25,4 +25,8 @@ export class MailService {
     const url = this.backend + 'mail/sendinvitation';
     return this.http.post(url, body);
   }
+  async sendNewContact(body: any) {
+    const url = this.backend + 'mail/newContact';
+    return this.http.post(url, body);
+  }
 }
