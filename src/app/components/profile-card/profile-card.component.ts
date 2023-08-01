@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatchService } from 'src/app/services/match/match.service';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss'],
 })
-export class ProfileCardComponent implements OnInit {
+export class ProfileCardComponent {
   @Input() user!: Usuario;
   @Input() typeProfile: ETypePerfil = 'desconocido';
   @Output() event = new EventEmitter();
@@ -20,8 +20,6 @@ export class ProfileCardComponent implements OnInit {
     private store: Store<any>,
     private route: Router
   ) {}
-
-  ngOnInit(): void {}
 
   async solicitar() {
     Swal.fire({
@@ -60,8 +58,7 @@ export class ProfileCardComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor:"#28a745"
-
+      confirmButtonColor: '#28a745',
     }).then(async (result) => {
       if (result.isConfirmed) {
         const user = JSON.parse(localStorage.getItem('user')!);
@@ -141,8 +138,7 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  async verPerfil() {
-    localStorage.setItem('userToView', JSON.stringify(this.user));
-    this.route.navigate(['/user']);
+  verPerfil() {
+    this.route.navigate([`/user/${this.user.id}`]);
   }
 }

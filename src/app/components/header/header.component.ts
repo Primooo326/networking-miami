@@ -189,9 +189,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     console.log('quitUser');
     this.userChat = null;
   }
-  async verPerfil(user: Usuario) {
-    localStorage.setItem('userToView', JSON.stringify(user));
-    this.route.navigate(['/user']);
+  verPerfil(user: Usuario) {
+    console.log(user);
+    console.log(`/user/${user.id}`);
+    this.route.navigate([`/user/${user.id}`]);
   }
   logOut() {
     localStorage.removeItem('user');
