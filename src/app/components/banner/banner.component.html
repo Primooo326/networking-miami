@@ -6,7 +6,6 @@
           alt="User" />
       </div>
       <div *ngIf="canEdit" role="button" (click)="onEdit()" class="item-img">
-        class="profileimage"
         <img [src]="user.avatar" style="width: 115px; height: 115px; object-fit: cover;" alt="User" />
         <img src="media/photo_upload.png" class="uploadimage" alt="img" />
         <input type="file" accept="image/*" #fileInput style="display: none" />
@@ -14,22 +13,25 @@
       <div class="media-body">
         <h3 class="item-title " [ngClass]="{'check': user.verificado}">{{ user.nombre | titlecase }} </h3>
         <div class="item-subtitle">
-          {{ user.areaExperiencia | pipearray }}
+          {{ user.areaExperiencia | pipeArray }}
         </div>
         <div class="item-subtitle">
-          <div *ngIf="typeProfile == 'desconocido'">
-            <button class="btn btn-primary">Conectar</button>
+          <div *ngIf="defineTypeProfile() == 'desconocido'">
+            <button class="btn btn-primary" (click)="solicitar()">Conectar</button>
           </div>
-          <div *ngIf="typeProfile == 'contacto'">
-            <button class="btn btn-primary mr-3">Enviar mensaje</button>
-            <button class="btn btn-danger">Eliminar</button>
+          <div *ngIf="defineTypeProfile() == 'contacto'">
+            <!-- <button class="btn btn-primary mr-3" (click)="chat()">Enviar mensaje</button> -->
+            <button class="btn btn-danger" (click)="eliminarMatch()">Eliminar</button>
           </div>
-          <div *ngIf="typeProfile == 'solicitante'">
-            <button class="btn btn-secondary">Cancelar solicitud</button>
+          <div *ngIf="defineTypeProfile() == 'solicitante'">
+            <button class="btn btn-secondary" (click)="cancelarSolictud()">Cancelar solicitud</button>
           </div>
-          <div *ngIf="typeProfile == 'solicitud'">
-            <button class="btn btn-success mr-3">Aceptar solicitud</button>
-            <button class="btn btn-danger">Rechazar solicitud</button>
+          <div *ngIf="defineTypeProfile() == 'solicitud'">
+            <button class="btn btn-success mr-3" (click)="aceptar()">Aceptar solicitud</button>
+            <button class="btn btn-danger" (click)="rechazarSolictud()">Rechazar solicitud</button>
+          </div>
+          <div *ngIf="defineTypeProfile() == 'propio'">
+
           </div>
         </div>
       </div>

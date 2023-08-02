@@ -9,7 +9,7 @@
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
           <div class="dropdown">
-            <button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
+            <button class="btn" title="editar" type="button" data-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-pen"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -45,13 +45,14 @@
                 {{ (user$ | async)!.ciudad }}, {{ (user$ | async)!.condado }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select class="select2 mb-3" id="condado" name="Condado" data-placeholder="Condado"
+                <select title="Condado" class="select2 mb-3" id="condado" name="Condado" data-placeholder="Condado"
                   formControlName="condado">
                   <option *ngFor="let item of condados" [value]="item.nombre">
                     {{ item.nombre }}
                   </option>
                 </select>
-                <select class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad" formControlName="ciudad">
+                <select title="Ciudad" class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad"
+                  formControlName="ciudad">
                   <option *ngFor="let item of ciudades" [value]="item">
                     {{ item }}
                   </option>
@@ -62,11 +63,11 @@
             <li>
               <label>Lenguajes:</label>
               <p *ngIf="onInformacionBasicaEdit">
-                {{ (user$ | async)!.lenguajes | pipearray }}
+                {{ (user$ | async)!.lenguajes | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select class="select2" multiple="multiple" id="idioma" name="Idioma" data-placeholder="Idioma"
-                  formControlName="lenguajes">
+                <select title="Idioma" class="select2" multiple="multiple" id="idioma" name="Idioma"
+                  data-placeholder="Idioma" formControlName="lenguajes">
                   <option *ngFor="let idioma of idiomas" [value]="idioma">
                     {{ idioma }}
                   </option>
@@ -89,7 +90,8 @@
                 {{ (user$ | async)!.genero }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select class="select2" id="gender" name="Genero" data-placeholder="Genero" formControlName="genero">
+                <select title="Genero" class="select2" id="gender" name="Genero" data-placeholder="Genero"
+                  formControlName="genero">
                   <option value="" selected></option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
@@ -125,7 +127,8 @@
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
-            <button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
+            <button title="Intereses y tipo de conexión" class="btn" type="button" data-toggle="dropdown"
+              aria-expanded="false">
               <i class="fas fa-pen"></i>
 
             </button>
@@ -141,10 +144,10 @@
             <li>
               <label>Intereses:</label>
               <p *ngIf="onInteresesEdit">
-                {{ (user$ | async)!.temasInteres | pipearray }}
+                {{ (user$ | async)!.temasInteres | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <select class="select2" multiple="multiple" id="interes" data-placeholder="Interés"
+                <select title="Intereses" class="select2" multiple="multiple" id="interes" data-placeholder="Interés"
                   formControlName="temasInteres">
                   <option *ngFor="let item of intereses" [value]="item">
                     {{ item }}
@@ -155,7 +158,7 @@
             <li>
               <label>Area de experiencia:</label>
               <p *ngIf="onInteresesEdit">
-                {{ (user$ | async)!.areaExperiencia | pipearray }}
+                {{ (user$ | async)!.areaExperiencia | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
                 <select class="select2" multiple="multiple" formControlName="areaExperiencia" style="width: 100%"
