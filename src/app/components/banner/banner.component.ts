@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import {
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from "@angular/core"
 import { ETypePerfil, Usuario } from "src/app/tools/models"
 import { Store } from "@ngrx/store"
 import {
@@ -9,8 +16,16 @@ import {
 import Swal from "sweetalert2"
 import { MailService } from "src/app/services/mail/mail.service"
 import { MatchService } from "src/app/services/match/match.service"
-import { myMatches, myRequestMatches, newPendingMatch } from "src/redux/actions"
+import {
+	myMatches,
+	myRequestMatches,
+	newPendingMatch,
+	setUser,
+} from "src/redux/actions"
 import { HeaderComponent } from "../header/header.component"
+import { FilePondComponent } from "ngx-filepond"
+import { FilePondOptions } from "filepond"
+import { environment } from "src/environments/environment"
 @Component({
 	selector: "app-banner",
 	templateUrl: "./banner.component.html",
@@ -23,7 +38,8 @@ export class BannerComponent implements OnInit {
 	misMatches: Usuario[] = []
 	peticionesDeMatch: Usuario[] = []
 	solicitudesDeMatch: Usuario[] = []
-
+	backend = environment.backend + "api/file/portada"
+	myFile!: File
 	constructor(
 		private store: Store<any>,
 		private matchSrvc: MatchService,
@@ -218,5 +234,69 @@ export class BannerComponent implements OnInit {
 	}
 	chat() {
 		this.headerComponent.setUserChat(this.user)
+	}
+
+	// *filepond config
+
+	@ViewChild("myPond") myPond!: FilePondComponent
+
+	pondOptions: FilePondOptions = {
+		allowMultiple: false,
+		allowImagePreview: false,
+		labelIdle: "Arrastra y suelta tus archivos o busca...",
+		acceptedFileTypes: ["image/*"],
+		labelFileTypeNotAllowed: "Solo se permiten imágenes",
+		labelFileProcessingComplete: "Imagen subida correctamente",
+		labelFileProcessingError: "Error al subir la imagen",
+		labelTapToCancel: "click para cancelar",
+		labelTapToRetry: "click para reintentar",
+		labelTapToUndo: "click para deshacer",
+		labelButtonRemoveItem: "Eliminar",
+		labelButtonAbortItemLoad: "Abortar",
+
+		server: {
+			process: {
+				url: this.backend,
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "POST",
+				ondata: (): any => {
+					const formData = new FormData()
+					formData.append("imagen", this.myFile)
+					console.log(formData)
+					return formData
+				},
+
+				onload: this.setPortada.bind(this),
+			},
+		},
+		oninit: this.pondHandleInit.bind(this),
+		onaddfile: this.pondHandleAddFile.bind(this),
+		onactivatefile: this.pondHandleActivateFile.bind(this),
+	}
+
+	pondHandleInit() {
+		console.log("FilePond has initialised", this.myPond)
+	}
+
+	pondHandleAddFile(event: any) {
+		console.log("A file was added", event)
+		if (event) {
+			this.myFile = event.file.file
+		}
+	}
+
+	pondHandleActivateFile(event: any) {
+		console.log("A file was activated", event)
+	}
+	setPortada(response: any): any {
+		const path = JSON.parse(response).path
+		console.log(path)
+		console.log(this.user.fotoPortada)
+		const user = { ...this.user, fotoPortada: path }
+		this.user = user
+		console.log(this.user)
+		this.store.dispatch(setUser.set(user))
 	}
 }

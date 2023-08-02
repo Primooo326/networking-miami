@@ -36,7 +36,9 @@
               "src/dependencies/datepicker/dist/datepicker.min.css",
               "src/dependencies/select2/css/select2.min.css",
               "src/sass/app.scss",
-              "src/assets/css/app.css"
+              "src/assets/css/app.css",
+              "./node_modules/filepond/dist/filepond.min.css",
+              "./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

@@ -6,11 +6,17 @@ import { Auth0Component } from "./auth0/auth0.component"
 import { RouterModule } from "@angular/router"
 import { ProfileCardComponent } from "./profile-card/profile-card.component"
 import { BannerComponent } from "./banner/banner.component"
-import { ToolsModule } from "../tools/tools.module";
-import { ToastComponent } from './toast/toast.component';
-import { ChatModalComponent } from './chat-modal/chat-modal.component'
+import { ToolsModule } from "../tools/tools.module"
+import { ToastComponent } from "./toast/toast.component"
+import { ChatModalComponent } from "./chat-modal/chat-modal.component"
 import { ReactiveFormsModule } from "@angular/forms"
+import { FilePondModule, registerPlugin } from "ngx-filepond"
 
+// import and register filepond file type validation plugin
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type"
+// Import the plugin code
+import FilePondPluginImagePreview from "filepond-plugin-image-preview"
+registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview)
 @NgModule({
 	declarations: [
 		HeaderComponent,
@@ -18,18 +24,24 @@ import { ReactiveFormsModule } from "@angular/forms"
 		Auth0Component,
 		ProfileCardComponent,
 		BannerComponent,
-  ToastComponent,
-  ChatModalComponent,
+		ToastComponent,
+		ChatModalComponent,
 	],
-	imports: [CommonModule, RouterModule, ToolsModule,ReactiveFormsModule],
+	imports: [
+		CommonModule,
+		RouterModule,
+		ToolsModule,
+		ReactiveFormsModule,
+		FilePondModule,
+	],
 	exports: [
 		HeaderComponent,
 		FooterComponent,
 		Auth0Component,
 		ProfileCardComponent,
 		BannerComponent,
-    ToastComponent,
-    ChatModalComponent
+		ToastComponent,
+		ChatModalComponent,
 	],
 })
 export class ComponentsModule {}
