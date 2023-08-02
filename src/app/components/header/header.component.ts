@@ -141,7 +141,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			}
 		})
 	}
-	async eliminarSolictud(user: Usuario) {
+	async eliminarSolicitud(user: Usuario) {
 		Swal.fire({
 			title: "¿Seguro quieres cancelar la solicitud?",
 			showCancelButton: true,
@@ -172,8 +172,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	setUserChat(user: Usuario) {
 		this.userChat = null
 		this.isCloseChat = false
-		this.userChat = user
-		this.isCloseChat = true
+		setTimeout(() => {
+			this.userChat = user
+			this.isCloseChat = true
+		}, 150)
 	}
 	quitUserChat() {
 		console.log("quitUser")

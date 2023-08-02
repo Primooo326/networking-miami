@@ -32,6 +32,7 @@ export class BannerComponent implements OnInit {
 	) {}
 	ngOnInit(): void {
 		console.log(this.user)
+
 		this.store.select(matchSelect).subscribe((matches) => {
 			this.misMatches = matches
 			this.defineTypeProfile()
@@ -140,7 +141,7 @@ export class BannerComponent implements OnInit {
 		})
 	}
 
-	async cancelarSolictud() {
+	async cancelarSolicitud() {
 		Swal.fire({
 			title: "¿Estás seguro de que quieres cancelar la solicitud?",
 			showCancelButton: true,
@@ -165,7 +166,7 @@ export class BannerComponent implements OnInit {
 			}
 		})
 	}
-	async rechazarSolictud() {
+	async rechazarSolicitud() {
 		Swal.fire({
 			title: "¿Estás seguro de que quieres rechazar la solicitud?",
 			showCancelButton: true,

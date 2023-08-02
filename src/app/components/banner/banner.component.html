@@ -24,11 +24,11 @@
             <button class="btn btn-danger" (click)="eliminarMatch()">Eliminar</button>
           </div>
           <div *ngIf="defineTypeProfile() == 'solicitante'">
-            <button class="btn btn-secondary" (click)="cancelarSolictud()">Cancelar solicitud</button>
+            <button class="btn btn-secondary" (click)="cancelarSolicitud()">Cancelar solicitud</button>
           </div>
           <div *ngIf="defineTypeProfile() == 'solicitud'">
             <button class="btn btn-success mr-3" (click)="aceptar()">Aceptar solicitud</button>
-            <button class="btn btn-danger" (click)="rechazarSolictud()">Rechazar solicitud</button>
+            <button class="btn btn-danger" (click)="rechazarSolicitud()">Rechazar solicitud</button>
           </div>
           <div *ngIf="defineTypeProfile() == 'propio'">
 
@@ -37,4 +37,7 @@
       </div>
     </div>
   </div>
+  <button *ngIf="canEdit" class="btn">
+    <i class="fas fa-pen"></i>
+  </button>
 </div>
