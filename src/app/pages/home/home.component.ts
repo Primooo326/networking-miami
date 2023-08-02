@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
   showUsersNewMatches: any[] = [];
   users: Usuario[] = [];
   orderBy = 'Todos los miembros';
-  messajeFilter = 'usuarios encontrados con intereses similares';
+  messageFilter = 'usuarios encontrados con intereses similares';
   pages: number[] = [];
 
   solicitudesDeMatch: Usuario[] = [];
@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit {
       const res = await this.userSrvc.searchUsers(50, 0, filter!);
       res.subscribe(
         (data: any) => {
-          this.messajeFilter = 'usuarios encontrados';
+          this.messageFilter = 'usuarios encontrados';
           this.users = data.sort((a, b) => {
             if (
               this.typeUser(a) == 'solicitud' &&
@@ -209,7 +209,7 @@ export class HomeComponent implements OnInit {
         }
       );
     } else {
-      this.messajeFilter = 'usuarios encontrados con intereses similares';
+      this.messageFilter = 'usuarios encontrados con intereses similares';
       this.readSimilarUsers();
     }
   }

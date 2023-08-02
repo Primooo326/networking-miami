@@ -24,16 +24,17 @@
     </ul>
   </div>
   <h4>Buenos días {{currentUser.nombre}}!</h4>
-  <p id="phrase" style="font-family: 'Kalam', cursive; font-size: 17px;"></p>
+  <p id="phrase"></p>
   <div class="mt-4">
     <div class="row">
       <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
         <div class="block-box user-search-bar">
           <div class="box-item search-box">
             <div class="input-group">
-              <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros por nombre" />
+              <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control"
+                placeholder="Buscar miembros por nombre" />
               <div class="input-group-append">
-                <button class="search-btn" type="button" (click)="applyFilter()">
+                <button title="aplicar filtro" class="search-btn" type="button" (click)="applyFilter()">
                   <i class="icofont-search"></i>
                 </button>
               </div>
@@ -49,11 +50,11 @@
             </ul>
           </div>
         </div>
-        <h5 class="text-center mb-5" >{{ users.length }} {{messajeFilter}}</h5>
-        <div id="user-view" class="user-grid-view" [ngClass]="{'isNotVerifyed': !verificado}" >
+        <h5 class="text-center mb-5">{{ users.length }} {{messageFilter}}</h5>
+        <div id="user-view" class="user-grid-view" [ngClass]="{'isNotVerified': !verificado}">
           <div class="row rowmsry">
-            <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)"
-              class=" colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6" [ngClass]="{
+            <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item"
+              (event)="onChangeEvent($event)" class=" colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6" [ngClass]="{
                 'col-xl-3 col-lg-6 col-md-6 col-sm-6': isOnAdvancedFilters,
                 'col-xl-3 col-lg-4 col-md-6': !isOnAdvancedFilters
               }">
@@ -91,18 +92,20 @@
             <h3 class="widget-title">Busca miembros por:</h3>
           </div>
           <div class="user-info">
-            <form  [formGroup]="filtersGroup">
+            <form [formGroup]="filtersGroup">
               <ul class="mb-3">
-                <li class="" >
+                <li class="">
                   <span>Ubicación:</span>
                   <div class="form-group">
 
-                      <select class="select2 mb-3" id="condado" formControlName="condado" name="Condado" data-placeholder="Condado">
-                        <option *ngFor="let item of condados" [value]="item.nombre">
-                          {{ item.nombre }}
-                        </option>
-                      </select>
-                      <select class="select2" id="ciudad" formControlName="ciudad" name="Ciudad" data-placeholder="Ciudad">
+                    <select class="select2 mb-3" id="condado" formControlName="condado" name="Condado"
+                      data-placeholder="Condado">
+                      <option *ngFor="let item of condados" [value]="item.nombre">
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                    <select class="select2" id="ciudad" formControlName="ciudad" name="Ciudad"
+                      data-placeholder="Ciudad">
                       <option value="">Todos</option>
                       <option *ngFor="let item of ciudades" [value]="item">
                         {{ item }}
@@ -111,38 +114,39 @@
                     <button id="boton" hidden (click)="onCondadoChange()"></button>
                   </div>
                 </li>
-                <li class="mt-4" >
+                <li class="mt-4">
                   <span>¿Qué tipo de personas te interesa encontrar?</span>
-                  <select class="select2 mb-3" id="conexiones" formArrayName="conexiones" name="Conexion" multiple="multiple"
-                    data-placeholder="Elige las opciones que apliquen">
+                  <select class="select2 mb-3" id="conexiones" formArrayName="conexiones" name="Conexion"
+                    multiple="multiple" data-placeholder="Elige las opciones que apliquen">
                     <option class="text-wrap" style="width: 100%;" *ngFor="let item of conexion2" [value]="item.value">
-                       <p class="text-wrap" >{{ item.searchBy }}</p>
+                      <p class="text-wrap">{{ item.searchBy }}</p>
                     </option>
                   </select>
                 </li>
-                <li class="mt-4" >
+                <li class="mt-4">
                   <span>Elige área de especialización</span>
-                  <select class="select2 mb-3" id="experiencia" formArrayName="experiencia" name="Experiencia" multiple="multiple"
-                    data-placeholder="Elige las especializaciones que apliquen">
-                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of experiencia" [value]="item.titulo">
-                       <p class="text-wrap" >{{ item.titulo }}</p>
+                  <select class="select2 mb-3" id="experiencia" formArrayName="experiencia" name="Experiencia"
+                    multiple="multiple" data-placeholder="Elige las especializaciones que apliquen">
+                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of experiencia"
+                      [value]="item.titulo">
+                      <p class="text-wrap">{{ item.titulo }}</p>
                     </option>
                   </select>
                 </li>
-                <li class="mt-4" >
+                <li class="mt-4">
                   <span>Elige los idiomas</span>
                   <select class="select2 mb-3" id="idiomas" formArrayName="idiomas" name="Idiomas" multiple="multiple"
                     data-placeholder="Elige los idiomas que apliquen">
                     <option class="text-wrap" style="width: 100%;" *ngFor="let item of idiomas" [value]="item">
-                       <p class="text-wrap" >{{ item }}</p>
+                      <p class="text-wrap">{{ item }}</p>
                     </option>
                   </select>
                 </li>
               </ul>
             </form>
 
-            <button class="btn btn-success btn-block mt-2" (click)="search()" >Buscar</button>
-            <button class="btn btn-warning btn-block mt-2" (click)="clean()" >Limpiar filtros</button>
+            <button class="btn btn-success btn-block mt-2" (click)="search()">Buscar</button>
+            <button class="btn btn-warning btn-block mt-2" (click)="clean()">Limpiar filtros</button>
           </div>
         </div>
       </div>
@@ -151,4 +155,3 @@
 
 
 </div>
-
