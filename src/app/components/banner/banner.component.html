@@ -5,10 +5,13 @@
         <img class="profileimage" [src]="user.avatar" style="width: 115px; height: 115px; object-fit: cover;"
           alt="User" />
       </div>
-      <div *ngIf="canEdit" role="button" (click)="onEdit()" class="item-img">
+      <div *ngIf="canEdit" class="item-img">
         <img [src]="user.avatar" style="width: 115px; height: 115px; object-fit: cover;" alt="User" />
-        <img src="media/photo_upload.png" class="uploadimage" alt="img" />
-        <input type="file" accept="image/*" #fileInput style="display: none" />
+        <button *ngIf="canEdit" class="btn-editar-avatar" role="button" data-toggle="modal" data-target="#modalAvatar">
+          <i class="fas fa-pen"></i>
+        </button>
+        <!-- <img src="media/photo_upload.png" class="uploadimage" alt="img" /> -->
+        <!-- <input type="file" accept="image/*" #fileInput style="display: none" /> -->
       </div>
       <div class="media-body">
         <h3 class="item-title " [ngClass]="{'check': user.verificado}">{{ user.nombre | titlecase }} </h3>
@@ -39,24 +42,41 @@
   </div>
 
 
-  <button *ngIf="canEdit" class="btn-editar" role="button" data-toggle="modal" data-target="#staticBackdrop">
+  <button *ngIf="canEdit" class="btn-editar-portada" role="button" data-toggle="modal" data-target="#modalPortada">
     <i class="fas fa-pen"></i>
   </button>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+<!-- TODO Modal Avatar -->
+<div class="modal fade" id="modalAvatar" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Foto de perfil</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <file-pond #myPond data-allow-reorder="true" [options]="pondOptions" (oninit)="pondHandleInit()"
-          (onaddfile)="pondHandleAddFile($event)" (onactivatefile)="pondHandleActivateFile($event)">
+        <file-pond #myPondAvatar [options]="pondOptionsAvatar">
+        </file-pond>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- todo Modal Portada -->
+<div class="modal fade" id="modalPortada" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Foto de portada</h5>
+        <button type="button" (click)="onCloseModalPortada()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <file-pond #myPondPortada [options]="pondOptionsPortada">
         </file-pond>
       </div>
     </div>

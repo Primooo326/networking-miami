@@ -16,7 +16,14 @@ import { FilePondModule, registerPlugin } from "ngx-filepond"
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type"
 // Import the plugin code
 import FilePondPluginImagePreview from "filepond-plugin-image-preview"
-registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview)
+import FilePondPluginImageResize from "filepond-plugin-image-resize"
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation"
+registerPlugin(
+	FilePondPluginFileValidateType,
+	FilePondPluginImagePreview,
+	FilePondPluginImageResize,
+	FilePondPluginImageExifOrientation,
+)
 @NgModule({
 	declarations: [
 		HeaderComponent,

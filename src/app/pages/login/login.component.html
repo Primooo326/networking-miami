@@ -116,7 +116,7 @@
               <p>{{ textTabRegistro }}</p>
               <span class="item-title"></span>
               <!-- !primer tab registro -->
-              <form [hidden]="tabRegistro != 'primero'" [formGroup]="registroForm1Tab">
+              <form [hidden]="pageNumber != '1/5'" [formGroup]="registroForm1Tab">
                 <div class="form-group">
                   <input type="email" autocomplete="email" formControlName="email" class="form-control" [ngClass]="{
                       'is-invalid':
@@ -232,7 +232,7 @@
               </form>
 
               <!-- !segundo tab registro -->
-              <form [hidden]="tabRegistro != 'segundo'" [formGroup]="registroForm2Tab">
+              <form [hidden]="pageNumber != '2/5'" [formGroup]="registroForm2Tab">
                 <div class="form-group">
                   <input type="text" formControlName="nombre" class="form-control" [ngClass]="{
                       'is-invalid':
@@ -354,14 +354,14 @@
                     [disabled]="registroForm2Tab.invalid || lenguajesV">
                     Continuar
                   </button>
-                  <button (click)="onChangeTabRegister('primero')" class="btn btn-warning btn-block btn-volver mt-3">
+                  <button (click)="onChangeTabRegister('1/1')" class="btn btn-warning btn-block btn-volver mt-3">
                     Volver
                   </button>
                 </div>
               </form>
 
               <!-- !tercero tab registro -->
-              <form [hidden]="tabRegistro != 'tercero'" [formGroup]="registroForm3Tab">
+              <form [hidden]="pageNumber != '3/5'" [formGroup]="registroForm3Tab">
                 <div class="form-group">
                   <label for="experiencia">¿Cuál es tu area de experiencia?</label>
                   <select class="select2" multiple="multiple" formArrayName="areaExperiencia" style="width: 200%"
@@ -435,17 +435,6 @@
                       parte.</label>
                   </div>
                 </div>
-                <!-- <h4>¿Cuál es tu objetivo con Networking Miami?</h4>
-                <div class="form-group">
-                  <textarea
-                    formControlName="objetivo"
-                    class="form-control textarea"
-                    placeholder="Objetivo con Networking Miami"
-                    cols="10"
-                    rows="3"
-                  ></textarea>
-                </div> -->
-
                 <div class="form-group">
                   <button class="submit-btn" (click)="register3Tab()" [disabled]="
                       registroForm3Tab.invalid ||
@@ -455,53 +444,25 @@
                     ">
                     Continuar
                   </button>
-                  <button (click)="onChangeTabRegister('segundo')" class="btn btn-warning btn-block btn-volver mt-3">
+                  <button (click)="onChangeTabRegister('2/2')" class="btn btn-warning btn-block btn-volver mt-3">
                     Volver
                   </button>
                 </div>
               </form>
 
-              <div [hidden]="tabRegistro != 'cuarto'" class="text-center">
-                <div class="profile-pic-wrapper">
-                  <div class="pic-holder" [ngClass]="{ uploadInProgress: onloadFile }" role="button">
-                    <div *ngIf="onloadFile" class="upload-loader">
-                      <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
+              <div *ngIf="pageNumber == '4/5'" class="text-center">
 
-                    <!-- uploaded pic shown here -->
-                    <img id="profilePic" class="pic" src="https://networking.miami/media/user-image.png" />
+                <file-pond #myPondAvatar [options]="pondOptionsAvatar">
+                </file-pond>
 
-                    <Input class="uploadProfileInput" hidden type="file" name="profile_pic" id="newProfilePhoto"
-                      accept="image/*" style="opacity: 0" />
-                    <label for="newProfilePhoto" class="upload-file-block">
-                      <div class="text-center">
-                        <div class="mb-2">
-                          <i class="fa fa-camera fa-2x"></i>
-                        </div>
-                        <div class="text-uppercase">
-                          Sube <br />
-                          foto de perfil
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
                 <button *ngIf="pathFile != ''" class="btn btn-success btn-block btn-volver mt-3"
-                  (click)="onChangeTabRegister('quinto')">
+                  (click)="onChangeTabRegister('5/5')">
                   Continuar
                 </button>
                 <a *ngIf="pathFile == ''" class="text-primary" routerLinkActive="router-link-active"
-                  (click)="onChangeTabRegister('quinto')">Continuar sin foto de perfil</a>
-                <!-- <button
-                  (click)="onChangeTabRegister('tercero')"
-                  class="btn btn-warning btn-block btn-volver mt-3"
-                >
-                  Volver
-                </button> -->
+                  (click)="onChangeTabRegister('5/5')">Continuar sin foto de perfil</a>
               </div>
-              <div [hidden]="tabRegistro != 'quinto'">
+              <div [hidden]="pageNumber != '5/5'">
                 <div class="my-3">
                   <h5>No subestimes el poder de las conexiones. Invita a tus contactos y sé parte de una comunidad
                     dinámica que impulsa tu éxito profesional en Miami.</h5>

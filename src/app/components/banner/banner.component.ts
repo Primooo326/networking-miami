@@ -38,8 +38,7 @@ export class BannerComponent implements OnInit {
 	misMatches: Usuario[] = []
 	peticionesDeMatch: Usuario[] = []
 	solicitudesDeMatch: Usuario[] = []
-	backend = environment.backend + "api/file/portada"
-	myFile!: File
+	backend = environment.backend + "api/file"
 	constructor(
 		private store: Store<any>,
 		private matchSrvc: MatchService,
@@ -238,11 +237,14 @@ export class BannerComponent implements OnInit {
 
 	// *filepond config
 
-	@ViewChild("myPond") myPond!: FilePondComponent
-
-	pondOptions: FilePondOptions = {
+	@ViewChild("myPondPortada") myPondPortada!: any
+	@ViewChild("myPondAvatar") myPondAvatar!: any
+	pondOptionsPortada: FilePondOptions = {
+		name: "imagen",
 		allowMultiple: false,
-		allowImagePreview: false,
+		allowImagePreview: true,
+		imageResizeMode: "cover",
+		allowImageExifOrientation: true,
 		labelIdle: "Arrastra y suelta tus archivos o busca...",
 		acceptedFileTypes: ["image/*"],
 		labelFileTypeNotAllowed: "Solo se permiten imágenes",
@@ -253,50 +255,100 @@ export class BannerComponent implements OnInit {
 		labelTapToUndo: "click para deshacer",
 		labelButtonRemoveItem: "Eliminar",
 		labelButtonAbortItemLoad: "Abortar",
-
+		labelFileProcessing: "Subiendo",
+		labelFileProcessingAborted: "Subida cancelada",
+		instantUpload: false,
 		server: {
+			url: this.backend,
 			process: {
-				url: this.backend,
+				url: "/portada",
 				headers: {
 					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
 				},
 				method: "POST",
-				ondata: (): any => {
-					const formData = new FormData()
-					formData.append("imagen", this.myFile)
-					console.log(formData)
-					return formData
-				},
-
 				onload: this.setPortada.bind(this),
 			},
+			revert: {
+				url: "/portada",
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "DELETE",
+				onload: this.deletePortada.bind(this),
+			},
 		},
-		oninit: this.pondHandleInit.bind(this),
-		onaddfile: this.pondHandleAddFile.bind(this),
-		onactivatefile: this.pondHandleActivateFile.bind(this),
+	}
+	pondOptionsAvatar: FilePondOptions = {
+		name: "imagen",
+		allowMultiple: false,
+		allowImagePreview: true,
+		imageResizeMode: "cover",
+		stylePanelLayout: "compact circle",
+		allowImageExifOrientation: true,
+		labelIdle: "Arrastra y suelta tus archivos o busca...",
+		acceptedFileTypes: ["image/*"],
+		labelFileTypeNotAllowed: "Solo se permiten imágenes",
+		labelFileProcessingComplete: "Imagen subida correctamente",
+		labelFileProcessingError: "Error al subir la imagen",
+		labelTapToCancel: "click para cancelar",
+		labelTapToRetry: "click para reintentar",
+		labelTapToUndo: "click para deshacer",
+		labelButtonRemoveItem: "Eliminar",
+		labelButtonAbortItemLoad: "Abortar",
+		labelFileProcessing: "Subiendo",
+		labelFileProcessingAborted: "Subida cancelada",
+		instantUpload: false,
+		server: {
+			url: this.backend,
+			process: {
+				url: "/avatar",
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "POST",
+				onload: this.setAvatar.bind(this),
+			},
+			revert: {
+				url: "/avatar",
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "DELETE",
+				onload: this.deleteAvatar.bind(this),
+			},
+		},
 	}
 
-	pondHandleInit() {
-		console.log("FilePond has initialised", this.myPond)
+	setAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.user, avatar: path }
+		this.user = user
+		this.store.dispatch(setUser.set(user))
 	}
-
-	pondHandleAddFile(event: any) {
-		console.log("A file was added", event)
-		if (event) {
-			this.myFile = event.file.file
-		}
+	deleteAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.user, avatar: path }
+		this.user = user
+		this.store.dispatch(setUser.set(user))
+		this.myPondAvatar.removeFile()
 	}
-
-	pondHandleActivateFile(event: any) {
-		console.log("A file was activated", event)
+	onCloseModalAvatar() {
+		this.myPondAvatar.removeFile()
 	}
 	setPortada(response: any): any {
 		const path = JSON.parse(response).path
-		console.log(path)
-		console.log(this.user.fotoPortada)
 		const user = { ...this.user, fotoPortada: path }
 		this.user = user
-		console.log(this.user)
 		this.store.dispatch(setUser.set(user))
+	}
+	deletePortada(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.user, fotoPortada: path }
+		this.user = user
+		this.store.dispatch(setUser.set(user))
+		this.myPondPortada.removeFile()
+	}
+	onCloseModalPortada() {
+		this.myPondPortada.removeFile()
 	}
 }
