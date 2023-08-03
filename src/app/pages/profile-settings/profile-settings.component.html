@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container animate__animated animate__fadeIn">
   <!-- Banner Area Start -->
-  <app-banner [user]="currentUser" [canEdit]="true" (isOnEdit)="openFileInput()"></app-banner>
-  <input type="file" accept="image/*" hidden #fileInput style="display: none" (change)="handleFileInput($event)" />
+  <app-banner [user]="currentUser" [canEdit]="true"></app-banner>
+
   <div class="row">
     <div class="col-lg-12">
       <!-- <div class="col-lg-8"> -->
