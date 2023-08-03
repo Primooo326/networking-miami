@@ -23,7 +23,6 @@ import {
 	setUser,
 } from "src/redux/actions"
 import { HeaderComponent } from "../header/header.component"
-import { FilePondComponent } from "ngx-filepond"
 import { FilePondOptions } from "filepond"
 import { environment } from "src/environments/environment"
 @Component({
@@ -318,6 +317,20 @@ export class BannerComponent implements OnInit {
 			},
 		},
 	}
+
+	// compressImage(file, outputfile: any) {
+	// 	console.log(file)
+	// 	new Compressor(file.file, {
+	// 		quality: 0.6,
+	// 		success: (result) => {
+	// 			console.log(result)
+	// 			return outputfile(result, file.name)
+	// 		},
+	// 		error: (err) => {
+	// 			console.log(err.message)
+	// 		},
+	// 	})
+	// }
 
 	setAvatar(response): any {
 		const path = JSON.parse(response).path
