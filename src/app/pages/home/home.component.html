@@ -25,6 +25,8 @@
   </div>
   <h4>Buenos días {{currentUser.nombre}}!</h4>
   <p id="phrase"></p>
+  <button class="btn btn-success" role="button" data-toggle="modal" data-target="#modalInvitarContactos">Invitar a tus
+    contactos</button>
   <div class="mt-4">
     <div class="row">
       <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
@@ -148,6 +150,43 @@
             <button class="btn btn-success btn-block mt-2" (click)="search()">Buscar</button>
             <button class="btn btn-warning btn-block mt-2" (click)="clean()">Limpiar filtros</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- todo Modal Portada -->
+  <div class="modal fade" id="modalInvitarContactos" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Invitar contactos</h5>
+          <button type="button" id="modalCloser" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="contactoForm" class="row mt-2 mb-3">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Nombre contacto</label>
+
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre"
+                  (keyup)="contactoForm.controls.nombre.setValue(capitalize(contactoForm.controls.nombre.value!))" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>Correo contacto</label>
+
+                <input type="email" class="form-control" placeholder="e-mail" formControlName="email"
+                  (keyup)="contactoForm.controls.email.setValue(contactoForm.controls.email.value!.toLowerCase())" />
+              </div>
+            </div>
+
+          </form>
+          <button class="btn btn-success" [disabled]="contactoForm.invalid" (click)="sendContacts()">Enviar
+            invitación</button>
         </div>
       </div>
     </div>

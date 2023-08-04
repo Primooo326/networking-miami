@@ -2901,6 +2901,11 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     transition: all 0.3s ease-in-out;
 }
 
+@media only screen and (max-width: 1200px) {
+    .fixed-sidebar .sidebar-toggle {
+        height: 84px;
+    }
+}
 @media only screen and (max-width: 991px) {
     .fixed-sidebar .sidebar-toggle {
         height: 60px;

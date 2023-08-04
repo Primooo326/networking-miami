@@ -109,6 +109,7 @@ export class LoginComponent implements AfterViewInit {
 			Validators.required,
 			Validators.minLength(8),
 		]),
+		check: new FormControl("", [Validators.requiredTrue]),
 	})
 
 	registroForm2Tab = new FormGroup({

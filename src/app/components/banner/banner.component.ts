@@ -283,9 +283,19 @@ export class BannerComponent implements OnInit {
 		allowImagePreview: true,
 		imageResizeMode: "cover",
 		stylePanelLayout: "compact circle",
+		styleLoadIndicatorPosition: "right top",
+		styleProgressIndicatorPosition: "right top",
+		styleButtonProcessItemPosition: "right top",
+		styleButtonRemoveItemPosition: "left top",
 		allowImageExifOrientation: true,
 		labelIdle: "Arrastra y suelta tus archivos o busca...",
-		acceptedFileTypes: ["image/*"],
+		acceptedFileTypes: [
+			"image/jpeg",
+			"image/png",
+			"image/gif",
+			"image/bmp",
+			"image/tiff",
+		],
 		labelFileTypeNotAllowed: "Solo se permiten imágenes",
 		labelFileProcessingComplete: "Imagen subida correctamente",
 		labelFileProcessingError: "Error al subir la imagen",
@@ -317,20 +327,6 @@ export class BannerComponent implements OnInit {
 			},
 		},
 	}
-
-	// compressImage(file, outputfile: any) {
-	// 	console.log(file)
-	// 	new Compressor(file.file, {
-	// 		quality: 0.6,
-	// 		success: (result) => {
-	// 			console.log(result)
-	// 			return outputfile(result, file.name)
-	// 		},
-	// 		error: (err) => {
-	// 			console.log(err.message)
-	// 		},
-	// 	})
-	// }
 
 	setAvatar(response): any {
 		const path = JSON.parse(response).path
