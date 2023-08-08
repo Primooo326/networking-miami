@@ -9,11 +9,20 @@
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
           <div class="dropdown">
-            <button class="btn" title="editar" type="button" data-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn"
+              title="editar"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="fas fa-pen"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" (click)="onEditSection('informacionBasica')">
+              <button
+                class="dropdown-item"
+                (click)="onEditSection('informacionBasica')"
+              >
                 Editar
               </button>
             </div>
@@ -26,8 +35,14 @@
               <p *ngIf="onInformacionBasicaEdit">
                 {{ (user$ | async)!.nombre | titlecase }}
               </p>
-              <input *ngIf="!onInformacionBasicaEdit" type="text" [value]="(user$ | async)!.nombre" class="form-control"
-                placeholder="Nombre y apellidos" formControlName="nombre" />
+              <input
+                *ngIf="!onInformacionBasicaEdit"
+                type="text"
+                [value]="(user$ | async)!.nombre"
+                class="form-control"
+                placeholder="Nombre y apellidos"
+                formControlName="nombre"
+              />
             </li>
             <li>
               <label>Teléfono:</label>
@@ -35,8 +50,14 @@
                 {{ (user$ | async)!.telefono }}
               </p>
               <div class="form-group" [hidden]="onInformacionBasicaEdit">
-                <input id="phone" type="tel" [value]="(user$ | async)!.telefono" class="form-control"
-                  placeholder="Numero telefónico" formControlName="telefono" />
+                <input
+                  id="phone"
+                  type="tel"
+                  [value]="(user$ | async)!.telefono"
+                  class="form-control"
+                  placeholder="Numero telefónico"
+                  formControlName="telefono"
+                />
               </div>
             </li>
             <li>
@@ -45,14 +66,26 @@
                 {{ (user$ | async)!.ciudad }}, {{ (user$ | async)!.condado }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Condado" class="select2 mb-3" id="condado" name="Condado" data-placeholder="Condado"
-                  formControlName="condado">
+                <select
+                  title="Condado"
+                  class="select2 mb-3"
+                  id="condado"
+                  name="Condado"
+                  data-placeholder="Condado"
+                  formControlName="condado"
+                >
                   <option *ngFor="let item of condados" [value]="item.nombre">
                     {{ item.nombre }}
                   </option>
                 </select>
-                <select title="Ciudad" class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad"
-                  formControlName="ciudad">
+                <select
+                  title="Ciudad"
+                  class="select2"
+                  id="ciudad"
+                  name="Ciudad"
+                  data-placeholder="Ciudad"
+                  formControlName="ciudad"
+                >
                   <option *ngFor="let item of ciudades" [value]="item">
                     {{ item }}
                   </option>
@@ -66,8 +99,15 @@
                 {{ (user$ | async)!.lenguajes | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Idioma" class="select2" multiple="multiple" id="idioma" name="Idioma"
-                  data-placeholder="Idioma" formControlName="lenguajes">
+                <select
+                  title="Idioma"
+                  class="select2"
+                  multiple="multiple"
+                  id="idioma"
+                  name="Idioma"
+                  data-placeholder="Idioma"
+                  formControlName="lenguajes"
+                >
                   <option *ngFor="let idioma of idiomas" [value]="idioma">
                     {{ idioma }}
                   </option>
@@ -79,10 +119,14 @@
               <p *ngIf="onInformacionBasicaEdit">
                 {{ (user$ | async)!.fechaNacimiento | date }}
               </p>
-              <input [hidden]="onInformacionBasicaEdit" type="text" data-toggle="datepicker" class="form-control"
-                placeholder="Año de nacimiento" />
-              <input hidden type="text" formControlName="fechaNacimiento">
-
+              <input
+                [hidden]="onInformacionBasicaEdit"
+                type="text"
+                data-toggle="datepicker"
+                class="form-control"
+                placeholder="Año de nacimiento"
+              />
+              <input hidden type="text" formControlName="fechaNacimiento" />
             </li>
             <li>
               <label>Genero:</label>
@@ -90,8 +134,14 @@
                 {{ (user$ | async)!.genero }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Genero" class="select2" id="gender" name="Genero" data-placeholder="Genero"
-                  formControlName="genero">
+                <select
+                  title="Genero"
+                  class="select2"
+                  id="gender"
+                  name="Genero"
+                  data-placeholder="Genero"
+                  formControlName="genero"
+                >
                   <option value="" selected></option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
@@ -104,22 +154,45 @@
               <p *ngIf="onInformacionBasicaEdit">
                 {{ (user$ | async)!.biografia }}
               </p>
-              <textarea *ngIf="!onInformacionBasicaEdit" [value]="(user$ | async)!.biografia"
-                class="form-control textarea" placeholder="Nota biográfica" formControlName="biografia" cols="10"
-                rows="3"></textarea>
+              <textarea
+                *ngIf="!onInformacionBasicaEdit"
+                [value]="(user$ | async)!.biografia"
+                class="form-control textarea"
+                placeholder="Nota biográfica"
+                formControlName="biografia"
+                cols="10"
+                rows="3"
+              ></textarea>
             </li>
           </ul>
         </form>
-        <div *ngIf="!onInformacionBasicaEdit" class="d-flex justify-content-between mt-2">
-          <button class="btn btn-danger w-25" (click)="onInformacionBasicaEdit = true">
+        <div
+          *ngIf="!onInformacionBasicaEdit"
+          class="d-flex justify-content-between mt-2"
+        >
+          <button
+            class="btn btn-danger w-25"
+            (click)="onInformacionBasicaEdit = true"
+          >
             Cancelar
           </button>
 
-          <button (click)="cambioInformacionBasica()" class="btn btn-success w-25">
-            <span *ngIf="isOnInformacionBasicaLoading" class="spinner-border spinner-border-sm me-3" role="status"
-              aria-hidden="true"></span>
-            <span *ngIf="isOnInformacionBasicaLoading" class="visually-hidden">Guardando datos...</span>
-            <span *ngIf="!isOnInformacionBasicaLoading" class="visually-hidden">Guardar</span>
+          <button
+            (click)="cambioInformacionBasica()"
+            class="btn btn-success w-25"
+          >
+            <span
+              *ngIf="isOnInformacionBasicaLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardar</span
+            >
           </button>
         </div>
       </div>
@@ -127,13 +200,20 @@
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
-            <button title="Intereses y tipo de conexión" class="btn" type="button" data-toggle="dropdown"
-              aria-expanded="false">
+            <button
+              title="Intereses y tipo de conexión"
+              class="btn"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="fas fa-pen"></i>
-
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" (click)="onEditSection('intereses')">
+              <button
+                class="dropdown-item"
+                (click)="onEditSection('intereses')"
+              >
                 Editar
               </button>
             </div>
@@ -147,8 +227,14 @@
                 {{ (user$ | async)!.temasInteres | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <select title="Intereses" class="select2" multiple="multiple" id="interes" data-placeholder="Interés"
-                  formControlName="temasInteres">
+                <select
+                  title="Intereses"
+                  class="select2"
+                  multiple="multiple"
+                  id="interes"
+                  data-placeholder="Interés"
+                  formControlName="temasInteres"
+                >
                   <option *ngFor="let item of intereses" [value]="item">
                     {{ item }}
                   </option>
@@ -161,9 +247,18 @@
                 {{ (user$ | async)!.areaExperiencia | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <select class="select2" multiple="multiple" formControlName="areaExperiencia" style="width: 100%"
-                  id="experiencia" data-placeholder="Experiencia">
-                  <option *ngFor="let item of experiencia" [value]="item.titulo">
+                <select
+                  class="select2"
+                  multiple="multiple"
+                  formControlName="areaExperiencia"
+                  style="width: 100%"
+                  id="experiencia"
+                  data-placeholder="Experiencia"
+                >
+                  <option
+                    *ngFor="let item of experiencia"
+                    [value]="item.titulo"
+                  >
                     {{ item.titulo }}
                   </option>
                 </select>
@@ -172,39 +267,67 @@
             <li>
               <label>Tipo de conexión:</label>
               <p *ngIf="onInteresesEdit">
-                <span *ngFor="let item of (user$ | async)!.tipoConexion" class="badge mr-2">{{ item }}</span>
+                <span
+                  *ngFor="let item of (user$ | async)!.tipoConexion"
+                  class="badge mr-2"
+                  >{{ item }}</span
+                >
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <div class="form-check" *ngFor="let item of conexiones; let i = index">
-                  <input type="checkbox" (change)="onChangeConexiones($event)" class="form-check-input" [id]="i"
-                    [value]="item" [checked]="(user$ | async)!.tipoConexion.includes(item)" />
+                <div
+                  class="form-check"
+                  *ngFor="let item of conexiones; let i = index"
+                >
+                  <input
+                    type="checkbox"
+                    (change)="onChangeConexiones($event)"
+                    class="form-check-input"
+                    [id]="i"
+                    [value]="item"
+                    [checked]="(user$ | async)!.tipoConexion.includes(item)"
+                  />
                   <label class="form-check-label" [for]="i">{{ item }}</label>
                 </div>
               </div>
             </li>
           </ul>
         </form>
-        <div *ngIf="!onInteresesEdit" class="d-flex justify-content-between mt-2">
+        <div
+          *ngIf="!onInteresesEdit"
+          class="d-flex justify-content-between mt-2"
+        >
           <button class="btn btn-danger w-25" (click)="onInteresesEdit = true">
             Cancelar
           </button>
           <button (click)="cambioIntereses()" class="btn btn-success w-25">
-            <span *ngIf="isOnInteresesLoading" class="spinner-border spinner-border-sm me-3" role="status"
-              aria-hidden="true"></span>
-            <span *ngIf="isOnInteresesLoading" class="visually-hidden">Guardando datos...</span>
-            <span *ngIf="!isOnInteresesLoading" class="visually-hidden">Guardar</span>
+            <span
+              *ngIf="isOnInteresesLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInteresesLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInteresesLoading" class="visually-hidden"
+              >Guardar</span
+            >
           </button>
         </div>
       </div>
 
       <div class="block-box user-about">
         <div class="widget-heading">
-          <h3 class="widget-title text-danger">Zona roja</h3>
+          <h3 class="widget-title text-danger">Credenciales de acceso</h3>
 
           <div class="dropdown">
-            <button class="btn" type="button" data-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="fas fa-pen"></i>
-
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button class="dropdown-item" (click)="onEditSection('zonaroja')">
@@ -218,12 +341,23 @@
             <label class="text-danger">E-mail</label>
             <p *ngIf="onzonarojaEdit">{{ (user$ | async)!.email }}</p>
             <div *ngIf="!onzonarojaEdit" class="form-group">
-              <input type="email" [formControl]="newEmail" class="form-control"
-                [ngClass]="{ 'is-invalid': newEmail.invalid }" placeholder="E-mail" />
-              <div class="invalid-feedback" *ngIf="newEmail.dirty && newEmail.hasError('required')">
+              <input
+                type="email"
+                [formControl]="newEmail"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': newEmail.invalid }"
+                placeholder="E-mail"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="newEmail.dirty && newEmail.hasError('required')"
+              >
                 campo requerido
               </div>
-              <div class="invalid-feedback" *ngIf="newEmail.dirty && newEmail.hasError('email')">
+              <div
+                class="invalid-feedback"
+                *ngIf="newEmail.dirty && newEmail.hasError('email')"
+              >
                 correo invalido
               </div>
             </div>
@@ -231,23 +365,46 @@
           <li>
             <label class="text-danger">Password:</label>
             <p *ngIf="onzonarojaEdit">Cambiar contraseña</p>
-            <button *ngIf="!onzonarojaEdit" (click)="CambioPassword()" class="btn btn-warning">
-              <span *ngIf="isOnResetPassword" class="spinner-border spinner-border-sm me-3" role="status"
-                aria-hidden="true"></span>
-              <span *ngIf="isOnResetPassword" class="visually-hidden">Enviando correo de cambio de contraseña...</span>
-              <span *ngIf="!isOnResetPassword" class="visually-hidden">Cambiar contraseña</span>
+            <button
+              *ngIf="!onzonarojaEdit"
+              (click)="CambioPassword()"
+              class="btn btn-warning"
+            >
+              <span
+                *ngIf="isOnResetPassword"
+                class="spinner-border spinner-border-sm me-3"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span *ngIf="isOnResetPassword" class="visually-hidden"
+                >Enviando correo de cambio de contraseña...</span
+              >
+              <span *ngIf="!isOnResetPassword" class="visually-hidden"
+                >Cambiar contraseña</span
+              >
             </button>
           </li>
         </ul>
-        <div *ngIf="!onzonarojaEdit" class="d-flex justify-content-between mt-2">
+        <div
+          *ngIf="!onzonarojaEdit"
+          class="d-flex justify-content-between mt-2"
+        >
           <button class="btn btn-danger w-25" (click)="onzonarojaEdit = true">
             Cancelar
           </button>
           <button (click)="cambioEmail()" class="btn btn-success w-25">
-            <span *ngIf="isOnLoadingEmail" class="spinner-border spinner-border-sm me-3" role="status"
-              aria-hidden="true"></span>
-            <span *ngIf="isOnLoadingEmail" class="visually-hidden">Guardando datos...</span>
-            <span *ngIf="!isOnLoadingEmail" class="visually-hidden">Guardar</span>
+            <span
+              *ngIf="isOnLoadingEmail"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnLoadingEmail" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnLoadingEmail" class="visually-hidden"
+              >Guardar</span
+            >
           </button>
         </div>
       </div>
