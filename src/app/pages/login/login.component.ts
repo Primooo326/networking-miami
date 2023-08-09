@@ -1,12 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core"
 import { FormControl, FormGroup, Validators } from "@angular/forms"
-import { Router, RouterLink } from "@angular/router"
 import { Store } from "@ngrx/store"
 import { AuthService } from "src/app/services/auth/auth.service"
 import { MailService } from "src/app/services/mail/mail.service"
 import { SocketService } from "src/app/services/socket/socket.service"
 import {
-	myMatches,
 	myRequestMatches,
 	newNotification,
 	newPendingMatch,
@@ -16,7 +14,6 @@ import intlTelInput from "intl-tel-input"
 import Swal from "sweetalert2"
 import { NotifyService } from "src/app/services/notify/notify.service"
 import { MatchService } from "src/app/services/match/match.service"
-import { FilesService } from "src/app/services/files/files.service"
 import { environment } from "src/environments/environment"
 import { FilePondOptions } from "filepond"
 @Component({
@@ -161,15 +158,14 @@ export class LoginComponent implements AfterViewInit {
 	onloadFile = false
 	viewPassword = false
 	token = "aun sin token"
+
 	constructor(
 		private authSrvc: AuthService,
-		private router: Router,
 		private mailSrvc: MailService,
 		private store: Store<any>,
 		private socketSrvc: SocketService,
 		private notifySrvc: NotifyService,
 		private matchSrvc: MatchService,
-		private fileSrvc: FilesService,
 	) {
 		setInterval(() => {
 			this.experienciaV =
@@ -195,11 +191,8 @@ export class LoginComponent implements AfterViewInit {
 		})
 
 		$("input.select2-search__field").on("keyup", (e: any) => {
-			//set input width = 100%
 			$(e.target).css("width", "100%")
 		})
-
-		//class="select2-search__field"
 
 		$("select#ciudad").on("change", (e: any) => {
 			const ciudad: any = $(e.target).val()
