@@ -236,6 +236,7 @@ export class ProfileSettingsComponent implements OnInit {
 		}
 		console.log(this.TipoConexion)
 	}
+
 	showPasswordsFn() {
 		this.showPasswords = !this.showPasswords
 		const passwordActual: any = document.getElementById("passwordActual")

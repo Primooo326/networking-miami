@@ -221,4 +221,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			(item: any) => item.remitente_id === userId,
 		).length
 	}
+	closeSidebarLeft() {
+		//remove the class lg-menu-open
+		$("#sidebar-left").removeClass("lg-menu-open")
+		console.log("object")
+	}
 }

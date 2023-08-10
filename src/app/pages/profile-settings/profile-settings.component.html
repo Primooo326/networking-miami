@@ -8,7 +8,11 @@
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
           <div class="dropdown">
-            <button class="btn" type="button" (click)="onEditSection('informacionBasica')">
+            <button
+              class="btn"
+              type="button"
+              (click)="onEditSection('informacionBasica')"
+            >
               <i class="fas fa-pen"></i>
             </button>
           </div>
@@ -20,9 +24,16 @@
               <p *ngIf="onInformacionBasicaEdit" class="text-break">
                 {{ (user$ | async)!.nombre | titlecase }}
               </p>
-              <input *ngIf="!onInformacionBasicaEdit" maxlength="40" maxlength="40" type="text"
-                [value]="(user$ | async)!.nombre" class="form-control" placeholder="Nombre y apellidos"
-                formControlName="nombre" />
+              <input
+                *ngIf="!onInformacionBasicaEdit"
+                maxlength="40"
+                maxlength="40"
+                type="text"
+                [value]="(user$ | async)!.nombre"
+                class="form-control"
+                placeholder="Nombre y apellidos"
+                formControlName="nombre"
+              />
             </li>
             <li>
               <label>Teléfono:</label>
@@ -30,8 +41,14 @@
                 {{ (user$ | async)!.telefono }}
               </p>
               <div class="form-group" [hidden]="onInformacionBasicaEdit">
-                <input id="phone" type="tel" [value]="(user$ | async)!.telefono" class="form-control"
-                  placeholder="Numero telefónico" formControlName="telefono" />
+                <input
+                  id="phone"
+                  type="tel"
+                  [value]="(user$ | async)!.telefono"
+                  class="form-control"
+                  placeholder="Numero telefónico"
+                  formControlName="telefono"
+                />
               </div>
             </li>
             <li>
@@ -40,14 +57,26 @@
                 {{ (user$ | async)!.ciudad }}, {{ (user$ | async)!.condado }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Condado" class="select2 mb-3" id="condado" name="Condado" data-placeholder="Condado"
-                  formControlName="condado">
+                <select
+                  title="Condado"
+                  class="select2 mb-3"
+                  id="condado"
+                  name="Condado"
+                  data-placeholder="Condado"
+                  formControlName="condado"
+                >
                   <option *ngFor="let item of condados" [value]="item.nombre">
                     {{ item.nombre }}
                   </option>
                 </select>
-                <select title="Ciudad" class="select2" id="ciudad" name="Ciudad" data-placeholder="Ciudad"
-                  formControlName="ciudad">
+                <select
+                  title="Ciudad"
+                  class="select2"
+                  id="ciudad"
+                  name="Ciudad"
+                  data-placeholder="Ciudad"
+                  formControlName="ciudad"
+                >
                   <option *ngFor="let item of ciudades" [value]="item">
                     {{ item }}
                   </option>
@@ -61,8 +90,15 @@
                 {{ (user$ | async)!.lenguajes | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Idioma" class="select2" multiple="multiple" id="idioma" name="Idioma"
-                  data-placeholder="Idioma" formControlName="lenguajes">
+                <select
+                  title="Idioma"
+                  class="select2"
+                  multiple="multiple"
+                  id="idioma"
+                  name="Idioma"
+                  data-placeholder="Idioma"
+                  formControlName="lenguajes"
+                >
                   <option *ngFor="let idioma of idiomas" [value]="idioma">
                     {{ idioma }}
                   </option>
@@ -74,8 +110,14 @@
               <p *ngIf="onInformacionBasicaEdit" class="text-break">
                 {{ (user$ | async)!.fechaNacimiento | date }}
               </p>
-              <input [hidden]="onInformacionBasicaEdit" maxlength="15" type="text" data-toggle="datepicker"
-                class="form-control" placeholder="Año de nacimiento" />
+              <input
+                [hidden]="onInformacionBasicaEdit"
+                maxlength="15"
+                type="text"
+                data-toggle="datepicker"
+                class="form-control"
+                placeholder="Año de nacimiento"
+              />
               <input hidden type="text" formControlName="fechaNacimiento" />
             </li>
             <li>
@@ -84,8 +126,14 @@
                 {{ (user$ | async)!.genero }}
               </p>
               <div class="form-group" *ngIf="!onInformacionBasicaEdit">
-                <select title="Genero" class="select2" id="gender" name="Genero" data-placeholder="Genero"
-                  formControlName="genero">
+                <select
+                  title="Genero"
+                  class="select2"
+                  id="gender"
+                  name="Genero"
+                  data-placeholder="Genero"
+                  formControlName="genero"
+                >
                   <option value="" selected></option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
@@ -98,22 +146,53 @@
               <p *ngIf="onInformacionBasicaEdit" class="text-break">
                 {{ (user$ | async)!.biografia }}
               </p>
-              <textarea *ngIf="!onInformacionBasicaEdit" [value]="(user$ | async)!.biografia"
-                class="form-control textarea" maxlength="68" placeholder="Nota biográfica" formControlName="biografia"
-                cols="10" rows="3"></textarea>
+              <div id="contenedorTextarea" *ngIf="!onInformacionBasicaEdit">
+                <textarea
+                  [value]="(user$ | async)!.biografia"
+                  class="form-control textarea"
+                  maxlength="68"
+                  placeholder="Nota biográfica"
+                  formControlName="biografia"
+                  cols="10"
+                  rows="1"
+                ></textarea>
+                <div class="contador">
+                  <span id="caracteresIngresados">{{
+                    infoBasicaForm.controls.biografia.value.length
+                  }}</span>
+                  / 68
+                </div>
+              </div>
             </li>
           </ul>
         </form>
-        <div *ngIf="!onInformacionBasicaEdit" class="d-flex justify-content-between mt-2">
-          <button class="btn btn-danger w-25" (click)="onInformacionBasicaEdit = true">
+        <div
+          *ngIf="!onInformacionBasicaEdit"
+          class="d-flex justify-content-between mt-2"
+        >
+          <button
+            class="btn btn-danger w-25"
+            (click)="onInformacionBasicaEdit = true"
+          >
             Cancelar
           </button>
 
-          <button (click)="cambioInformacionBasica()" class="btn btn-success w-25">
-            <span *ngIf="isOnInformacionBasicaLoading" class="spinner-border spinner-border-sm me-3" role="status"
-              aria-hidden="true"></span>
-            <span *ngIf="isOnInformacionBasicaLoading" class="visually-hidden">Guardando datos...</span>
-            <span *ngIf="!isOnInformacionBasicaLoading" class="visually-hidden">Guardar</span>
+          <button
+            (click)="cambioInformacionBasica()"
+            class="btn btn-success w-25"
+          >
+            <span
+              *ngIf="isOnInformacionBasicaLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInformacionBasicaLoading" class="visually-hidden"
+              >Guardar</span
+            >
           </button>
         </div>
       </div>
@@ -121,7 +200,12 @@
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
           <div class="dropdown">
-            <button title="Intereses y tipo de conexión" (click)="onEditSection('intereses')" class="btn" type="button">
+            <button
+              title="Intereses y tipo de conexión"
+              (click)="onEditSection('intereses')"
+              class="btn"
+              type="button"
+            >
               <i class="fas fa-pen"></i>
             </button>
           </div>
@@ -134,8 +218,14 @@
                 {{ (user$ | async)!.temasInteres | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <select title="Intereses" class="select2" multiple="multiple" id="interes" data-placeholder="Interés"
-                  formControlName="temasInteres">
+                <select
+                  title="Intereses"
+                  class="select2"
+                  multiple="multiple"
+                  id="interes"
+                  data-placeholder="Interés"
+                  formControlName="temasInteres"
+                >
                   <option *ngFor="let item of intereses" [value]="item">
                     {{ item }}
                   </option>
@@ -148,8 +238,14 @@
                 {{ (user$ | async)!.areaExperiencia | pipeArray }}
               </p>
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <select class="select2" multiple="multiple" formControlName="areaExperiencia" style="width: 100%"
-                  id="experiencia" data-placeholder="Experiencia">
+                <select
+                  class="select2"
+                  multiple="multiple"
+                  formControlName="areaExperiencia"
+                  style="width: 100%"
+                  id="experiencia"
+                  data-placeholder="Experiencia"
+                >
                   <option *ngFor="let item of experiencia" [value]="item">
                     {{ item }}
                   </option>
@@ -158,29 +254,54 @@
             </li>
             <li>
               <label>Tipo de conexión:</label>
-              <ul *ngIf="onInteresesEdit" style="list-style: circle;">
-                <li *ngFor="let item of (user$ | async)!.tipoConexion" class="text-break">{{ item }}</li>
+              <ul *ngIf="onInteresesEdit" style="list-style: circle">
+                <li
+                  *ngFor="let item of (user$ | async)!.tipoConexion"
+                  class="text-break"
+                >
+                  {{ item }}
+                </li>
               </ul>
 
               <div class="form-group" *ngIf="!onInteresesEdit">
-                <div class="form-check" *ngFor="let item of conexiones; let i = index">
-                  <input type="checkbox" (change)="onChangeConexiones($event)" class="form-check-input" [id]="i"
-                    [value]="item" [checked]="(user$ | async)!.tipoConexion.includes(item)" />
+                <div
+                  class="form-check"
+                  *ngFor="let item of conexiones; let i = index"
+                >
+                  <input
+                    type="checkbox"
+                    (change)="onChangeConexiones($event)"
+                    class="form-check-input"
+                    [id]="i"
+                    [value]="item"
+                    [checked]="(user$ | async)!.tipoConexion.includes(item)"
+                  />
                   <label class="form-check-label" [for]="i">{{ item }}</label>
                 </div>
               </div>
             </li>
           </ul>
         </form>
-        <div *ngIf="!onInteresesEdit" class="d-flex justify-content-between mt-2">
+        <div
+          *ngIf="!onInteresesEdit"
+          class="d-flex justify-content-between mt-2"
+        >
           <button class="btn btn-danger w-25" (click)="onInteresesEdit = true">
             Cancelar
           </button>
           <button (click)="cambioIntereses()" class="btn btn-success w-25">
-            <span *ngIf="isOnInteresesLoading" class="spinner-border spinner-border-sm me-3" role="status"
-              aria-hidden="true"></span>
-            <span *ngIf="isOnInteresesLoading" class="visually-hidden">Guardando datos...</span>
-            <span *ngIf="!isOnInteresesLoading" class="visually-hidden">Guardar</span>
+            <span
+              *ngIf="isOnInteresesLoading"
+              class="spinner-border spinner-border-sm me-3"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span *ngIf="isOnInteresesLoading" class="visually-hidden"
+              >Guardando datos...</span
+            >
+            <span *ngIf="!isOnInteresesLoading" class="visually-hidden"
+              >Guardar</span
+            >
           </button>
         </div>
       </div>
@@ -193,134 +314,217 @@
           <li *ngIf="onCambioPasswordEdit">
             <label class="text-danger">Contraseña:</label>
 
-            <button class="btn btn-danger" (click)="onCambioPasswordEdit = false"> Cambiar contraseña </button>
+            <button
+              class="btn btn-danger"
+              (click)="onCambioPasswordEdit = false"
+            >
+              Cambiar contraseña
+            </button>
           </li>
           <li *ngIf="!onCambioPasswordEdit" class="mb-3">
             <label class="text-danger">Contraseña:</label>
             <form [formGroup]="passwordsFormGroup">
               <div class="form-group">
                 <label for="passwordActual">Contraseña actual</label>
-                <input type="password" id="passwordActual" formControlName="passwordActual" maxlength="40"
-                  class="form-control" autocomplete="password" [ngClass]="{
-                      'is-invalid':
-                        (passwordsFormGroup.controls.passwordActual.dirty &&
+                <input
+                  type="password"
+                  id="passwordActual"
+                  formControlName="passwordActual"
+                  maxlength="40"
+                  class="form-control"
+                  autocomplete="password"
+                  [ngClass]="{
+                    'is-invalid':
+                      (passwordsFormGroup.controls.passwordActual.dirty &&
                         passwordsFormGroup.controls.passwordActual.invalid) ||
-                        (passwordsFormGroup.controls.passwordNueva.dirty &&
+                      (passwordsFormGroup.controls.passwordNueva.dirty &&
                         passwordsFormGroup.controls.passwordActual.value ==
-                        passwordsFormGroup.controls.passwordNueva.value)
-                    }">
-                <div class="invalid-feedback" *ngIf="
+                          passwordsFormGroup.controls.passwordNueva.value)
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
                     passwordsFormGroup.controls.passwordActual.dirty &&
-                    passwordsFormGroup.controls.passwordActual.hasError('required')
-                  ">
+                    passwordsFormGroup.controls.passwordActual.hasError(
+                      'required'
+                    )
+                  "
+                >
                   {{ hintRequired }}
                 </div>
-                <div class="invalid-feedback" *ngIf="
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
                     passwordsFormGroup.controls.passwordActual.dirty &&
-                    passwordsFormGroup.controls.passwordActual.hasError('minlength')
-                  ">
+                    passwordsFormGroup.controls.passwordActual.hasError(
+                      'minlength'
+                    )
+                  "
+                >
                   {{ hintMinLength }}
                 </div>
-                <div class="invalid-feedback" *ngIf="
-                passwordsFormGroup.controls.passwordActual.value ==
-                passwordsFormGroup.controls.passwordNueva.value
-                ">
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordActual.value ==
+                    passwordsFormGroup.controls.passwordNueva.value
+                  "
+                >
                   {{ hintPasswordIsSame }}
                 </div>
-
               </div>
               <div class="form-group">
                 <label for="passwordNueva">Contraseña nueva</label>
-                <input type="password" id="passwordNueva" formControlName="passwordNueva" maxlength="40"
-                  class="form-control" [ngClass]="{
-                      'is-invalid':
-                        (passwordsFormGroup.controls.passwordNueva.dirty &&
+                <input
+                  type="password"
+                  id="passwordNueva"
+                  formControlName="passwordNueva"
+                  maxlength="40"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (passwordsFormGroup.controls.passwordNueva.dirty &&
                         passwordsFormGroup.controls.passwordNueva.invalid) ||
-                        ( passwordsFormGroup.controls.passwordRepetida.dirty &&
+                      (passwordsFormGroup.controls.passwordRepetida.dirty &&
                         passwordsFormGroup.controls.passwordNueva.value !==
-                        passwordsFormGroup.controls.passwordRepetida.value)
-                    }">
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordNueva.dirty &&
-                  passwordsFormGroup.controls.passwordNueva.hasError('required')
-                ">
+                          passwordsFormGroup.controls.passwordRepetida.value)
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordNueva.dirty &&
+                    passwordsFormGroup.controls.passwordNueva.hasError(
+                      'required'
+                    )
+                  "
+                >
                   {{ hintRequired }}
                 </div>
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordNueva.dirty &&
-                  passwordsFormGroup.controls.passwordNueva.hasError('minlength')
-                ">
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordNueva.dirty &&
+                    passwordsFormGroup.controls.passwordNueva.hasError(
+                      'minlength'
+                    )
+                  "
+                >
                   {{ hintMinLength }}
                 </div>
-                
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordRepetida.dirty &&
-                  passwordsFormGroup.controls.passwordNueva.value !==
-                    passwordsFormGroup.controls.passwordRepetida.value
-                ">
+
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordRepetida.dirty &&
+                    passwordsFormGroup.controls.passwordNueva.value !==
+                      passwordsFormGroup.controls.passwordRepetida.value
+                  "
+                >
                   {{ hintPasswordNotMatch }}
                 </div>
-                
               </div>
               <div class="form-group">
                 <label for="passwordRepetida">Repite contraseña nueva</label>
-                <input type="password" id="passwordRepetida" formControlName="passwordRepetida" maxlength="40"
-                  class="form-control" [ngClass]="{
-                      'is-invalid':
-                        passwordsFormGroup.controls.passwordRepetida.dirty &&
-                        passwordsFormGroup.controls.passwordRepetida.invalid &&
-                        passwordsFormGroup.controls.passwordNueva.value !==
+                <input
+                  type="password"
+                  id="passwordRepetida"
+                  formControlName="passwordRepetida"
+                  maxlength="40"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      passwordsFormGroup.controls.passwordRepetida.dirty &&
+                      passwordsFormGroup.controls.passwordRepetida.invalid &&
+                      passwordsFormGroup.controls.passwordNueva.value !==
                         passwordsFormGroup.controls.passwordRepetida.value
-                    }">
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordRepetida.dirty &&
-                  passwordsFormGroup.controls.passwordRepetida.hasError('required')
-                ">
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordRepetida.dirty &&
+                    passwordsFormGroup.controls.passwordRepetida.hasError(
+                      'required'
+                    )
+                  "
+                >
                   {{ hintRequired }}
                 </div>
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordRepetida.dirty &&
-                  passwordsFormGroup.controls.passwordRepetida.hasError('minlength')
-                ">
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordRepetida.dirty &&
+                    passwordsFormGroup.controls.passwordRepetida.hasError(
+                      'minlength'
+                    )
+                  "
+                >
                   {{ hintMinLength }}
                 </div>
-                <div class="invalid-feedback" *ngIf="
-                  passwordsFormGroup.controls.passwordRepetida.dirty &&
-                  passwordsFormGroup.controls.passwordNueva.value !==
-                    passwordsFormGroup.controls.passwordRepetida.value
-                ">
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    passwordsFormGroup.controls.passwordRepetida.dirty &&
+                    passwordsFormGroup.controls.passwordNueva.value !==
+                      passwordsFormGroup.controls.passwordRepetida.value
+                  "
+                >
                   {{ hintPasswordNotMatch }}
                 </div>
               </div>
               <div class="form-group">
                 <div class="form-check mb-3">
-                  <input type="checkbox" class="form-check-input" id="showPasswordRegisterFn"
-                    (change)="showPasswordsFn()" />
-                  <label class="form-check-label" for="showPasswordRegisterFn">Ver contraseñas</label>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="showPasswordRegisterFn"
+                    (change)="showPasswordsFn()"
+                  />
+                  <label class="form-check-label" for="showPasswordRegisterFn"
+                    >Ver contraseñas</label
+                  >
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2">
-
-                <button class="btn btn-secondary" (click)="onCambioPasswordEdit = true;passwordsFormGroup.reset()">
-                  Cancelar </button>
-                <button class="btn btn-success" [disabled]="passwordsFormGroup.invalid ||
-                        passwordsFormGroup.controls.passwordNueva.value !==
-                        passwordsFormGroup.controls.passwordRepetida.value
-                        ||
-                        (passwordsFormGroup.controls.passwordNueva.dirty &&
-                        passwordsFormGroup.controls.passwordActual.value ==
+                <button
+                  class="btn btn-secondary"
+                  (click)="
+                    onCambioPasswordEdit = true; passwordsFormGroup.reset()
+                  "
+                >
+                  Cancelar
+                </button>
+                <button
+                  class="btn btn-success"
+                  [disabled]="
+                    passwordsFormGroup.invalid ||
+                    passwordsFormGroup.controls.passwordNueva.value !==
+                      passwordsFormGroup.controls.passwordRepetida.value ||
+                    (passwordsFormGroup.controls.passwordNueva.dirty &&
+                      passwordsFormGroup.controls.passwordActual.value ==
                         passwordsFormGroup.controls.passwordNueva.value)
-                        " (click)="cambioPassword()" > 
-                  <span *ngIf="isOnResetPassword" class="visually-hidden">Cambiando contraseña...</span>
-                  <span *ngIf="!isOnResetPassword" class="visually-hidden">Cambiar</span>
+                  "
+                  (click)="cambioPassword()"
+                >
+                  <span *ngIf="isOnResetPassword" class="visually-hidden"
+                    >Cambiando contraseña...</span
+                  >
+                  <span *ngIf="!isOnResetPassword" class="visually-hidden"
+                    >Cambiar</span
+                  >
                 </button>
               </div>
             </form>
+          </li>
 
           <li>
             <label class="text-danger">Borrar cuenta:</label>
 
-            <button class="btn btn-danger" (click)="deleteAccount()"> Borra mi cuenta </button>
+            <button class="btn btn-danger" (click)="deleteAccount()">
+              Borra mi cuenta
+            </button>
           </li>
         </ul>
       </div>

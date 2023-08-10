@@ -19,6 +19,26 @@
 .item-img:hover .uploadimage {
     display: block;
 }
+
 .iti {
-  width: 100% !important;
+    width: 100% !important;
+}
+
+#contenedorTextarea {
+    position: relative;
+    width: 100%;
+}
+
+#contenedorTextarea .textarea {
+    position: absolute;
+    resize: none;
+}
+
+#contenedorTextarea .contador {
+    position: absolute;
+    right: 0;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #999;
+    z-index: 11;
 }

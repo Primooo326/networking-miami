@@ -36,60 +36,6 @@ export class LoginComponent implements AfterViewInit {
 	hintErrorRequired = "Campo requerido"
 	hintErrorPassword = "Las contraseñas no coinciden"
 	hintErrorEmail = "Ingresa un correo válido"
-
-	@ViewChild("myPondAvatar") myPondAvatar!: any
-
-	pondOptionsAvatar: FilePondOptions = {
-		name: "imagen",
-		allowMultiple: false,
-		allowImagePreview: true,
-		imageResizeMode: "cover",
-		stylePanelLayout: "compact circle",
-		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
-		acceptedFileTypes: [
-			"image/jpeg",
-			"image/png",
-			"image/gif",
-			"image/bmp",
-			"image/tiff",
-		],
-		labelFileTypeNotAllowed: "Solo se permiten imágenes",
-		labelFileProcessingComplete: "Imagen subida correctamente",
-		labelFileProcessingError: "Error al subir la imagen",
-		labelTapToCancel: "click para cancelar",
-		labelTapToRetry: "click para reintentar",
-		labelTapToUndo: "click para deshacer",
-		labelButtonRemoveItem: "Eliminar",
-		labelButtonAbortItemLoad: "Abortar",
-		labelFileProcessing: "Subiendo",
-		labelFileProcessingAborted: "Subida cancelada",
-		imagePreviewHeight: 170,
-		imageResizeTargetWidth: 200,
-		imageResizeTargetHeight: 200,
-		styleLoadIndicatorPosition: "center bottom",
-		styleButtonRemoveItemPosition: "center bottom",
-		server: {
-			url: this.backend,
-			process: {
-				url: "/avatar",
-				headers: {
-					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
-				},
-				method: "POST",
-				onload: this.setAvatar.bind(this),
-			},
-			revert: {
-				url: "/avatar",
-				headers: {
-					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
-				},
-				method: "DELETE",
-				onload: this.deleteAvatar.bind(this),
-			},
-		},
-	}
-
 	isOnLogin = true
 	onReset = false
 	isOnResetEmail = false
@@ -360,14 +306,14 @@ export class LoginComponent implements AfterViewInit {
 		var number = this.itiInput.getNumber()
 		newUser.telefono = number
 		newUser.email = newUser.email.toLowerCase()
-		console.log(newUser)
 		await this.authSrvc.register(newUser).then(
 			(obs) => {
 				obs.subscribe(
 					async (data: any) => {
-						console.log(data)
 						const { token, id, avatar, fotoPortada } = data
 						const user = newUser
+						delete user.password
+						delete user.repeatPassword
 						user.id = id
 						user.avatar = avatar
 						user.fotoPortada = fotoPortada
@@ -396,7 +342,6 @@ export class LoginComponent implements AfterViewInit {
 							},
 						}),
 							this.socketSrvc.openSocket()
-						console.log("object")
 						setTimeout(() => {
 							this.onChangeTabRegister("4/5")
 						}, 200)
@@ -405,9 +350,7 @@ export class LoginComponent implements AfterViewInit {
 							email: user.email,
 						})
 						mail.subscribe(
-							(data) => {
-								console.log(data)
-							},
+							(data) => {},
 							(err) => {
 								console.log(err)
 							},
@@ -474,21 +417,6 @@ export class LoginComponent implements AfterViewInit {
 			)
 		}
 	}
-	setAvatar(response): any {
-		const path = JSON.parse(response).path
-		const user = { ...this.onUserRegister, avatar: path }
-		this.onUserRegister = user
-		this.pathFile = path
-		this.store.dispatch(setUser.set(user))
-	}
-	deleteAvatar(response): any {
-		const path = JSON.parse(response).path
-		const user = { ...this.onUserRegister, avatar: path }
-		this.onUserRegister = user
-		this.pathFile = ""
-		this.store.dispatch(setUser.set(user))
-		this.myPondAvatar.removeFile()
-	}
 	showPasswordLoginFn() {
 		this.showPasswordLogin = !this.showPasswordLogin
 		const passwordLogin: any = document.getElementById("passwordLogin")
@@ -549,6 +477,87 @@ export class LoginComponent implements AfterViewInit {
 
 		// Unimos las palabras capitalizadas en una sola cadena
 		return words.join(" ")
+	}
+
+	// !filepond
+	@ViewChild("myPondAvatar") myPondAvatar!: any
+
+	pondOptionsAvatar: FilePondOptions = {
+		name: "imagen",
+		allowMultiple: false,
+		allowImagePreview: true,
+		imageResizeMode: "cover",
+		stylePanelLayout: "compact circle",
+		allowImageExifOrientation: true,
+		labelIdle:
+			"Arrastra y suelta tus archivos o click para subir... <br/> (Max 2MB)",
+		acceptedFileTypes: [
+			"image/jpeg",
+			"image/png",
+			"image/gif",
+			"image/bmp",
+			"image/tiff",
+		],
+		labelFileTypeNotAllowed: "Solo se permiten imágenes",
+		labelFileProcessingComplete: "Imagen subida correctamente",
+		labelFileProcessingError: "Error al subir la imagen",
+		labelTapToCancel: "click para cancelar",
+		labelTapToRetry: "click para reintentar",
+		labelTapToUndo: "click para deshacer",
+		labelButtonRemoveItem: "Eliminar",
+		labelButtonAbortItemLoad: "Abortar",
+		labelFileProcessing: "Subiendo",
+		labelFileProcessingAborted: "Subida cancelada",
+		imagePreviewHeight: 170,
+		imageResizeTargetWidth: 200,
+		imageResizeTargetHeight: 200,
+		styleLoadIndicatorPosition: "center bottom",
+		styleButtonRemoveItemPosition: "center bottom",
+
+		server: {
+			url: this.backend,
+			process: {
+				url: "/avatar",
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "POST",
+				onload: this.setAvatar.bind(this),
+			},
+			revert: {
+				url: "/avatar",
+				headers: {
+					"x-access-token": `${JSON.parse(localStorage.getItem("token")!)}`,
+				},
+				method: "DELETE",
+				onload: this.deleteAvatar.bind(this),
+			},
+		},
+		onaddfile: this.beforeAddFileAvatar.bind(this),
+	}
+	setAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.onUserRegister, avatar: path }
+		this.onUserRegister = user
+		this.pathFile = path
+		this.store.dispatch(setUser.set(user))
+	}
+	deleteAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.onUserRegister, avatar: path }
+		this.onUserRegister = user
+		this.pathFile = ""
+		this.store.dispatch(setUser.set(user))
+		this.myPondAvatar.removeFile()
+	}
+	beforeAddFileAvatar(err, file: any) {
+		console.log(file)
+		if (file.fileSize > 2000000) {
+			Swal.fire("¡Error!", "La imagen no puede pesar más de 2MB", "error")
+			this.myPondAvatar.removeFile()
+			return false
+		}
+		return true
 	}
 
 	//!Validadores

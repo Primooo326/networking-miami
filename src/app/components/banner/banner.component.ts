@@ -245,7 +245,8 @@ export class BannerComponent implements OnInit {
 		allowImagePreview: true,
 		imageResizeMode: "cover",
 		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
+		labelIdle:
+			"Arrastra y suelta tus archivos o click para subir... <br/> (Max 2MB)",
 		acceptedFileTypes: ["image/*"],
 		labelFileTypeNotAllowed: "Solo se permiten imágenes",
 		labelFileProcessingComplete: "Imagen subida correctamente",
@@ -277,6 +278,7 @@ export class BannerComponent implements OnInit {
 				onload: this.deletePortada.bind(this),
 			},
 		},
+		onaddfile: this.beforeAddFilePortada.bind(this),
 	}
 	pondOptionsAvatar: FilePondOptions = {
 		name: "imagen",
@@ -289,7 +291,8 @@ export class BannerComponent implements OnInit {
 		styleButtonRemoveItemPosition: "center top",
 		styleLoadIndicatorPosition: "center top",
 		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
+		labelIdle:
+			"Arrastra y suelta tus archivos o click para subir... <br/> (Max 2MB)",
 		acceptedFileTypes: [
 			"image/jpeg",
 			"image/png",
@@ -307,7 +310,6 @@ export class BannerComponent implements OnInit {
 		labelButtonAbortItemLoad: "Abortar",
 		labelFileProcessing: "Subiendo",
 		labelFileProcessingAborted: "Subida cancelada",
-		// instantUpload: false,
 		server: {
 			url: this.backend,
 			process: {
@@ -327,6 +329,27 @@ export class BannerComponent implements OnInit {
 				onload: this.deleteAvatar.bind(this),
 			},
 		},
+		onaddfile: this.beforeAddFileAvatar.bind(this),
+	}
+
+	//check if the file size is less than 2MB
+	beforeAddFilePortada(err, file: any) {
+		console.log(file)
+		if (file.fileSize > 2000000) {
+			Swal.fire("¡Error!", "La imagen no puede pesar más de 2MB", "error")
+			this.myPondPortada.removeFile()
+			return false
+		}
+		return true
+	}
+	beforeAddFileAvatar(err, file: any) {
+		console.log(file)
+		if (file.fileSize > 2000000) {
+			Swal.fire("¡Error!", "La imagen no puede pesar más de 2MB", "error")
+			this.myPondAvatar.removeFile()
+			return false
+		}
+		return true
 	}
 
 	setAvatar(response): any {
@@ -364,3 +387,4 @@ export class BannerComponent implements OnInit {
 		this.myPondPortada.removeFile()
 	}
 }
+// ¬¡“££¢∞§¶¶•ªªº\≠\\\
