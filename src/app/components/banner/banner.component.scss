@@ -1,16 +1,10 @@
 .item-img {
     position: relative;
 }
-
-.item-img .uploadimage {
-    position: absolute;
-    z-index: 100;
-    width: 115px;
-    height: 115px;
-    right: 0;
-    top: 0;
-    display: none;
+.item-img img {
+    width: 115px; height: 115px; object-fit: cover;
 }
+
 
 .btn-editar-portada {
     width: 40px;

@@ -10,41 +10,41 @@
         <ul class="user-info">
           <li>
             <label>Nombre:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.nombre | titlecase }}
             </p>
           </li>
           <li>
             <label>Ubicación:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.ciudad }}, {{ currentUser.condado }}
             </p>
 
           </li>
           <li>
             <label>Lenguajes:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.lenguajes | pipeArray }}
             </p>
 
           </li>
           <li>
             <label>Fecha de nacimiento:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.fechaNacimiento | date }}
             </p>
 
           </li>
           <li>
             <label>Genero:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.genero }}
             </p>
 
           </li>
           <li>
             <label>Biografía:</label>
-            <p>
+            <p class="text-break">
               {{ currentUser.biografia }}
             </p>
 
@@ -75,7 +75,7 @@
           <li>
             <label>Tipo de conexión:</label>
             <p>
-              <span *ngFor="let item of currentUser.tipoConexion" class="badge mr-2">{{ item }}</span>
+              <span *ngFor="let item of currentUser.tipoConexion" class="mr-2">{{ item }}</span>
             </p>
 
           </li>

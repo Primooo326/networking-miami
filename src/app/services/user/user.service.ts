@@ -20,7 +20,7 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-	async readSimilarUsers(user:Usuario) {
+	async readSimilarUsers(user: Usuario) {
 		const url = this.backend + "users/readSimilarUsers"
 		return this.http.post(url, user, {
 			headers: { "x-access-token": this.token },
@@ -36,8 +36,8 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-	async getUserById(id:any) {
-		const url = this.backend + "users/" + "userById/"+ id
+	async getUserById(id: any) {
+		const url = this.backend + "users/" + "userById/" + id
 		return this.http.get(url, {
 			headers: { "x-access-token": this.token },
 		})
@@ -56,5 +56,14 @@ export class UserService {
 			headers: { "x-access-token": this.token },
 		})
 	}
-
+	async deleteUser(id: number) {
+		const url = this.backend + "users/eliminarUsuario"
+		return this.http.post(
+			url,
+			{ id: id },
+			{
+				headers: { "x-access-token": this.token },
+			},
+		)
+	}
 }

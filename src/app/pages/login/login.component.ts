@@ -22,10 +22,10 @@ import { FilePondOptions } from "filepond"
 	styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements AfterViewInit {
-	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
-	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
-	intereses = JSON.parse(localStorage.getItem("interes")!)
-	condados = JSON.parse(localStorage.getItem("condados")!)
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!).sort()
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!).sort()
+	intereses = JSON.parse(localStorage.getItem("interes")!).sort()
+	condados = JSON.parse(localStorage.getItem("condados")!).sort()
 
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
@@ -46,8 +46,14 @@ export class LoginComponent implements AfterViewInit {
 		imageResizeMode: "cover",
 		stylePanelLayout: "compact circle",
 		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o busca...",
-		acceptedFileTypes: ["image/*"],
+		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
+		acceptedFileTypes: [
+			"image/jpeg",
+			"image/png",
+			"image/gif",
+			"image/bmp",
+			"image/tiff",
+		],
 		labelFileTypeNotAllowed: "Solo se permiten imágenes",
 		labelFileProcessingComplete: "Imagen subida correctamente",
 		labelFileProcessingError: "Error al subir la imagen",
@@ -58,7 +64,11 @@ export class LoginComponent implements AfterViewInit {
 		labelButtonAbortItemLoad: "Abortar",
 		labelFileProcessing: "Subiendo",
 		labelFileProcessingAborted: "Subida cancelada",
-		instantUpload: false,
+		imagePreviewHeight: 170,
+		imageResizeTargetWidth: 200,
+		imageResizeTargetHeight: 200,
+		styleLoadIndicatorPosition: "center bottom",
+		styleButtonRemoveItemPosition: "center bottom",
 		server: {
 			url: this.backend,
 			process: {
@@ -77,9 +87,6 @@ export class LoginComponent implements AfterViewInit {
 				method: "DELETE",
 				onload: this.deleteAvatar.bind(this),
 			},
-		},
-		oninit: () => {
-			console.log("inittt!!!")
 		},
 	}
 
@@ -156,7 +163,8 @@ export class LoginComponent implements AfterViewInit {
 
 	pathFile = ""
 	onloadFile = false
-	viewPassword = false
+	showPasswordLogin: boolean = false
+	showPasswordRegister: boolean = false
 	token = "aun sin token"
 
 	constructor(
@@ -179,7 +187,7 @@ export class LoginComponent implements AfterViewInit {
 		}, 100)
 
 		this.condadoSelected = this.condados[0]
-		this.ciudades = this.condados[0].ciudades
+		this.ciudades = this.condados[0].ciudades.sort()
 	}
 
 	ngAfterViewInit(): void {
@@ -206,7 +214,7 @@ export class LoginComponent implements AfterViewInit {
 			const condado: any = $(e.target).val()
 			this.registroForm2Tab.get("condado")?.setValue(condado)
 			const idx = this.condados.findIndex((c: any) => c.nombre === condado)
-			this.ciudades = this.condados[idx].ciudades
+			this.ciudades = this.condados[idx].ciudades.sort()
 			this.condadoSelected = this.condados[idx]
 			document.getElementById("boton")?.click()
 		})
@@ -233,6 +241,8 @@ export class LoginComponent implements AfterViewInit {
 			allowDropdown: true,
 			separateDialCode: true,
 			initialCountry: "auto",
+			//lenguaje en español
+
 			geoIpLookup: function (callback) {
 				fetch("https://ipapi.co/json")
 					.then(function (res) {
@@ -336,7 +346,9 @@ export class LoginComponent implements AfterViewInit {
 				})
 		}
 	}
-	async register(registro3Value: any) {
+	async register() {
+		const registro3Value: any = this.registroForm3Tab.value
+		registro3Value.tipoConexion = this.TipoConexion
 		const date: any = $('[data-toggle="datepicker"]').datepicker("getDate")
 		const newUser: any = {
 			...this.registroForm1Tab.value,
@@ -347,6 +359,8 @@ export class LoginComponent implements AfterViewInit {
 		}
 		var number = this.itiInput.getNumber()
 		newUser.telefono = number
+		newUser.email = newUser.email.toLowerCase()
+		console.log(newUser)
 		await this.authSrvc.register(newUser).then(
 			(obs) => {
 				obs.subscribe(
@@ -435,41 +449,68 @@ export class LoginComponent implements AfterViewInit {
 			)
 		}
 	}
+	async sendContacts() {
+		const contactos: any[] = []
+		if (this.contacto1Form.valid) {
+			contactos.push(this.contacto1Form.value)
+		}
+		if (this.contacto2Form.valid) {
+			contactos.push(this.contacto2Form.value)
+		}
+		if (this.contacto3Form.valid) {
+			contactos.push(this.contacto3Form.value)
+		}
 
-	seePasswords() {
+		if (contactos.length > 0) {
+			const data = { contactos, user: this.onUserRegister.nombre }
+			const res = await this.mailSrvc.sendInvitation(data)
+			res.subscribe(
+				(data: any) => {
+					console.log(data)
+				},
+				(err) => {
+					console.warn(err)
+				},
+			)
+		}
+	}
+	setAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.onUserRegister, avatar: path }
+		this.onUserRegister = user
+		this.pathFile = path
+		this.store.dispatch(setUser.set(user))
+	}
+	deleteAvatar(response): any {
+		const path = JSON.parse(response).path
+		const user = { ...this.onUserRegister, avatar: path }
+		this.onUserRegister = user
+		this.pathFile = ""
+		this.store.dispatch(setUser.set(user))
+		this.myPondAvatar.removeFile()
+	}
+	showPasswordLoginFn() {
+		this.showPasswordLogin = !this.showPasswordLogin
+		const passwordLogin: any = document.getElementById("passwordLogin")
+		if (this.showPasswordLogin) {
+			passwordLogin!.type = "text"
+		} else {
+			passwordLogin!.type = "password"
+		}
+	}
+	showPasswordRegisterFn() {
+		this.showPasswordRegister = !this.showPasswordRegister
 		const passwordRegister: any = document.getElementById("passwordRegister")
 		const repeatPasswordRegister: any = document.getElementById(
 			"repeatPasswordRegister",
 		)
-		const passwordLogin: any = document.getElementById("passwordLogin")
-		if (!this.viewPassword) {
+		if (this.showPasswordRegister) {
 			passwordRegister!.type = "text"
 			repeatPasswordRegister!.type = "text"
-			passwordLogin!.type = "text"
 		} else {
 			passwordRegister!.type = "password"
 			repeatPasswordRegister!.type = "password"
-			passwordLogin!.type = "password"
 		}
-		this.viewPassword = !this.viewPassword
-	}
-
-	register1Tab() {
-		console.log(this.registroForm1Tab.value)
-		this.onChangeTabRegister("2/5")
-	}
-	register2Tab() {
-		console.log(this.registroForm2Tab.value)
-
-		var number = this.itiInput.getNumber()
-		console.log(number)
-		this.onChangeTabRegister("3/5")
-	}
-	register3Tab() {
-		const registro3Value: any = this.registroForm3Tab.value
-		registro3Value.tipoConexion = this.TipoConexion
-		console.log(registro3Value)
-		this.register(registro3Value)
 	}
 
 	onChangeTabRegister(tab: string) {
@@ -509,13 +550,13 @@ export class LoginComponent implements AfterViewInit {
 		// Unimos las palabras capitalizadas en una sola cadena
 		return words.join(" ")
 	}
+
 	//!Validadores
 
 	emailLoginValidator(): boolean {
 		return (
-			(!this.registroForm1Tab.controls.email.dirty &&
-				this.registroForm1Tab.controls.email.hasError("required")) ||
-			this.registroForm1Tab.controls.email.hasError("email")
+			this.loginForm.controls.email.hasError("required") ||
+			this.loginForm.controls.email.hasError("email")
 		)
 	}
 	passwordLoginValidator(): boolean {
@@ -567,45 +608,5 @@ export class LoginComponent implements AfterViewInit {
 	}
 	biographyRegistroValidator(): boolean {
 		return this.registroForm2Tab.controls.biografia.hasError("required")
-	}
-	async sendContacts() {
-		const contactos: any[] = []
-		if (this.contacto1Form.valid) {
-			contactos.push(this.contacto1Form.value)
-		}
-		if (this.contacto2Form.valid) {
-			contactos.push(this.contacto2Form.value)
-		}
-		if (this.contacto3Form.valid) {
-			contactos.push(this.contacto3Form.value)
-		}
-
-		if (contactos.length > 0) {
-			const data = { contactos, user: this.onUserRegister.nombre }
-			const res = await this.mailSrvc.sendInvitation(data)
-			res.subscribe(
-				(data: any) => {
-					console.log(data)
-				},
-				(err) => {
-					console.warn(err)
-				},
-			)
-		}
-	}
-	setAvatar(response): any {
-		const path = JSON.parse(response).path
-		const user = { ...this.onUserRegister, avatar: path }
-		this.onUserRegister = user
-		this.pathFile = path
-		this.store.dispatch(setUser.set(user))
-	}
-	deleteAvatar(response): any {
-		const path = JSON.parse(response).path
-		const user = { ...this.onUserRegister, avatar: path }
-		this.onUserRegister = user
-		this.pathFile = ""
-		this.store.dispatch(setUser.set(user))
-		this.myPondAvatar.removeFile()
 	}
 }

@@ -2,19 +2,17 @@
   <div class="banner-content">
     <div class="media">
       <div *ngIf="!canEdit" class="item-img">
-        <img class="profileimage" [src]="user.avatar" style="width: 115px; height: 115px; object-fit: cover;"
-          alt="User" />
+        <img [src]="user.avatar" alt="User" />
       </div>
       <div *ngIf="canEdit" class="item-img">
-        <img [src]="user.avatar" style="width: 115px; height: 115px; object-fit: cover;" alt="User" />
+        <img [src]="user.avatar" alt="User" />
         <button *ngIf="canEdit" class="btn-editar-avatar" role="button" data-toggle="modal" data-target="#modalAvatar">
           <i class="fas fa-pen"></i>
         </button>
-        <!-- <img src="media/photo_upload.png" class="uploadimage" alt="img" /> -->
-        <!-- <input type="file" accept="image/*" #fileInput style="display: none" /> -->
+
       </div>
       <div class="media-body">
-        <h3 class="item-title " [ngClass]="{'check': user.verificado}">{{ user.nombre | titlecase }} </h3>
+        <h3 class="item-title text-break" [ngClass]="{'check': user.verificado}">{{ user.nombre | titlecase }} </h3>
         <div class="item-subtitle">
           {{ user.areaExperiencia | pipeArray }}
         </div>

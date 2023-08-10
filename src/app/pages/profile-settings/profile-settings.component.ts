@@ -8,6 +8,8 @@ import { userSelect } from "src/redux/selectors"
 import Swal from "sweetalert2"
 import intlTelInput from "intl-tel-input"
 import Datepicker from "@chenfengyuan/datepicker" // Import Datepicker class
+import { Router } from "@angular/router"
+import { AuthService } from "src/app/services/auth/auth.service"
 
 @Component({
 	selector: "app-profile-settings",
@@ -15,11 +17,11 @@ import Datepicker from "@chenfengyuan/datepicker" // Import Datepicker class
 	styleUrls: ["./profile-settings.component.scss"],
 })
 export class ProfileSettingsComponent implements OnInit {
-	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
-	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
-	intereses = JSON.parse(localStorage.getItem("interes")!)
-	condados = JSON.parse(localStorage.getItem("condados")!)
-	conexiones = JSON.parse(localStorage.getItem("conexion")!)
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!).sort()
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!).sort()
+	intereses = JSON.parse(localStorage.getItem("interes")!).sort()
+	condados = JSON.parse(localStorage.getItem("condados")!).sort()
+	conexiones = JSON.parse(localStorage.getItem("conexion")!).sort()
 	recharge = true
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
@@ -30,11 +32,12 @@ export class ProfileSettingsComponent implements OnInit {
 	itiInput: any
 	onInformacionBasicaEdit = true
 	onInteresesEdit = true
-	onzonarojaEdit = true
+	onCambioPasswordEdit = true
 	isOnResetPassword = false
 	isOnLoadingEmail = false
 	isOnInformacionBasicaLoading = false
 	isOnInteresesLoading = false
+	showPasswords = false
 	infoBasicaForm = new FormGroup({
 		nombre: new FormControl(this.currentUser.nombre, [
 			Validators.required,
@@ -68,18 +71,31 @@ export class ProfileSettingsComponent implements OnInit {
 		]),
 	})
 
-	newEmail = new FormControl(this.currentUser.email, [
-		Validators.required,
-		Validators.email,
-	])
+	passwordsFormGroup = new FormGroup({
+		passwordActual: new FormControl("", [
+			Validators.required,
+			Validators.minLength(8),
+		]),
+		passwordNueva: new FormControl("", [
+			Validators.required,
+			Validators.minLength(8),
+		]),
+		passwordRepetida: new FormControl("", [
+			Validators.required,
+			Validators.minLength(8),
+		]),
+	})
+	hintMinLength = "Mínimo 8 caracteres"
+	hintRequired = "Este campo es requerido"
+	hintPasswordNotMatch = "Las contraseñas no coinciden"
+	hintPasswordIsSame = "La contraseña debe ser diferente a la actual"
 	constructor(
 		private mailSrvc: MailService,
 		private userSrvc: UserService,
+		private authSrvc: AuthService,
 		private store: Store<any>,
+		private router: Router,
 	) {
-		console.log(this.currentUser)
-		console.log(this.currentUser.temasInteres)
-
 		const idx = this.condados.findIndex(
 			(c: any) => c.nombre === this.currentUser.condado,
 		)
@@ -87,17 +103,17 @@ export class ProfileSettingsComponent implements OnInit {
 		this.condadoSelected = this.condados[idx]
 		this.TipoConexion = [...this.currentUser.tipoConexion]
 	}
+
 	ngOnInit(): void {
 		this.onInputTel()
 
-		// Initialize the datepicker using the Datepicker class
 		$('[data-toggle="datepicker"]').datepicker({
 			language: "es-ES",
 			startDate: "1900",
 			endDate: "2010",
 			format: "yyyy-mm-dd",
 			autoHide: true,
-			date: this.currentUser,
+			date: this.currentUser.fechaNacimiento,
 			autoPick: true,
 		})
 
@@ -105,6 +121,7 @@ export class ProfileSettingsComponent implements OnInit {
 			this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date)
 		})
 	}
+
 	ngAfterViewInit(): void {
 		setTimeout(() => {
 			this.onInputTel()
@@ -114,7 +131,7 @@ export class ProfileSettingsComponent implements OnInit {
 				endDate: "2010",
 				format: "yyyy-mm-dd",
 				autoHide: true,
-				date: this.currentUser,
+				date: this.currentUser.fechaNacimiento,
 				autoPick: true,
 			})
 
@@ -124,6 +141,7 @@ export class ProfileSettingsComponent implements OnInit {
 			})
 		}, 2000)
 	}
+
 	onInputTel() {
 		var inputIti: any = document.querySelector("#phone")
 		this.itiInput = intlTelInput(inputIti, {
@@ -155,6 +173,7 @@ export class ProfileSettingsComponent implements OnInit {
 
 		this.ciudades = this.ciudades.filter((c) => true)
 	}
+
 	onEditSection(section: string) {
 		switch (section) {
 			case "informacionBasica":
@@ -167,9 +186,6 @@ export class ProfileSettingsComponent implements OnInit {
 				break
 			case "intereses":
 				this.onInteresesEdit = !this.onInteresesEdit
-				break
-			case "zonaroja":
-				this.onzonarojaEdit = !this.onzonarojaEdit
 				break
 			default:
 				break
@@ -208,6 +224,7 @@ export class ProfileSettingsComponent implements OnInit {
 			})
 		}, 5)
 	}
+
 	onChangeConexiones(data: any) {
 		const value = data.target.value
 		console.log(value)
@@ -219,6 +236,22 @@ export class ProfileSettingsComponent implements OnInit {
 		}
 		console.log(this.TipoConexion)
 	}
+	showPasswordsFn() {
+		this.showPasswords = !this.showPasswords
+		const passwordActual: any = document.getElementById("passwordActual")
+		const passwordNueva: any = document.getElementById("passwordNueva")
+		const passwordRepetida: any = document.getElementById("passwordRepetida")
+		if (this.showPasswords) {
+			passwordActual!.type = "text"
+			passwordNueva!.type = "text"
+			passwordRepetida!.type = "text"
+		} else {
+			passwordActual!.type = "password"
+			passwordNueva!.type = "password"
+			passwordRepetida!.type = "password"
+		}
+	}
+
 	async cambioInformacionBasica() {
 		this.isOnInformacionBasicaLoading = true
 		const regex = /'(.*?)'/
@@ -228,7 +261,6 @@ export class ProfileSettingsComponent implements OnInit {
 			const match = i.match(regex)
 			return match ? match[1] : i
 		})
-		console.log(this.infoBasicaForm.get("fechaNacimiento")?.value)
 
 		user.nombre = this.infoBasicaForm.get("nombre")?.value
 		user.telefono = this.infoBasicaForm.get("telefono")?.value
@@ -259,12 +291,13 @@ export class ProfileSettingsComponent implements OnInit {
 			},
 		)
 	}
+
 	async cambioIntereses() {
 		this.isOnInteresesLoading = true
 		const regex = /'(.*?)'/
 		const user = { ...this.currentUser }
 		console.log(user)
-		user.tipoConexion = this.TipoConexion
+		user.tipoConexion = this.TipoConexion.filter((c) => true)
 		let temasInteres: any = $("select#interes").val()
 		temasInteres = temasInteres.map((i: string) => {
 			const match = i.match(regex)
@@ -297,56 +330,59 @@ export class ProfileSettingsComponent implements OnInit {
 			},
 		)
 	}
-	async cambioEmail() {
-		if (this.newEmail.value != this.currentUser.email) {
-			const res = await this.mailSrvc.changeEmail({
-				email: this.currentUser.email,
-				newEmail: this.newEmail.value,
-			})
 
-			this.isOnLoadingEmail = true
-			res.subscribe(
-				(data) => {
-					console.log(data)
-					this.isOnLoadingEmail = false
-					Swal.fire(
-						"Correo enviado",
-						`Se ha enviado un correo de confirmación a ${this.newEmail.value}. Acéptalo y cambia tu correo`,
-						"success",
-					)
-					this.newEmail.setValue(this.currentUser.email)
-					this.onEditSection("zonaroja")
-				},
-				(err) => {
-					if (err.error == "New email already exists") {
-						Swal.fire("error", "Correo ya registrado", "error")
-					} else {
-						Swal.fire("error", err.error, "error")
-					}
-					this.isOnLoadingEmail = false
-				},
-			)
-		}
-	}
-	async CambioPassword() {
+	async cambioPassword() {
 		this.isOnResetPassword = true
-		const res = await this.mailSrvc.resetPasswordEmail({
-			email: this.currentUser.email,
-		})
+
+		const data = {
+			id: this.currentUser.id,
+			passwordActual: this.passwordsFormGroup.get("passwordActual")?.value,
+			passwordNueva: this.passwordsFormGroup.get("passwordNueva")?.value,
+		}
+
+		const res = await this.authSrvc.changePassword(data)
 		res.subscribe(
 			(data) => {
+				console.log(data)
+				Swal.fire("Contraseña actualizada", "", "success")
 				this.isOnResetPassword = false
-				Swal.fire(
-					"Correo enviado",
-					`Se ha enviado un correo de cambio de contraseña a ${this.currentUser.email}. Acéptalo y cambia tu contraseña`,
-					"success",
-				)
-				this.onEditSection("zonaroja")
+				this.passwordsFormGroup.reset()
+				this.onCambioPasswordEdit = true
 			},
 			(err) => {
-				Swal.fire("error", err.error, "error")
+				console.log(err)
 				this.isOnResetPassword = false
+				Swal.fire("Error", err.error, "error")
 			},
 		)
+	}
+	async deleteAccount() {
+		Swal.fire({
+			title: "¿Estás seguro de eliminar tu cuenta?",
+			text: "Esta acción no se puede revertir",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#d33",
+			cancelButtonColor: "#3085d6",
+			confirmButtonText: "Eliminar",
+			cancelButtonText: "Cancelar",
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				const res = await this.userSrvc.deleteUser(this.currentUser.id)
+				res.subscribe(
+					(data) => {
+						console.log(data)
+						Swal.fire("Eliminada", "Tu cuenta ha sido eliminada", "success")
+						localStorage.removeItem("user")
+						localStorage.removeItem("token")
+						this.router.navigate(["/"])
+					},
+					(err) => {
+						console.log(err)
+						Swal.fire("Error", "No se pudo eliminar tu cuenta", "error")
+					},
+				)
+			}
+		})
 	}
 }

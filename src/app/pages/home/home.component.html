@@ -24,7 +24,7 @@
     </ul>
   </div>
   <h4>Buenos días {{currentUser.nombre}}!</h4>
-  <p id="phrase"></p>
+  <!-- <p id="phrase"></p> -->
   <button class="btn btn-success" role="button" data-toggle="modal" data-target="#modalInvitarContactos">Invitar a tus
     contactos</button>
   <div class="mt-4">
@@ -129,9 +129,8 @@
                   <span>Elige área de especialización</span>
                   <select class="select2 mb-3" id="experiencia" formArrayName="experiencia" name="Experiencia"
                     multiple="multiple" data-placeholder="Elige las especializaciones que apliquen">
-                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of experiencia"
-                      [value]="item.titulo">
-                      <p class="text-wrap">{{ item.titulo }}</p>
+                    <option class="text-wrap" style="width: 100%;" *ngFor="let item of experiencia" [value]="item">
+                      <p class="text-wrap">{{ item }}</p>
                     </option>
                   </select>
                 </li>

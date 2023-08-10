@@ -18,11 +18,11 @@ import { frases } from "src/assets/utilities"
 	styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-	idiomas = JSON.parse(localStorage.getItem("lenguajes")!)
-	experiencia = JSON.parse(localStorage.getItem("experiencia")!)
-	intereses = JSON.parse(localStorage.getItem("interes")!)
-	condados = JSON.parse(localStorage.getItem("condados")!)
-	conexion = JSON.parse(localStorage.getItem("conexion")!)
+	idiomas = JSON.parse(localStorage.getItem("lenguajes")!).sort()
+	experiencia = JSON.parse(localStorage.getItem("experiencia")!).sort()
+	intereses = JSON.parse(localStorage.getItem("interes")!).sort()
+	condados = JSON.parse(localStorage.getItem("condados")!).sort()
+	conexion = JSON.parse(localStorage.getItem("conexion")!).sort()
 	conexion2 = [
 		{
 			searchBy: "personas que quieran compartir su conocimiento.",
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
 			this.filtersGroup.get("condado")?.setValue(condado)
 			if (condado) {
 				const idx = this.condados.findIndex((c: any) => c.nombre === condado)
-				this.ciudades = this.condados[idx].ciudades
+				this.ciudades = this.condados[idx].ciudades.sort()
 				this.condadoSelected = this.condados[idx]
 				document.getElementById("boton")?.click()
 			}
@@ -362,8 +362,8 @@ export class HomeComponent implements OnInit {
 				(data: any) => {
 					console.log(data)
 					Swal.fire(
-						"Gracias por Invitarnos",
-						"¡Gracias por invitarnos y formar parte de nuestra comunidad! Tu participación es valiosa y contribuye al crecimiento de nuestra red de contactos. Cuantos más amigos invites, más oportunidades de networking tendrás.",
+						"Invitación exitosa",
+						"¡Hemos invitado a tus contactos a formar parte de nuestra comunidad! Tu participación es valiosa y contribuye al crecimiento de nuestra red de contactos. Cuantos más amigos invites, más oportunidades de networking tendrás.",
 						"success",
 					)
 					this.contactoForm.reset()

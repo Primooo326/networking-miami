@@ -244,7 +244,7 @@ export class BannerComponent implements OnInit {
 		allowImagePreview: true,
 		imageResizeMode: "cover",
 		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o busca...",
+		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
 		acceptedFileTypes: ["image/*"],
 		labelFileTypeNotAllowed: "Solo se permiten imágenes",
 		labelFileProcessingComplete: "Imagen subida correctamente",
@@ -256,7 +256,7 @@ export class BannerComponent implements OnInit {
 		labelButtonAbortItemLoad: "Abortar",
 		labelFileProcessing: "Subiendo",
 		labelFileProcessingAborted: "Subida cancelada",
-		instantUpload: false,
+		// instantUpload: false,
 		server: {
 			url: this.backend,
 			process: {
@@ -283,12 +283,12 @@ export class BannerComponent implements OnInit {
 		allowImagePreview: true,
 		imageResizeMode: "cover",
 		stylePanelLayout: "compact circle",
-		styleLoadIndicatorPosition: "right top",
-		styleProgressIndicatorPosition: "right top",
-		styleButtonProcessItemPosition: "right top",
-		styleButtonRemoveItemPosition: "left top",
+		styleProgressIndicatorPosition: "center top",
+		styleButtonProcessItemPosition: "center top",
+		styleButtonRemoveItemPosition: "center top",
+		styleLoadIndicatorPosition: "center top",
 		allowImageExifOrientation: true,
-		labelIdle: "Arrastra y suelta tus archivos o busca...",
+		labelIdle: "Arrastra y suelta tus archivos o click para subir...",
 		acceptedFileTypes: [
 			"image/jpeg",
 			"image/png",
@@ -306,7 +306,7 @@ export class BannerComponent implements OnInit {
 		labelButtonAbortItemLoad: "Abortar",
 		labelFileProcessing: "Subiendo",
 		labelFileProcessingAborted: "Subida cancelada",
-		instantUpload: false,
+		// instantUpload: false,
 		server: {
 			url: this.backend,
 			process: {

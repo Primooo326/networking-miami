@@ -10,7 +10,7 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
-  private get getUser(): any {
+	private get getUser(): any {
 		return JSON.parse(localStorage.getItem("user")!)
 	}
 
@@ -24,28 +24,24 @@ export class AuthService {
 		const url = this.backend + "auth/register"
 		return this.http.post(url, body)
 	}
+	async changePassword(body: any): Promise<any> {
+		const url = this.backend + "auth/changePasswod"
+		return this.http.post(url, body)
+	}
 
 	async datas() {
-		await this.http
-			.get(`${this.backend}admin/interes`)
-			.subscribe((data) => {
-				localStorage.setItem("interes", JSON.stringify(data))
-			})
-		await this.http
-			.get(`${this.backend}admin/conexion`)
-			.subscribe((data) => {
-				localStorage.setItem("conexion", JSON.stringify(data))
-			})
-		await this.http
-			.get(`${this.backend}admin/condados`)
-			.subscribe((data) => {
-				localStorage.setItem("condados", JSON.stringify(data))
-			})
-		await this.http
-			.get(`${this.backend}admin/lenguaje`)
-			.subscribe((data) => {
-				localStorage.setItem("lenguajes", JSON.stringify(data))
-			})
+		await this.http.get(`${this.backend}admin/interes`).subscribe((data) => {
+			localStorage.setItem("interes", JSON.stringify(data))
+		})
+		await this.http.get(`${this.backend}admin/conexion`).subscribe((data) => {
+			localStorage.setItem("conexion", JSON.stringify(data))
+		})
+		await this.http.get(`${this.backend}admin/condados`).subscribe((data) => {
+			localStorage.setItem("condados", JSON.stringify(data))
+		})
+		await this.http.get(`${this.backend}admin/lenguaje`).subscribe((data) => {
+			localStorage.setItem("lenguajes", JSON.stringify(data))
+		})
 		await this.http
 			.get(`${this.backend}admin/experiencia`)
 			.subscribe((data) => {
@@ -53,8 +49,8 @@ export class AuthService {
 			})
 	}
 
-  async refreshToken(){
-    const url = this.backend + "auth/refresh-token"
-    return this.http.post(url, {id: this.getUser.id})
-  }
+	async refreshToken() {
+		const url = this.backend + "auth/refresh-token"
+		return this.http.post(url, { id: this.getUser.id })
+	}
 }
