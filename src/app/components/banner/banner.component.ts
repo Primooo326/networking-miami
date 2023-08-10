@@ -21,6 +21,7 @@ import {
 	myRequestMatches,
 	newPendingMatch,
 	setUser,
+	userChat,
 } from "src/redux/actions"
 import { HeaderComponent } from "../header/header.component"
 import { FilePondOptions } from "filepond"
@@ -231,7 +232,7 @@ export class BannerComponent implements OnInit {
 		})
 	}
 	chat() {
-		this.headerComponent.setUserChat(this.user)
+		this.store.dispatch(userChat.set(this.user))
 	}
 
 	// *filepond config
@@ -333,6 +334,7 @@ export class BannerComponent implements OnInit {
 		const user = { ...this.user, avatar: path }
 		this.user = user
 		this.store.dispatch(setUser.set(user))
+		$("#buttonCloseModalAvatar").click()
 	}
 	deleteAvatar(response): any {
 		const path = JSON.parse(response).path
@@ -349,6 +351,7 @@ export class BannerComponent implements OnInit {
 		const user = { ...this.user, fotoPortada: path }
 		this.user = user
 		this.store.dispatch(setUser.set(user))
+		$("#buttonCloseModalPortada").click()
 	}
 	deletePortada(response): any {
 		const path = JSON.parse(response).path

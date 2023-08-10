@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store"
 import { MailService } from "src/app/services/mail/mail.service"
 import { MatchService } from "src/app/services/match/match.service"
 import { ETypePerfil, Usuario } from "src/app/tools/models"
-import { newPendingMatch, myMatches } from "src/redux/actions"
+import { newPendingMatch, myMatches, userChat } from "src/redux/actions"
 import Swal from "sweetalert2"
 
 @Component({
@@ -151,7 +151,9 @@ export class ProfileCardComponent {
 			}
 		})
 	}
-
+	chat() {
+		this.store.dispatch(userChat.set(this.user))
+	}
 	verPerfil() {
 		this.route.navigate([`/user/${this.user.id}`])
 	}

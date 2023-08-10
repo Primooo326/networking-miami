@@ -5,8 +5,8 @@ export const setUser = createActionGroup({
 	source: "[User] Set Current User",
 	events: {
 		set: (user: Usuario) => ({ user }),
-    verifyEmail:(data:any) => (data)
-  }
+		verifyEmail: (data: any) => data,
+	},
 })
 export const newNotification = createActionGroup({
 	source: "[Sistem] New Notification",
@@ -43,5 +43,12 @@ export const myMessages = createActionGroup({
 	events: {
 		set: (messages: any) => ({ messages }),
 		update: (message: any) => ({ message }),
+	},
+})
+export const userChat = createActionGroup({
+	source: "[Sistem] User Chat",
+	events: {
+		set: (user: any) => ({ user }),
+		delete: emptyProps(),
 	},
 })

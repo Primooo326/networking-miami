@@ -21,7 +21,7 @@
             <button class="btn btn-primary" (click)="solicitar()">Conectar</button>
           </div>
           <div *ngIf="defineTypeProfile() == 'contacto'">
-            <!-- <button class="btn btn-primary mr-3" (click)="chat()">Enviar mensaje</button> -->
+            <button class="btn btn-primary mr-3" (click)="chat()">Enviar mensaje</button>
             <button class="btn btn-danger" (click)="eliminarMatch()">Eliminar</button>
           </div>
           <div *ngIf="defineTypeProfile() == 'solicitante'">
@@ -51,7 +51,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Foto de perfil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" id="buttonCloseModalAvatar" (click)="onCloseModalAvatar()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -69,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Foto de portada</h5>
-        <button type="button" (click)="onCloseModalPortada()" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" id="buttonCloseModalPortada" (click)="onCloseModalPortada()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

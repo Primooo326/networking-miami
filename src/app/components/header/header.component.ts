@@ -21,7 +21,12 @@ import {
 } from "src/redux/selectors"
 import Swal from "sweetalert2"
 import { MatchService } from "src/app/services/match/match.service"
-import { myMatches, newNotification, newPendingMatch } from "src/redux/actions"
+import {
+	myMatches,
+	newNotification,
+	newPendingMatch,
+	userChat,
+} from "src/redux/actions"
 import { NotifyService } from "src/app/services/notify/notify.service"
 
 @Injectable({
@@ -40,7 +45,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	notification$ = this.store.select(notificationSelect)
 	messages$ = this.store.select(messagesSelect)
 	userChat!: Usuario | null
-	isCloseChat = false
+	isCloseChat = true
 	isOpenSideBarChat = false
 	notificaciones: any[] = []
 	misMensajesNoVistos: any = []
@@ -170,12 +175,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 	}
 
 	setUserChat(user: Usuario) {
-		this.userChat = null
-		this.isCloseChat = false
-		setTimeout(() => {
-			this.userChat = user
-			this.isCloseChat = true
-		}, 150)
+		this.store.dispatch(userChat.set(user))
 	}
 	quitUserChat() {
 		console.log("quitUser")

@@ -7,6 +7,7 @@ import {
 	requestMatchesReducer,
 	matchesReducer,
 	messagesReducer,
+	userChatReducer,
 } from "./reducers"
 
 export interface AppState {
@@ -16,6 +17,7 @@ export interface AppState {
 	requestMatches: any
 	matches: any
 	messages: any[]
+	userChat: any
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
@@ -25,4 +27,5 @@ export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
 	requestMatches: requestMatchesReducer,
 	matches: matchesReducer,
 	messages: messagesReducer,
+	userChat: userChatReducer,
 }

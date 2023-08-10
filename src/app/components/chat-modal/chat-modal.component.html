@@ -1,5 +1,5 @@
   <!-- Chat Modal Here -->
-  <div class="chat-conversion-box" [ngClass]="{'modal-show': isHidden, 'shrink':isShrink}"   id="chat-box-modal" tabindex="-1" aria-labelledby="chat-modal-label"
+  <div *ngIf="user" class="chat-conversion-box" [ngClass]="{'modal-show': isHidden, 'shrink':isShrink}"   id="chat-box-modal" tabindex="-1" aria-labelledby="chat-modal-label"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -29,7 +29,7 @@
         </div>
         <div class="modal-footer">
             <div class="form-group">
-              <input type="text" [formControl]="inputText" (keypress)="onKeydown($event)" class="form-control" placeholder="Escribe aquí..." />
+              <input type="text" autofocus="true" [formControl]="inputText" (keypress)="onKeydown($event)" class="form-control" placeholder="Escribe aquí..." />
               <div class="chat-plus-icon" (click)="sendMessage()" >
                 <i class="fas fa-paper-plane"></i>
               </div>

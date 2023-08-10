@@ -1,16 +1,19 @@
 <div class="widget-author animate__animated animate__fadeIn animate__fast" *ngIf="typeProfile == 'desconocido'">
   <div class="author-heading">
-    <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
-      <a (click)="verPerfil()">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
-      </a>
-    </div>
-    <div class="profile-name">
-      <h4 class="author-name">
-        <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
-      </h4>
-      <div class="author-location">
-        <p class="text-break">{{user.biografia}}</p>
+    <div>
+
+      <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
+        <a (click)="verPerfil()">
+          <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
+        </a>
+      </div>
+      <div class="profile-name">
+        <h4 class="author-name">
+          <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
+        </h4>
+        <div class="author-location">
+          <p class="text-break">{{user.biografia}}</p>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-between mt-3">
@@ -21,42 +24,49 @@
 </div>
 <div class="widget-author animate__animated animate__fadeIn animate__fast" *ngIf="typeProfile == 'contacto'">
   <div class="author-heading">
-    <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
-      <a (click)="verPerfil()">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
-      </a>
-    </div>
-    <div class="profile-name">
-      <h4 class="author-name">
-        <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
-      </h4>
-      <div class="author-location">
-        <p class="text-break">{{user.biografia}}</p>
-      </div>
+    <div>
 
+      <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
+        <a (click)="verPerfil()">
+          <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
+        </a>
+      </div>
+      <div class="profile-name">
+        <h4 class="author-name">
+          <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
+        </h4>
+        <div class="author-location">
+          <p class="text-break">{{user.biografia}}</p>
+        </div>
+  
+      </div>
     </div>
     <div class="d-flex justify-content-between mt-3">
-      <button (click)="eliminarMatch()" class="btn btn-danger">Eliminar</button>
+      <!-- <button (click)="eliminarMatch()" class="btn btn-danger">Eliminar</button> -->
+      <button class="btn btn-primary" (click)="chat()" >Enviar mensaje</button>
       <button class="btn btn-warning" (click)="verPerfil()">Ver perfil</button>
     </div>
   </div>
 </div>
 <div class="widget-author animate__animated animate__fadeIn animate__fast" *ngIf="typeProfile == 'solicitud'">
   <div class="author-heading">
+    <div>
 
-    <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
-      <a (click)="verPerfil()">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
-      </a>
-    </div>
-    <div class="profile-name">
-      <h4 class="author-name">
-        <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
-      </h4>
-      <div class="author-location">
-        <p class="text-break">{{user.biografia}}</p>
+      <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
+        <a (click)="verPerfil()">
+          <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
+        </a>
+      </div>
+      <div class="profile-name">
+        <h4 class="author-name">
+          <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
+        </h4>
+        <div class="author-location">
+          <p class="text-break">{{user.biografia}}</p>
+        </div>
       </div>
     </div>
+
     <div class="d-flex justify-content-between mt-3">
       <button (click)="aceptar()" class="btn btn-success">
         Aceptar
@@ -70,17 +80,20 @@
 </div>
 <div class="widget-author animate__animated animate__fadeIn animate__fast" *ngIf="typeProfile == 'solicitante'">
   <div class="author-heading">
-    <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
-      <a (click)="verPerfil()">
-        <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
-      </a>
-    </div>
-    <div class="profile-name">
-      <h4 class="author-name">
-        <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
-      </h4>
-      <div class="author-location">
-        <p class="text-break">{{user.biografia}}</p>
+    <div>
+
+      <div class="profile-img" [ngClass]="{ check: user.verificado === 1 }">
+        <a (click)="verPerfil()">
+          <img [src]="user.avatar" style="width: 100px !important; height: 100px !important" alt="author" />
+        </a>
+      </div>
+      <div class="profile-name">
+        <h4 class="author-name">
+          <a class="text-break" (click)="verPerfil()">{{ user.nombre }}</a>
+        </h4>
+        <div class="author-location">
+          <p class="text-break">{{user.biografia}}</p>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-between mt-3">

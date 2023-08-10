@@ -7,6 +7,7 @@ import {
 	myRequestMatches,
 	myMatches,
 	myMessages,
+	userChat,
 } from "./actions"
 
 const user: Usuario =
@@ -53,7 +54,7 @@ export const userReducer = createReducer(
 		localStorage.setItem("user", JSON.stringify(user))
 		return user
 	}),
-  on(setUser.verifyEmail, (state, { user }) => ({...state,verificado:1}))
+	on(setUser.verifyEmail, (state, { user }) => ({ ...state, verificado: 1 })),
 )
 
 const notification: INotificacion[] = []
@@ -125,5 +126,16 @@ export const messagesReducer = createReducer(
 			}
 			return item
 		})
+	}),
+)
+export const initialUserChat = null
+
+export const userChatReducer = createReducer(
+	initialUserChat,
+	on(userChat.set, (state, { user }) => {
+		return user
+	}),
+	on(userChat.delete, (state) => {
+		return null
 	}),
 )

@@ -10,8 +10,8 @@ import {
 import { FormControl, Validators } from "@angular/forms"
 import { Store } from "@ngrx/store"
 import { ChatService } from "src/app/services/chat/chat.service"
-import { messagesSelect } from "src/redux/selectors"
-import { myMessages } from "src/redux/actions"
+import { messagesSelect, userChatSelect } from "src/redux/selectors"
+import { myMessages, userChat } from "src/redux/actions"
 import { SocketService } from "src/app/services/socket/socket.service"
 import { Subscriber, Subscription } from "rxjs"
 
@@ -21,7 +21,7 @@ import { Subscriber, Subscription } from "rxjs"
 	styleUrls: ["./chat-modal.component.scss"],
 })
 export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
-	isShrink = true
+	isShrink = false
 	isHidden = true
 	mensajes$ = this.store.select(messagesSelect)
 	mensajes: {
@@ -35,8 +35,8 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	inputText: FormControl = new FormControl("", Validators.required)
 
-	@Input() user: any
-
+	// @Input() user: any
+	user: any
 	@Input()
 	set valor(value: boolean) {
 		this.isShrink = false
@@ -50,7 +50,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	private subscription!: Subscription
 	private socketSubscription!: Subscription
 	private newMessageHandler: any
-	@Output() valorChange = new EventEmitter<boolean>()
+	userChat$ = this.store.select(userChatSelect)
 	currentUser = localStorage.getItem("user")
 		? JSON.parse(localStorage.getItem("user")!)
 		: null
@@ -58,47 +58,63 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 		private chatSrvc: ChatService,
 		private store: Store<any>,
 		private socketSrvc: SocketService,
-	) {}
+	) {
+		this.userChat$.subscribe((data) => {
+			this.ngOnDestroy()
+			this.user = data
+			console.log(data)
+			this.ngOnInit()
+		})
+	}
 
 	async ngOnInit() {
-		const res = await this.chatSrvc.readMessages({
-			idUser: this.user.id,
-			idUser2: this.currentUser.id,
-			batchsize: 50,
-			currentbatch: 0,
-		})
-
-		console.log("onInit")
-
-		res.subscribe(async (data: any) => {
-			this.conversacion_id = data.conversacion_id
-			this.mensajes = data.results.sort((a: any, b: any) => {
-				return (
-					new Date(a.fecha_envio).getTime() - new Date(b.fecha_envio).getTime()
-				)
+		if (this.user) {
+			const res = await this.chatSrvc.readMessages({
+				idUser: this.user.id,
+				idUser2: this.currentUser.id,
+				batchsize: 50,
+				currentbatch: 0,
 			})
 
-			for (const element of data.results) {
-				if (element.estado != "visto") {
-					element.estado = "visto"
-					const res2 = await this.chatSrvc.updateMessage({ id: element.id })
-					res2.subscribe(
-						(data) => {
-							console.log(data)
-						},
-						(err) => {
-							console.log(err)
-						},
-					)
-					this.store.dispatch(myMessages.update(element))
-				}
-			}
-		})
+			this.isShrink = false
+			this.isHidden = true
 
-		this.newMessageHandler = (data: any) => {
-			this.handleNewMessage(data)
+			res.subscribe(async (data: any) => {
+				this.conversacion_id = data.conversacion_id
+				this.mensajes = data.results.sort((a: any, b: any) => {
+					return (
+						new Date(a.fecha_envio).getTime() -
+						new Date(b.fecha_envio).getTime()
+					)
+				})
+
+				for (const element of data.results) {
+					if (element.estado != "visto") {
+						element.estado = "visto"
+						const res2 = await this.chatSrvc.updateMessage({ id: element.id })
+						res2.subscribe(
+							(data) => {
+								console.log(data)
+							},
+							(err) => {
+								console.log(err)
+							},
+						)
+						this.store.dispatch(myMessages.update(element))
+					}
+				}
+				setTimeout(() => {
+					$("#modal-body").scrollTop($("#modal-body").prop("scrollHeight"))
+				}, 100)
+			})
+
+			this.newMessageHandler = (data: any) => {
+				this.handleNewMessage(data)
+			}
+			this.socketSrvc.socket.on("newMessage", this.newMessageHandler)
+		} else {
+			this.ngOnDestroy()
 		}
-		this.socketSrvc.socket.on("newMessage", this.newMessageHandler)
 	}
 	ngAfterViewInit() {
 		setTimeout(() => {
@@ -118,10 +134,8 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	hideChat() {
 		this.isHidden = !this.isHidden
-		this.valorChange.emit(this.isHidden)
-		if (this.isHidden) {
-			this.ngOnDestroy()
-		}
+		this.store.dispatch(userChat.delete())
+		this.ngOnDestroy()
 	}
 
 	async sendMessage() {

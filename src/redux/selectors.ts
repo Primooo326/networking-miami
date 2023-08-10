@@ -6,3 +6,4 @@ export const matchPendingSelect = (state: AppState) => state.pendingMatches
 export const matchRequestSelect = (state: AppState) => state.requestMatches
 export const matchSelect = (state: AppState) => state.matches
 export const messagesSelect = (state: AppState) => state.messages
+export const userChatSelect = (state: AppState) => state.userChat
