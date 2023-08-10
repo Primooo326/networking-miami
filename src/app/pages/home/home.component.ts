@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
 	users: Usuario[] = []
 	orderBy = "Todos los miembros"
 	messageFilter = "usuarios encontrados con intereses similares"
+	onLoadUsers = true
 	pages: number[] = []
 	contactoForm = new FormGroup({
 		nombre: new FormControl("", [Validators.required]),
@@ -158,6 +159,9 @@ export class HomeComponent implements OnInit {
 
 		this.initTypewriter()
 		this.initMasonry()
+		$("#preloader").fadeOut("slow", function () {
+			$(this).remove()
+		})
 	}
 	async readSimilarUsers() {
 		await this.userSrvc.readSimilarUsers(this.currentUser).then((obs) =>
@@ -170,10 +174,12 @@ export class HomeComponent implements OnInit {
 						return -1
 					else return 1
 				})
+
 				while (this.pages.length < this.users.length / 4) {
 					this.pages.push(this.pages.length)
 				}
 				this.changePageNewMatches(0)
+				this.onLoadUsers = false
 			}),
 		)
 	}

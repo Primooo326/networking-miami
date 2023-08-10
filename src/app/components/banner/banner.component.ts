@@ -23,7 +23,6 @@ import {
 	setUser,
 	userChat,
 } from "src/redux/actions"
-import { HeaderComponent } from "../header/header.component"
 import { FilePondOptions } from "filepond"
 import { environment } from "src/environments/environment"
 @Component({
@@ -43,11 +42,8 @@ export class BannerComponent implements OnInit {
 		private store: Store<any>,
 		private matchSrvc: MatchService,
 		private mailSrvc: MailService,
-		private headerComponent: HeaderComponent,
 	) {}
 	ngOnInit(): void {
-		console.log(this.user)
-
 		this.store.select(matchSelect).subscribe((matches) => {
 			this.misMatches = matches
 			this.defineTypeProfile()

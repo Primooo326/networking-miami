@@ -140,6 +140,9 @@ export class ProfileSettingsComponent implements OnInit {
 				this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date)
 			})
 		}, 2000)
+		$("#preloader").fadeOut("slow", function () {
+			$(this).remove()
+		})
 	}
 
 	onInputTel() {

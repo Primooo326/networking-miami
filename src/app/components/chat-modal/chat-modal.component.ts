@@ -54,6 +54,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	currentUser = localStorage.getItem("user")
 		? JSON.parse(localStorage.getItem("user")!)
 		: null
+	isOnSend = false
 	constructor(
 		private chatSrvc: ChatService,
 		private store: Store<any>,
@@ -140,6 +141,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	async sendMessage() {
 		if (this.inputText.valid) {
+			this.isOnSend = true
 			const res = await this.chatSrvc.sendMessage({
 				contenido: this.inputText.value,
 				destinatario_id: this.user.id,
@@ -152,6 +154,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 				setTimeout(() => {
 					$("#modal-body").scrollTop($("#modal-body").prop("scrollHeight"))
 				}, 100)
+				this.isOnSend = false
 			})
 		}
 	}

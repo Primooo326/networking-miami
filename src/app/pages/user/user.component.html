@@ -1,3 +1,4 @@
+<div id="preloader"></div>
 <div class="container animate__animated animate__fadeIn">
   <app-banner [user]="currentUser" [canEdit]="false"></app-banner>
   <div class="row">
@@ -5,7 +6,6 @@
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Información básica</h3>
-
         </div>
         <ul class="user-info">
           <li>
@@ -19,43 +19,36 @@
             <p class="text-break">
               {{ currentUser.ciudad }}, {{ currentUser.condado }}
             </p>
-
           </li>
           <li>
             <label>Lenguajes:</label>
             <p class="text-break">
               {{ currentUser.lenguajes | pipeArray }}
             </p>
-
           </li>
           <li>
             <label>Fecha de nacimiento:</label>
             <p class="text-break">
               {{ currentUser.fechaNacimiento | date }}
             </p>
-
           </li>
           <li>
             <label>Genero:</label>
             <p class="text-break">
               {{ currentUser.genero }}
             </p>
-
           </li>
           <li>
             <label>Biografía:</label>
             <p class="text-break">
               {{ currentUser.biografia }}
             </p>
-
           </li>
         </ul>
-
       </div>
       <div class="block-box user-about">
         <div class="widget-heading">
           <h3 class="widget-title">Intereses y tipo de conexión</h3>
-
         </div>
         <ul class="user-info">
           <li>
@@ -63,25 +56,25 @@
             <p>
               {{ currentUser.temasInteres | pipeArray }}
             </p>
-
           </li>
           <li>
             <label>Area de experiencia:</label>
             <p>
               {{ currentUser.areaExperiencia | pipeArray }}
             </p>
-
           </li>
           <li>
             <label>Tipo de conexión:</label>
             <p>
-              <span *ngFor="let item of currentUser.tipoConexion" class="mr-2">{{ item }}</span>
+              <span
+                *ngFor="let item of currentUser.tipoConexion"
+                class="mr-2"
+                >{{ item }}</span
+              >
             </p>
-
           </li>
         </ul>
       </div>
-
     </div>
     <!-- <div class="col-lg-4 widget-block widget-user-about widget-break-lg">
       <div class="widget widget-user-about">

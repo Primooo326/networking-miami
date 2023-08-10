@@ -29,9 +29,6 @@ import {
 } from "src/redux/actions"
 import { NotifyService } from "src/app/services/notify/notify.service"
 
-@Injectable({
-	providedIn: "root",
-})
 @Component({
 	selector: "app-header",
 	templateUrl: "./header.component.html",

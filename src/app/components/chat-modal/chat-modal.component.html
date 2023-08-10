@@ -1,40 +1,84 @@
-  <!-- Chat Modal Here -->
-  <div *ngIf="user" class="chat-conversion-box" [ngClass]="{'modal-show': isHidden, 'shrink':isShrink}"   id="chat-box-modal" tabindex="-1" aria-labelledby="chat-modal-label"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="chat-modal-label">
-            {{user.nombre}} <span class="online"></span>
-          </h6>
-          <div class="action-icon">
-            <button class="chat-shrink" (click)="shrinkChat()"><i *ngIf="isShrink" class="icofont-rounded-up"></i><i *ngIf="!isShrink" class="icofont-rounded-down"></i></button>
-            <button type="button" (click)="hideChat()" class="close chat-close chat-open" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+<!-- Chat Modal Here -->
+<div
+  *ngIf="user"
+  class="chat-conversion-box"
+  [ngClass]="{ 'modal-show': isHidden, shrink: isShrink }"
+  id="chat-box-modal"
+  tabindex="-1"
+  aria-labelledby="chat-modal-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="chat-modal-label">
+          {{ user.nombre }} <span class="online"></span>
+        </h6>
+        <div class="action-icon">
+          <button class="chat-shrink" (click)="shrinkChat()">
+            <i *ngIf="isShrink" class="icofont-rounded-up"></i
+            ><i *ngIf="!isShrink" class="icofont-rounded-down"></i>
+          </button>
+          <button
+            type="button"
+            (click)="hideChat()"
+            class="close chat-close chat-open"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="modal-body" id="modal-body">
-          <ul class="chat-conversion">
-            <li *ngFor="let mensaje of mensajes" [ngClass]="{'chat-others': mensaje.remitente_id == user.id,'chat-you':mensaje.remitente_id != user.id}" >
-              <div class="author-img">
-                <img *ngIf="mensaje.remitente_id == user.id" style="object-fit: cover;" [src]="user.avatar" class="user_chat" alt="Chat" />
-                <img *ngIf="mensaje.remitente_id != user.id" style="object-fit: cover;" [src]="currentUser.avatar" class="user_chat" alt="Chat" />
-              </div>
-              <div class="author-text w-75">
-                <span class="w-100 text-break">{{mensaje.contenido}}</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-            <div class="form-group">
-              <input type="text" autofocus="true" [formControl]="inputText" (keypress)="onKeydown($event)" class="form-control" placeholder="Escribe aquí..." />
-              <div class="chat-plus-icon" (click)="sendMessage()" >
-                <i class="fas fa-paper-plane"></i>
-              </div>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <ul class="chat-conversion">
+          <li
+            *ngFor="let mensaje of mensajes"
+            [ngClass]="{
+              'chat-others': mensaje.remitente_id == user.id,
+              'chat-you': mensaje.remitente_id != user.id
+            }"
+          >
+            <div class="author-img">
+              <img
+                *ngIf="mensaje.remitente_id == user.id"
+                style="object-fit: cover"
+                [src]="user.avatar"
+                class="user_chat"
+                alt="Chat"
+              />
+              <img
+                *ngIf="mensaje.remitente_id != user.id"
+                style="object-fit: cover"
+                [src]="currentUser.avatar"
+                class="user_chat"
+                alt="Chat"
+              />
             </div>
+            <div class="author-text w-75">
+              <span class="w-100 text-break">{{ mensaje.contenido }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+          <input
+            type="text"
+            autofocus="true"
+            [formControl]="inputText"
+            (keypress)="onKeydown($event)"
+            class="form-control"
+            placeholder="Escribe aquí..."
+          />
+          <div *ngIf="!isOnSend" class="chat-plus-icon" (click)="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div *ngIf="isOnSend" class="chat-plus-icon">
+            <div class="spinner-border" role="status"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
