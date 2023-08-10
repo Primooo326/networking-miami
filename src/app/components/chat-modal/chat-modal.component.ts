@@ -159,7 +159,7 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 		}
 	}
 	onKeydown(event: any) {
-		if (event.key === "Enter") {
+		if (event.key === "Enter" && !this.isOnSend) {
 			this.sendMessage()
 		}
 	}

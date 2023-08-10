@@ -21,9 +21,6 @@ export class UserComponent implements OnInit {
 		this.route.paramMap.subscribe(async (data: any) => {
 			await this.getUser(data.params.id)
 		})
-		$("#preloader").fadeOut("slow", function () {
-			$(this).remove()
-		})
 	}
 	async getUser(id) {
 		const getUser = await this.userSrvc.getUserById(id)
@@ -34,6 +31,9 @@ export class UserComponent implements OnInit {
 				setTimeout(() => {
 					this.isReady = true
 				}, 1000)
+				$("#preloader").fadeOut("slow", function () {
+					$(this).remove()
+				})
 			},
 			(err) => {
 				if (err.status == 404) {

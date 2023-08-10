@@ -90,7 +90,6 @@ export class ProfileSettingsComponent implements OnInit {
 	hintPasswordNotMatch = "Las contraseñas no coinciden"
 	hintPasswordIsSame = "La contraseña debe ser diferente a la actual"
 	constructor(
-		private mailSrvc: MailService,
 		private userSrvc: UserService,
 		private authSrvc: AuthService,
 		private store: Store<any>,
@@ -149,9 +148,9 @@ export class ProfileSettingsComponent implements OnInit {
 		var inputIti: any = document.querySelector("#phone")
 		this.itiInput = intlTelInput(inputIti, {
 			utilsScript:
-				"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.0.3/js/utils.js",
-			allowDropdown: true,
-			separateDialCode: true,
+				"https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+			// allowDropdown: true,
+			// separateDialCode: true,
 			initialCountry: "auto",
 			geoIpLookup: function (callback) {
 				fetch("https://ipapi.co/json")

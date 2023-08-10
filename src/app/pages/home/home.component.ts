@@ -6,7 +6,11 @@ import { Usuario } from "src/app/tools/models"
 import Swal from "sweetalert2"
 import Masonry from "masonry-layout"
 import { Store } from "@ngrx/store"
-import { matchPendingSelect, matchRequestSelect } from "src/redux/selectors"
+import {
+	matchPendingSelect,
+	matchRequestSelect,
+	matchSelect,
+} from "src/redux/selectors"
 import { ETypePerfil } from "src/app/tools/models"
 import { myRequestMatches } from "src/redux/actions"
 import { userSelect } from "../../../redux/selectors"
@@ -83,6 +87,7 @@ export class HomeComponent implements OnInit {
 	}
 	solicitudesDeMatch: Usuario[] = []
 	peticionesDeMatch: Usuario[] = []
+	contactos: Usuario[] = []
 
 	isOnAdvancedFilters = false
 
@@ -113,6 +118,9 @@ export class HomeComponent implements OnInit {
 		})
 		this.store.select(matchRequestSelect).subscribe((users: any) => {
 			this.peticionesDeMatch = users
+		})
+		this.store.select(matchSelect).subscribe((users: any) => {
+			this.contactos = users
 		})
 
 		this.currentUser.verificado == 0
@@ -212,10 +220,13 @@ export class HomeComponent implements OnInit {
 	async applyFilter() {
 		const filter = this.filterInput.value?.trim()
 		if (filter!.length != 0) {
+			this.onLoadUsers = true
 			const res = await this.userSrvc.searchUsers(50, 0, filter!)
 			res.subscribe(
 				(data: any) => {
 					this.messageFilter = "usuarios encontrados"
+					this.users = []
+					this.pages = []
 					this.users = data.sort((a, b) => {
 						if (
 							this.typeUser(a) == "solicitud" &&
@@ -224,9 +235,15 @@ export class HomeComponent implements OnInit {
 							return -1
 						else return 1
 					})
+
+					while (this.pages.length < this.users.length / 4) {
+						this.pages.push(this.pages.length)
+					}
 					this.changePageNewMatches(0)
+					this.onLoadUsers = false
 				},
 				(err) => {
+					this.onLoadUsers = false
 					console.log(err)
 				},
 			)
@@ -349,6 +366,8 @@ export class HomeComponent implements OnInit {
 			return "solicitud"
 		} else if (this.peticionesDeMatch.find((s) => s.id == user.id)) {
 			return "solicitante"
+		} else if (this.contactos.find((s) => s.id == user.id)) {
+			return "contacto"
 		} else {
 			return "desconocido"
 		}
