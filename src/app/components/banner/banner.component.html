@@ -1,4 +1,7 @@
-<div class="banner-user" style="background-image: url('{{ user.fotoPortada }}') !important">
+<div
+  class="banner-user"
+  style="background-image: url('{{ user.fotoPortada }}') !important"
+>
   <div class="banner-content">
     <div class="media">
       <div *ngIf="!canEdit" class="item-img">
@@ -6,76 +9,127 @@
       </div>
       <div *ngIf="canEdit" class="item-img">
         <img [src]="user.avatar" alt="User" />
-        <button *ngIf="canEdit" class="btn-editar-avatar" role="button" data-toggle="modal" data-target="#modalAvatar">
+        <button
+          *ngIf="canEdit"
+          class="btn-editar-avatar"
+          role="button"
+          data-toggle="modal"
+          data-target="#modalAvatar"
+        >
           <i class="fas fa-pen"></i>
         </button>
-
       </div>
       <div class="media-body">
-        <h3 class="item-title text-break" [ngClass]="{'check': user.verificado}">{{ user.nombre | titlecase }} </h3>
+        <h3
+          class="item-title text-break"
+          [ngClass]="{ check: user.verificado }"
+        >
+          {{ user.nombre | titlecase }}
+        </h3>
         <div class="item-subtitle">
           {{ user.areaExperiencia | pipeArray }}
         </div>
         <div class="item-subtitle">
           <div *ngIf="defineTypeProfile() == 'desconocido'">
-            <button class="btn btn-primary" (click)="solicitar()">Conectar</button>
+            <button class="btn btn-primary" (click)="solicitar()">
+              Conectar
+            </button>
           </div>
           <div *ngIf="defineTypeProfile() == 'contacto'">
-            <button class="btn btn-primary mr-3" (click)="chat()">Enviar mensaje</button>
-            <button class="btn btn-danger" (click)="eliminarMatch()">Eliminar</button>
+            <button class="btn btn-primary mr-3" (click)="chat()">
+              Enviar mensaje
+            </button>
+            <button class="btn btn-danger" (click)="eliminarMatch()">
+              Eliminar
+            </button>
           </div>
           <div *ngIf="defineTypeProfile() == 'solicitante'">
-            <button class="btn btn-secondary" (click)="cancelarSolicitud()">Cancelar solicitud</button>
+            <button class="btn btn-secondary" (click)="cancelarSolicitud()">
+              Cancelar solicitud
+            </button>
           </div>
           <div *ngIf="defineTypeProfile() == 'solicitud'">
-            <button class="btn btn-success mr-3" (click)="aceptar()">Aceptar solicitud</button>
-            <button class="btn btn-danger" (click)="rechazarSolicitud()">Rechazar solicitud</button>
+            <button class="btn btn-primary mr-3" (click)="aceptar()">
+              Aceptar solicitud
+            </button>
+            <button class="btn btn-danger" (click)="rechazarSolicitud()">
+              Rechazar solicitud
+            </button>
           </div>
-          <div *ngIf="defineTypeProfile() == 'propio'">
-
-          </div>
+          <div *ngIf="defineTypeProfile() == 'propio'"></div>
         </div>
       </div>
     </div>
   </div>
 
-
-  <button *ngIf="canEdit" class="btn-editar-portada" role="button" data-toggle="modal" data-target="#modalPortada">
+  <button
+    *ngIf="canEdit"
+    class="btn-editar-portada"
+    role="button"
+    data-toggle="modal"
+    data-target="#modalPortada"
+  >
     <i class="fas fa-pen"></i>
   </button>
 </div>
 <!-- TODO Modal Avatar -->
-<div class="modal fade" id="modalAvatar" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="modalAvatar"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Foto de perfil</h5>
-        <button type="button" id="buttonCloseModalAvatar" (click)="onCloseModalAvatar()" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          id="buttonCloseModalAvatar"
+          (click)="onCloseModalAvatar()"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <file-pond #myPondAvatar [options]="pondOptionsAvatar">
-        </file-pond>
+        <file-pond #myPondAvatar [options]="pondOptionsAvatar"> </file-pond>
       </div>
     </div>
   </div>
 </div>
 <!-- todo Modal Portada -->
-<div class="modal fade" id="modalPortada" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="modalPortada"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Foto de portada</h5>
-        <button type="button" id="buttonCloseModalPortada" (click)="onCloseModalPortada()" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          id="buttonCloseModalPortada"
+          (click)="onCloseModalPortada()"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <file-pond #myPondPortada [options]="pondOptionsPortada">
-        </file-pond>
+        <file-pond #myPondPortada [options]="pondOptionsPortada"> </file-pond>
       </div>
     </div>
   </div>

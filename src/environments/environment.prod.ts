@@ -1,4 +1,4 @@
 export const environment = {
-	backend: "https://nodejs.pruebawp.cymetria.com/",
+	backend: "https://api.networking.miami/",
   production: true
 };

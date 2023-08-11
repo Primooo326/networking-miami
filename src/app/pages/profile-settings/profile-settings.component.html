@@ -189,16 +189,13 @@
           class="d-flex justify-content-between mt-2"
         >
           <button
-            class="btn btn-danger w-25"
+            class="btn btn-danger"
             (click)="onInformacionBasicaEdit = true"
           >
             Cancelar
           </button>
 
-          <button
-            (click)="cambioInformacionBasica()"
-            class="btn btn-success w-25"
-          >
+          <button (click)="cambioInformacionBasica()" class="btn btn-primary">
             <span
               *ngIf="isOnInformacionBasicaLoading"
               class="spinner-border spinner-border-sm me-3"
@@ -304,10 +301,10 @@
           *ngIf="!onInteresesEdit"
           class="d-flex justify-content-between mt-2"
         >
-          <button class="btn btn-danger w-25" (click)="onInteresesEdit = true">
+          <button class="btn btn-danger" (click)="onInteresesEdit = true">
             Cancelar
           </button>
-          <button (click)="cambioIntereses()" class="btn btn-success w-25">
+          <button (click)="cambioIntereses()" class="btn btn-primary">
             <span
               *ngIf="isOnInteresesLoading"
               class="spinner-border spinner-border-sm me-3"
@@ -515,7 +512,7 @@
                   Cancelar
                 </button>
                 <button
-                  class="btn btn-success"
+                  class="btn btn-primary"
                   [disabled]="
                     passwordsFormGroup.invalid ||
                     passwordsFormGroup.controls.passwordNueva.value !==

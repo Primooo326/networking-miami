@@ -1,20 +1,15 @@
 <div id="preloader"></div>
 <div class="container-fluid">
-  <!-- Banner Area Start -->
-  <div *ngIf="!verificado" class="newsfeed-banner">
-    <div class="media">
-      <div class="item-icon">
-        <i class="icofont-megaphone-alt"></i>
-      </div>
-      <div class="media-body">
-        <h3 class="item-title">Verifica tu cuenta de Networking Miami</h3>
-        <p>Tu cuenta aún no ha sido verificada</p>
-        <button
-          (click)="verifyEmail()"
-          type="button"
-          class="btn btn-primary"
-          [disabled]="onVerifyEmail"
-        >
+    <!-- Banner Area Start -->
+    <div *ngIf="!verificado" class="newsfeed-banner">
+        <div class="media">
+            <div class="item-icon">
+                <i class="icofont-megaphone-alt"></i>
+            </div>
+            <div class="media-body">
+                <h3 class="item-title">Verifica tu cuenta de Networking Miami</h3>
+                <p>Tu cuenta aún no ha sido verificada</p>
+                <button (click)="verifyEmail()" type="button" class="btn btn-primary" [disabled]="onVerifyEmail">
           <span
             *ngIf="onVerifyEmail"
             class="spinner-border spinner-border-sm me-3"
@@ -28,102 +23,64 @@
             >Reenviar correo</span
           >
         </button>
-      </div>
+            </div>
+        </div>
+        <ul class="animation-img">
+            <li data-sal="slide-down" data-sal-duration="800" data-sal-delay="400">
+                <img src="media/banner/shape_7.png" alt="shape" />
+            </li>
+        </ul>
     </div>
-    <ul class="animation-img">
-      <li data-sal="slide-down" data-sal-duration="800" data-sal-delay="400">
-        <img src="media/banner/shape_7.png" alt="shape" />
-      </li>
-    </ul>
-  </div>
-  <h4>Buenos días {{ currentUser.nombre }}!</h4>
-  <!-- <p id="phrase"></p> -->
-  <button
-    class="btn btn-outline-info"
-    role="button"
-    data-toggle="modal"
-    data-target="#modalInvitarContactos"
-  >
+    <h4>Buenos días {{ currentUser.nombre }}!</h4>
+    <!-- <p id="phrase"></p> -->
+    <button class="btn btn-outline-info" role="button" data-toggle="modal" data-target="#modalInvitarContactos">
     Invitar a tus contactos
   </button>
-  <div class="mt-4">
-    <div class="row">
-      <div class="col" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
+    <div class="mt-4">
         <div class="block-box user-search-bar">
-          <div class="box-item search-box">
-            <div class="input-group">
-              <input
-                type="text"
-                (keyup)="onEnterPress($event)"
-                [formControl]="filterInput"
-                class="form-control"
-                placeholder="Buscar miembros por nombre"
-              />
-              <div class="input-group-append">
-                <button
-                  title="aplicar filtro"
-                  class="search-btn"
-                  type="button"
-                  (click)="applyFilter()"
-                >
-                  <i class="icofont-search"></i>
-                </button>
-              </div>
+            <div class="box-item search-box">
+                <div class="input-group">
+                    <input type="text" (keyup)="onEnterPress($event)" [formControl]="filterInput" class="form-control" placeholder="Buscar miembros por nombre" />
+                    <div class="input-group-append">
+                        <button title="aplicar filtro" class="search-btn" type="button" (click)="applyFilter()">
+              <i class="icofont-search"></i>
+            </button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="box-item search-switcher">
-            <ul class="user-view-switcher">
-              <li>
-                <a
-                  class="user-view-trigger active"
-                  (click)="onAdvanceFilters()"
-                  data-type="user-list-view"
-                >
-                  Filtros avanzados<i class="ml-3 icofont-listine-dots"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div class="box-item search-switcher">
+                <ul class="user-view-switcher">
+                    <li>
+                        <a class="user-view-trigger active" (click)="onAdvanceFilters()" data-type="user-list-view">
+              Filtros avanzados<i class="ml-3 icofont-listine-dots"></i>
+            </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <h5 *ngIf="onLoadUsers" class="text-center mb-5">
-          Buscando usuarios con intereses similares...
-        </h5>
-        <h5 *ngIf="!onLoadUsers" class="text-center mb-5">
-          {{ users.length }} {{ messageFilter }}
-        </h5>
-        <div
-          *ngIf="!onLoadUsers"
-          id="user-view"
-          class="user-grid-view"
-          [ngClass]="{ isNotVerified: !verificado }"
-        >
-          <div class="row rowmsry">
-            <app-profile-card
-              *ngFor="let item of showUsersNewMatches"
-              [typeProfile]="typeUser(item)"
-              [user]="item"
-              (event)="onChangeEvent($event)"
-              class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6"
-              [ngClass]="{
+        <div class="row">
+            <div class="col order-2 order-lg-1 col-lg-8" [ngClass]="{ 'col-lg-8': isOnAdvancedFilters }">
+                <h5 *ngIf="onLoadUsers" class="text-center mb-5">
+                    Buscando usuarios con intereses similares...
+                </h5>
+                <h5 *ngIf="!onLoadUsers" class="text-center mb-5">
+                    {{ users.length }} {{ messageFilter }}
+                </h5>
+                <div *ngIf="!onLoadUsers" id="user-view" class="user-grid-view" [ngClass]="{ isNotVerified: !verificado }">
+                    <div class="row rowmsry">
+                        <app-profile-card *ngFor="let item of showUsersNewMatches" [typeProfile]="typeUser(item)" [user]="item" (event)="onChangeEvent($event)" class="colmsry col-xl-3 col-lg-6 col-md-6 col-sm-6" [ngClass]="{
                 'col-xl-3 col-lg-6 col-md-6 col-sm-6': isOnAdvancedFilters,
                 'col-xl-3 col-lg-4 col-md-6': !isOnAdvancedFilters
-              }"
-            >
-            </app-profile-card>
-          </div>
-        </div>
-        <div *ngIf="onLoadUsers" class="text-center">
-          <div class="spinner-border text-primary" role="status"></div>
-        </div>
-        <div *ngIf="!onLoadUsers" class="text-center">
-          <a
-            role="button"
-            href="#matchestitle"
-            [hidden]="currentPageNewMatches == 0"
-            (click)="changePageNewMatches(currentPageNewMatches - 1)"
-            class="item-btn mx-2"
-          >
-            <span class="btn-icon">
+              }">
+                        </app-profile-card>
+                    </div>
+                </div>
+                <div *ngIf="onLoadUsers" class="text-center">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+                <div *ngIf="!onLoadUsers" class="text-center">
+                    <a role="button" href="#matchestitle" [hidden]="currentPageNewMatches == 0" (click)="changePageNewMatches(currentPageNewMatches - 1)" class="item-btn mx-2">
+                        <span class="btn-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -138,15 +95,9 @@
                 </g>
               </svg>
             </span>
-          </a>
-          <a
-            role="button"
-            href="#matchestitle"
-            [hidden]="canNextPageNewMatches()"
-            (click)="changePageNewMatches(currentPageNewMatches + 1)"
-            class="item-btn mx-2"
-          >
-            <span class="btn-icon">
+                    </a>
+                    <a role="button" href="#matchestitle" [hidden]="canNextPageNewMatches()" (click)="changePageNewMatches(currentPageNewMatches + 1)" class="item-btn mx-2">
+                        <span class="btn-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -159,66 +110,45 @@
                 />
               </svg>
             </span>
-          </a>
-        </div>
-      </div>
-      <div
-        [hidden]="!isOnAdvancedFilters"
-        class="col-lg-4 widget-block widget-user-about widget-break-lg"
-      >
-        <div class="widget widget-user-about">
-          <div class="widget-heading">
-            <h3 class="widget-title">Busca miembros por:</h3>
-          </div>
-          <div class="user-info">
-            <form [formGroup]="filtersGroup">
-              <ul class="mb-3">
-                <li class="">
-                  <span>Ubicación:</span>
-                  <div class="form-group">
-                    <select
-                      class="select2 mb-3"
-                      id="condado"
-                      formControlName="condado"
-                      name="Condado"
-                      data-placeholder="Condado"
-                    >
-                      <option
-                        *ngFor="let item of condados"
-                        [value]="item.nombre"
-                      >
-                        {{ item.nombre }}
-                      </option>
-                    </select>
-                    <select
-                      class="select2"
-                      id="ciudad"
-                      formControlName="ciudad"
-                      name="Ciudad"
-                      data-placeholder="Ciudad"
-                    >
-                      <option value="">Todos</option>
-                      <option *ngFor="let item of ciudades" [value]="item">
-                        {{ item }}
-                      </option>
-                    </select>
-                    <button
-                      id="boton"
-                      hidden
-                      (click)="onCondadoChange()"
-                    ></button>
-                  </div>
-                </li>
-                <li class="mt-4">
-                  <span>¿Qué tipo de personas te interesa encontrar?</span>
-                  <select
-                    class="select2 mb-3"
-                    id="conexiones"
-                    formArrayName="conexiones"
-                    name="Conexion"
-                    multiple="multiple"
-                    data-placeholder="Elige las opciones que apliquen"
-                  >
+                    </a>
+                </div>
+            </div>
+            <div [hidden]="!isOnAdvancedFilters" class="col-lg-4 order-1 order-lg-2 widget-block widget-user-about widget-break-lg">
+                <div class="widget widget-user-about">
+                    <div class="widget-heading">
+                        <h3 class="widget-title">Busca miembros por:</h3>
+                    </div>
+                    <div class="user-info">
+                        <form [formGroup]="filtersGroup">
+                            <ul class="mb-3">
+                                <li class="">
+                                    <span>Ubicación:</span>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <select class="select2 mb-3" id="condado" formControlName="condado" name="Condado" data-placeholder="Condado">
+                        <option
+                          *ngFor="let item of condados"
+                          [value]="item.nombre"
+                        >
+                          {{ item.nombre }}
+                        </option>
+                      </select>
+                                        </div>
+                                        <div>
+                                            <select class="select2" id="ciudad" formControlName="ciudad" name="Ciudad" data-placeholder="Ciudad">
+                        <option value="">Todos</option>
+                        <option *ngFor="let item of ciudades" [value]="item">
+                          {{ item }}
+                        </option>
+                      </select>
+                                        </div>
+
+                                        <button id="boton" hidden (click)="onCondadoChange()"></button>
+                                    </div>
+                                </li>
+                                <li class="mt-4">
+                                    <span>¿Qué tipo de personas te interesa encontrar?</span>
+                                    <select class="select2 mb-3" id="conexiones" formArrayName="conexiones" name="Conexion" multiple="multiple" data-placeholder="Elige las opciones que apliquen">
                     <option
                       class="text-wrap"
                       style="width: 100%"
@@ -228,17 +158,10 @@
                       <p class="text-wrap">{{ item.searchBy }}</p>
                     </option>
                   </select>
-                </li>
-                <li class="mt-4">
-                  <span>Elige área de especialización</span>
-                  <select
-                    class="select2 mb-3"
-                    id="experiencia"
-                    formArrayName="experiencia"
-                    name="Experiencia"
-                    multiple="multiple"
-                    data-placeholder="Elige las especializaciones que apliquen"
-                  >
+                                </li>
+                                <li class="mt-4">
+                                    <span>Elige área de especialización</span>
+                                    <select class="select2 mb-3" id="experiencia" formArrayName="experiencia" name="Experiencia" multiple="multiple" data-placeholder="Elige las especializaciones que apliquen">
                     <option
                       class="text-wrap"
                       style="width: 100%"
@@ -248,17 +171,10 @@
                       <p class="text-wrap">{{ item }}</p>
                     </option>
                   </select>
-                </li>
-                <li class="mt-4">
-                  <span>Elige los idiomas</span>
-                  <select
-                    class="select2 mb-3"
-                    id="idiomas"
-                    formArrayName="idiomas"
-                    name="Idiomas"
-                    multiple="multiple"
-                    data-placeholder="Elige los idiomas que apliquen"
-                  >
+                                </li>
+                                <li class="mt-4">
+                                    <span>Elige los idiomas</span>
+                                    <select class="select2 mb-3" id="idiomas" formArrayName="idiomas" name="Idiomas" multiple="multiple" data-placeholder="Elige los idiomas que apliquen">
                     <option
                       class="text-wrap"
                       style="width: 100%"
@@ -268,93 +184,63 @@
                       <p class="text-wrap">{{ item }}</p>
                     </option>
                   </select>
-                </li>
-              </ul>
-            </form>
+                                </li>
+                            </ul>
+                        </form>
 
-            <button class="btn btn-success btn-block mt-2" (click)="search()">
+                        <button class="btn btn-primary btn-block mt-2" (click)="search()">
               Buscar
             </button>
-            <button class="btn btn-warning btn-block mt-2" (click)="clean()">
+                        <button class="btn btn-warning btn-block mt-2" (click)="clean()">
               Limpiar filtros
             </button>
-          </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- todo Modal Portada -->
-  <div
-    class="modal fade"
-    id="modalInvitarContactos"
-    data-backdrop="static"
-    data-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">
-            Invitar contactos
-          </h5>
-          <button
-            type="button"
-            id="modalCloser"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
+    <!-- todo Modal Portada -->
+    <div class="modal fade" id="modalInvitarContactos" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        Invitar contactos
+                    </h5>
+                    <button type="button" id="modalCloser" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="contactoForm" class="row mt-2 mb-3">
-            <div class="col-6">
-              <div class="form-group">
-                <label>Nombre contacto</label>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="contactoForm" class="row mt-2 mb-3">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Nombre contacto</label>
 
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Nombre"
-                  formControlName="nombre"
-                  (keyup)="
+                                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre" (keyup)="
                     contactoForm.controls.nombre.setValue(
                       capitalize(contactoForm.controls.nombre.value!)
                     )
-                  "
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <label>Correo contacto</label>
+                  " />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Correo contacto</label>
 
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="e-mail"
-                  formControlName="email"
-                  (keyup)="
+                                <input type="email" class="form-control" placeholder="e-mail" formControlName="email" (keyup)="
                     contactoForm.controls.email.setValue(
                       contactoForm.controls.email.value!.toLowerCase()
                     )
-                  "
-                />
-              </div>
-            </div>
-          </form>
-          <button
-            class="btn btn-success"
-            [disabled]="contactoForm.invalid"
-            (click)="sendContacts()"
-          >
+                  " />
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-primary" [disabled]="contactoForm.invalid" (click)="sendContacts()">
             Enviar invitación
           </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

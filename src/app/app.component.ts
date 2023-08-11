@@ -119,6 +119,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 	}
 
 	isNavHome(): boolean {
-		return [""].includes(this.location.path())
+		return ["","/login"].includes(this.location.path())
 	}
 }

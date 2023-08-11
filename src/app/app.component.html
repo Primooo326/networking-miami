@@ -1,4 +1,4 @@
-<a href="#wrapper" data-type="section-switch" class="scrollup">
+<a onclick="scrollToTop()" data-type="section-switch" class="scrollup">
   <i class="icofont-bubble-up"></i>
 </a>
 
@@ -8,25 +8,18 @@
 
 <app-header></app-header>
 
-<div *ngFor="let item of notifications$ | async">
-
-</div>
-<div *ngIf="!isNavHome()" style="background-color: #f8f8f8; min-height: 100vh;" class="mb-5 px-5">
+<div *ngFor="let item of notifications$ | async"></div>
+<div
+  *ngIf="!isNavHome()"
+  style="background-color: #f8f8f8; min-height: 100vh"
+  class="mb-5 px-0 px-lg-5"
+>
   <div class="page-content">
-
-
-    <router-outlet>
-
-    </router-outlet>
-
-
+    <router-outlet> </router-outlet>
   </div>
 </div>
 
 <div *ngIf="isNavHome()">
-
-  <router-outlet>
-  </router-outlet>
-
+  <router-outlet> </router-outlet>
 </div>
 <app-footer></app-footer>
