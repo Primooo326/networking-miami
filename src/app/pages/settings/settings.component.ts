@@ -12,11 +12,11 @@ import { Router } from "@angular/router"
 import { AuthService } from "src/app/services/auth/auth.service"
 
 @Component({
-	selector: "app-profile-settings",
-	templateUrl: "./profile-settings.component.html",
-	styleUrls: ["./profile-settings.component.scss"],
+	selector: "app-settings",
+	templateUrl: "./settings.component.html",
+	styleUrls: ["./settings.component.scss"],
 })
-export class ProfileSettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 	idiomas = JSON.parse(localStorage.getItem("lenguajes")!).sort()
 	experiencia = JSON.parse(localStorage.getItem("experiencia")!).sort()
 	intereses = JSON.parse(localStorage.getItem("interes")!).sort()

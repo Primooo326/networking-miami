@@ -84,10 +84,18 @@
             "development": {
               "buildOptimizer": false,
               "optimization": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "prueba":{
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prueba.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
