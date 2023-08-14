@@ -42,7 +42,6 @@
     "socket.io-client": "^4.7.1",
     "sweetalert2": "^11.4.8",
     "tslib": "^2.3.0",
-    "typewriter-effect": "^2.20.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

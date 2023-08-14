@@ -14,7 +14,6 @@ import {
 import { ETypePerfil } from "src/app/tools/models"
 import { myRequestMatches } from "src/redux/actions"
 import { userSelect } from "../../../redux/selectors"
-import Typewriter from "typewriter-effect/dist/core"
 import { frases } from "src/assets/utilities"
 import "select2"
 
@@ -167,7 +166,6 @@ export class HomeComponent implements OnInit {
 			this.filtersGroup.get("conexiones")?.setValue(conexiones)
 		})
 
-		this.initTypewriter()
 		// this.initMasonry()
 		$("#preloader").fadeOut("slow", function () {
 			$(this).remove()
@@ -278,15 +276,7 @@ export class HomeComponent implements OnInit {
 	// 		})
 	// 	}, 10)
 	// }
-	initTypewriter() {
-		const phrase = document.getElementById("phrase")
 
-		new Typewriter(phrase, {
-			delay: 10,
-			strings: frases[Math.floor(Math.random() * frases.length)],
-			autoStart: true,
-		})
-	}
 	changeOrder(order: string) {
 		this.orderBy = order
 	}
