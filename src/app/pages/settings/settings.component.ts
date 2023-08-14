@@ -10,7 +10,7 @@ import intlTelInput from "intl-tel-input"
 import Datepicker from "@chenfengyuan/datepicker" // Import Datepicker class
 import { Router } from "@angular/router"
 import { AuthService } from "src/app/services/auth/auth.service"
-
+import "select2"
 @Component({
 	selector: "app-settings",
 	templateUrl: "./settings.component.html",

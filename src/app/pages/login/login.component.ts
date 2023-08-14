@@ -15,13 +15,16 @@ import Swal from "sweetalert2"
 import { NotifyService } from "src/app/services/notify/notify.service"
 import { MatchService } from "src/app/services/match/match.service"
 import { environment } from "src/environments/environment"
+import "select2"
 import { FilePondOptions } from "filepond"
+import { Title } from "@angular/platform-browser"
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements AfterViewInit {
+	title = "Networking Miami | Ingreso"
 	idiomas = JSON.parse(localStorage.getItem("lenguajes")!).sort()
 	experiencia = JSON.parse(localStorage.getItem("experiencia")!).sort()
 	intereses = JSON.parse(localStorage.getItem("interes")!).sort()
@@ -120,7 +123,9 @@ export class LoginComponent implements AfterViewInit {
 		private socketSrvc: SocketService,
 		private notifySrvc: NotifyService,
 		private matchSrvc: MatchService,
+		private titleService: Title,
 	) {
+		this.titleService.setTitle(this.title)
 		setInterval(() => {
 			this.experienciaV =
 				this.registroForm3Tab.controls.areaExperiencia.value?.length == 0

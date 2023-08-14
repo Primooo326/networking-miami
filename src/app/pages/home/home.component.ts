@@ -16,6 +16,8 @@ import { myRequestMatches } from "src/redux/actions"
 import { userSelect } from "../../../redux/selectors"
 import Typewriter from "typewriter-effect/dist/core"
 import { frases } from "src/assets/utilities"
+import "select2"
+
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
@@ -166,7 +168,7 @@ export class HomeComponent implements OnInit {
 		})
 
 		this.initTypewriter()
-		this.initMasonry()
+		// this.initMasonry()
 		$("#preloader").fadeOut("slow", function () {
 			$(this).remove()
 		})
@@ -214,7 +216,7 @@ export class HomeComponent implements OnInit {
 	}
 	onAdvanceFilters() {
 		this.isOnAdvancedFilters = !this.isOnAdvancedFilters
-		this.initMasonry()
+		// this.initMasonry()
 	}
 
 	async applyFilter() {
@@ -257,25 +259,25 @@ export class HomeComponent implements OnInit {
 		this.currentPageNewMatches = page
 		this.showUsersNewMatches = this.users.filter(() => true)
 		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 20, 20)
-		this.initMasonry()
+		// this.initMasonry()
 	}
-	initMasonry() {
-		setTimeout(() => {
-			var grid = document.querySelector(".rowmsry")
-			new Masonry(grid!, {
-				itemSelector: ".colmsry",
-				gutter: 0,
-				resize: true,
-				initLayout: true,
-				transitionDuration: "0.2s",
-				stagger: 0,
-				percentPosition: true,
-				horizontalOrder: true,
-				originLeft: true,
-				originTop: true,
-			})
-		}, 10)
-	}
+	// initMasonry() {
+	// 	setTimeout(() => {
+	// 		var grid = document.querySelector(".rowmsry")
+	// 		new Masonry(grid!, {
+	// 			itemSelector: ".colmsry",
+	// 			gutter: 0,
+	// 			resize: true,
+	// 			initLayout: true,
+	// 			transitionDuration: "0.2s",
+	// 			stagger: 0,
+	// 			percentPosition: true,
+	// 			horizontalOrder: true,
+	// 			originLeft: true,
+	// 			originTop: true,
+	// 		})
+	// 	}, 10)
+	// }
 	initTypewriter() {
 		const phrase = document.getElementById("phrase")
 
