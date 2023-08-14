@@ -759,18 +759,6 @@ h6 {
     z-index: 1;
 }
 
-.footer-wrap:before {
-    content: url("../../media/figure/footer_shape.png");
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    z-index: -1;
-    overflow: hidden;
-    line-height: 0;
-}
 
 @media only screen and (max-width: 479px) {
     .footer-wrap .footer-top-image {
@@ -4645,13 +4633,6 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     }
 }
 
-.banner-apps .banner-img:before {
-    content: url("../../media/banner/shape_3.png");
-    position: absolute;
-    top: 0;
-    right: 30px;
-    z-index: -1;
-}
 
 @media only screen and (max-width: 991px) {
     .banner-apps .banner-img:before {
@@ -4659,35 +4640,10 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     }
 }
 
-.banner-apps .banner-img:after {
-    content: url("../../media/banner/shape_4.png");
-    position: absolute;
-    bottom: 70px;
-    left: 10px;
-    z-index: -1;
-}
 
 .banner-apps .banner-img .apps-view {
     text-align: center;
     position: relative;
-}
-
-.banner-apps .banner-img .apps-view:before {
-    content: url("../../media/banner/shape_5.png");
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    -webkit-animation: movingleftright2 15000ms linear infinite;
-    animation: movingleftright2 15000ms linear infinite;
-}
-
-.banner-apps .banner-img .apps-view:after {
-    content: url("../../media/banner/shape_6.png");
-    position: absolute;
-    bottom: 25%;
-    right: 60px;
-    -webkit-animation: movingleftright1 20000ms linear infinite;
-    animation: movingleftright1 20000ms linear infinite;
 }
 
 
@@ -4803,15 +4759,6 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 /*------------------- 5.4 Community -------------------*/
 
-.community-network {
-    background-color: #f6f6f6;
-    padding: 125px 0;
-    background-image: url("../../media/figure/map_1.png");
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    position: relative;
-    z-index: 1;
-}
 
 @media only screen and (max-width: 1199px) {
     .community-network {
@@ -5553,12 +5500,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     }
 }
 
-.testimonial-carousel:before {
-    content: url("../../media/testimonial/shape_2.png");
-    position: absolute;
-    right: 18%;
-    top: 0;
-}
+
 
 @media only screen and (max-width: 767px) {
     .testimonial-carousel:before {
@@ -5769,16 +5711,7 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     z-index: -1;
 }
 
-.why-choose-fluid .why-choose-content:after {
-    content: url("../../media/figure/multi_shape.png");
-    position: absolute;
-    top: 0;
-    right: 35px;
-    text-align: center;
-    -webkit-animation: movinground 50000ms linear infinite;
-    animation: movinground 50000ms linear infinite;
-    z-index: -1;
-}
+
 
 .why-choose-fluid .content-box .item-title {
     color: #ffffff;
@@ -8583,17 +8516,6 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
 
 .product-page .load-more-btn {
     margin-bottom: 80px;
-}
-
-.product-breadcrumb {
-    padding: 130px 0;
-    background-image: url("../../media/figure/product_breadcrum.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
 }
 
 @media only screen and (max-width: 1199px) {
@@ -11452,14 +11374,6 @@ nav.template-main-menu>ul>li:hover ul.mega-menu {
     text-align: center;
     position: relative;
     overflow: hidden;
-}
-
-.widget-banner:after {
-    content: url("../../media/figure/square_shape.png");
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
 }
 
 @media only screen and (max-width: 991px) {
