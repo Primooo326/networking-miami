@@ -6,6 +6,9 @@
     "start": "ng serve",
     "build": "ng build --configuration production && npm exec compress dist/networking-miami",
     "watch": "ng build --watch --configuration development",
+    "build:stats": "ng build --stats-json",
+    "analyze": "npm run build:stats && npx webpack-bundle-analyzer dist/networking-miami/stats.json",
+    "stats":"npx webpack-bundle-analyzer dist/networking-miami/stats.json",
     "test": "ng test"
   },
   "private": true,

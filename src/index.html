@@ -66,39 +66,7 @@
     </div>
 
     <script>
-      const favicon = document.querySelector("link[rel='icon']");
-      const darkModeMediaQuery = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      );
 
-      const faviconLightPath = "media/logos-miami/logo-morado.png";
-      const faviconDarkPath = "media/logos-miami/logo-blanco.png";
-
-      function setFaviconPath(path) {
-        favicon.href = path;
-      }
-
-      if (darkModeMediaQuery.matches) {
-        setFaviconPath(faviconDarkPath);
-      } else {
-        setFaviconPath(faviconLightPath);
-      }
-
-      darkModeMediaQuery.addEventListener("change", (event) => {
-        if (event.matches) {
-          setFaviconPath(faviconDarkPath);
-        } else {
-          setFaviconPath(faviconLightPath);
-        }
-      });
-
-      function scrollToTop() {
-        // Desplaza la página suavemente hacia arriba
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
     </script>
 
     <script
