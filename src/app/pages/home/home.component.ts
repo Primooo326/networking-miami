@@ -130,10 +130,36 @@ export class HomeComponent implements OnInit {
 
 		await this.readSimilarUsers()
 
+		const matchCustom = (params, data) => {
+			// Si el término de búsqueda está en blanco, devuelve todos los datos sin filtrar
+			if ($.trim(params.term) === "") {
+				return data
+			}
+
+			// Comprueba si el objeto "data" tiene la propiedad "text"
+			if (typeof data.text === "undefined") {
+				return null
+			}
+
+			// Convierte el término de búsqueda y el texto en minúsculas para hacer una comparación insensible a mayúsculas y minúsculas
+			const searchTerm = params.term.toLowerCase()
+			const dataText = data.text.toLowerCase()
+
+			// Comprueba si el término de búsqueda se encuentra en el texto
+			if (dataText.includes(searchTerm)) {
+				// Crea una copia profunda del objeto "data" usando el spread operator
+				const modifiedData = { ...data }
+
+				return modifiedData
+			}
+
+			return null
+		}
+
 		$("select.select2").select2({
-			dropdownAutoWidth: true,
+			theme: "classic",
 			width: "100%",
-			minimumResultsForSearch: Infinity,
+			matcher: matchCustom,
 		})
 		$("select#ciudad").on("change", (e: any) => {
 			const ciudad: any = $(e.target).val()

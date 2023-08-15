@@ -104,8 +104,6 @@ export class SettingsComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.onInputTel()
-
 		$('[data-toggle="datepicker"]').datepicker({
 			language: "es-ES",
 			startDate: "1900",
@@ -149,9 +147,8 @@ export class SettingsComponent implements OnInit {
 		this.itiInput = intlTelInput(inputIti, {
 			utilsScript:
 				"https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
-			// allowDropdown: true,
-			// separateDialCode: true,
 			initialCountry: "auto",
+
 			geoIpLookup: function (callback) {
 				fetch("https://ipapi.co/json")
 					.then(function (res) {
@@ -194,11 +191,36 @@ export class SettingsComponent implements OnInit {
 		}
 
 		setTimeout(() => {
+			const matchCustom = (params, data) => {
+				// Si el término de búsqueda está en blanco, devuelve todos los datos sin filtrar
+				if ($.trim(params.term) === "") {
+					return data
+				}
+
+				// Comprueba si el objeto "data" tiene la propiedad "text"
+				if (typeof data.text === "undefined") {
+					return null
+				}
+
+				// Convierte el término de búsqueda y el texto en minúsculas para hacer una comparación insensible a mayúsculas y minúsculas
+				const searchTerm = params.term.toLowerCase()
+				const dataText = data.text.toLowerCase()
+
+				// Comprueba si el término de búsqueda se encuentra en el texto
+				if (dataText.includes(searchTerm)) {
+					// Crea una copia profunda del objeto "data" usando el spread operator
+					const modifiedData = { ...data }
+
+					return modifiedData
+				}
+
+				return null
+			}
+
 			$("select.select2").select2({
 				theme: "classic",
-				dropdownAutoWidth: true,
 				width: "100%",
-				minimumResultsForSearch: Infinity,
+				matcher: matchCustom,
 			})
 
 			$("select#condado").val(this.infoBasicaForm.get("condado")?.value)

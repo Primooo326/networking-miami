@@ -23,7 +23,7 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets","src/robots.txt", "src/media"],
+            "assets": ["src/assets","src/robots.txt",  "src/media"],
             "styles": [
               "src/styles.scss",
               "src/dependencies/bootstrap/css/bootstrap.min.css",
@@ -34,7 +34,7 @@
               "src/dependencies/mcustomscrollbar/jquery.mCustomScrollbar.min.css",
               "src/dependencies/saljs/sal.css",
               "src/dependencies/datepicker/dist/datepicker.min.css",
-              "src/dependencies/select2/css/select2.min.css",
+              "src/dependencies/select2/v4.1.0/select2.min.css",
               "src/assets/css/app.css",
               "./node_modules/filepond/dist/filepond.min.css",
               "./node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -54,7 +54,7 @@
               "src/dependencies/saljs/sal.js",
               "src/dependencies/bootstrap-validator/js/validator.min.js",
               "src/dependencies/datepicker/dist/datepicker.js",
-              "src/dependencies/select2/js/select2.min.js",
+              "src/dependencies/select2/v4.1.0/select2.min.js",
               "src/assets/js/app.js",
               "src/dependencies/bootstrap/js/bootstrap.min.js"
             ]
