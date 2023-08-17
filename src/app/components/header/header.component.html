@@ -51,10 +51,7 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="item-heading">
                   <h6 class="heading-title">Solicitud de conexión</h6>
-                  <div class="heading-btn">
-                    <!-- <a href="#">Settings</a> -->
-                    <!-- <a href="#">Eliminar todo</a> -->
-                  </div>
+                  <div class="heading-btn"></div>
                 </div>
                 <div class="item-body">
                   <div
@@ -117,7 +114,8 @@
                 type="button"
                 data-toggle="dropdown"
                 aria-expanded="false"
-                (click)="openSideBarChat()"
+                [routerLink]="['/chat']"
+                routerLinkActive="router-link-active"
               >
                 <i class="icofont-speech-comments"></i>
                 <span
@@ -325,7 +323,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/home"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Inicio"
                 ><i class="icofont-home"></i
@@ -336,7 +333,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/match"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Mis Contactos"
                 ><i class="icofont-users-alt-2"></i
@@ -347,7 +343,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/profile-settings"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Editar perfil"
                 ><i class="icofont-settings-alt"></i
@@ -357,7 +352,6 @@
               <a
                 (click)="logOut(); closeSidebarLeft()"
                 class="menu-link text-danger"
-                
                 data-placement="right"
                 title="Cerrar Sesión"
                 ><i class="icofont-logout"></i
@@ -432,7 +426,8 @@
       <div
         class="sidebar-toggle"
         role="button"
-        (click)="openSideBarChat()"
+        [routerLink]="['/chat']"
+        routerLinkActive="router-link-active"
         id="chat-head-toggle"
       >
         <button class="chat-icon">

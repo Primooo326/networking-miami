@@ -1,0 +1,57 @@
+<div class="contenedor">
+  <div class="row w-100">
+    <div class="col col-3 w-100 chat-items">
+      <div class="header-chat">
+        <div class="block-box user-search-bar">
+          <div class="box-item search-box">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar miembros"
+              />
+              <div class="input-group-append">
+                <button title="aplicar filtro" class="search-btn" type="button">
+                  <i class="icofont-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-chat">
+        <div class="content-media">
+          <div
+            *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]"
+            class="media chat-item"
+          >
+            <div class="item-img mr-3">
+              <img class="user_profile" src="media/user-image.png" />
+              <span class="chat-status offline"></span>
+            </div>
+            <div class="media-body">
+              <h6 class="item-title">
+                <a class="text-break"> item.nombre </a>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-9 w-100">
+      <div class="header-chat">
+        <div class="item-img mr-3">
+          <img class="user_profile" src="media/user-image.png" />
+          <span class="chat-status offline"></span>
+        </div>
+        <div class="media-body">
+          <h6 class="item-title">
+            <a class="text-break"> item.nombre </a>
+          </h6>
+        </div>
+      </div>
+      <div class="body-chat"></div>
+      <div class="footer-chat"></div>
+    </div>
+  </div>
+</div>
