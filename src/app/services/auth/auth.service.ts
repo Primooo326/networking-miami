@@ -33,8 +33,11 @@ export class AuthService {
 		await this.http.get(`${this.backend}admin/interes`).subscribe((data) => {
 			localStorage.setItem("interes", JSON.stringify(data))
 		})
-		await this.http.get(`${this.backend}admin/conexion`).subscribe((data) => {
-			localStorage.setItem("conexion", JSON.stringify(data))
+		await this.http.get(`${this.backend}users/getConexiones`).subscribe((data:any) => {
+			console.log(data);
+			localStorage.setItem("conexion", JSON.stringify(data.map((c) => {
+				return c.conexion
+			})))
 		})
 		await this.http.get(`${this.backend}admin/condados`).subscribe((data) => {
 			localStorage.setItem("condados", JSON.stringify(data))

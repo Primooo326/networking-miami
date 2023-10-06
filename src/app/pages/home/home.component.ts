@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 	conexion2 = [
 		{
 			searchBy: "personas que quieran compartir su conocimiento.",
-			value: "Quiero compartir mi conocimiento.",
+			value: "Estoy buscando compartir o adquirir conocimiento",
 		},
 		{
 			searchBy: "personas con intereses similares.",
