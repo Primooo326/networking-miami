@@ -67,7 +67,8 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
 
   registroForm2Tab = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    fechaNacimiento: new FormControl('', [Validators.required]),
+    fechaNacimiento: new FormControl('', [Validators.required, Validators.minLength(10)]),
+
     telefono: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
@@ -77,8 +78,6 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     ciudad: new FormControl('', [Validators.required]),
     lenguajes: new FormControl(''),
     biografia: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
     ]),
   });
 
@@ -232,6 +231,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
       separateDialCode: true,
       initialCountry: 'auto',
       //lenguaje en español
+
 
       geoIpLookup: function (callback) {
         fetch('https://ipapi.co/json')
@@ -428,6 +428,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
         (data) => {
           console.log(data);
           this.isOnResetEmail = false;
+          Swal.fire("¡Éxito!", "Se ha enviado un correo a tu bandeja de entrada", "success")
         },
         (err) => {
           Swal.fire('error', err.error, 'error');
@@ -661,5 +662,21 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
   }
   biographyRegistroValidator(): boolean {
     return this.registroForm2Tab.controls.biografia.hasError('required');
+  }
+  manejarKeydown(event: KeyboardEvent) {
+
+    // Obtener el valor actual del campo de entrada
+    const valorCampo = (event.target as HTMLInputElement).value;
+    const input:HTMLInputElement = document.getElementById('date') as HTMLInputElement;
+    const dateString:HTMLInputElement = document.getElementById('dateString') as HTMLInputElement;
+    // Verificar si el evento es un número y si el valor actual tiene cierta longitud
+    valorCampo.replace("/", '');
+    if ([4, 7].includes(valorCampo.length)) {
+      // Agregar automáticamente el carácter "-" después de ciertos caracteres
+      console.log(valorCampo + "-");
+      input!.value = valorCampo + '-';
+      dateString!.value = valorCampo + '-';
+      return this.registroForm2Tab.controls.fechaNacimiento.setValue( valorCampo + '-');
+    }
   }
 }

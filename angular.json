@@ -23,7 +23,12 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets","src/robots.txt",  "src/media"],
+            "assets": [
+              "src/assets",
+              "src/robots.txt",
+              "src/media",
+              "src/.htaccess"
+            ],
             "styles": [
               "src/styles.scss",
               "src/dependencies/bootstrap/css/bootstrap.min.css",
@@ -95,7 +100,7 @@
               "sourceMap": true,
               "namedChunks": true
             },
-            "prueba":{
+            "prueba": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
