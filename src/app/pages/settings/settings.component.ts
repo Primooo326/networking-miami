@@ -26,7 +26,6 @@ export class SettingsComponent implements OnInit {
 	condadoSelected: { nombre: string; ciudades: string[] }
 	ciudades: string[] = []
 	TipoConexion: string[] = []
-
 	user$ = this.store.select(userSelect)
 	currentUser = JSON.parse(localStorage.getItem("user")!)
 	itiInput: any
@@ -51,10 +50,11 @@ export class SettingsComponent implements OnInit {
 		ciudad: new FormControl(this.currentUser.ciudad, [Validators.required]),
 		lenguajes: new FormControl(this.currentUser.lenguajes, [
 			Validators.required,
+      Validators.minLength(1),
 		]),
 		fechaNacimiento: new FormControl(
 			this.currentUser.fechaNacimiento.substring(0, 10),
-			[Validators.required],
+			[Validators.required, Validators.minLength(10)],
 		),
 		genero: new FormControl(this.currentUser.genero, [Validators.required]),
 		biografia: new FormControl(this.currentUser.biografia, [
@@ -85,10 +85,12 @@ export class SettingsComponent implements OnInit {
 			Validators.minLength(8),
 		]),
 	})
+
 	hintMinLength = "Mínimo 8 caracteres"
 	hintRequired = "Este campo es requerido"
 	hintPasswordNotMatch = "Las contraseñas no coinciden"
 	hintPasswordIsSame = "La contraseña debe ser diferente a la actual"
+
 	constructor(
 		private userSrvc: UserService,
 		private authSrvc: AuthService,
@@ -279,6 +281,8 @@ export class SettingsComponent implements OnInit {
 
 	async cambioInformacionBasica() {
 		this.isOnInformacionBasicaLoading = true
+    if(this.infoBasicaForm.valid){
+
 		const regex = /'(.*?)'/
 		const user: any = { ...this.currentUser }
 		let idiomaValue: any = $("select#idioma").val()
@@ -315,6 +319,8 @@ export class SettingsComponent implements OnInit {
 				this.isOnInformacionBasicaLoading = false
 			},
 		)
+    }
+
 	}
 
 	async cambioIntereses() {
@@ -381,6 +387,7 @@ export class SettingsComponent implements OnInit {
 			},
 		)
 	}
+
 	async deleteAccount() {
 		Swal.fire({
 			title: "¿Estás seguro de eliminar tu cuenta?",
@@ -410,4 +417,19 @@ export class SettingsComponent implements OnInit {
 			}
 		})
 	}
+  capitalize(str: string) {
+		// Dividimos la cadena en palabras individuales
+		const words = str.split(" ")
+
+		// Capitalizamos la primera letra de cada palabra
+		for (let i = 0; i < words.length; i++) {
+			words[i] = words[i][0].toUpperCase() + words[i].slice(1).toLowerCase()
+		}
+
+		// Unimos las palabras capitalizadas en una sola cadena
+		return words.join(" ")
+	}
+  validatorInfoBasica(){
+    
+  }
 }

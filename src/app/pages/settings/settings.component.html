@@ -34,6 +34,11 @@
                 class="form-control"
                 placeholder="Nombre y apellidos"
                 formControlName="nombre"
+                (keyup)="
+                  infoBasicaForm.controls.nombre.setValue(
+                    capitalize(infoBasicaForm.controls.nombre.value)
+                  )
+                "
               />
             </li>
             <li>
@@ -194,7 +199,11 @@
             Cancelar
           </button>
 
-          <button (click)="cambioInformacionBasica()" class="btn btn-primary">
+          <button
+            (click)="cambioInformacionBasica()"
+            [disabled]="infoBasicaForm.invalid"
+            class="btn btn-primary"
+          >
             <span
               *ngIf="isOnInformacionBasicaLoading"
               class="spinner-border spinner-border-sm me-3"

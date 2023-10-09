@@ -42,7 +42,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
   isOnLogin = true;
   onReset = false;
   isOnResetEmail = false;
-  pageNumber = '1/5';
+  pageNumber = '2/5';
   textTabRegistro = 'Correo y contraseña';
 
   lenguajesV = true;
@@ -147,7 +147,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     const idx = this.experiencia.findIndex((e) => e == 'Otro');
     this.experiencia.splice(idx, 1);
 	  this.experiencia.push('Otro');
-	  
+
     this.intereses.sort();
     const idx2 = this.intereses.findIndex((e) => e == 'Otros');
     this.intereses.splice(idx2, 1);
@@ -678,5 +678,6 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
       dateString!.value = valorCampo + '-';
       return this.registroForm2Tab.controls.fechaNacimiento.setValue( valorCampo + '-');
     }
+    this.registroForm2Tab.controls.fechaNacimiento.setValue( valorCampo);
   }
 }

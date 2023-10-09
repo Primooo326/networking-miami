@@ -14,7 +14,7 @@
               <a
                 class="nav-link active"
                 data-toggle="tab"
-                (click)="onReset = false && isOnLogin = true"
+                (click)="onReset = false && (isOnLogin = true)"
                 href="#login-tab"
                 role="tab"
                 aria-selected="true"
@@ -26,7 +26,7 @@
                 class="nav-link"
                 data-toggle="tab"
                 href="#registration-tab"
-                (click)="onReset = false && isOnLogin = false"
+                (click)="onReset = false && (isOnLogin = false)"
                 role="tab"
                 aria-selected="false"
                 ><i class="icofont-download"></i> Registro
@@ -377,9 +377,7 @@
                     formControlName="nombre"
                     class="form-control"
                     [ngClass]="{
-                      'is-invalid':
-                        
-                        nameRegistroValidator()
+                      'is-invalid': nameRegistroValidator()
                     }"
                     placeholder="Nombre y apellidos"
                     (keyup)="
@@ -391,7 +389,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.nombre.hasError('required')
                     "
                   >
@@ -400,7 +397,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.nombre.hasError('minlength')
                     "
                   >
@@ -416,15 +412,12 @@
                     class="form-control"
                     placeholder="Numero telefónico"
                     [ngClass]="{
-                      'is-invalid':
-                        
-                        phoneRegistroValidator()
+                      'is-invalid': phoneRegistroValidator()
                     }"
                   />
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.telefono.hasError('required')
                     "
                   >
@@ -433,7 +426,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.telefono.hasError('minlength')
                     "
                   >
@@ -447,12 +439,16 @@
                     maxlength="10"
                     data-toggle="datepicker"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        registroForm2Tab.controls.fechaNacimiento.invalid
+                    }"
                     id="date"
                     (keyup)="manejarKeydown($event)"
                     placeholder="YYYY-MM-DD"
                   />
                   <input
-                  id="dateString"
+                    id="dateString"
                     hidden
                     type="text"
                     maxlength="15"
@@ -461,12 +457,10 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.fechaNacimiento.hasError(
                         'required'
                       )
                     "
-                    
                   >
                     {{ hintErrorRequired }}
                   </div>
@@ -522,7 +516,7 @@
                   <label for="idioma">Idioma</label>
                   <select
                     formArrayName="lenguajes"
-                    class="select2"
+                    class="select2 is-invalid"
                     multiple="multiple"
                     id="idioma"
                     name="Idioma"
@@ -544,9 +538,7 @@
                       cols="10"
                       rows="3"
                       [ngClass]="{
-                        'is-invalid':
-                          
-                          biographyRegistroValidator()
+                        'is-invalid': biographyRegistroValidator()
                       }"
                     ></textarea>
                     <div class="contador">
@@ -559,7 +551,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.biografia.hasError('required')
                     "
                   >
@@ -568,7 +559,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      
                       registroForm2Tab.controls.biografia.hasError('minlength')
                     "
                   >
@@ -632,7 +622,10 @@
 
                 <h4>¿Qué tipo de conexiones estas buscando?</h4>
 
-                <div *ngFor="let item of conexiones; let i = index" class="form-group">
+                <div
+                  *ngFor="let item of conexiones; let i = index"
+                  class="form-group"
+                >
                   <div class="form-check">
                     <input
                       type="checkbox"
@@ -641,9 +634,9 @@
                       [value]="item"
                       [id]="'conexiones' + i"
                     />
-                    <label class="form-check-label" [for]="'conexiones' + i"
-                      >{{item}}</label
-                    >
+                    <label class="form-check-label" [for]="'conexiones' + i">{{
+                      item
+                    }}</label>
                   </div>
                 </div>
 
