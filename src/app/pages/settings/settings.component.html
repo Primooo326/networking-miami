@@ -159,6 +159,7 @@
                   <option value="" selected></option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
+                  <option value="No binario">No binario</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -312,12 +313,13 @@
           <button class="btn btn-danger" (click)="onInteresesEdit = true">
             Cancelar
           </button>
-          <button (click)="cambioIntereses()" class="btn btn-primary">
+          <button (click)="cambioIntereses()" class="btn btn-primary" [disabled]="isOnInteresesLoading">
             <span
               *ngIf="isOnInteresesLoading"
               class="spinner-border spinner-border-sm me-3"
               role="status"
               aria-hidden="true"
+
             ></span>
             <span *ngIf="isOnInteresesLoading" class="visually-hidden"
               >Guardando datos...</span

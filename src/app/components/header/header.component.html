@@ -451,6 +451,7 @@
               <div class="author-img">
                 <img [src]="item.avatar" class="user_chat" alt="chat" />
                 <span class="chat-status online"></span>
+                <!-- <span class="chat-name" >{{obtenerIniciales(item.nombre)}}</span> -->
                 <span
                   *ngIf="getMessagesNoLeidos(item.id) != 0"
                   class="notify-count"

@@ -283,25 +283,8 @@ export class HomeComponent implements OnInit {
 		this.currentPageNewMatches = page
 		this.showUsersNewMatches = this.users.filter(() => true)
 		this.showUsersNewMatches = this.showUsersNewMatches.splice(page * 20, 20)
-		// this.initMasonry()
+		this.scrollToTop()
 	}
-	// initMasonry() {
-	// 	setTimeout(() => {
-	// 		var grid = document.querySelector(".rowmsry")
-	// 		new Masonry(grid!, {
-	// 			itemSelector: ".colmsry",
-	// 			gutter: 0,
-	// 			resize: true,
-	// 			initLayout: true,
-	// 			transitionDuration: "0.2s",
-	// 			stagger: 0,
-	// 			percentPosition: true,
-	// 			horizontalOrder: true,
-	// 			originLeft: true,
-	// 			originTop: true,
-	// 		})
-	// 	}, 10)
-	// }
 
 	changeOrder(order: string) {
 		this.orderBy = order
@@ -418,5 +401,8 @@ export class HomeComponent implements OnInit {
 				},
 			)
 		}
+	}
+	scrollToTop() {
+		window.scrollTo(0, 0)
 	}
 }
