@@ -29,7 +29,7 @@ export class LoginComponent implements AfterViewInit {
   experiencia = JSON.parse(localStorage.getItem('experiencia')!).sort();
   intereses = JSON.parse(localStorage.getItem('interes')!).sort();
   condados = JSON.parse(localStorage.getItem('condados')!).sort();
-conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
+  conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
   condadoSelected: { nombre: string; ciudades: string[] };
   ciudades: string[] = [];
   TipoConexion: string[] = [];
@@ -42,7 +42,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
   isOnLogin = true;
   onReset = false;
   isOnResetEmail = false;
-  pageNumber = '2/5';
+  pageNumber = '1/5';
   textTabRegistro = 'Correo y contraseña';
 
   lenguajesV = true;
@@ -67,7 +67,10 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
 
   registroForm2Tab = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    fechaNacimiento: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    fechaNacimiento: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
 
     telefono: new FormControl('', [
       Validators.required,
@@ -77,8 +80,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     condado: new FormControl('', [Validators.required]),
     ciudad: new FormControl('', [Validators.required]),
     lenguajes: new FormControl(''),
-    biografia: new FormControl('', [
-    ]),
+    biografia: new FormControl('', [Validators.required]),
   });
 
   registroForm3Tab = new FormGroup({
@@ -127,7 +129,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     private matchSrvc: MatchService,
     private titleService: Title
   ) {
-	  console.log(this.conexiones);
+    console.log(this.conexiones);
     this.titleService.setTitle(this.title);
     setInterval(() => {
       this.experienciaV =
@@ -146,7 +148,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     this.experiencia.sort();
     const idx = this.experiencia.findIndex((e) => e == 'Otro');
     this.experiencia.splice(idx, 1);
-	  this.experiencia.push('Otro');
+    this.experiencia.push('Otro');
 
     this.intereses.sort();
     const idx2 = this.intereses.findIndex((e) => e == 'Otros');
@@ -231,7 +233,6 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
       separateDialCode: true,
       initialCountry: 'auto',
       //lenguaje en español
-
 
       geoIpLookup: function (callback) {
         fetch('https://ipapi.co/json')
@@ -428,7 +429,11 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
         (data) => {
           console.log(data);
           this.isOnResetEmail = false;
-          Swal.fire("¡Éxito!", "Se ha enviado un correo a tu bandeja de entrada", "success")
+          Swal.fire(
+            '¡Éxito!',
+            'Se ha enviado un correo a tu bandeja de entrada',
+            'success'
+          );
         },
         (err) => {
           Swal.fire('error', err.error, 'error');
@@ -499,6 +504,7 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     } else if (tab == '5/5') {
       this.textTabRegistro = 'Invita a tus contactos';
     }
+    this.scrollToTop();
   }
   onChangeConexiones(data: any) {
     const value = data.target.value;
@@ -664,20 +670,33 @@ conexiones = JSON.parse(localStorage.getItem('conexion')!).sort();
     return this.registroForm2Tab.controls.biografia.hasError('required');
   }
   manejarKeydown(event: KeyboardEvent) {
-
-    // Obtener el valor actual del campo de entrada
     const valorCampo = (event.target as HTMLInputElement).value;
-    const input:HTMLInputElement = document.getElementById('date') as HTMLInputElement;
-    const dateString:HTMLInputElement = document.getElementById('dateString') as HTMLInputElement;
-    // Verificar si el evento es un número y si el valor actual tiene cierta longitud
-    valorCampo.replace("/", '');
-    if ([4, 7].includes(valorCampo.length)) {
-      // Agregar automáticamente el carácter "-" después de ciertos caracteres
-      console.log(valorCampo + "-");
-      input!.value = valorCampo + '-';
-      dateString!.value = valorCampo + '-';
-      return this.registroForm2Tab.controls.fechaNacimiento.setValue( valorCampo + '-');
+    if (event.key == 'Backspace') {
+      this.registroForm2Tab.controls.fechaNacimiento.setValue(valorCampo);
+      return;
+    } else {
+      // Obtener el valor actual del campo de entrada
+      const input: HTMLInputElement = document.getElementById(
+        'date'
+      ) as HTMLInputElement;
+      const dateString: HTMLInputElement = document.getElementById(
+        'dateString'
+      ) as HTMLInputElement;
+      // Verificar si el evento es un número y si el valor actual tiene cierta longitud
+      valorCampo.replace('/', '');
+      if ([4, 7].includes(valorCampo.length)) {
+        // Agregar automáticamente el carácter "-" después de ciertos caracteres
+        console.log(valorCampo + '-');
+        input!.value = valorCampo + '-';
+        dateString!.value = valorCampo + '-';
+        return this.registroForm2Tab.controls.fechaNacimiento.setValue(
+          valorCampo + '-'
+        );
+      }
+      this.registroForm2Tab.controls.fechaNacimiento.setValue(valorCampo);
     }
-    this.registroForm2Tab.controls.fechaNacimiento.setValue( valorCampo);
+  }
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 }
