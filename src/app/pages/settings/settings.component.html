@@ -28,7 +28,6 @@
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 maxlength="40"
-                maxlength="40"
                 type="text"
                 [value]="(user$ | async)!.nombre"
                 class="form-control"
@@ -159,7 +158,6 @@
                   <option value="" selected></option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
-                  <option value="No binario">No binario</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -172,19 +170,13 @@
               <div id="contenedorTextarea" *ngIf="!onInformacionBasicaEdit">
                 <textarea
                   [value]="(user$ | async)!.biografia"
-                  class="form-control textarea"
-                  maxlength="68"
+                  class="form-control"
+                  maxlength="500"
                   placeholder="Nota biográfica"
                   formControlName="biografia"
                   cols="10"
-                  rows="1"
+                  rows="3"
                 ></textarea>
-                <div class="contador">
-                  <span id="caracteresIngresados">{{
-                    infoBasicaForm.controls.biografia.value.length
-                  }}</span>
-                  / 68
-                </div>
               </div>
             </li>
           </ul>
@@ -313,13 +305,16 @@
           <button class="btn btn-danger" (click)="onInteresesEdit = true">
             Cancelar
           </button>
-          <button (click)="cambioIntereses()" class="btn btn-primary" [disabled]="isOnInteresesLoading">
+          <button
+            (click)="cambioIntereses()"
+            class="btn btn-primary"
+            [disabled]="isOnInteresesLoading"
+          >
             <span
               *ngIf="isOnInteresesLoading"
               class="spinner-border spinner-border-sm me-3"
               role="status"
               aria-hidden="true"
-
             ></span>
             <span *ngIf="isOnInteresesLoading" class="visually-hidden"
               >Guardando datos...</span
@@ -545,10 +540,10 @@
           </li>
 
           <li>
-            <label class="text-danger">Borrar cuenta:</label>
+            <label class="text-danger">Eliminar cuenta</label>
 
             <button class="btn btn-danger" (click)="deleteAccount()">
-              Borra mi cuenta
+              Eliminar cuenta
             </button>
           </li>
         </ul>

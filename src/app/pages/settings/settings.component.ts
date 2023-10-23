@@ -138,10 +138,10 @@ export class SettingsComponent implements OnInit {
         console.log(e);
         this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
       });
+      $('#preloader').fadeOut('slow', function () {
+        $(this).remove();
+      });
     }, 2000);
-    $('#preloader').fadeOut('slow', function () {
-      $(this).remove();
-    });
   }
 
   onInputTel() {
@@ -284,108 +284,115 @@ export class SettingsComponent implements OnInit {
     if (this.infoBasicaForm.valid) {
       const regex = /'(.*?)'/;
       const user: any = { ...this.currentUser };
-		let idiomaValue: any = $('select#idioma').val();
-		console.log(idiomaValue);
-		if (idiomaValue.length == 0) {
-			Swal.fire('error', 'Debes seleccionar al menos un idioma', 'error');
-			
-		} else {
-			
-			console.log("idiomaValue");
-			
-		}
-		idiomaValue = idiomaValue.map((i: string) => {
-			  const match = i.match(regex);
-			  return match ? match[1] : i;
-			});
-	  
-			user.nombre = this.infoBasicaForm.get('nombre')?.value;
-			user.telefono = this.infoBasicaForm.get('telefono')?.value;
-			user.condado = this.infoBasicaForm.get('condado')?.value;
-			user.ciudad = this.infoBasicaForm.get('ciudad')?.value;
-			user.lenguajes = idiomaValue;
-			const date: any = $('[data-toggle="datepicker"]').datepicker('getDate');
-			user.fechaNacimiento = new Date(date).toISOString();
-			user.genero = this.infoBasicaForm.get('genero')?.value;
-			user.biografia = this.infoBasicaForm.get('biografia')?.value;
-	  
-			var number = this.itiInput.getNumber();
-			user.telefono = number;
-			console.log(user);
-	  
-			const res = await this.userSrvc.updateUser(user);
-			res.subscribe(
-			  (data) => {
-				console.log(data);
-				this.isOnInformacionBasicaLoading = false;
-				this.currentUser = user;
-				this.store.dispatch(setUser.set(user));
-				this.onInformacionBasicaEdit = true;
-			  },
-			  (err) => {
-				Swal.fire('error', err.error, 'error');
-				this.isOnInformacionBasicaLoading = false;
-			  }
-			);
-    }else{
-	  Swal.fire('error', 'Debes completar todos los campos', 'error');
-	}
+      let idiomaValue: any = $('select#idioma').val();
+      console.log(idiomaValue);
+      if (idiomaValue.length == 0) {
+        Swal.fire('error', 'Debes seleccionar al menos un idioma', 'error');
+      } else {
+        console.log('idiomaValue');
+      }
+      idiomaValue = idiomaValue.map((i: string) => {
+        const match = i.match(regex);
+        return match ? match[1] : i;
+      });
+
+      user.nombre = this.infoBasicaForm.get('nombre')?.value;
+      user.telefono = this.infoBasicaForm.get('telefono')?.value;
+      user.condado = this.infoBasicaForm.get('condado')?.value;
+      user.ciudad = this.infoBasicaForm.get('ciudad')?.value;
+      user.lenguajes = idiomaValue;
+      const date: any = $('[data-toggle="datepicker"]').datepicker('getDate');
+      user.fechaNacimiento = new Date(date).toISOString();
+      user.genero = this.infoBasicaForm.get('genero')?.value;
+      user.biografia = this.infoBasicaForm.get('biografia')?.value;
+
+      var number = this.itiInput.getNumber();
+      user.telefono = number;
+      console.log(user);
+
+      const res = await this.userSrvc.updateUser(user);
+      res.subscribe(
+        (data) => {
+          console.log(data);
+          this.isOnInformacionBasicaLoading = false;
+          this.currentUser = user;
+          this.store.dispatch(setUser.set(user));
+          this.onInformacionBasicaEdit = true;
+        },
+        (err) => {
+          Swal.fire('error', err.error, 'error');
+          this.isOnInformacionBasicaLoading = false;
+        }
+      );
+    } else {
+      Swal.fire('error', 'Debes completar todos los campos', 'error');
+    }
   }
 
   async cambioIntereses() {
-	  this.isOnInteresesLoading = true;
-	  const regex = /'(.*?)'/;
-	  const user = { ...this.currentUser };
-	  console.log(user);
-	  const tipoConexion = this.TipoConexion.filter((c) => true);
-	  let temasInteres: any = $('select#interes').val();
-	  let areaExperiencia: any = $('select#experiencia').val();
-	  
-	  if (temasInteres.length == 0) {
-		  Swal.fire('error', 'Debes seleccionar al menos un tema de interes', 'error');
-		  this.isOnInteresesLoading = false;
-		} else if (areaExperiencia.length == 0) {
-			Swal.fire('error', 'Debes seleccionar al menos un área de experiencia', 'error');
-			this.isOnInteresesLoading = false;
-		} else if (tipoConexion.length == 0) {
-			Swal.fire('error', 'Debes seleccionar al menos un tipo de conexión', 'error');
-			this.isOnInteresesLoading = false;
-	  } else {
-		  
-		  temasInteres = temasInteres.map((i: string) => {
-			const match = i.match(regex);
-			return match ? match[1] : i;
-		  });
-		  areaExperiencia = areaExperiencia.map((i: string) => {
-			const match = i.match(regex);
-			return match ? match[1] : i;
-		  });
-		  user.tipoConexion = tipoConexion 	  
-		  user.temasInteres = temasInteres;
-		  user.areaExperiencia = areaExperiencia;
-		  console.log(user);
-		  const res = await this.userSrvc.updateUser(user);
-		  res.subscribe(
-			(data) => {
-			  console.log(data);
-			  this.isOnInteresesLoading = false;
-			  this.currentUser = user;
-			  this.store.dispatch(setUser.set(user));
-			  this.onInteresesEdit = true;
-			  this.interesesFormGroup
-				.get('temasInteres')
-				?.setValue(user.temasInteres);
-			  this.interesesFormGroup
-				.get('areaExperiencia')
-				?.setValue(user.areaExperiencia);
-			},
-			(err) => {
-			  Swal.fire('error', err.error, 'error');
-			  this.isOnInteresesLoading = false;
-			}
-		  );
-	  }
+    this.isOnInteresesLoading = true;
+    const regex = /'(.*?)'/;
+    const user = { ...this.currentUser };
+    console.log(user);
+    const tipoConexion = this.TipoConexion.filter((c) => true);
+    let temasInteres: any = $('select#interes').val();
+    let areaExperiencia: any = $('select#experiencia').val();
 
+    if (temasInteres.length == 0) {
+      Swal.fire(
+        'error',
+        'Debes seleccionar al menos un tema de interes',
+        'error'
+      );
+      this.isOnInteresesLoading = false;
+    } else if (areaExperiencia.length == 0) {
+      Swal.fire(
+        'error',
+        'Debes seleccionar al menos un área de experiencia',
+        'error'
+      );
+      this.isOnInteresesLoading = false;
+    } else if (tipoConexion.length == 0) {
+      Swal.fire(
+        'error',
+        'Debes seleccionar al menos un tipo de conexión',
+        'error'
+      );
+      this.isOnInteresesLoading = false;
+    } else {
+      temasInteres = temasInteres.map((i: string) => {
+        const match = i.match(regex);
+        return match ? match[1] : i;
+      });
+      areaExperiencia = areaExperiencia.map((i: string) => {
+        const match = i.match(regex);
+        return match ? match[1] : i;
+      });
+      user.tipoConexion = tipoConexion;
+      user.temasInteres = temasInteres;
+      user.areaExperiencia = areaExperiencia;
+      console.log(user);
+      const res = await this.userSrvc.updateUser(user);
+      res.subscribe(
+        (data) => {
+          console.log(data);
+          this.isOnInteresesLoading = false;
+          this.currentUser = user;
+          this.store.dispatch(setUser.set(user));
+          this.onInteresesEdit = true;
+          this.interesesFormGroup
+            .get('temasInteres')
+            ?.setValue(user.temasInteres);
+          this.interesesFormGroup
+            .get('areaExperiencia')
+            ?.setValue(user.areaExperiencia);
+        },
+        (err) => {
+          Swal.fire('error', err.error, 'error');
+          this.isOnInteresesLoading = false;
+        }
+      );
+    }
   }
 
   async cambioPassword() {
