@@ -30,6 +30,6 @@ jobs:
             server: ${{ secrets.FTP_SERVER }}
             username: ${{ secrets.FTP_USERNAME }}
             password: ${{ secrets.FTP_PASSWORD }}
-            local_path: ./dist/networking.miami/*
+            local_path: ./dist/networking-miami/*
             remote_path: public_html/prueba2/
 
