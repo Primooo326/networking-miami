@@ -57,10 +57,12 @@
       </app-profile-card>
     </div>
   </div>
+  <p class="text-center" *ngIf="showUsers.length == 0">
+    Aún no tienes contactos, vuelve al inicio y conecta con otros usuarios
+  </p>
   <div class="text-center">
     <a
       role="button"
-      href="#matchestitle"
       [hidden]="currentPage == 0"
       (click)="changePageMisMatches(currentPage - 1)"
       class="item-btn mx-2"
@@ -83,7 +85,6 @@
     </a>
     <a
       role="button"
-      href="#matchestitle"
       [hidden]="canNextPageMisMatches()"
       (click)="changePageMisMatches(currentPage + 1)"
       class="item-btn mx-2"

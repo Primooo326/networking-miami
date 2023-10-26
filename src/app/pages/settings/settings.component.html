@@ -28,12 +28,16 @@
               <input
                 *ngIf="!onInformacionBasicaEdit"
                 maxlength="40"
-                maxlength="40"
                 type="text"
                 [value]="(user$ | async)!.nombre"
                 class="form-control"
                 placeholder="Nombre y apellidos"
                 formControlName="nombre"
+                (keyup)="
+                  infoBasicaForm.controls.nombre.setValue(
+                    capitalize(infoBasicaForm.controls.nombre.value)
+                  )
+                "
               />
             </li>
             <li>
@@ -166,19 +170,13 @@
               <div id="contenedorTextarea" *ngIf="!onInformacionBasicaEdit">
                 <textarea
                   [value]="(user$ | async)!.biografia"
-                  class="form-control textarea"
-                  maxlength="68"
+                  class="form-control"
+                  maxlength="500"
                   placeholder="Nota biográfica"
                   formControlName="biografia"
                   cols="10"
-                  rows="1"
+                  rows="3"
                 ></textarea>
-                <div class="contador">
-                  <span id="caracteresIngresados">{{
-                    infoBasicaForm.controls.biografia.value.length
-                  }}</span>
-                  / 68
-                </div>
               </div>
             </li>
           </ul>
@@ -194,7 +192,11 @@
             Cancelar
           </button>
 
-          <button (click)="cambioInformacionBasica()" class="btn btn-primary">
+          <button
+            (click)="cambioInformacionBasica()"
+            [disabled]="infoBasicaForm.invalid"
+            class="btn btn-primary"
+          >
             <span
               *ngIf="isOnInformacionBasicaLoading"
               class="spinner-border spinner-border-sm me-3"
@@ -303,7 +305,11 @@
           <button class="btn btn-danger" (click)="onInteresesEdit = true">
             Cancelar
           </button>
-          <button (click)="cambioIntereses()" class="btn btn-primary">
+          <button
+            (click)="cambioIntereses()"
+            class="btn btn-primary"
+            [disabled]="isOnInteresesLoading"
+          >
             <span
               *ngIf="isOnInteresesLoading"
               class="spinner-border spinner-border-sm me-3"
@@ -534,10 +540,10 @@
           </li>
 
           <li>
-            <label class="text-danger">Borrar cuenta:</label>
+            <label class="text-danger">Eliminar cuenta</label>
 
             <button class="btn btn-danger" (click)="deleteAccount()">
-              Borra mi cuenta
+              Eliminar cuenta
             </button>
           </li>
         </ul>

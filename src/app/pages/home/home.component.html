@@ -121,7 +121,6 @@
         <div *ngIf="!onLoadUsers" class="text-center">
           <a
             role="button"
-            href="#matchestitle"
             [hidden]="currentPageNewMatches == 0"
             (click)="changePageNewMatches(currentPageNewMatches - 1)"
             class="item-btn mx-2"
@@ -144,7 +143,6 @@
           </a>
           <a
             role="button"
-            href="#matchestitle"
             [hidden]="canNextPageNewMatches()"
             (click)="changePageNewMatches(currentPageNewMatches + 1)"
             class="item-btn mx-2"
@@ -230,10 +228,10 @@
                     <option
                       class="text-wrap"
                       style="width: 100%"
-                      *ngFor="let item of conexion2"
-                      [value]="item.value"
+                      *ngFor="let item of conexion"
+                      [value]="item"
                     >
-                      <p class="text-wrap">{{ item.searchBy }}</p>
+                      <p class="text-wrap">{{ item }}</p>
                     </option>
                   </select>
                 </li>

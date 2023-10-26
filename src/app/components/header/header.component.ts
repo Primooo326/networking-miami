@@ -34,11 +34,12 @@ import { NotifyService } from "src/app/services/notify/notify.service"
 	templateUrl: "./header.component.html",
 	styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
 	page: EPages = EPages.landing
 	user$ = this.store.select(userSelect)
 	matchsRequest$ = this.store.select(matchPendingSelect)
 	misMatches$ = this.store.select(matchSelect)
+	misMatchesChat$ = this.store.select(matchSelect)
 	notification$ = this.store.select(notificationSelect)
 	messages$ = this.store.select(messagesSelect)
 	userChat!: Usuario | null
@@ -89,7 +90,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 			)
 		})
 	}
-	ngAfterViewInit(): void {}
+
 	calcularTiempoTranscurrido(desde: string): string {
 		const fechaActual = new Date()
 		const fechaPasada = new Date(desde)
@@ -223,4 +224,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 		$("#sidebar-left").removeClass("lg-menu-open")
 		$("#wrapper").removeClass("open")
 	}
+obtenerIniciales(nombreCompleto: string): string {
+  // Dividir el nombre completo en palabras
+  const palabras = nombreCompleto.split(" ");
+  
+  // Obtener la primera letra de cada palabra
+  const iniciales = palabras.map(palabra => palabra.charAt(0));
+  
+  // Tomar las dos primeras iniciales (nombre y primer apellido)
+  const inicialesNombreApellido = iniciales.slice(0, 2);
+  
+  // Unir las iniciales en una cadena
+  const inicialesString = inicialesNombreApellido.join("");
+  
+  return inicialesString.toUpperCase()
+}
 }

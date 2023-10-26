@@ -1,55 +1,83 @@
-<!--=====================================-->
-<!--=          Banner Start       		=-->
-<!--=====================================-->
 <section class="hero-banner">
   <div class="container-fluid px-5">
     <div class="hero-content" data-sal="zoom-out" data-sal-duration="1000">
       <h1 class="item-title">Networking Miami</h1>
-      <h2 class="item-title mt-5">¡Conecta hoy mismo con <br> personas increíbles!</h2>
-      <div class="item-number mt-5 counter" id="contador" >{{counterValue}}</div>
+      <h2 class="item-title mt-5">
+        ¡Conecta hoy mismo con <br />
+        personas increíbles!
+      </h2>
+      <div class="item-number mt-5 counter" id="contador">
+        {{ counterValue }}
+      </div>
       <div class="conn-people">Personas conectadas</div>
     </div>
   </div>
   <div class="leftside-image">
     <div class="shape-image">
-      <img src="media/network.png" data-sal="slide-down" data-sal-duration="500" data-sal-delay="700" width="689"
-        alt="People">
+      <img
+        src="media/network.png"
+        data-sal="slide-down"
+        data-sal-duration="500"
+        data-sal-delay="700"
+        width="689"
+        alt="People"
+      />
     </div>
-
   </div>
   <div class="map-line">
-    <img src="media/banner/mapa_miami.png" style="opacity: .4;"  alt="map" data-sal="slide-up" data-sal-duration="500" data-sal-delay="800">
+    <img
+      src="media/banner/mapa_miami.png"
+      style="opacity: 0.4"
+      alt="map"
+      data-sal="slide-up"
+      data-sal-duration="500"
+      data-sal-delay="800"
+    />
     <ul class="map-marker">
-      <li data-sal="slide-up" data-sal-duration="700" data-sal-delay="1000"><img src="media/banner/marker_1.png"
-          alt="marker"></li>
-      <li data-sal="slide-up" data-sal-duration="800" data-sal-delay="1000"><img src="media/banner/marker_2.png"
-          alt="marker"></li>
-      <li data-sal="slide-up" data-sal-duration="900" data-sal-delay="1000"><img src="media/banner/marker_3.png"
-          alt="marker"></li>
-      <li data-sal="slide-up" data-sal-duration="1000" data-sal-delay="1000"><img src="media/banner/marker_4.png"
-          alt="marker"></li>
+      <li data-sal="slide-up" data-sal-duration="700" data-sal-delay="1000">
+        <img src="media/banner/marker_1.png" alt="marker" />
+      </li>
+      <li data-sal="slide-up" data-sal-duration="800" data-sal-delay="1000">
+        <img src="media/banner/marker_2.png" alt="marker" />
+      </li>
+      <li data-sal="slide-up" data-sal-duration="900" data-sal-delay="1000">
+        <img src="media/banner/marker_3.png" alt="marker" />
+      </li>
+      <li data-sal="slide-up" data-sal-duration="1000" data-sal-delay="1000">
+        <img src="media/banner/marker_4.png" alt="marker" />
+      </li>
     </ul>
   </div>
 </section>
-<!--=====================================-->
-<!--=         Why Choose Start       	=-->
-<!--=====================================-->
+
 <section class="why-choose-us" id="how-works">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6">
         <div class="why-choose-box">
           <!-- <div class="item-subtitle">Networking Miami</div> -->
-          <h1 class="item-title" ><span>¿Cómo funciona</span>Networking Miami?</h1>
+          <h1 class="item-title">
+            <span>¿Cómo funciona</span>Networking Miami?
+          </h1>
           <!-- <p>Regístrate para expandir tu red de contactos y aprovecha al máximo las oportunidades de networking.</p> -->
-          <a [routerLink]="['/login']"
-          routerLinkActive="router-link-active" class="button-slide">
+          <a
+            [routerLink]="['/login']"
+            routerLinkActive="router-link-active"
+            class="button-slide"
+          >
             <span class="btn-text">Comienza ahora</span>
             <span class="btn-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21px"
-                height="10px">
-                <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
-                  d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="21px"
+                height="10px"
+              >
+                <path
+                  fill-rule="evenodd"
+                  fill="rgb(255, 255, 255)"
+                  d="M16.671,9.998 L12.997,9.998 L16.462,6.000 L5.000,6.000 L5.000,4.000 L16.462,4.000 L12.997,0.002 L16.671,0.002 L21.003,5.000 L16.671,9.998 ZM17.000,5.379 L17.328,5.000 L17.000,4.621 L17.000,5.379 ZM-0.000,4.000 L3.000,4.000 L3.000,6.000 L-0.000,6.000 L-0.000,4.000 Z"
+                />
               </svg>
             </span>
           </a>
@@ -76,7 +104,10 @@
                 </div>
                 <div class="media-body">
                   <h3 class="item-title">Intégrate</h3>
-                  <p>Con el tiempo, esos contactos se convierten en amigos y colaboradores, e incluso en oportunidades de negocio.</p>
+                  <p>
+                    Con el tiempo, esos contactos se convierten en amigos y
+                    colaboradores, e incluso en oportunidades de negocio.
+                  </p>
                 </div>
               </div>
             </li>
@@ -87,7 +118,10 @@
                 </div>
                 <div class="media-body">
                   <h3 class="item-title">Grupos activos</h3>
-                  <p>¡Únete a grupos emocionantes y participa en eventos emocionantes!</p>
+                  <p>
+                    ¡Únete a grupos emocionantes y participa en eventos
+                    emocionantes!
+                  </p>
                 </div>
               </div>
             </li>

@@ -1,7 +1,4 @@
 <div id="wrapper" class="wrapper overflow-hidden">
-  <!--=====================================-->
-  <!--=          Header Menu Start       	=-->
-  <!--=====================================-->
   <div class="login-page-wrap">
     <div class="content-wrap">
       <div class="login-content">
@@ -17,7 +14,7 @@
               <a
                 class="nav-link active"
                 data-toggle="tab"
-                (click)="isOnLogin = true"
+                (click)="onReset = false && (isOnLogin = true)"
                 href="#login-tab"
                 role="tab"
                 aria-selected="true"
@@ -29,7 +26,7 @@
                 class="nav-link"
                 data-toggle="tab"
                 href="#registration-tab"
-                (click)="isOnLogin = false"
+                (click)="onReset = false && (isOnLogin = false)"
                 role="tab"
                 aria-selected="false"
                 ><i class="icofont-download"></i> Registro
@@ -119,10 +116,10 @@
                     <input
                       type="checkbox"
                       class="form-check-input"
-                      id="validationFormCheck1"
+                      id="validationFormCheck6"
                       (change)="showPasswordLoginFn()"
                     />
-                    <label class="form-check-label" for="validationFormCheck1"
+                    <label class="form-check-label" for="validationFormCheck6"
                       >Ver contraseña</label
                     >
                   </div>
@@ -380,9 +377,7 @@
                     formControlName="nombre"
                     class="form-control"
                     [ngClass]="{
-                      'is-invalid':
-                        registroForm2Tab.controls.nombre.dirty &&
-                        nameRegistroValidator()
+                      'is-invalid': nameRegistroValidator()
                     }"
                     placeholder="Nombre y apellidos"
                     (keyup)="
@@ -394,7 +389,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.nombre.dirty &&
                       registroForm2Tab.controls.nombre.hasError('required')
                     "
                   >
@@ -403,7 +397,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.nombre.dirty &&
                       registroForm2Tab.controls.nombre.hasError('minlength')
                     "
                   >
@@ -419,15 +412,12 @@
                     class="form-control"
                     placeholder="Numero telefónico"
                     [ngClass]="{
-                      'is-invalid':
-                        registroForm2Tab.controls.telefono.dirty &&
-                        phoneRegistroValidator()
+                      'is-invalid': phoneRegistroValidator()
                     }"
                   />
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.telefono.dirty &&
                       registroForm2Tab.controls.telefono.hasError('required')
                     "
                   >
@@ -436,7 +426,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.telefono.dirty &&
                       registroForm2Tab.controls.telefono.hasError('minlength')
                     "
                   >
@@ -447,12 +436,19 @@
                   <label for="date">Fecha de nacimiento</label>
                   <input
                     type="text"
-                    maxlength="15"
+                    maxlength="10"
                     data-toggle="datepicker"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        registroForm2Tab.controls.fechaNacimiento.invalid
+                    }"
+                    id="date"
+                    (keyup)="manejarKeydown($event)"
                     placeholder="YYYY-MM-DD"
                   />
                   <input
+                    id="dateString"
                     hidden
                     type="text"
                     maxlength="15"
@@ -461,7 +457,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.fechaNacimiento.dirty &&
                       registroForm2Tab.controls.fechaNacimiento.hasError(
                         'required'
                       )
@@ -483,7 +478,6 @@
                     <option value="" selected></option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
-                    <option value="No-binario">No-binario</option>
                     <option value="Otro">Otro</option>
                   </select>
                 </div>
@@ -521,7 +515,7 @@
                   <label for="idioma">Idioma</label>
                   <select
                     formArrayName="lenguajes"
-                    class="select2"
+                    class="select2 is-invalid"
                     multiple="multiple"
                     id="idioma"
                     name="Idioma"
@@ -537,28 +531,25 @@
                   <div id="contenedorTextarea">
                     <textarea
                       formControlName="biografia"
-                      maxlength="68"
-                      class="form-control textarea is-invalid"
+                      maxlength="500"
+                      class="form-control textarea"
                       placeholder="Cuéntanos un poco sobre ti"
                       cols="10"
                       rows="3"
                       [ngClass]="{
-                        'is-invalid':
-                          registroForm2Tab.controls.biografia.dirty &&
-                          biographyRegistroValidator()
+                        'is-invalid': biographyRegistroValidator()
                       }"
                     ></textarea>
                     <div class="contador">
                       <span id="caracteresIngresados">{{
                         registroForm2Tab.controls.biografia.value!.length
                       }}</span>
-                      / 68
+                      / 500
                     </div>
                   </div>
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.biografia.dirty &&
                       registroForm2Tab.controls.biografia.hasError('required')
                     "
                   >
@@ -567,7 +558,6 @@
                   <div
                     class="invalid-feedback"
                     *ngIf="
-                      registroForm2Tab.controls.biografia.dirty &&
                       registroForm2Tab.controls.biografia.hasError('minlength')
                     "
                   >
@@ -630,106 +620,25 @@
                 </div>
 
                 <h4>¿Qué tipo de conexiones estas buscando?</h4>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes1"
-                      value="Quiero compartir mi conocimiento."
-                      (change)="onChangeConexiones($event)"
-                    />
-                    <label class="form-check-label" for="interes1"
-                      >Quiero compartir mi conocimiento.</label
-                    >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes2"
-                      (change)="onChangeConexiones($event)"
-                      value="Quiero conectar con personas con intereses similares."
-                    />
-                    <label class="form-check-label" for="interes2"
-                      >Quiero conectar con personas con intereses
-                      similares.</label
-                    >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes3"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando nuevas conexiones."
-                    />
-                    <label class="form-check-label" for="interes3"
-                      >Estoy buscando nuevas conexiones.</label
-                    >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="interes4"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando trabajo."
-                    />
-                    <label class="form-check-label" for="interes4"
-                      >Estoy buscando trabajo.</label
-                    >
-                  </div>
-                </div>
-                <div class="form-group">
+
+                <div
+                  *ngFor="let item of conexiones; let i = index"
+                  class="form-group"
+                >
                   <div class="form-check">
                     <input
                       type="checkbox"
                       class="form-check-input"
                       (change)="onChangeConexiones($event)"
-                      value="Estoy buscando nuevas oportunidades de negocio."
-                      id="interes5"
+                      [value]="item"
+                      [id]="'conexiones' + i"
                     />
-                    <label class="form-check-label" for="interes5"
-                      >Estoy buscando nuevas oportunidades de negocio.</label
-                    >
+                    <label class="form-check-label" [for]="'conexiones' + i">{{
+                      item
+                    }}</label>
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando productos nuevos y únicos."
-                      id="interes6"
-                    />
-                    <label class="form-check-label" for="interes6"
-                      >Estoy buscando productos nuevos y únicos.</label
-                    >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      (change)="onChangeConexiones($event)"
-                      value="Estoy buscando una comunidad de la que formar parte."
-                      id="interes7"
-                    />
-                    <label class="form-check-label" for="interes7"
-                      >Estoy buscando una comunidad de la que formar
-                      parte.</label
-                    >
-                  </div>
-                </div>
+
                 <div class="form-group">
                   <button
                     class="submit-btn"
