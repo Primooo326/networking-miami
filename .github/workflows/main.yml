@@ -19,5 +19,5 @@ jobs:
             password: ${{ secrets.FTP_PASSWORD }}
             server-dir: public_html/prueba2.networking.miami
             local_path: './static/*'
-            remote_path: '/public_html/prueba2.networking.miami'
+            remote_path: '/home/networking/public_html/prueba2.networking.miami'
 
