@@ -17,7 +17,6 @@ jobs:
             server: ${{ secrets.FTP_SERVER }}
             username: ${{ secrets.FTP_USERNAME }}
             password: ${{ secrets.FTP_PASSWORD }}
-            server-dir: public_html/prueba2.networking.miami
             local_path: ./public_html/prueba2 
-            remote_path: /home/networking/public_html/prueba2 
+            remote_path: /public_html/prueba2 
 
