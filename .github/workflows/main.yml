@@ -18,6 +18,6 @@ jobs:
             username: ${{ secrets.FTP_USERNAME }}
             password: ${{ secrets.FTP_PASSWORD }}
             server-dir: public_html/prueba2.networking.miami
-            local_path: './static/*'
-            remote_path: '/home/networking/public_html/prueba2.networking.miami'
+            local_path: '/home/networking/public_html/'
+            remote_path: 'prueba2.networking.miami'
 
