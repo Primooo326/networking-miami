@@ -10,7 +10,7 @@ jobs:
       name: deploy
       steps:
         - name: Checkout
-          uses: actions/checkout@v2.1.0
+          uses: actions/checkout@v2
         - name: deploy file
           uses: wlixcc/SFTP-Deploy-Action@v1.2.4
           with:
