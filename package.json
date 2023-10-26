@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production && npm exec compress dist/networking-miami",
+    "build": "ng build --configuration production",
     "build:prueba": "ng build --configuration prueba && npm exec compress dist/prueba",
     "watch": "ng build --watch --configuration development",
     "build:stats": "ng build --stats-json",
