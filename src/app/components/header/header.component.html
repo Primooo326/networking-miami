@@ -325,7 +325,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/home"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Inicio"
                 ><i class="icofont-home"></i
@@ -336,7 +335,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/match"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Mis Contactos"
                 ><i class="icofont-users-alt-2"></i
@@ -347,7 +345,6 @@
                 (click)="closeSidebarLeft()"
                 routerLink="/profile-settings"
                 class="menu-link"
-                
                 data-placement="right"
                 title="Editar perfil"
                 ><i class="icofont-settings-alt"></i
@@ -357,7 +354,6 @@
               <a
                 (click)="logOut(); closeSidebarLeft()"
                 class="menu-link text-danger"
-                
                 data-placement="right"
                 title="Cerrar Sesión"
                 ><i class="icofont-logout"></i
@@ -443,7 +439,7 @@
         <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
           <ul class="user-chat-list">
             <li
-              *ngFor="let item of misMatches$ | async"
+              *ngFor="let item of misMatchesChat"
               role="button"
               (click)="setUserChat(item)"
               class="chat-item chat-open"

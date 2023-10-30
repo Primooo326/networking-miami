@@ -1,4 +1,4 @@
-<div id="preloader"></div>
+<!-- <div id="preloader"></div> -->
 <div class="container-fluid">
   <!-- Banner Area Start -->
   <div *ngIf="!verificado" class="newsfeed-banner">
@@ -121,7 +121,6 @@
         <div *ngIf="!onLoadUsers" class="text-center">
           <a
             role="button"
-            
             [hidden]="currentPageNewMatches == 0"
             (click)="changePageNewMatches(currentPageNewMatches - 1)"
             class="item-btn mx-2"
@@ -144,7 +143,6 @@
           </a>
           <a
             role="button"
-            
             [hidden]="canNextPageNewMatches()"
             (click)="changePageNewMatches(currentPageNewMatches + 1)"
             class="item-btn mx-2"
