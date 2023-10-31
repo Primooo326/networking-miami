@@ -109,7 +109,15 @@ export const matchesReducer = createReducer(
 	}),
 	on(myMatches.delete, (state, { cancelMatch }) => {
 		return state.filter((item: any) => item.id !== Number(cancelMatch.id))
-	}),
+  }),
+  on(myMatches.update, (state, { match }) => {
+    return state.map((item: any) => {
+      if (item.id === match.id) {
+        return match
+      }
+      return item
+    })
+  }),
 )
 const messages: any[] = []
 export const initialMessages = messages

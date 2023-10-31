@@ -11,9 +11,10 @@ import { FormControl, Validators } from "@angular/forms"
 import { Store } from "@ngrx/store"
 import { ChatService } from "src/app/services/chat/chat.service"
 import { messagesSelect, userChatSelect } from "src/redux/selectors"
-import { myMessages, userChat } from "src/redux/actions"
+import { myMatches, myMessages, userChat } from "src/redux/actions"
 import { SocketService } from "src/app/services/socket/socket.service"
 import { Subscriber, Subscription } from "rxjs"
+import { MatchService } from "src/app/services/match/match.service"
 
 @Component({
 	selector: "app-chat-modal",
@@ -58,7 +59,8 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private chatSrvc: ChatService,
 		private store: Store<any>,
-		private socketSrvc: SocketService,
+    private socketSrvc: SocketService,
+    private matchSrvc:MatchService
 	) {
 		this.userChat$.subscribe((data) => {
 			this.ngOnDestroy()
@@ -196,5 +198,15 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 				$("#modal-body").scrollTop($("#modal-body").prop("scrollHeight"))
 			}, 100)
 		}
-	}
+  }
+  async toggleFijado() {
+    const fijado = this.user.fijado === 0 ? 1 : 0
+    await this.matchSrvc.updateMatch(this.user.contactoDb_id, fijado).then((data: any) => {
+      console.log(data);
+      this.user.fijado = fijado
+      this.store.dispatch(myMatches.update(this.user))
+    }).catch((err: any) => {
+      console.log(err);
+    })
+  }
 }

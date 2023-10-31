@@ -89,7 +89,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                 usuario.id!,
                 usuarioMatch.id!
               );
-              console.log(mensaje);
               let user
               if (mensaje) {
 
@@ -123,7 +122,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                 );
               }
             );
-            console.log(listaUsuarios);
 
             listaUsuarios.forEach((element: UsuarioWithLastChat) => {
               this.store.dispatch(myMatches.set(element));
@@ -133,7 +131,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           });
           const messages = await this.chatSrvc.readChats();
           messages.subscribe((data: any) => {
-            console.log(data);
             data.forEach((element: any) => {
               this.store.dispatch(myMessages.set(element));
             });

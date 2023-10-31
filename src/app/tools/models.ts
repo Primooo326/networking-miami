@@ -52,3 +52,7 @@ export interface Chat{
 export interface UsuarioWithLastChat extends Usuario {
   lastMessage: Chat;
 }
+export interface UsuarioMatch extends Usuario {
+  fijado: 1 | 0;
+  contactoDb_id: number;
+}

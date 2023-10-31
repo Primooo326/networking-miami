@@ -63,5 +63,11 @@ export class MatchService {
 		return this.http.delete(url, {
 			headers: { "x-access-token": this.token },
 		})
-	}
+  }
+  async updateMatch(contactoDb_id: number, fijado: 1 | 0) {
+    const url = this.backend + "match/updateMatch"
+    return this.http.post(url, { contactoDb_id, fijado }, {
+      headers: { "x-access-token": this.token },
+    }).toPromise()
+  }
 }

@@ -293,6 +293,19 @@
       <div class="sidebar-menu-wrap">
         <div class="mCustomScrollbar" data-mcs-theme="dark" data-mcs-axis="y">
           <ul class="user-chat-list">
+            <li *ngFor="let item of misMatchesFijados" role="button" (click)="setUserChat(item)"
+              class="chat-item chat-open">
+              <div class="author-img">
+                <img [src]="item.avatar" class="user_chat" alt="chat" />
+                <span class="chat-status online"></span>
+                <!-- <span class="chat-name" >{{obtenerIniciales(item.nombre)}}</span> -->
+                <span *ngIf="getMessagesNoLeidos(item.id!) != 0" class="notify-count">{{ getMessagesNoLeidos(item.id!)
+                  }}</span>
+              </div>
+            </li>
+          </ul>
+          <hr>
+          <ul class="user-chat-list">
             <li *ngFor="let item of misMatchesChat" role="button" (click)="setUserChat(item)"
               class="chat-item chat-open">
               <div class="author-img">

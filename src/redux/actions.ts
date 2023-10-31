@@ -35,7 +35,8 @@ export const myMatches = createActionGroup({
 	source: "[Sistem] My Matches",
 	events: {
 		set: (matches: any) => ({ matches }),
-		delete: (cancelMatch: any) => ({ cancelMatch }),
+    delete: (cancelMatch: any) => ({ cancelMatch }),
+    update: (match: any) => ({ match }),
 	},
 })
 export const myMessages = createActionGroup({

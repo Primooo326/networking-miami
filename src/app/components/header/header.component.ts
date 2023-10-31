@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Location } from '@angular/common';
-import { Chat, EPages, Usuario } from 'src/app/tools/models';
+import { Chat, EPages, Usuario, UsuarioMatch } from 'src/app/tools/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -40,7 +40,8 @@ export class HeaderComponent implements OnInit {
   user$ = this.store.select(userSelect);
   matchsRequest$ = this.store.select(matchPendingSelect);
   misMatches$ = this.store.select(matchSelect);
-  misMatchesChat: Usuario[] = [];
+  misMatchesChat: UsuarioMatch[] = [];
+  misMatchesFijados:UsuarioMatch[] = []
   notification$ = this.store.select(notificationSelect);
   messages$ = this.store.select(messagesSelect);
   userChat!: Usuario | null;
@@ -87,11 +88,10 @@ export class HeaderComponent implements OnInit {
       this.notificaciones = data;
     });
     this.misMatches$.subscribe((data) => {
-      this.misMatchesChat = data;
-      console.log(data);
+      this.misMatchesChat = data.filter((item: any) => item.fijado === 0);
+      this.misMatchesFijados = data.filter((item: any) => item.fijado === 1);
     });
     this.messages$.subscribe((data: any) => {
-      console.log(data);
       this.misMensajesNoVistos = data.filter(
         (item: any) => item.estado === 'no_visto'
       );
