@@ -7,7 +7,7 @@ export enum EPages {
 export type ENotifyTypes = "match" | "chat"
 
 export interface Usuario {
-	id: number | string
+	id?: number
 	nombre: string
 	email: string
 	fechaNacimiento: string
@@ -33,9 +33,22 @@ export interface INotificacion {
 	data: any
 	id: number
 }
-export type ENotifyStatus = "leido" | "no leido" | "eliminado"
 export type ETypePerfil =
 	| "contacto"
 	| "solicitud"
 	| "solicitante"
 	| "desconocido"
+export type ENotifyStatus = "leido" | "no leido" | "eliminado"
+
+export interface Chat{
+  id: number;
+    conversacion_id:number;
+  remitente_id: number;
+  destinatario_id: number;
+  contenido: string;
+  estado: ENotifyStatus;
+  fecha_envio: string;
+}
+export interface UsuarioWithLastChat extends Usuario {
+  lastMessage: Chat;
+}

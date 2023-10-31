@@ -162,7 +162,7 @@ export class BannerComponent implements OnInit {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const res = await this.matchSrvc.deleteRequestMatch(
-					this.user.id.toString(),
+					this.user.id!.toString(),
 				)
 				res.subscribe(
 					(data) => {
@@ -187,7 +187,7 @@ export class BannerComponent implements OnInit {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const res = await this.matchSrvc.rejectPendingMatch(
-					this.user.id.toString(),
+					this.user.id!.toString(),
 				)
 				res.subscribe(
 					(data) => {
@@ -212,7 +212,7 @@ export class BannerComponent implements OnInit {
 			icon: "warning",
 		}).then(async (result) => {
 			if (result.isConfirmed) {
-				const res = await this.matchSrvc.deleteMatch(this.user.id.toString())
+				const res = await this.matchSrvc.deleteMatch(this.user.id!.toString())
 				res.subscribe(
 					(data) => {
 						Swal.fire("¡Contacto eliminado!", "", "success")

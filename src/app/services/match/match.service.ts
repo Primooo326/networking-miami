@@ -44,7 +44,7 @@ export class MatchService {
 		const url = this.backend + "match/" + this.getUser.id
 		return this.http.get(url, {
 			headers: { "x-access-token": this.token },
-		})
+		}).toPromise()
 	}
 	async deleteRequestMatch(id: string) {
 		const url = this.backend + "match/deleteRequestMatch/" + id

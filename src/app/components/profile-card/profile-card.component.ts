@@ -108,8 +108,8 @@ export class ProfileCardComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = isClient
-          ? await this.matchSrvc.rejectPendingMatch(this.user.id.toString())
-          : await this.matchSrvc.deleteRequestMatch(this.user.id.toString());
+          ? await this.matchSrvc.rejectPendingMatch(this.user.id!.toString())
+          : await this.matchSrvc.deleteRequestMatch(this.user.id!.toString());
         res.subscribe(
           (data) => {
             Swal.fire('¡Solicitud eliminada!', '', 'success');
@@ -134,7 +134,7 @@ export class ProfileCardComponent {
       icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.deleteMatch(this.user.id.toString());
+        const res = await this.matchSrvc.deleteMatch(this.user.id!.toString());
         res.subscribe(
           (data) => {
             Swal.fire('¡Contacto eliminado!', '', 'success');

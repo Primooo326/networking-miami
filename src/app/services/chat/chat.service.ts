@@ -53,4 +53,13 @@ export class ChatService {
       })
       .toPromise();
   }
+  async getLastMessages(user_id:number) {
+    const url =
+      this.backend + `chat/getLastMessagesById/${user_id}`;
+    return this.http
+      .get(url, {
+        headers: { 'x-access-token': this.token },
+      })
+      .toPromise();
+  }
 }

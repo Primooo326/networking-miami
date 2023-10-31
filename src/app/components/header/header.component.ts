@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Location } from '@angular/common';
-import { EPages, Usuario } from 'src/app/tools/models';
+import { Chat, EPages, Usuario } from 'src/app/tools/models';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
   user$ = this.store.select(userSelect);
   matchsRequest$ = this.store.select(matchPendingSelect);
   misMatches$ = this.store.select(matchSelect);
-  misMatchesChat: any[] = [];
+  misMatchesChat: Usuario[] = [];
   notification$ = this.store.select(notificationSelect);
   messages$ = this.store.select(messagesSelect);
   userChat!: Usuario | null;
@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.notification$.subscribe((data: any) => {
       this.notificaciones = data;
     });
@@ -97,6 +97,12 @@ export class HeaderComponent implements OnInit {
       );
       this.organizarChats(data);
     });
+    this.user$.subscribe(async(data) => {
+      console.log(data);
+      await this.chatSrvc.getLastMessages(data.id!).then((data: any) => {
+        console.log(data);
+      });
+    })
   }
 
   calcularTiempoTranscurrido(desde: string): string {
@@ -162,7 +168,7 @@ export class HeaderComponent implements OnInit {
       icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.rejectPendingMatch(user.id.toString());
+        const res = await this.matchSrvc.rejectPendingMatch(user.id!.toString());
         res.subscribe(
           (data) => {
             Swal.fire('¡Solicitud eliminada!', '', 'success');
@@ -240,11 +246,23 @@ export class HeaderComponent implements OnInit {
     $('#wrapper').removeClass('open');
   }
 
-  organizarChats(data: any[]) {
-    // this.misMatchesChat.sort((a: any, b: any) => {
-    //   return (
-    //     new Date(b.fecha_envio).getTime() - new Date(a.fecha_envio).getTime()
-    //   );
-    // });
+  organizarChats(mensajes: Chat[]) {
+
+
+    const chats = this.misMatchesChat.slice()
+
+    mensajes.forEach((mensaje: Chat) => {
+      const index = chats.findIndex((usuario: Usuario) => usuario.id === mensaje.remitente_id)
+      if(index >= 0){
+        const user = chats[index]
+
+        chats.splice(index, 1)
+        chats.unshift(user)
+
+      }
+    })
+    this.misMatchesChat = chats
+
+
   }
 }
