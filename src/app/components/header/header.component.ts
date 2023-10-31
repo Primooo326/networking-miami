@@ -97,12 +97,7 @@ export class HeaderComponent implements OnInit {
       );
       this.organizarChats(data);
     });
-    this.user$.subscribe(async(data) => {
-      console.log(data);
-      await this.chatSrvc.getLastMessages(data.id!).then((data: any) => {
-        console.log(data);
-      });
-    })
+
   }
 
   calcularTiempoTranscurrido(desde: string): string {
