@@ -38,6 +38,7 @@ import { ChatService } from 'src/app/services/chat/chat.service';
 export class HeaderComponent implements OnInit {
   page: EPages = EPages.landing;
   user$ = this.store.select(userSelect);
+  user!: Usuario | null;
   matchsRequest$ = this.store.select(matchPendingSelect);
   misMatches$ = this.store.select(matchSelect);
   misMatchesChat: UsuarioMatch[] = [];
@@ -87,6 +88,9 @@ export class HeaderComponent implements OnInit {
     this.notification$.subscribe((data: any) => {
       this.notificaciones = data;
     });
+    this.user$.subscribe((data) => {
+      this.user = data;
+    })
     this.misMatches$.subscribe((data) => {
       this.misMatchesChat = data.filter((item: any) => item.fijado === 0);
       this.misMatchesFijados = data.filter((item: any) => item.fijado === 1);
@@ -95,7 +99,13 @@ export class HeaderComponent implements OnInit {
       this.misMensajesNoVistos = data.filter(
         (item: any) => item.estado === 'no_visto'
       );
-      this.organizarChats(data);
+      console.log(data);
+      if (data[0].remitente_id === this.user?.id) {
+
+        this.organizarChatsDesdeRemitente(data)
+      } else {
+        this.organizarChats(data);
+      }
     });
 
   }
@@ -260,4 +270,21 @@ export class HeaderComponent implements OnInit {
 
 
   }
+
+  organizarChatsDesdeRemitente(mensajes: Chat[]) {
+        const chats = this.misMatchesChat.slice()
+
+    mensajes.forEach((mensaje: Chat) => {
+      const index = chats.findIndex((usuario: Usuario) => usuario.id === mensaje.destinatario_id)
+      if(index >= 0){
+        const user = chats[index]
+
+        chats.splice(index, 1)
+        chats.unshift(user)
+
+      }
+    })
+    this.misMatchesChat = chats
+  }
+
 }

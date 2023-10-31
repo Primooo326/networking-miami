@@ -151,11 +151,13 @@ export class ChatModalComponent implements OnInit, AfterViewInit, OnDestroy {
 				remitente_id: this.currentUser.id,
 			})
 			res.subscribe((data: any) => {
-				this.mensajes.push(data)
+        this.mensajes.push(data)
+
 				this.inputText.reset()
 				setTimeout(() => {
-					$("#modal-body").scrollTop($("#modal-body").prop("scrollHeight"))
+          $("#modal-body").scrollTop($("#modal-body").prop("scrollHeight"))
 				}, 100)
+        this.store.dispatch(myMessages.set(data))
 				this.isOnSend = false
 			})
 		}

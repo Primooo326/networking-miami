@@ -4,7 +4,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <a class="modal-title" id="chat-modal-label">
+        <a class="modal-title text-break text-truncate" id="chat-modal-label" [routerLink]="['user',user.id]">
           {{ user.nombre }} <span class="online"></span>
         </a>
         <div class="action-icon">

@@ -43,7 +43,8 @@ export const myMessages = createActionGroup({
 	source: "[Sistem] My Messages",
 	events: {
 		set: (messages: any) => ({ messages }),
-		update: (message: any) => ({ message }),
+    update: (message: any) => ({ message }),
+    reload: emptyProps(),
 	},
 })
 export const userChat = createActionGroup({

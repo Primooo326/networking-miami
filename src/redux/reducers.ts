@@ -134,7 +134,10 @@ export const messagesReducer = createReducer(
 			}
 			return item
 		})
-	}),
+  }),
+  on(myMessages.reload, (state) => {
+    return state.slice()
+  }),
 )
 export const initialUserChat = null
 
