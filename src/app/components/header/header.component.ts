@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   matchsRequest$ = this.store.select(matchPendingSelect);
   misMatches$ = this.store.select(matchSelect);
   misMatchesChat: UsuarioMatch[] = [];
-  misMatchesFijados:UsuarioMatch[] = []
+  misMatchesFijados: UsuarioMatch[] = [];
   notification$ = this.store.select(notificationSelect);
   messages$ = this.store.select(messagesSelect);
   userChat!: Usuario | null;
@@ -90,8 +90,9 @@ export class HeaderComponent implements OnInit {
     });
     this.user$.subscribe((data) => {
       this.user = data;
-    })
+    });
     this.misMatches$.subscribe((data) => {
+      console.log(data);
       this.misMatchesChat = data.filter((item: any) => item.fijado === 0);
       this.misMatchesFijados = data.filter((item: any) => item.fijado === 1);
     });
@@ -101,13 +102,11 @@ export class HeaderComponent implements OnInit {
       );
       console.log(data);
       if (data[0].remitente_id === this.user?.id) {
-
-        this.organizarChatsDesdeRemitente(data)
+        this.organizarChatsDesdeRemitente(data);
       } else {
         this.organizarChats(data);
       }
     });
-
   }
 
   calcularTiempoTranscurrido(desde: string): string {
@@ -150,6 +149,7 @@ export class HeaderComponent implements OnInit {
         const res = await this.matchSrvc.createMatch(body);
         res.subscribe(
           (data) => {
+            user.fijado = 0;
             this.store.dispatch(myMatches.set(user));
             this.store.dispatch(newPendingMatch.delete(user));
             Swal.fire('¡Solicitud aceptada!', '', 'success');
@@ -173,7 +173,9 @@ export class HeaderComponent implements OnInit {
       icon: 'warning',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await this.matchSrvc.rejectPendingMatch(user.id!.toString());
+        const res = await this.matchSrvc.rejectPendingMatch(
+          user.id!.toString()
+        );
         res.subscribe(
           (data) => {
             Swal.fire('¡Solicitud eliminada!', '', 'success');
@@ -252,39 +254,38 @@ export class HeaderComponent implements OnInit {
   }
 
   organizarChats(mensajes: Chat[]) {
-
-
-    const chats = this.misMatchesChat.slice()
+    const chats = this.misMatchesChat.slice();
 
     mensajes.forEach((mensaje: Chat) => {
-      const index = chats.findIndex((usuario: Usuario) => usuario.id === mensaje.remitente_id)
-      if(index >= 0){
-        const user = chats[index]
+      const index = chats.findIndex(
+        (usuario: Usuario) => usuario.id === mensaje.remitente_id
+      );
+      if (index >= 0) {
+        const user = chats[index];
 
-        chats.splice(index, 1)
-        chats.unshift(user)
-
+        chats.splice(index, 1);
+        chats.unshift(user);
       }
-    })
-    this.misMatchesChat = chats
-
-
+    });
+    this.misMatchesChat = chats;
   }
 
   organizarChatsDesdeRemitente(mensajes: Chat[]) {
-        const chats = this.misMatchesChat.slice()
+    const chats = this.misMatchesChat.slice();
 
     mensajes.forEach((mensaje: Chat) => {
-      const index = chats.findIndex((usuario: Usuario) => usuario.id === mensaje.destinatario_id)
-      if(index >= 0){
-        const user = chats[index]
+      const index = chats.findIndex(
+        (usuario: Usuario) => usuario.id === mensaje.destinatario_id
+      );
+      console.log(index);
+      if (index >= 0) {
+        const user = chats[index];
 
-        chats.splice(index, 1)
-        chats.unshift(user)
-
+        chats.splice(index, 1);
+        chats.unshift(user);
+      } else {
       }
-    })
-    this.misMatchesChat = chats
+    });
+    this.misMatchesChat = chats;
   }
-
 }
