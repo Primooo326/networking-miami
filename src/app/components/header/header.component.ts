@@ -92,7 +92,6 @@ export class HeaderComponent implements OnInit {
       this.user = data;
     });
     this.misMatches$.subscribe((data) => {
-      console.log(data);
       this.misMatchesChat = data.filter((item: any) => item.fijado === 0);
       this.misMatchesFijados = data.filter((item: any) => item.fijado === 1);
     });
@@ -100,7 +99,6 @@ export class HeaderComponent implements OnInit {
       this.misMensajesNoVistos = data.filter(
         (item: any) => item.estado === 'no_visto'
       );
-      console.log(data);
       if (data[0].remitente_id === this.user?.id) {
         this.organizarChatsDesdeRemitente(data);
       } else {
@@ -153,12 +151,14 @@ export class HeaderComponent implements OnInit {
             this.store.dispatch(myMatches.set(user));
             this.store.dispatch(newPendingMatch.delete(user));
             Swal.fire('¡Solicitud aceptada!', '', 'success');
-            console.log(data);
             this.event.emit('match');
           },
           (err) => {
             Swal.fire('Error', err, 'error');
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: header.component.ts:159 ~ HeaderComponent ~ aceptar ~ err:',
+              err
+            );
           }
         );
       }
@@ -183,7 +183,10 @@ export class HeaderComponent implements OnInit {
             this.event.emit({ type: 'deleteRequest', user: user });
           },
           (err) => {
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: header.component.ts:184 ~ HeaderComponent ~ eliminarSolicitud ~ err:',
+              err
+            );
           }
         );
       }
@@ -199,7 +202,6 @@ export class HeaderComponent implements OnInit {
   }
 
   quitUserChat() {
-    console.log('quitUser');
     this.userChat = null;
   }
 
@@ -218,11 +220,13 @@ export class HeaderComponent implements OnInit {
       const res = await this.notifySrvc.deleteNotify(notificacion.id);
       res.subscribe(
         (data) => {
-          console.log(data);
           this.store.dispatch(newNotification.delete(notificacion));
         },
         (err) => {
-          console.log('error::', err);
+          console.log(
+            '🚀 ~ file: header.component.ts:221 ~ HeaderComponent ~ this.notificaciones.forEach ~ err:',
+            err
+          );
         }
       );
     });
@@ -232,11 +236,13 @@ export class HeaderComponent implements OnInit {
     const res = await this.notifySrvc.deleteNotify(notificacion.id);
     res.subscribe(
       (data) => {
-        console.log(data);
         this.store.dispatch(newNotification.delete(notificacion));
       },
       (err) => {
-        console.log('error::', err);
+        console.log(
+          '🚀 ~ file: header.component.ts:234 ~ HeaderComponent ~ eliminarNotificacion ~ err:',
+          err
+        );
       }
     );
   }
@@ -277,7 +283,6 @@ export class HeaderComponent implements OnInit {
       const index = chats.findIndex(
         (usuario: Usuario) => usuario.id === mensaje.destinatario_id
       );
-      console.log(index);
       if (index >= 0) {
         const user = chats[index];
 

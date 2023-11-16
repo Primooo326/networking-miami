@@ -129,7 +129,6 @@ export class LoginComponent implements AfterViewInit {
     private matchSrvc: MatchService,
     private titleService: Title
   ) {
-    console.log(this.conexiones);
     this.titleService.setTitle(this.title);
     setInterval(() => {
       this.experienciaV =
@@ -272,7 +271,6 @@ export class LoginComponent implements AfterViewInit {
         .then((obs) => {
           obs.subscribe(
             async (data: any) => {
-              console.log(data);
               const { token, user } = data;
               this.store.dispatch(setUser.set(user));
 
@@ -296,7 +294,10 @@ export class LoginComponent implements AfterViewInit {
                   });
                 },
                 (err: any) => {
-                  console.log(err);
+                  console.log(
+                    '🚀 ~ file: login.component.ts:298 ~ LoginComponent ~ err:',
+                    err
+                  );
                 }
               );
               const matchesPending = await this.matchSrvc.readPendingMatch();
@@ -316,7 +317,10 @@ export class LoginComponent implements AfterViewInit {
               // this.router.navigate(['/home']);
             },
             (err) => {
-              console.log(err);
+              console.log(
+                '🚀 ~ file: login.component.ts:318 ~ LoginComponent ~ .then ~ err:',
+                err
+              );
               if (err.error == 'Invalid password') {
                 Swal.fire(
                   'Error: Contraseña incorrecta',
@@ -397,7 +401,10 @@ export class LoginComponent implements AfterViewInit {
             mail.subscribe(
               (data) => {},
               (err) => {
-                console.log(err);
+                console.log(
+                  '🚀 ~ file: login.component.ts:399 ~ LoginComponent ~ err:',
+                  err
+                );
               }
             );
           },
@@ -415,7 +422,10 @@ export class LoginComponent implements AfterViewInit {
         );
       },
       (err) => {
-        console.log(err);
+        console.log(
+          '🚀 ~ file: login.component.ts:417 ~ LoginComponent ~ register ~ err:',
+          err
+        );
       }
     );
   }
@@ -427,7 +437,6 @@ export class LoginComponent implements AfterViewInit {
       });
       res.subscribe(
         (data) => {
-          console.log(data);
           this.isOnResetEmail = false;
           Swal.fire(
             '¡Éxito!',
@@ -458,11 +467,12 @@ export class LoginComponent implements AfterViewInit {
       const data = { contactos, user: this.onUserRegister.nombre };
       const res = await this.mailSrvc.sendInvitation(data);
       res.subscribe(
-        (data: any) => {
-          console.log(data);
-        },
+        (data: any) => {},
         (err) => {
-          console.warn(err);
+          console.log(
+            '🚀 ~ file: login.component.ts:462 ~ LoginComponent ~ sendContacts ~ err:',
+            err
+          );
         }
       );
     }
@@ -508,14 +518,12 @@ export class LoginComponent implements AfterViewInit {
   }
   onChangeConexiones(data: any) {
     const value = data.target.value;
-    console.log(value);
     if (this.TipoConexion.includes(value)) {
       const idx = this.TipoConexion.findIndex((d) => d == value);
       this.TipoConexion.splice(idx, 1);
     } else {
       this.TipoConexion.push(value);
     }
-    console.log(this.TipoConexion);
   }
   capitalize(str: string) {
     // Dividimos la cadena en palabras individuales
@@ -602,7 +610,10 @@ export class LoginComponent implements AfterViewInit {
     this.myPondAvatar.removeFile();
   }
   beforeAddFileAvatar(err, file: any) {
-    console.log(file);
+    console.log(
+      '🚀 ~ file: login.component.ts:600 ~ LoginComponent ~ beforeAddFileAvatar ~ file:',
+      file
+    );
     if (file.fileSize > 2000000) {
       Swal.fire('¡Error!', 'La imagen no puede pesar más de 2MB', 'error');
       this.myPondAvatar.removeFile();
@@ -664,7 +675,6 @@ export class LoginComponent implements AfterViewInit {
   lenguajesRegistroValidator() {
     this.lenguajesV =
       this.registroForm2Tab.controls.lenguajes.value?.length == 0;
-    console.log(this.lenguajesV);
   }
   biographyRegistroValidator(): boolean {
     return this.registroForm2Tab.controls.biografia.hasError('required');
@@ -686,7 +696,6 @@ export class LoginComponent implements AfterViewInit {
       valorCampo.replace('/', '');
       if ([4, 7].includes(valorCampo.length)) {
         // Agregar automáticamente el carácter "-" después de ciertos caracteres
-        console.log(valorCampo + '-');
         input!.value = valorCampo + '-';
         dateString!.value = valorCampo + '-';
         return this.registroForm2Tab.controls.fechaNacimiento.setValue(

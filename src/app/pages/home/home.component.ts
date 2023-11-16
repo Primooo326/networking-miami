@@ -226,7 +226,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
     res.subscribe(
       (data) => {
-        console.log(data);
         this.onVerifyEmail = false;
         Swal.fire(
           'Correo reenviado',
@@ -272,7 +271,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
         (err) => {
           this.onLoadUsers = false;
-          console.log(err);
+          console.log(
+            '🚀 ~ file: home.component.ts:275 ~ HomeComponent ~ applyFilter ~ err:',
+            err
+          );
         }
       );
     } else {
@@ -345,11 +347,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
             return -1;
           else return 1;
         });
-        console.log(data);
         this.changePageNewMatches(0);
       },
       (err) => {
-        console.log(err);
+        console.log(
+          '🚀 ~ file: home.component.ts:351 ~ HomeComponent ~ search ~ err:',
+          err
+        );
       }
     );
   }
@@ -388,7 +392,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       const res = await this.mailSrvc.sendInvitation(data);
       res.subscribe(
         (data: any) => {
-          console.log(data);
           Swal.fire(
             'Invitación exitosa',
             '¡Hemos invitado a tus contactos a formar parte de nuestra comunidad! Tu participación es valiosa y contribuye al crecimiento de nuestra red de contactos. Cuantos más amigos invites, más oportunidades de networking tendrás.',

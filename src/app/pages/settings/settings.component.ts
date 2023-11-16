@@ -121,7 +121,6 @@ export class SettingsComponent implements OnInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      console.log(this.currentUser.fechaNacimiento);
       this.onInputTel();
       $('[data-toggle="datepicker"]').datepicker({
         language: 'es-ES',
@@ -134,7 +133,6 @@ export class SettingsComponent implements OnInit {
       });
 
       $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
-        console.log(e);
         this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
       });
       $('#preloader').fadeOut('slow', function () {
@@ -169,7 +167,6 @@ export class SettingsComponent implements OnInit {
 
   onCondadoChange() {
     this.recharge = false;
-    console.log(this.ciudades);
 
     this.ciudades = this.ciudades.filter((c) => true);
   }
@@ -252,14 +249,12 @@ export class SettingsComponent implements OnInit {
 
   onChangeConexiones(data: any) {
     const value = data.target.value;
-    console.log(value);
     if (this.TipoConexion.includes(value)) {
       const idx = this.TipoConexion.findIndex((d) => d == value);
       this.TipoConexion.splice(idx, 1);
     } else {
       this.TipoConexion.push(value);
     }
-    console.log(this.TipoConexion);
   }
 
   showPasswordsFn() {
@@ -284,11 +279,9 @@ export class SettingsComponent implements OnInit {
       const regex = /'(.*?)'/;
       const user: any = { ...this.currentUser };
       let idiomaValue: any = $('select#idioma').val();
-      console.log(idiomaValue);
       if (idiomaValue.length == 0) {
         Swal.fire('error', 'Debes seleccionar al menos un idioma', 'error');
       } else {
-        console.log('idiomaValue');
       }
       idiomaValue = idiomaValue.map((i: string) => {
         const match = i.match(regex);
@@ -307,12 +300,10 @@ export class SettingsComponent implements OnInit {
 
       var number = this.itiInput.getNumber();
       user.telefono = number;
-      console.log(user);
 
       const res = await this.userSrvc.updateUser(user);
       res.subscribe(
         (data) => {
-          console.log(data);
           this.isOnInformacionBasicaLoading = false;
           this.currentUser = user;
           this.store.dispatch(setUser.set(user));
@@ -332,7 +323,6 @@ export class SettingsComponent implements OnInit {
     this.isOnInteresesLoading = true;
     const regex = /'(.*?)'/;
     const user = { ...this.currentUser };
-    console.log(user);
     const tipoConexion = this.TipoConexion.filter((c) => true);
     let temasInteres: any = $('select#interes').val();
     let areaExperiencia: any = $('select#experiencia').val();
@@ -370,11 +360,9 @@ export class SettingsComponent implements OnInit {
       user.tipoConexion = tipoConexion;
       user.temasInteres = temasInteres;
       user.areaExperiencia = areaExperiencia;
-      console.log(user);
       const res = await this.userSrvc.updateUser(user);
       res.subscribe(
         (data) => {
-          console.log(data);
           this.isOnInteresesLoading = false;
           this.currentUser = user;
           this.store.dispatch(setUser.set(user));
@@ -406,14 +394,16 @@ export class SettingsComponent implements OnInit {
     const res = await this.authSrvc.changePassword(data);
     res.subscribe(
       (data) => {
-        console.log(data);
         Swal.fire('Contraseña actualizada', '', 'success');
         this.isOnResetPassword = false;
         this.passwordsFormGroup.reset();
         this.onCambioPasswordEdit = true;
       },
       (err) => {
-        console.log(err);
+        console.log(
+          '🚀 ~ file: settings.component.ts:404 ~ SettingsComponent ~ cambioPassword ~ err:',
+          err
+        );
         this.isOnResetPassword = false;
         Swal.fire('Error', err.error, 'error');
       }
@@ -435,14 +425,16 @@ export class SettingsComponent implements OnInit {
         const res = await this.userSrvc.deleteUser(this.currentUser.id);
         res.subscribe(
           (data) => {
-            console.log(data);
             Swal.fire('Eliminada', 'Tu cuenta ha sido eliminada', 'success');
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             this.router.navigate(['/']);
           },
           (err) => {
-            console.log(err);
+            console.log(
+              '🚀 ~ file: settings.component.ts:432 ~ SettingsComponent ~ deleteAccount ~ err:',
+              err
+            );
             Swal.fire('Error', 'No se pudo eliminar tu cuenta', 'error');
           }
         );

@@ -89,9 +89,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                 usuario.id!,
                 usuarioMatch.id!
               );
-              let user
+              let user;
               if (mensaje) {
-
                 user = {
                   ...usuarioMatch,
                   lastMessage: mensaje,
@@ -106,7 +105,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                     destinatario_id: 0,
                     mensaje: '',
                     estado: '',
-                    fecha_envio: "2020-10-31T14:49:08.000Z",
+                    fecha_envio: '2020-10-31T14:49:08.000Z',
                   },
                 };
               }
@@ -137,7 +136,10 @@ export class AppComponent implements OnInit, AfterViewInit {
           });
         },
         (err) => {
-          console.log(err);
+          console.log(
+            '🚀 ~ file: app.component.ts:141 ~ AppComponent ~ ngOnInit ~ err:',
+            err
+          );
           if (err.status == 401) {
             Swal.fire(
               'Su sesión ha expirado',

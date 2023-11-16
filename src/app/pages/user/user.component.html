@@ -1,4 +1,3 @@
-<div id="preloader"></div>
 <div class="container animate__animated animate__fadeIn">
   <app-banner [user]="currentUser" [canEdit]="false"></app-banner>
   <div class="row">
@@ -91,14 +90,13 @@
           <ul class="info-list">
             <li>
               <span>Se unió:</span>{{ currentUser.fechaIngreso | date }}
-            </li>
-            <li>
-              <span>Ubicación:</span>{{ currentUser.ciudad }},
-              {{ currentUser.condado }}
-            </li>
-          </ul>
+                    </li>
+                    <li>
+                        <span>Ubicación:</span>{{ currentUser.ciudad }}, {{ currentUser.condado }}
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
 
     </div> -->
   </div>

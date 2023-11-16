@@ -39,16 +39,6 @@ export class MatchesComponent implements OnInit, OnDestroy, AfterViewInit {
       this.changePageMisMatches(0);
     });
 
-    // (await this.matchSrvc.readMatch()).subscribe(
-    //   (data: any) => {
-    //     this.usersMatches = data;
-    //     this.changePageMisMatches(0);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-
     this.userSelectSubscription = this.store
       .select(userSelect)
       .subscribe((data) => {
@@ -110,7 +100,6 @@ export class MatchesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onChangeEvent(e: any) {
-    console.log(e);
     this.ngOnInit();
   }
 }

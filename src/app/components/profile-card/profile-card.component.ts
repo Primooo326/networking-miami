@@ -41,12 +41,14 @@ export class ProfileCardComponent {
         const res = await this.matchSrvc.requestMatch(body);
         res.subscribe(
           (data) => {
-            console.log(data);
             this.event.emit({ type: 'matchRequest', user: this.user });
           },
           (err) => {
             Swal.fire('Error', err, 'error');
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: profile-card.component.ts:49 ~ ProfileCardComponent ~ solicitar ~ err:',
+              err
+            );
           }
         );
         const res2 = await this.mailSrvc.sendNewContact({
@@ -54,11 +56,12 @@ export class ProfileCardComponent {
           receptor: this.user,
         });
         res2.subscribe(
-          (data) => {
-            console.log(data);
-          },
+          (data) => {},
           (err) => {
-            console.log(err);
+            console.log(
+              '🚀 ~ file: profile-card.component.ts:60 ~ ProfileCardComponent ~ solicitar ~ err:',
+              err
+            );
           }
         );
       }
@@ -86,12 +89,14 @@ export class ProfileCardComponent {
             this.store.dispatch(myMatches.set(this.user));
             this.store.dispatch(newPendingMatch.delete(this.user));
             Swal.fire('¡Solicitud aceptada!', '', 'success');
-            console.log(data);
             this.event.emit('match');
           },
           (err) => {
             Swal.fire('Error', err, 'error');
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: profile-card.component.ts:92 ~ ProfileCardComponent ~ aceptar ~ err:',
+              err
+            );
           }
         );
       }
@@ -113,12 +118,14 @@ export class ProfileCardComponent {
         res.subscribe(
           (data) => {
             Swal.fire('¡Solicitud eliminada!', '', 'success');
-            console.log(data);
             this.store.dispatch(newPendingMatch.delete(this.user));
             this.event.emit({ type: 'deleteRequest', user: this.user });
           },
           (err) => {
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: profile-card.component.ts:118 ~ ProfileCardComponent ~ eliminarSolicitud ~ err:',
+              err
+            );
           }
         );
       }
@@ -138,13 +145,15 @@ export class ProfileCardComponent {
         res.subscribe(
           (data) => {
             Swal.fire('¡Contacto eliminado!', '', 'success');
-            console.log(data);
             this.store.dispatch(myMatches.delete(this.user));
             this.event.emit({ type: 'deleteMatch', user: this.user });
           },
           (err) => {
             Swal.fire('¡Error!', err, 'error');
-            console.log('error::', err);
+            console.log(
+              '🚀 ~ file: profile-card.component.ts:143 ~ ProfileCardComponent ~ eliminarMatch ~ err:',
+              err
+            );
           }
         );
       }
