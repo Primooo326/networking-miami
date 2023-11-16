@@ -106,31 +106,30 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $('[data-toggle="datepicker"]').datepicker({
-      language: 'es-ES',
-      startDate: '1900',
-      endDate: '2010',
-      format: 'yyyy-mm-dd',
-      autoHide: true,
-      date: this.currentUser.fechaNacimiento,
-      autoPick: true,
-    });
-
-    $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
-      this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
-    });
+    // $('[data-toggle="datepicker"]').datepicker({
+    //   language: 'es-ES',
+    //   startDate: '1900',
+    //   endDate: '2010',
+    //   format: 'dd/mm/yyyy',
+    //   date: this.currentUser.fechaNacimiento,
+    //   autoHide: true,
+    // });
+    // $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
+    //   this.infoBasicaForm.controls.fechaNacimiento.setValue(e.date);
+    // });
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      console.log(this.currentUser.fechaNacimiento);
       this.onInputTel();
       $('[data-toggle="datepicker"]').datepicker({
         language: 'es-ES',
         startDate: '1900',
         endDate: '2010',
-        format: 'yyyy-mm-dd',
+        format: 'dd/mm/yyyy',
+        date: this.convertirFecha(this.currentUser.fechaNacimiento),
         autoHide: true,
-        date: this.currentUser.fechaNacimiento,
         autoPick: true,
       });
 
@@ -463,4 +462,11 @@ export class SettingsComponent implements OnInit {
     return words.join(' ');
   }
   validatorInfoBasica() {}
+  convertirFecha(fechaISO: string): string {
+    const fecha = new Date(fechaISO);
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Enero es 0
+    const anio = fecha.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+  }
 }

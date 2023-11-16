@@ -254,7 +254,7 @@ export class LoginComponent implements AfterViewInit {
       language: 'es-ES',
       startDate: '1900',
       endDate: '2010',
-      format: 'yyyy-mm-dd',
+      format: 'dd/mm/yyyy',
       autoHide: true,
     });
     $('[data-toggle="datepicker"]').on('pick.datepicker', (e: any) => {
