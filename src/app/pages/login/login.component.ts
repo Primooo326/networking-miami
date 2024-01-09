@@ -18,6 +18,8 @@ import { environment } from 'src/environments/environment';
 import 'select2';
 import { FilePondOptions } from 'filepond';
 import { Title } from '@angular/platform-browser';
+import { FilesService } from 'src/app/services/files/files.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -115,6 +117,7 @@ export class LoginComponent implements AfterViewInit {
   ]);
 
   pathFile = '';
+  fileLoad: any = 'none';
   onloadFile = false;
   showPasswordLogin: boolean = false;
   showPasswordRegister: boolean = false;
@@ -127,7 +130,9 @@ export class LoginComponent implements AfterViewInit {
     private socketSrvc: SocketService,
     private notifySrvc: NotifyService,
     private matchSrvc: MatchService,
-    private titleService: Title
+    private fileSrvc: FilesService,
+    private titleService: Title,
+    private router: Router
   ) {
     this.titleService.setTitle(this.title);
     setInterval(() => {
@@ -272,47 +277,58 @@ export class LoginComponent implements AfterViewInit {
           obs.subscribe(
             async (data: any) => {
               const { token, user } = data;
-              this.store.dispatch(setUser.set(user));
+              if (user.verificado == 0) {
+                Swal.fire(
+                  'Error: Usuario no verificado',
+                  'Por favor verifica tu correo',
+                  'error'
+                );
+                return;
+              } else {
+                console.log(user);
+                this.store.dispatch(setUser.set(user));
 
-              localStorage.setItem('user', JSON.stringify(user));
-              localStorage.setItem('token', JSON.stringify(token));
-              this.socketSrvc.openSocket();
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', JSON.stringify(token));
+                this.socketSrvc.openSocket();
 
-              const notifiys = await this.notifySrvc.getNorifications();
-              notifiys.subscribe(
-                (data: any) => {
-                  data.forEach((element: any) => {
-                    this.store.dispatch(
-                      newNotification.set({
-                        data: element.data,
-                        title: element.title,
-                        message: element.message,
-                        time: element.time,
-                        id: element.id,
-                      })
+                const notifiys = await this.notifySrvc.getNorifications();
+                notifiys.subscribe(
+                  (data: any) => {
+                    data.forEach((element: any) => {
+                      this.store.dispatch(
+                        newNotification.set({
+                          data: element.data,
+                          title: element.title,
+                          message: element.message,
+                          time: element.time,
+                          id: element.id,
+                        })
+                      );
+                    });
+                  },
+                  (err: any) => {
+                    console.log(
+                      '🚀 ~ file: login.component.ts:298 ~ LoginComponent ~ err:',
+                      err
                     );
+                  }
+                );
+                const matchesPending = await this.matchSrvc.readPendingMatch();
+                matchesPending.subscribe((data: any) => {
+                  data.forEach((element: any) => {
+                    this.store.dispatch(newPendingMatch.set(element));
                   });
-                },
-                (err: any) => {
-                  console.log(
-                    '🚀 ~ file: login.component.ts:298 ~ LoginComponent ~ err:',
-                    err
-                  );
-                }
-              );
-              const matchesPending = await this.matchSrvc.readPendingMatch();
-              matchesPending.subscribe((data: any) => {
-                data.forEach((element: any) => {
-                  this.store.dispatch(newPendingMatch.set(element));
                 });
-              });
-              const matchesRequest = await this.matchSrvc.readrequestMatches();
-              matchesRequest.subscribe((data: any) => {
-                data.forEach((element: any) => {
-                  this.store.dispatch(myRequestMatches.set(element));
+                const matchesRequest =
+                  await this.matchSrvc.readrequestMatches();
+                matchesRequest.subscribe((data: any) => {
+                  data.forEach((element: any) => {
+                    this.store.dispatch(myRequestMatches.set(element));
+                  });
                 });
-              });
-              location.reload();
+                location.reload();
+              }
 
               // this.router.navigate(['/home']);
             },
@@ -342,92 +358,99 @@ export class LoginComponent implements AfterViewInit {
     }
   }
   async register() {
-    const registro3Value: any = this.registroForm3Tab.value;
-    registro3Value.tipoConexion = this.TipoConexion;
-    const date: any = $('[data-toggle="datepicker"]').datepicker('getDate');
-    const newUser: any = {
-      ...this.registroForm1Tab.value,
-      ...this.registroForm2Tab.value,
-      ...registro3Value,
-      fechaNacimiento: new Date(date).toISOString(),
-      fechaIngreso: new Date().toISOString(),
-    };
-    var number = this.itiInput.getNumber();
-    newUser.telefono = number;
-    newUser.email = newUser.email.toLowerCase();
-    await this.authSrvc.register(newUser).then(
-      (obs) => {
-        obs.subscribe(
-          async (data: any) => {
-            const { token, id, avatar, fotoPortada } = data;
-            const user = newUser;
-            delete user.password;
-            delete user.repeatPassword;
-            user.id = id;
-            user.avatar = avatar;
-            user.fotoPortada = fotoPortada;
-            user.verificado = 0;
-            this.store.dispatch(setUser.set(user));
-            this.onUserRegister = user;
-            localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('token', JSON.stringify(token));
-            (this.pondOptionsAvatar.server = {
-              url: this.backend,
-              process: {
-                url: '/avatar',
-                headers: {
-                  'x-access-token': token,
+    try {
+      let Stoken = '';
+      const registro3Value: any = this.registroForm3Tab.value;
+      registro3Value.tipoConexion = this.TipoConexion;
+      const date: any = $('[data-toggle="datepicker"]').datepicker('getDate');
+      const newUser: any = {
+        ...this.registroForm1Tab.value,
+        ...this.registroForm2Tab.value,
+        ...registro3Value,
+        fechaNacimiento: new Date(date).toISOString(),
+        fechaIngreso: new Date().toISOString(),
+      };
+      var number = this.itiInput.getNumber();
+      newUser.telefono = number;
+      newUser.email = newUser.email.toLowerCase();
+      await this.authSrvc.register(newUser).then(
+        (obs) => {
+          obs.subscribe(
+            async (data: any) => {
+              const { token, id, avatar, fotoPortada } = data;
+              Stoken = token;
+              const user = newUser;
+              delete user.password;
+              delete user.repeatPassword;
+              user.id = id;
+              user.avatar = avatar;
+              user.fotoPortada = fotoPortada;
+              user.verificado = 0;
+              this.store.dispatch(setUser.set(user));
+              this.onUserRegister = user;
+              localStorage.setItem('user', JSON.stringify(user));
+              localStorage.setItem('token', JSON.stringify(token));
+              this.pondOptionsAvatar.server = {
+                url: this.backend,
+                process: {
+                  url: '/avatar',
+                  headers: {
+                    'x-access-token': token,
+                  },
+                  method: 'POST',
+                  onload: this.setAvatar.bind(this),
                 },
-                method: 'POST',
-                onload: this.setAvatar.bind(this),
-              },
-              revert: {
-                url: '/avatar',
-                headers: {
-                  'x-access-token': token,
+                revert: {
+                  url: '/avatar',
+                  headers: {
+                    'x-access-token': token,
+                  },
+                  method: 'DELETE',
+                  onload: this.deleteAvatar.bind(this),
                 },
-                method: 'DELETE',
-                onload: this.deleteAvatar.bind(this),
-              },
-            }),
+              };
               this.socketSrvc.openSocket();
-            setTimeout(() => {
-              this.onChangeTabRegister('4/5');
-            }, 200);
+              setTimeout(() => {
+                this.onChangeTabRegister('4/5');
+              }, 200);
 
-            const mail = await this.mailSrvc.verifyEmail({
-              email: user.email,
-            });
-            mail.subscribe(
-              (data) => {},
-              (err) => {
-                console.log(
-                  '🚀 ~ file: login.component.ts:399 ~ LoginComponent ~ err:',
-                  err
-                );
-              }
-            );
-          },
-          (err: any) => {
-            if (err.error == 'User already registered') {
-              Swal.fire(
-                'Error: Usuario ya registrado',
-                'Asegurate de que el correo sea correcto',
-                'error'
+              const mail = await this.mailSrvc.verifyEmail({
+                email: user.email,
+              });
+              mail.subscribe(
+                (data) => {},
+                (err) => {
+                  console.log(
+                    '🚀 ~ file: login.component.ts:399 ~ LoginComponent ~ err:',
+                    err
+                  );
+                }
               );
-            } else {
-              Swal.fire('Error', err.message, 'error');
+            },
+            (err: any) => {
+              if (err.error == 'User already registered') {
+                Swal.fire(
+                  'Error: Usuario ya registrado',
+                  'Asegurate de que el correo sea correcto',
+                  'error'
+                );
+              } else {
+                Swal.fire('Error', err.message, 'error');
+              }
             }
-          }
-        );
-      },
-      (err) => {
-        console.log(
-          '🚀 ~ file: login.component.ts:417 ~ LoginComponent ~ register ~ err:',
-          err
-        );
-      }
-    );
+          );
+        },
+        (err) => {
+          console.log(
+            '🚀 ~ file: login.component.ts:417 ~ LoginComponent ~ register ~ err:',
+            err
+          );
+        }
+      );
+      return Stoken;
+    } catch (error) {
+      return error;
+    }
   }
   async reset() {
     if (this.emailResetInput.valid) {
@@ -450,6 +473,40 @@ export class LoginComponent implements AfterViewInit {
         }
       );
     }
+  }
+  async finalizar() {
+    this.register()
+      .then((token: any) => {
+        setTimeout(async () => {
+          await this.fileSrvc
+            .updateUser(this.fileLoad, token)
+            .then((d) => {
+              localStorage.clear();
+              console.log(d);
+            })
+            .catch((err) => {
+              console.log(
+                '🚀 ~ LoginComponent ~ awaitthis.fileSrvc.updateUser ~ err:',
+                err
+              );
+            });
+        }, 1000);
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Se ha enviado un correo a tu bandeja de entrada',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/']);
+            location.reload();
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    this.sendContacts();
   }
   async sendContacts() {
     const contactos: any[] = [];
@@ -549,7 +606,7 @@ export class LoginComponent implements AfterViewInit {
     stylePanelLayout: 'compact circle',
     allowImageExifOrientation: true,
     labelIdle:
-      'Arrastra y suelta tus archivos o click para subir... <br/> (Max 2MB)',
+      'Arrastra y suelta tus archivos o click para subir... <br/> (Max 256Kb)',
     acceptedFileTypes: [
       'image/jpeg',
       'image/png',
@@ -565,7 +622,6 @@ export class LoginComponent implements AfterViewInit {
     labelTapToUndo: 'click para deshacer',
     labelButtonRemoveItem: 'Eliminar',
     labelButtonAbortItemLoad: 'Abortar',
-    labelFileProcessing: 'Subiendo',
     labelFileProcessingAborted: 'Subida cancelada',
     imagePreviewHeight: 170,
     imageResizeTargetWidth: 200,
@@ -573,25 +629,25 @@ export class LoginComponent implements AfterViewInit {
     styleLoadIndicatorPosition: 'center bottom',
     styleButtonRemoveItemPosition: 'center bottom',
 
-    server: {
-      url: this.backend,
-      process: {
-        url: '/avatar',
-        headers: {
-          'x-access-token': `${JSON.parse(localStorage.getItem('token')!)}`,
-        },
-        method: 'POST',
-        onload: this.setAvatar.bind(this),
-      },
-      revert: {
-        url: '/avatar',
-        headers: {
-          'x-access-token': `${JSON.parse(localStorage.getItem('token')!)}`,
-        },
-        method: 'DELETE',
-        onload: this.deleteAvatar.bind(this),
-      },
-    },
+    // server: {
+    //   url: this.backend,
+    //   process: {
+    //     url: '/avatar',
+    //     headers: {
+    //       'x-access-token': `${JSON.parse(localStorage.getItem('token')!)}`,
+    //     },
+    //     method: 'POST',
+    //     onload: this.setAvatar.bind(this),
+    //   },
+    //   revert: {
+    //     url: '/avatar',
+    //     headers: {
+    //       'x-access-token': `${JSON.parse(localStorage.getItem('token')!)}`,
+    //     },
+    //     method: 'DELETE',
+    //     onload: this.deleteAvatar.bind(this),
+    //   },
+    // },
     onaddfile: this.beforeAddFileAvatar.bind(this),
   };
   setAvatar(response): any {
@@ -606,6 +662,7 @@ export class LoginComponent implements AfterViewInit {
     const user = { ...this.onUserRegister, avatar: path };
     this.onUserRegister = user;
     this.pathFile = '';
+    this.fileLoad = 'none';
     this.store.dispatch(setUser.set(user));
     this.myPondAvatar.removeFile();
   }
@@ -614,8 +671,9 @@ export class LoginComponent implements AfterViewInit {
       '🚀 ~ file: login.component.ts:600 ~ LoginComponent ~ beforeAddFileAvatar ~ file:',
       file
     );
-    if (file.fileSize > 2000000) {
-      Swal.fire('¡Error!', 'La imagen no puede pesar más de 2MB', 'error');
+    this.fileLoad = file.file;
+    if (file.fileSize > 256000) {
+      Swal.fire('¡Error!', 'La imagen no puede pesar más de 256Kb', 'error');
       this.myPondAvatar.removeFile();
       return false;
     }

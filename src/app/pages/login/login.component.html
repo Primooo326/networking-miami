@@ -642,7 +642,7 @@
                 <div class="form-group">
                   <button
                     class="submit-btn"
-                    (click)="register()"
+                    (click)="onChangeTabRegister('4/5')"
                     [disabled]="
                       registroForm3Tab.invalid ||
                       experienciaV ||
@@ -661,19 +661,19 @@
                 </div>
               </form>
 
-              <div *ngIf="pageNumber == '4/5'" class="text-center">
+              <div [hidden]="pageNumber != '4/5'" class="text-center">
                 <file-pond #myPondAvatar [options]="pondOptionsAvatar">
                 </file-pond>
 
                 <button
-                  *ngIf="pathFile != ''"
+                  *ngIf="fileLoad != 'none'"
                   class="btn btn-primary btn-block btn-volver mt-3"
                   (click)="onChangeTabRegister('5/5')"
                 >
                   Continuar
                 </button>
                 <a
-                  *ngIf="pathFile == ''"
+                  *ngIf="fileLoad == 'none'"
                   class="text-primary"
                   routerLinkActive="router-link-active"
                   (click)="onChangeTabRegister('5/5')"
@@ -804,8 +804,7 @@
                 </form>
                 <button
                   class="btn btn-primary btn-block btn-volver mt-3"
-                  [routerLink]="['/home']"
-                  (click)="sendContacts()"
+                  (click)="finalizar()"
                 >
                   Finalizar
                 </button>
